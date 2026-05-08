@@ -1,0 +1,220 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Бронирование — дипломный проект</title>
+  <link rel="stylesheet" href="css/main.css" />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600&display=swap" rel="stylesheet">
+
+
+</head>
+<body class="page">
+  <header class="header header--glass">
+  <section class="header__section">
+    <div class="container header__container header__container--new">
+
+      <!-- ЛОГО / НАЗВАНИЕ -->
+      <div class="header__logo">
+        <a href="index.html" class="brand brand--stack" aria-label="Вкус облаков">
+          <span class="brand__name brand__name--stack">Вкус<br>облаков</span>
+        </a>
+      </div>
+
+      <!-- МЕНЮ ПО ЦЕНТРУ -->
+      <nav class="header__nav header__nav--center" aria-label="Главное меню">
+        <a href="#catalog">Каталог</a>
+        <a href="#brand">История бренда</a>
+        <a href="#clients">Клиентам</a>
+        <a href="#reservation">Бронирование</a>
+        <a href="#city">Мы в городе</a>
+      </nav>
+
+      <!-- СПРАВА: КОНТАКТЫ + ИКОНКИ -->
+      <div class="header__actions header__actions--new">
+
+        <div class="header__contacts header__contacts--new">
+          <a class="header__phone" href="tel:+70000000000">+7 (000) 000-00-00</a>
+          <a class="header__tg" href="https://t.me/your_telegram" target="_blank" rel="noopener">Telegram</a>
+          <div class="header__hours">
+            пн-пт 10:00 – 20:00<br>
+            сб-вс 10:00 – 16:00
+          </div>
+        </div>
+
+        <div class="header__icons">
+
+            <button class="icon-btn icon-btn--ghost header__burger" id="btnMenu" type="button" aria-label="Открыть меню">
+  <svg width="18" height="18" viewBox="0 0 24 24" aria-hidden="true">
+    <path fill="currentColor" d="M4 6h16v2H4V6zm0 5h16v2H4v-2zm0 5h16v2H4v-2z"/>
+  </svg>
+</button>
+
+          <!-- Поиск -->
+          <button class="icon-btn icon-btn--ghost" type="button" aria-label="Поиск по сайту">
+            <svg width="18" height="18" viewBox="0 0 24 24" aria-hidden="true">
+              <path fill="currentColor" d="M10 4a6 6 0 104.47 10.03l4.25 4.25 1.41-1.41-4.25-4.25A6 6 0 0010 4zm0 2a4 4 0 110 8 4 4 0 010-8z"/>
+            </svg>
+          </button>
+
+          <!-- Профиль -->
+          <a class="icon-btn icon-btn--ghost" href="#" aria-label="Профиль">
+            <svg width="18" height="18" viewBox="0 0 24 24" aria-hidden="true">
+              <path fill="currentColor" d="M12 12a4 4 0 10-4-4 4 4 0 004 4zm0 2c-4.42 0-8 2-8 4.5V20h16v-1.5C20 16 16.42 14 12 14z"/>
+            </svg>
+          </a>
+
+          <!-- Сумочка (корзина) -->
+          <button class="icon-btn icon-btn--ghost" id="btnCart" type="button" aria-label="Открыть корзину">
+            <svg width="18" height="18" viewBox="0 0 24 24" aria-hidden="true">
+              <path fill="currentColor" d="M7 8V7a5 5 0 0 1 10 0v1h2a1 1 0 0 1 1 1v12a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V9a1 1 0 0 1 1-1h2zm2 0h6V7a3 3 0 0 0-6 0v1zm-3 2v11h12V10H6z"/>
+
+            </svg>
+            <span class="badge badge--on-dark" id="cartCount">0</span>
+          </button>
+        </div>
+
+      </div>
+    </div>
+  </section>
+</header>
+
+<!-- Mobile menu -->
+<div class="mobile-menu" id="mobileMenu" hidden>
+  <div class="mobile-menu__overlay" data-mobile-close="true"></div>
+
+  <div class="mobile-menu__panel" role="dialog" aria-label="Меню">
+    <div class="mobile-menu__head">
+      <div class="brand__name brand__name--stack">Вкус<br>облаков</div>
+      <button class="icon-btn icon-btn--ghost" id="btnMenuClose" type="button" aria-label="Закрыть меню">✕</button>
+    </div>
+
+    <nav class="mobile-menu__nav" aria-label="Мобильная навигация">
+      <a href="index.html#catalog" data-mobile-close="true">Каталог</a>
+      <a href="index.html#brand" data-mobile-close="true">История бренда</a>
+      <a href="index.html#clients" data-mobile-close="true">Клиентам</a>
+      <a href="checkout.html" data-mobile-close="true">Бронирование</a>
+      <a href="index.html#city" data-mobile-close="true">Мы в городе</a>
+    </nav>
+
+    <div class="mobile-menu__contacts">
+      <a class="header__phone" href="tel:+70000000000">+7 (000) 000-00-00</a>
+      <a class="header__tg" href="https://t.me/your_telegram" target="_blank" rel="noopener">Telegram</a>
+      <div class="header__hours">
+        пн-пт 10:00 – 20:00<br>
+        сб-вс 10:00 – 16:00
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+  <main>
+    <section class="section">
+      <div class="container">
+        <div class="section__head">
+          <div class="title-sm">Оформление и бронирование</div>
+          <p class="section__text">
+            Сначала укажите адрес, затем выберите дату (учитываем производственные часы),
+            и только после этого — доступное время доставки (1 курьер).
+          </p>
+        </div>
+
+        <div class="checkout-grid">
+          <div class="card">
+            <div class="card__title">1) Адрес доставки</div>
+
+            <div class="field">
+              <label class="label">Адрес</label>
+              <input class="input" id="addressInput" placeholder="Например: ул. Ленина 10, кв 5" />
+              <div class="hint">
+                Здесь будет интеграция с API Яндекс.Карт / геокодингом. Пока — ручной ввод.
+              </div>
+            </div>
+
+            <div class="divider"></div>
+
+            <div class="card__title">2) Дата</div>
+            <div class="hint">
+              Доступны даты не ранее чем через <b>3 дня</b>. Дата становится недоступной,
+              если не хватает рабочих часов на день приготовления (день до доставки).
+            </div>
+
+            <div class="calendar" id="calendar"></div>
+
+            <div class="divider"></div>
+
+            <div class="card__title">3) Время</div>
+            <div class="hint">
+              Доступность времени рассчитывается с учётом уже запланированных доставок на выбранную дату.
+              (Пока — упрощённая модель. В дипломе можно описать интеграцию с картами.)
+            </div>
+
+            <div class="times" id="times"></div>
+
+            <div class="divider"></div>
+
+            <div class="row row_between">
+              <div>
+                <div class="subtitle">Вы выбрали:</div>
+                <div class="muted" id="summaryPick">Адрес / дата / время не выбраны</div>
+              </div>
+              <button class="btn btn_primary" id="btnPlaceOrder" type="button">Создать заказ</button>
+            </div>
+
+            <div class="hint" id="placeOrderHint"></div>
+          </div>
+
+          <aside class="card">
+            <div class="card__title">Ваш заказ</div>
+            <div class="cart-mini" id="cartMini"></div>
+
+            <div class="divider"></div>
+
+            <div class="row row_between">
+              <div class="subtitle">Итого:</div>
+              <div class="price" id="cartTotal">0 ₽</div>
+            </div>
+
+            <div class="divider"></div>
+
+            <div class="hint">
+              ⚠️ Сейчас всё хранится в <b>localStorage</b> (демо для диплома).
+              Для “реального” общего бронирования нужен бэкенд (Python/Node) и БД.
+            </div>
+
+            <a class="btn btn_ghost btn_wide" href="index.html#catalog">Добавить ещё десертов</a>
+          </aside>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- Cart drawer (тот же, что на главной) -->
+  <aside class="drawer" id="cartDrawer" aria-hidden="true">
+    <div class="drawer__overlay" id="drawerOverlay"></div>
+    <div class="drawer__panel" role="dialog" aria-label="Корзина">
+      <div class="drawer__head">
+        <div class="title-sm">Корзина</div>
+        <button class="icon-btn" id="btnCloseCart" type="button" aria-label="Закрыть">✕</button>
+      </div>
+
+      <div class="drawer__body" id="cartItems"></div>
+
+      <div class="drawer__footer">
+        <div class="row row_between">
+          <div class="subtitle">Итого:</div>
+          <div class="price" id="drawerTotal">0 ₽</div>
+        </div>
+        <button class="btn btn_ghost btn_wide" id="btnClearCart" type="button">Очистить корзину</button>
+      </div>
+    </div>
+  </aside>
+
+  <script src="js/app.js"></script>
+</body>
+</html>

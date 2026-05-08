@@ -1,0 +1,1069 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Кондитерская — дипломный проект</title>
+  <link rel="stylesheet" href="css/main.css" />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+<!-- Montserrat для меню/интерфейса -->
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+
+
+</head>
+<body class="page">
+    <div class="page-bg" aria-hidden="true"></div>
+    <div class="page-bg__overlay" aria-hidden="true"></div>
+
+  <!-- Header -->
+  <header class="header header--glass">
+  <section class="header__section">
+    <div class="container header__container header__container--new">
+
+      <!-- ЛОГО / НАЗВАНИЕ -->
+      <div class="header__logo">
+        <a href="index.html" class="brand brand--stack" aria-label="Вкус облаков">
+          <span class="brand__name brand__name--stack">Вкус<br>облаков</span>
+        </a>
+      </div>
+
+      <!-- МЕНЮ ПО ЦЕНТРУ -->
+      <nav class="header__nav header__nav--center" aria-label="Главное меню">
+  <a href="#catalog" data-mega="catalog">Каталог</a>
+  <a href="#brand" data-mega="life">История бренда</a>
+  <a href="#clients" data-mega="b2b">Клиентам</a>
+  <a href="#city" data-mega="city">Мы в городе</a>
+</nav>
+
+
+      <!-- СПРАВА: КОНТАКТЫ + ИКОНКИ -->
+      <div class="header__actions header__actions--new">
+
+        <div class="header__contacts header__contacts--new">
+          <a class="header__phone" href="tel:+70000000000">+7 (000) 000-00-00</a>
+          <a class="header__tg" href="https://t.me/your_telegram" target="_blank" rel="noopener">Telegram</a>
+          <div class="header__hours">
+            пн-пт 10:00 – 20:00<br>
+            сб-вс 10:00 – 16:00
+          </div>
+        </div>
+
+        <div class="header__icons">
+
+            <button class="icon-btn icon-btn--ghost header__burger" id="btnMenu" type="button" aria-label="Открыть меню">
+  <svg width="18" height="18" viewBox="0 0 24 24" aria-hidden="true">
+    <path fill="currentColor" d="M4 6h16v2H4V6zm0 5h16v2H4v-2zm0 5h16v2H4v-2z"/>
+  </svg>
+</button>
+
+          <!-- Поиск -->
+          <button class="icon-btn icon-btn--ghost" type="button" aria-label="Поиск по сайту">
+            <svg width="18" height="18" viewBox="0 0 24 24" aria-hidden="true">
+              <path fill="currentColor" d="M10 4a6 6 0 104.47 10.03l4.25 4.25 1.41-1.41-4.25-4.25A6 6 0 0010 4zm0 2a4 4 0 110 8 4 4 0 010-8z"/>
+            </svg>
+          </button>
+
+          <!-- Профиль -->
+          <a class="icon-btn icon-btn--ghost" href="#" aria-label="Профиль">
+            <svg width="18" height="18" viewBox="0 0 24 24" aria-hidden="true">
+              <path fill="currentColor" d="M12 12a4 4 0 10-4-4 4 4 0 004 4zm0 2c-4.42 0-8 2-8 4.5V20h16v-1.5C20 16 16.42 14 12 14z"/>
+            </svg>
+          </a>
+
+          <!-- Сумочка (корзина) -->
+          <button class="icon-btn icon-btn--ghost" id="btnCart" type="button" aria-label="Открыть корзину">
+            <svg width="18" height="18" viewBox="0 0 24 24" aria-hidden="true">
+              <path fill="currentColor" d="M7 8V7a5 5 0 0 1 10 0v1h2a1 1 0 0 1 1 1v12a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V9a1 1 0 0 1 1-1h2zm2 0h6V7a3 3 0 0 0-6 0v1zm-3 2v11h12V10H6z"/>
+
+            </svg>
+            <span class="badge badge--on-dark" id="cartCount">0</span>
+          </button>
+        </div>
+
+      </div>
+    </div>
+  </section>
+  <!-- Mega menu (выпадающая панель) -->
+<div class="mega" id="mega" aria-hidden="true">
+  <div class="mega__container">
+
+    <!-- Каталог -->
+    <div class="mega__panel mega__panel--catalog" data-panel="catalog">
+      <div class="mega__grid mega__grid--catalog">
+        <a class="mega-tile mega-tile--portrait" href="#brand">
+  <div class="mega-card__img mega-card__img--portrait">
+    <img src="img/menu-title1.jpg" alt="Бренд">
+  </div>          
+        </a>
+
+        <div class="mega-cols">
+          <div class="mega-col">
+            <div class="mega-col__title">Casual</div>
+            <a class="mega-link" href="summer.html">Летняя коллекция</a>
+            <a class="mega-link" href="bento.html">Бенто-торты</a>
+            <a class="mega-link" href="february.html">23 февраля</a>
+            <a class="mega-link" href="easter.html">Пасха</a>
+            <a class="mega-link" href="cakes.html">Пирожные</a>
+            <a class="mega-link" href="mousse.html">Муссовые бенто-торты</a>
+            <a class="mega-link" href="macarons.html">Macarons</a>
+            <a class="mega-link" href="candies.html">Шоколад и конфеты</a>
+            <a class="mega-link" href="cheesecake.html">Чизкейки</a>
+          </div>
+
+          <div class="mega-col">
+            <div class="mega-col__title">To order</div>
+            <a class="mega-link" href="fillings.html">Начинки</a>
+            <a class="mega-link" href="#lab-long">Торты</a>
+            <a class="mega-link" href="#lab-3d">3D-торты</a>
+            <a class="mega-link" href="#lab-kids">Детские торты</a>
+            <a class="mega-link" href="#lab-wedding">Свадебные торты</a>
+            <a class="mega-link" href="#lab-bday">Торты на День Рождения</a>
+          </div>
+
+          <div class="mega-col">
+            <div class="mega-col__title">Art</div>
+            <a class="mega-link" href="#art-works">Наши работы</a>
+            
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Наша жизнь -->
+    <div class="mega__panel mega__panel--life" data-panel="life">
+      <div class="mega__grid mega__grid--cards">
+        <div class="mega-left">
+          <!--<div class="mega-left__text">Дети и взрослые о любимых сладостях</div>-->
+        </div>
+
+        <!--<a class="mega-tile" href="#journal">
+          <div class="mega-tile__img mega-tile__img--pink"></div>
+          <div class="mega-tile__title">Журнал</div>
+        </a>-->
+
+        <a class="mega-tile mega-tile--portrait" href="brand.html">
+  <div class="mega-card__img mega-card__img--portrait">
+    <img src="img/menu-title2.jpg" alt="История бренда">
+  </div>
+  <div class="mega-tile__title">История бренда</div>
+</a>
+
+      </div>
+    </div>
+
+    <!-- Клиентам -->
+    <div class="mega__panel mega__panel--b2b" data-panel="b2b">
+      <div class="mega__grid mega__grid--cards">
+        <div class="mega-left">
+          <div class="mega-left__text">Наш способ говорить с миром — это говорить сладко.</div>
+
+          <div class="mega-left__contacts">
+            <a class="mega-contact" href="tel:+70000000000">+7(000)-000-00-00</a>
+            <a class="mega-contact" href="mailto:zakaz@vkusobl.ru">zakaz.loveandsweets@gmail.com</a>
+            <a class="mega-contact" href="#" target="_blank" rel="noopener">Telegram</a>
+            <a class="mega-contact" href="#" target="_blank" rel="noopener">Вконтакте</a>
+          </div>
+        </div>
+
+        <a class="mega-tile mega-tile--portrait" href="#brand">
+  <div class="mega-card__img mega-card__img--portrait">
+    <img src="img/menu-title3.jpg" alt="Доставка и оплата">
+  </div>
+
+          <div class="mega-tile__title">Доставка и оплата</div>
+        </a>
+
+        <div class="mega-tile mega-tile--order">
+  <!-- левая часть: картинка + заголовок под ней -->
+  <div class="mega-tile__left">
+    <a class="mega-tile__imgWrap" href="#brand">
+      <img class="mega-tile__img" src="img/menu-title4.jpg" alt="О заказе">
+    </a>
+
+    <a class="mega-tile__title mega-tile__title--under" href="#brand">О заказе</a>
+  </div>
+
+  <!-- правая часть: ссылки -->
+  <div class="mega-tile__side">
+    <div class="mega-tile__sideLinks">
+      <a class="mega-link" href="#reviews">Отзывы</a>
+      <a class="mega-link" href="#faq">Вопрос-ответ</a>
+    </div>
+  </div>
+</div>
+
+
+
+      </div>
+    </div>
+
+    <!-- Мы в городе -->
+    <!--<div class="mega__grid mega__grid--city">
+  Левая колонка 
+  <div class="mega-city__left">
+    <div class="mega-col__title">Мы в городе</div>
+
+    <div class="mega-city">
+      <div>г.Дубна</div>
+      <div>Пн-Пт 10:00–20:00</div>
+      <div>Сб-Вс 10:00–16:00</div>
+      <a class="mega-link" href="#contacts">Контакты</a>
+    </div>
+  </div>
+
+   Центр 
+  <div class="mega-city__center">
+    <p class="mega-city__note">
+      Наши десерты — это островки спокойствия в море повседневных дел.
+      Причаливайте к ним, чтобы на мгновение остановить время и насладиться тишиной вкуса.
+    </p>
+  </div>
+</div>-->
+<!-- Мы в городе -->
+   <!-- Мы в городе -->
+<div class="mega__panel mega__panel--city" data-panel="city">
+  <div class="mega__grid mega__grid--city">
+
+    <!-- 1) ЛЕВАЯ колонка: заголовок + контакты -->
+    <div class="mega-city__left">
+      <div class="mega-col__title">Мы в городе</div>
+
+      <div class="mega-city">
+        <div>г. Дубна</div>
+        <div>Пн-Пт 10:00–20:00</div>
+        <div>Сб-Вс 10:00–16:00</div>
+        <a class="mega-link" href="#contacts">Контакты</a>
+      </div>
+    </div>
+
+    <!-- 2) СРЕДНЯЯ колонка: текст-описание -->
+    <div class="mega-city__middle">
+      <p class="mega-city__note">
+        Наши десерты — это островки спокойствия в море повседневных дел.
+        Причаливайте к ним, чтобы на мгновение остановить время и насладиться тишиной вкуса.
+        <br> </br>
+        <br>Доставка осуществляется только по городу Дубна.</br>
+      </p>
+    </div>
+
+    <!-- 3) ПРАВАЯ колонка: карта -->
+    <div class="city-map">
+      <iframe
+        src="https://yandex.ru/map-widget/v1/?um=constructor%3A5323ec7eeef295359140d0a676351927a92d5b06e8ba41b518464d51d93d3a63&amp;source=constructor"
+        width="463" height="356" frameborder="0">
+      </iframe>
+    </div>
+
+  </div>
+</div>
+
+
+</div>
+
+
+</header>
+<!-- Mobile menu -->
+<div class="mobile-menu" id="mobileMenu" hidden>
+  <div class="mobile-menu__overlay" data-mobile-close="true"></div>
+
+  <div class="mobile-menu__panel" role="dialog" aria-label="Меню">
+    <div class="mobile-menu__head">
+      <div class="brand__name brand__name--stack">Вкус<br>облаков</div>
+      <button class="icon-btn icon-btn--ghost" id="btnMenuClose" type="button" aria-label="Закрыть меню">✕</button>
+    </div>
+
+    <nav class="mobile-menu__nav" aria-label="Мобильная навигация">
+      <a href="index.html#catalog" data-mobile-close="true">Каталог</a>
+      <a href="index.html#brand" data-mobile-close="true">История бренда</a>
+      <a href="index.html#clients" data-mobile-close="true">Клиентам</a>
+      <a href="index.html#city" data-mobile-close="true">Мы в городе</a>
+    </nav>
+
+    <div class="mobile-menu__contacts">
+      <a class="header__phone" href="tel:+70000000000">+7 (000) 000-00-00</a>
+      <a class="header__tg" href="https://t.me/your_telegram" target="_blank" rel="noopener">Telegram</a>
+      <div class="header__hours">
+        пн-пт 10:00 – 20:00<br>
+        сб-вс 10:00 – 16:00
+      </div>
+    </div>
+  </div>
+</div>
+
+
+  <!-- Hero -->
+
+
+  <main>
+    <section class="hero">
+      <div class="container hero__grid">
+        <div class="hero__content">
+          <!--<div class="hero__kicker">Интернет-магазин для кондитерского бизнеса</div>-->
+          <h1 class="hero__title">Летняя <br> коллекция</h1>
+
+          <div class="hero__actions">
+            <a class="btn hero-link-btn" href="summer.html">Открыть каталог</a>
+
+
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+<!-- Casual -->
+<section class="casual" id="casual">
+  <div class="container casual__inner">
+    <div class="casual__head">
+      <h2 class="casual__title">Casual — десерты<br>на каждый день</h2>
+
+      <div class="casual__meta">
+        <p class="casual__text">
+          Сбалансированные сладости для встречи за кофе<br>
+          с подругой, уютных посиделок с близкими<br>
+          или свидания с собой.
+        </p>
+        <a class="casual__link" href="cakes.html">ПЕРЕЙТИ В КАТАЛОГ</a>
+      </div>
+
+      <div class="casual__arrows" aria-label="Листать ленту">
+        <button class="casual__arrow" id="casualPrev" type="button" aria-label="Назад">
+          <svg width="18" height="18" viewBox="0 0 24 24" aria-hidden="true">
+            <path fill="currentColor" d="M15.5 19.5 8 12l7.5-7.5 1.4 1.4L10.8 12l6.1 6.1-1.4 1.4z"/>
+          </svg>
+        </button>
+        <button class="casual__arrow" id="casualNext" type="button" aria-label="Вперёд">
+          <svg width="18" height="18" viewBox="0 0 24 24" aria-hidden="true">
+            <path fill="currentColor" d="M8.5 19.5 7.1 18.1 13.2 12 7.1 5.9 8.5 4.5 16 12l-7.5 7.5z"/>
+          </svg>
+        </button>
+      </div>
+    </div>
+
+    <div class="casual__viewport" id="casualViewport">
+      <div class="casual__track" id="casualTrack">
+        <!-- Карточки (позже заменишь фото/цены) -->
+        <article class="casual-card">
+          <div class="casual-card__img">
+            <img class="casual-card__imgMain" src="img/casual-1.jpg" alt="Мадлен">
+  <img class="casual-card__imgHover" src="img/casual-1-hover.jpg" alt="" aria-hidden="true">
+
+  <a class="casual-card__btn" href="#order">ЗАКАЗАТЬ</a>
+            <div class="casual-card__badge">от 8 шт</div>
+          </div>
+          <div class="casual-card__bottom">
+            <div class="casual-card__name">Мадлен</div>
+            <div class="casual-card__price">от 860 ₽</div>
+          </div>
+        </article>
+
+        <article class="casual-card">
+          <div class="casual-card__img">
+             <img class="casual-card__imgMain" src="img/casual-2.jpg" alt="Пирожное картошка">
+  <img class="casual-card__imgHover" src="img/casual-2-hover.jpg" alt="" aria-hidden="true">
+
+  <a class="casual-card__btn" href="#order">ЗАКАЗАТЬ</a>
+            <div class="casual-card__badge">от 4 шт</div>
+          </div>
+          <div class="casual-card__bottom">
+            <div class="casual-card__name">Пирожное картошка</div>
+            <div class="casual-card__price">от 600 ₽</div>
+          </div>
+        </article>
+
+        <article class="casual-card">
+          <div class="casual-card__img">
+             <img class="casual-card__imgMain" src="img/casual-3.jpg" alt="Мини Чизкейк">
+  <img class="casual-card__imgHover" src="img/casual-3-hover.jpg" alt="" aria-hidden="true">
+
+  <a class="casual-card__btn" href="#order">ЗАКАЗАТЬ</a>
+            <div class="casual-card__badge">от 2 шт</div>
+          </div>
+          <div class="casual-card__bottom">
+            <div class="casual-card__name">Мини Чизкейк</div>
+            <div class="casual-card__price">от 300₽</div>
+          </div>
+        </article>
+
+        <article class="casual-card">
+          <div class="casual-card__img">
+             <img class="casual-card__imgMain" src="img/casual-4.jpg" alt="Macarons">
+  <img class="casual-card__imgHover" src="img/casual-4-hover.jpg" alt="" aria-hidden="true">
+
+  <a class="casual-card__btn" href="#order">ЗАКАЗАТЬ</a>
+            <div class="casual-card__badge">от 8 шт</div>
+          </div>
+          <div class="casual-card__bottom">
+            <div class="casual-card__name">Macarons</div>
+            <div class="casual-card__price">от 500 ₽</div>
+          </div>
+        </article>
+        <article class="casual-card">
+          <div class="casual-card__img">
+             <img class="casual-card__imgMain" src="img/casual-5.jpg" alt="Ассорти пирожных">
+  <img class="casual-card__imgHover" src="img/casual-5-hover.jpg" alt="" aria-hidden="true">
+
+  <a class="casual-card__btn" href="#order">ЗАКАЗАТЬ</a>
+            <div class="casual-card__badge">от 5 шт</div>
+          </div>
+          <div class="casual-card__bottom">
+            <div class="casual-card__name">Ассорти пирожных</div>
+            <div class="casual-card__price">от 300 ₽</div>
+          </div>
+        </article>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- To order -->
+<section class="toorder" id="toorder">
+  <div class="container toorder__inner">
+    <div class="toorder__head">
+      <h2 class="toorder__title">To order — торт,<br>который расскажет<br> вашу историю</h2>
+
+      <div class="toorder__meta">
+        <p class="toorder__text">
+          Забота — это не просто слово. Это торт, созданный специально для вас.
+          Чтобы сказать «люблю», «горжусь» или «помню» без единой фразы,
+          лишь взглядом на уникальный десерт в центре вашего праздника.
+        </p>
+        <a class="toorder__link" href="#catalog">ПЕРЕЙТИ В КАТАЛОГ</a>
+        
+      </div>
+
+      <div class="toorder__arrows" aria-label="Листать ленту">
+        <button class="toorder__arrow" id="toorderPrev" type="button" aria-label="Назад">
+          <svg width="18" height="18" viewBox="0 0 24 24" aria-hidden="true">
+            <path fill="currentColor" d="M15.5 19.5 8 12l7.5-7.5 1.4 1.4L10.8 12l6.1 6.1-1.4 1.4z"/>
+          </svg>
+        </button>
+        <button class="toorder__arrow" id="toorderNext" type="button" aria-label="Вперёд">
+          <svg width="18" height="18" viewBox="0 0 24 24" aria-hidden="true">
+            <path fill="currentColor" d="M8.5 19.5 7.1 18.1 13.2 12 7.1 5.9 8.5 4.5 16 12l-7.5 7.5z"/>
+          </svg>
+        </button>
+      </div>
+    </div>
+
+    <div class="toorder__viewport" id="toorderViewport">
+      <div class="toorder__track" id="toorderTrack">
+
+  <article class="toorder-card">
+    <div class="toorder-card__img">
+      <img class="toorder-card__imgMain" src="img/toorder-1.jpg" alt="Торт с бабочками">
+  <img class="toorder-card__imgHover" src="img/toorder-1-hover.jpg" alt="" aria-hidden="true">
+
+  <div class="toorder-card__actions">
+    <a class="toorder-card__btn" href="fillings.html">ВЫБРАТЬ НАЧИНКУ</a>
+    <a class="toorder-card__btn" href="#order">ЗАКАЗАТЬ</a>
+  </div>
+
+      <div class="toorder-card__badge">2,5 кг</div>
+    </div>
+    <div class="toorder-card__bottom">
+      <div class="toorder-card__name">Торт с бабочками</div>
+      <div class="toorder-card__price">6 500 ₽</div>
+    </div>
+  </article>
+
+  <article class="toorder-card">
+    <div class="toorder-card__img">
+      <img class="toorder-card__imgMain" src="img/toorder-2.jpg" alt="Торт расписной цветами">
+  <img class="toorder-card__imgHover" src="img/toorder-2-hover.jpg" alt="" aria-hidden="true">
+
+  <div class="toorder-card__actions">
+    <a class="toorder-card__btn" href="fillings.html">ВЫБРАТЬ НАЧИНКУ</a>
+    <a class="toorder-card__btn" href="#order">ЗАКАЗАТЬ</a>
+  </div>
+
+      <div class="toorder-card__badge">2,7 кг</div>
+    </div>
+    <div class="toorder-card__bottom">
+      <div class="toorder-card__name">Торт расписной цветами</div>
+      <div class="toorder-card__price">3 200 ₽</div>
+    </div>
+  </article>
+
+  <article class="toorder-card">
+    <div class="toorder-card__img">
+      <img class="toorder-card__imgMain" src="img/toorder-3.jpg" alt="Торт «Кино»">
+  <img class="toorder-card__imgHover" src="img/toorder-3-hover.jpg" alt="" aria-hidden="true">
+
+  <div class="toorder-card__actions">
+    <a class="toorder-card__btn" href="fillings.html">ВЫБРАТЬ НАЧИНКУ</a>
+    <a class="toorder-card__btn" href="#order">ЗАКАЗАТЬ</a>
+  </div>
+
+      <div class="toorder-card__badge">6 кг</div>
+    </div>
+    <div class="toorder-card__bottom">
+      <div class="toorder-card__name">Торт «Кино»</div>
+      <div class="toorder-card__price">7 400 ₽</div>
+    </div>
+  </article>
+
+  <!-- Можно добавить ещё карточки (4,5,6) — стрелки будут листать -->
+  <article class="toorder-card">
+    <div class="toorder-card__img">
+      <img class="toorder-card__imgMain" src="img/toorder-4.jpg" alt="Торт «LouisVuitton»">
+  <img class="toorder-card__imgHover" src="img/toorder-4-hover.jpg" alt="" aria-hidden="true">
+
+  <div class="toorder-card__actions">
+    <a class="toorder-card__btn" href="fillings.html">ВЫБРАТЬ НАЧИНКУ</a>
+    <a class="toorder-card__btn" href="#order">ЗАКАЗАТЬ</a>
+  </div>
+
+      <div class="toorder-card__badge">4 кг</div>
+    </div>
+    <div class="toorder-card__bottom">
+      <div class="toorder-card__name">Торт «LouisVuitton»</div>
+      <div class="toorder-card__price">9 600 ₽</div>
+    </div>
+  </article>
+</div>
+</div>
+  </div>
+</section>
+
+
+<!-- Fillings -->
+<section class="fillings" id="fillings">
+  <div class="container fillings__inner">
+    <div class="fillings__head">
+      <h2 class="fillings__title">Fillings — ваш<br>личный вкус<br>становится главным<br>ингредиентом</h2>
+
+      <div class="fillings__meta">
+        <p class="fillings__text">
+          Выбор начинки — это искусство, где классика встречается с вдохновением.
+          Принесите свою идею, и мы создадим для вас вкус, который станет воспоминанием.
+        </p>
+        <a class="fillings__link" href="fillings.html">ПЕРЕЙТИ В КАТАЛОГ</a>
+      </div>
+    </div>
+
+    <div class="fillings__grid">
+      <article class="fillings-card">
+  <img src="img/fillings-1.jpg" alt="Сникерс">
+  <div class="fillings-card__label">«Сникерс»</div>
+</article>
+
+      <article class="fillings-card">
+  <img src="img/fillings-2.jpg" alt="Банан-шоколад">
+  <div class="fillings-card__label">«Банан-Шоколад»</div>
+</article>
+
+      <article class="fillings-card">
+  <img src="img/fillings-3.jpg" alt="Красный бархат">
+  <div class="fillings-card__label">«Красный бархат»</div>
+</article>
+
+      <article class="fillings-card">
+  <img src="img/fillings-4.jpg" alt="Морковный">
+  <div class="fillings-card__label">«Морковный»</div>
+</article>
+
+
+      <article class="fillings-card">
+  <img src="img/fillings-5.jpg" alt="Тропический">
+  <div class="fillings-card__label">«Тропик»</div>
+</article>
+
+      <article class="fillings-card">
+  <img src="img/fillings-6.jpg" alt="Тирамису">
+  <div class="fillings-card__label">«Тирамису»</div>
+</article>
+
+      <article class="fillings-card">
+  <img src="img/fillings-7.jpg" alt="Ягодный">
+  <div class="fillings-card__label">«Ягодный»</div>
+</article>
+
+      <article class="fillings-card">
+  <img src="img/fillings-8.jpg" alt="Вишня">
+  <div class="fillings-card__label">«Вишневый»</div>
+</article>
+
+    </div>
+  </div>
+</section>
+
+<!-- Story -->
+<section class="story" id="story">
+  <div class="story__fade" aria-hidden="true"></div>
+
+  <div class="story__inner">
+    <div class="story__panel">
+      <div class="story__content">
+        <h2 class="story__title">
+          «Вкус облаков» —<br>
+          это стремление уловить<br>
+          и воплотить мимолётное.
+        </h2>
+
+        <p class="story__text">
+          Превратить сиюминутную радость в осязаемую нежность.
+          От улыбки одного человека — к тёплой атмосфере встречи.
+          Наши десерты — это материализованные моменты счастья.
+        </p>
+
+        <a class="story__link" href="#contacts">ИСТОРИЯ КОНДИТЕРСКОЙ</a>
+      </div>
+    </div>
+
+    <div class="story__media">
+  <video class="story__video" autoplay muted loop playsinline preload="metadata">
+    <source src="img/video/story1.MP4" type="video/mp4">
+  </video>
+    </div>
+  </div>
+</section>
+
+<!-- Discounts -->
+<section class="discounts" id="discounts">
+  <div class="container discounts__inner">
+    <div class="discounts__head">
+      <a class="discounts__title-link" href="#discounts">Наши скидки</a>
+
+      <div class="discounts__meta">
+        <p class="discounts__text">
+          Мы ценим вашу преданность и делаем наши сладости доступнее.
+          С нашей системой постоянных накопительных скидок каждая следующая покупка
+          становится выгоднее предыдущей. Это касается абсолютно всех десертов!
+        </p>
+      </div>
+    </div>
+
+    <div class="discounts__grid">
+      <article class="discount-card">
+        <div class="discount-card__icon" aria-hidden="true">
+          <!-- календарь -->
+          <svg viewBox="0 0 24 24" width="56" height="56">
+            <path d="M7 3v2M17 3v2M4 9h16M6 5h12a2 2 0 0 1 2 2v13a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V7a2 2 0 0 1 2-2Z" fill="none" stroke="currentColor" stroke-width="0.5" stroke-linecap="round"/>
+            <path d="M9.2 16.2c.8.9 1.7 1.3 2.8 1.3 1.9 0 3.2-1.1 3.2-2.7 0-1.6-1.3-2.7-3.2-2.7-1.1 0-2 .4-2.8 1.3" fill="none" stroke="currentColor" stroke-width="0.5" stroke-linecap="round"/>
+          </svg>
+        </div>
+        <h3 class="discount-card__title">Заблаговременный заказ</h3>
+        <p class="discount-card__text">
+          Если вы делаете заказ за 15 дней и более,<br>
+          мы предоставляем скидку 5%
+        </p>
+      </article>
+
+      <article class="discount-card">
+        <div class="discount-card__icon" aria-hidden="true">
+          <!-- торт -->
+          <svg viewBox="0 0 24 24" width="56" height="56">
+            <path d="M6 10h12v10H6V10Z" fill="none" stroke="currentColor" stroke-width="0.5" stroke-linejoin="round"/>
+            <path d="M8 10V8a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2" fill="none" stroke="currentColor" stroke-width="0.5" stroke-linecap="round"/>
+            <path d="M9 14h6M9 17h6" fill="none" stroke="currentColor" stroke-width="0.5" stroke-linecap="round"/>
+          </svg>
+        </div>
+        <h3 class="discount-card__title">Купи больше - плати меньше</h3>
+        <p class="discount-card__text">
+          Скидка - 2% при заказе торта на 2 кг<br>
+          Скидка - 3% при заказе торта на 5 кг<br>
+          Скидка - 8% при заказе торта на 10 кг<br>
+          Скидка - 15% при заказе торта на 20 кг
+        </p>
+      </article>
+
+      <article class="discount-card">
+        <div class="discount-card__icon" aria-hidden="true">
+          <!-- торт со свечами -->
+<svg viewBox="0 0 24 24" width="56" height="56" aria-hidden="true">
+  <!-- свечи -->
+  <path d="M7 10V6M12 10V5M17 10V6" fill="none" stroke="currentColor" stroke-width="0.5" stroke-linecap="round"/>
+  <!-- огоньки -->
+  <path d="M7 5c.6-.6.6-1.4 0-2-.6.6-.6 1.4 0 2Z" fill="none" stroke="currentColor" stroke-width="0.5" stroke-linejoin="round"/>
+  <path d="M12 4c.6-.6.6-1.4 0-2-.6.6-.6 1.4 0 2Z" fill="none" stroke="currentColor" stroke-width="0.5" stroke-linejoin="round"/>
+  <path d="M17 5c.6-.6.6-1.4 0-2-.6.6-.6 1.4 0 2Z" fill="none" stroke="currentColor" stroke-width="0.5" stroke-linejoin="round"/>
+
+  <!-- верх торта -->
+  <path d="M6 10h12v3H6v-3Z" fill="none" stroke="currentColor" stroke-width="0.5" stroke-linejoin="round"/>
+  <!-- нижняя часть торта -->
+  <path d="M5 13h14v7H5v-7Z" fill="none" stroke="currentColor" stroke-width="0.5" stroke-linejoin="round"/>
+  <!-- подставка -->
+  <path d="M4 20h16" fill="none" stroke="currentColor" stroke-width="0.5" stroke-linecap="round"/>
+  <!-- легкий декор -->
+  <path d="M8 16h8" fill="none" stroke="currentColor" stroke-width="0.5" stroke-linecap="round"/>
+</svg>
+
+        </div>
+        <h3 class="discount-card__title">Скидка в день рождения</h3>
+        <p class="discount-card__text">
+          Скидка 20% в день рождения
+        </p>
+      </article>
+    </div>
+  </div>
+</section>
+
+    <!-- Почему заказывают у нас -->
+<section class="why" id="why">
+  <div class="container">
+    <div class="why__head">
+      <h2 class="why__title">Почему заказывают у нас:</h2>
+      <div class="why__line" aria-hidden="true"></div>
+      <p class="why__subtitle">
+        Главная причина обращения к нам — комфорт для клиентов на всех этапах исполнения заказа:
+      </p>
+    </div>
+
+    <div class="why__grid">
+      <!-- Левая колонка -->
+      <div class="why__col why__col--left">
+        <article class="why-item">
+          <div class="why-item__head">
+            <div class="why-item__icon" aria-hidden="true">
+              <!-- корона -->
+              <svg viewBox="0 0 24 24" width="18" height="18">
+                <path d="M4 18h16M6 16l-2-8 6 4 2-6 2 6 6-4-2 8" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+            </div>
+            <h3 class="why-item__title">Качество не только на словах</h3>
+          </div>
+          <p class="why-item__text">
+            На всех этапах производства используем современные технологии,
+            соблюдаем санитарные нормы и пищевые стандарты.
+          </p>
+        </article>
+
+        <article class="why-item">
+          <div class="why-item__head">
+            <div class="why-item__icon" aria-hidden="true">
+              <!-- лист -->
+              <svg viewBox="0 0 24 24" width="18" height="18">
+                <path d="M6 18c8 0 12-6 12-12-6 0-12 4-12 12Z" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linejoin="round"/>
+                <path d="M6 18c3-5 7-7 12-12" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/>
+              </svg>
+            </div>
+            <h3 class="why-item__title">Натуральные составы</h3>
+          </div>
+          <p class="why-item__text">
+            Мы против заменителей. Внутри — настоящее масло, сливки,
+            шоколад и отборные ягоды.
+          </p>
+        </article>
+
+        <article class="why-item">
+          <div class="why-item__head">
+            <div class="why-item__icon" aria-hidden="true">
+              <!-- шеф-колпак -->
+              <!-- онлайн-заказ: корзина + галочка -->
+<svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true">
+  <path d="M6.5 6h14l-1.2 7.2a2 2 0 0 1-2 1.6H9.1a2 2 0 0 1-2-1.6L5.9 4.8H3.5"
+        fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/>
+  <path d="M10 20a1 1 0 1 1-2 0a1 1 0 0 1 2 0Z"
+        fill="none" stroke="currentColor" stroke-width="1.4"/>
+  <path d="M18 20a1 1 0 1 1-2 0a1 1 0 0 1 2 0Z"
+        fill="none" stroke="currentColor" stroke-width="1.4"/>
+  <path d="M10.5 10.8l1.4 1.4 3-3.2"
+        fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/>
+</svg>
+
+            </div>
+            <h3 class="why-item__title">Самостоятельный онлайн-заказ</h3>
+          </div>
+          <p class="why-item__text">
+            Забудьте о звонках и переписке. Забронируйте торт в два клика через умную форму на сайте: выберите дату, время и адрес доставки. Все возможности — под вашим контролем.
+          </p>
+        </article>
+      </div>
+
+      <!-- Центр: картинка -->
+      <div class="why__center" aria-hidden="true">
+        <!-- Положи картинку сюда: assets/img/why-center.png -->
+        <img class="why__img" src="img/why-center.png" alt="">
+      </div>
+
+      <!-- Правая колонка -->
+      <div class="why__col why__col--right">
+        <article class="why-item">
+          <div class="why-item__head">
+            <div class="why-item__icon" aria-hidden="true">
+              <!-- торт -->
+              <svg viewBox="0 0 24 24" width="18" height="18">
+                <path d="M6 10h12v10H6z" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linejoin="round"/>
+                <path d="M7 10c.8-1.5 2.1-2.5 5-2.5S16.2 8.5 17 10" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/>
+                <path d="M9 7V5m3 2V5m3 2V5" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/>
+              </svg>
+            </div>
+            <h3 class="why-item__title">Эксклюзивное оформление</h3>
+          </div>
+          <p class="why-item__text">
+            Можно выбрать торт из каталога или заказать по эскизу — воплотим идею аккуратно и со вкусом.
+          </p>
+        </article>
+
+        <article class="why-item">
+          <div class="why-item__head">
+            <div class="why-item__icon" aria-hidden="true">
+              <!-- витрина/ассортимент -->
+              <svg viewBox="0 0 24 24" width="18" height="18">
+                <path d="M4 7h16v4H4z" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linejoin="round"/>
+                <path d="M6 11v8h12v-8" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linejoin="round"/>
+                <path d="M8 15h8" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/>
+              </svg>
+            </div>
+            <h3 class="why-item__title">Широкий ассортимент</h3>
+          </div>
+          <p class="why-item__text">
+            Более 8 вкусов начинок — подберём тот «самый» под ваш вкус.
+          </p>
+        </article>
+
+        <article class="why-item">
+          <div class="why-item__head">
+            <div class="why-item__icon" aria-hidden="true">
+              <!-- доставка -->
+              <svg viewBox="0 0 24 24" width="18" height="18">
+                <path d="M3 7h11v10H3z" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linejoin="round"/>
+                <path d="M14 10h4l3 3v4h-7" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linejoin="round"/>
+                <path d="M7 19a1.6 1.6 0 1 0 0 .01M17 19a1.6 1.6 0 1 0 0 .01" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/>
+              </svg>
+            </div>
+            <h3 class="why-item__title">Оперативная доставка</h3>
+          </div>
+          <p class="why-item__text">
+            Доставка по городу с учётом времени курьера и вашей брони — без ожиданий и сюрпризов.
+          </p>
+        </article>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+    <!-- FAQ -->
+<section class="faq" id="faq">
+  <div class="container">
+    <div class="faq__head">
+      <h2 class="faq__title">Часто задаваемые вопросы FAQ</h2>
+      <div class="faq__line" aria-hidden="true"></div>
+    </div>
+
+    <div class="faq__box">
+      <details class="faq-item" open>
+        <summary class="faq-item__q">
+  <span class="faq-item__chev" aria-hidden="true"></span>
+  <span class="faq-item__text">За сколько дней до даты нужно сделать заказ?</span>
+</summary>
+
+        <div class="faq-item__a">
+          <p>
+            Заказ нужно сделать за 3 дня. Но в праздники лучше позаботиться об этом заранее — примерно за неделю.
+            Так вы точно можете быть уверены, что без десерта не останетесь.
+          </p>
+        </div>
+      </details>
+
+      <!--<details class="faq-item">
+        <summary class="faq-item__q">
+  <span class="faq-item__chev" aria-hidden="true"></span>
+  <span class="faq-item__text">Как связаться с вами, если я не могу дозвониться?</span>
+</summary>
+
+        <div class="faq-item__a">
+          <p>
+            Напишите нам в Telegram — мы отвечаем быстрее всего. Также можно оставить заявку через форму на сайте,
+            и мы свяжемся с вами в ближайшее время.
+          </p>
+        </div>
+      </details>-->
+
+      <details class="faq-item">
+        <summary class="faq-item__q">
+  <span class="faq-item__chev" aria-hidden="true"></span>
+  <span class="faq-item__text">Можно ли изменить начинку или декор после оформления заказа?</span>
+</summary>
+
+        <div class="faq-item__a">
+          <p>
+            Да, обычно это возможно, если до даты изготовления остаётся достаточно времени.
+            Напишите нам, и мы согласуем изменения.
+          </p>
+        </div>
+      </details>
+
+      <details class="faq-item">
+        <summary class="faq-item__q">
+  <span class="faq-item__chev" aria-hidden="true"></span>
+  <span class="faq-item__text">Есть ли доставка и как она работает?</span>
+</summary>
+
+        <div class="faq-item__a">
+          <p>
+            Да, доставка по городу доступна. Вы выбираете при оформлении заказа адрес, а мы учтём хрупкость декора.
+          </p>
+        </div>
+      </details>
+    </div>
+
+    <a class="faq__cta" href="#contacts" style="position:relative;z-index:2;">
+      НУЖНА ДОПОЛНИТЕЛЬНАЯ ИНФОРМАЦИЯ? БОЛЬШЕ ВОПРОСОВ И ОТВЕТОВ ЗДЕСЬ.
+    </a>
+  </div>
+</section>
+
+<!--FOOTER-->
+    <footer class="site-footer" id="contacts">
+  <div class="container site-footer__inner">
+
+    <div class="site-footer__grid">
+      <!-- Левая колонка -->
+      <div class="site-footer__left">
+        <div class="site-footer__lead">
+          Иногда самые важные слова можно сказать без слов.
+        </div>
+
+        <div class="site-footer__contacts">
+          <a class="site-footer__contact" href="tel:+74993220020">
+            <span class="site-footer__ico" aria-hidden="true">☎</span>
+            +7 (000) 000-00-00
+          </a>
+
+          <a class="site-footer__contact" href="mailto:zakaz.loveandsweets@gmail.com">
+            <span class="site-footer__ico" aria-hidden="true">✉</span>
+            vkus.oblakov@gmail.com
+          </a>
+
+          <a class="site-footer__contact" href="#">
+            Telegram
+          </a>
+
+          <div class="site-footer__social">
+            <a href="#" class="site-footer__social-link">Вконтакте</a>
+            <!--<span class="site-footer__sep">/</span>
+            <a href="#" class="site-footer__social-link">Instagram*</a>-->
+          </div>
+
+          <!--<div class="site-footer__note">
+            *Деятельность организации запрещена на территории РФ
+          </div>-->
+        </div>
+      </div>
+
+      <!-- Колонка 2 -->
+      <nav class="site-footer__col" aria-label="Магазин">
+        <div class="site-footer__title">Магазин</div>
+        <a class="site-footer__link" href="#catalog">Каталог Casual</a>
+        <a class="site-footer__link" href="#catalog">Каталог To order</a>
+        <a class="site-footer__link" href="#catalog">Наши начинки</a>
+      </nav>
+
+      <!-- Колонка 3 -->
+      <nav class="site-footer__col" aria-label="Наша жизнь">
+        <div class="site-footer__title">Наша жизнь</div>
+        <a class="site-footer__link" href="#brand">История бренда</a>
+      </nav>
+
+      <!-- Колонка 4 -->
+      <nav class="site-footer__col" aria-label="Клиентам">
+        <div class="site-footer__title">Клиентам</div>
+        <a class="site-footer__link" href="#">Доставка и оплата</a>
+        <a class="site-footer__link" href="#">Отзывы</a>
+        <a class="site-footer__link" href="#">Вопрос-ответ</a>
+        <a class="site-footer__link" href="#contacts">Контакты</a>
+      </nav>
+    </div>
+
+    <div class="site-footer__bottom">
+      <div class="site-footer__copy">© 2026 Вкус облаков.</div>
+
+      <a class="site-footer__policy" href="#">
+        Политика конфиденциальности
+      </a>
+
+      <div class="site-footer__dev">
+        
+      </div>
+    </div>
+
+  </div>
+</footer>
+
+
+  <!-- Cart drawer -->
+  <aside class="drawer" id="cartDrawer" aria-hidden="true">
+    <div class="drawer__overlay" id="drawerOverlay"></div>
+    <div class="drawer__panel" role="dialog" aria-label="Корзина">
+      <div class="drawer__head">
+        <div class="title-sm">Корзина</div>
+        <button class="icon-btn" id="btnCloseCart" type="button" aria-label="Закрыть">✕</button>
+      </div>
+
+      <div class="drawer__body" id="cartItems"></div>
+
+      <div class="drawer__footer">
+        <div class="row row_between">
+          <div class="subtitle">Итого:</div>
+          <div class="price" id="cartTotal">0 ₽</div>
+        </div>
+        <a class="btn btn_primary btn_wide" href="checkout.html">Оформить и забронировать</a>
+        <button class="btn btn_ghost btn_wide" id="btnClearCart" type="button">Очистить корзину</button>
+      </div>
+    </div>
+  </aside>
+
+  <!-- Product modal -->
+  <div class="modal" id="productModal" hidden>
+    <div class="modal__overlay" data-close="true"></div>
+    <div class="modal__card" role="dialog" aria-label="Выбор варианта товара">
+      <div class="modal__head">
+        <div>
+          <div class="title-sm" id="pmTitle">Товар</div>
+          <div class="subtitle" id="pmSubtitle">Описание</div>
+        </div>
+        <button class="icon-btn" data-close="true" type="button" aria-label="Закрыть">✕</button>
+      </div>
+
+      <div class="modal__body">
+        <div class="pm-grid">
+          <div class="pm-img" id="pmImg" aria-hidden="true"></div>
+
+          <div class="pm-form">
+            <div class="field">
+              <label class="label">Кули</label>
+              <select class="select" id="pmCoulis"></select>
+            </div>
+            <div class="field">
+              <label class="label">Основа</label>
+              <select class="select" id="pmBase"></select>
+            </div>
+            <div class="field">
+              <label class="label">Количество</label>
+              <div class="qty">
+                <button class="icon-btn" type="button" id="pmMinus">−</button>
+                <input class="input qty__input" id="pmQty" value="1" inputmode="numeric" />
+                <button class="icon-btn" type="button" id="pmPlus">+</button>
+              </div>
+            </div>
+
+            <div class="row row_between pm-total">
+              <div class="subtitle">Цена:</div>
+              <div class="price" id="pmPrice">0 ₽</div>
+            </div>
+
+            <div class="row">
+              <button class="btn btn_primary btn_wide" id="pmAdd" type="button">Добавить в корзину</button>
+            </div>
+
+            <div class="hint">
+              ⏱ Время приготовления участвует в расчёте доступных дат бронирования (на этапе оформления).
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <script src="https://api-maps.yandex.ru/2.1/?lang=ru_RU"></script>
+
+  <script src="js/app.js"></script>
+</body>
+</html>
