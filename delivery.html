@@ -1,0 +1,570 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Доставка и оплата — Вкус облаков</title>
+  <link rel="stylesheet" href="css/main.css" />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+<!-- Montserrat для меню/интерфейса -->
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+<style>
+  /* Анимация для карточек */
+  article[style*="background"] {
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+  }
+  article[style*="background"]:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 14px 40px rgba(0,0,0,0.12) !important;
+  }
+
+  /* Анимация для ссылок */
+  a[href]:not(.btn) {
+    transition: text-decoration 0.2s ease;
+  }
+  a[href]:not(.btn):hover {
+    text-decoration: underline !important;
+  }
+
+  /* Анимация для кнопок */
+  .btn, a.btn {
+    transition: background 0.3s ease, opacity 0.3s ease;
+  }
+  .btn:hover, a.btn:hover {
+    opacity: 0.85;
+  }
+
+  /* Анимация для кнопок возврата */
+  .return-btn:hover {
+    background: #f2f0ee;
+    border-color: #d4a088;
+  }
+
+  /* Анимация для ссылки ART */
+  a[href="#art-works"]:hover {
+    text-decoration: underline;
+  }
+</style>
+
+</head>
+
+<body class="page page--catalog" data-collection="delivery">
+  <!-- Header -->
+
+  <header class="header header--glass">
+  <section class="header__section">
+    <div class="container header__container header__container--new">
+
+      <!-- ЛОГО / НАЗВАНИЕ -->
+      <div class="header__logo">
+        <a href="index.html" class="brand brand--stack" aria-label="Вкус облаков">
+          <span class="brand__name brand__name--stack">Вкус<br>облаков</span>
+        </a>
+      </div>
+
+      <!-- МЕНЮ ПО ЦЕНТРУ -->
+      <nav class="header__nav header__nav--center" aria-label="Главное меню">
+  <a href="index.html#catalog" data-mega="catalog">Каталог</a>
+  <a href="brand.html" data-mega="life">История бренда</a>
+  <a href="#clients" data-mega="b2b">Клиентам</a>
+  <a href="index.html#city" data-mega="city">Мы в городе</a>
+</nav>
+
+
+      <!-- СПРАВА: КОНТАКТЫ + ИКОНКИ -->
+      <div class="header__actions header__actions--new">
+
+        <div class="header__contacts header__contacts--new">
+          <a class="header__phone" href="tel:+70000000000">+7 (000) 000-00-00</a>
+          <a class="header__tg" href="https://t.me/your_telegram" target="_blank" rel="noopener">Telegram</a>
+          <div class="header__hours">
+            пн-пт 10:00 – 20:00<br>
+            сб-вс 10:00 – 16:00
+          </div>
+        </div>
+
+        <div class="header__icons">
+
+            <button class="icon-btn icon-btn--ghost header__burger" id="btnMenu" type="button" aria-label="Открыть меню">
+  <svg width="18" height="18" viewBox="0 0 24 24" aria-hidden="true">
+    <path fill="currentColor" d="M4 6h16v2H4V6zm0 5h16v2H4v-2zm0 5h16v2H4v-2z"/>
+  </svg>
+</button>
+
+          <!-- Поиск -->
+          <button class="icon-btn icon-btn--ghost" type="button" aria-label="Поиск по сайту">
+            <svg width="18" height="18" viewBox="0 0 24 24" aria-hidden="true">
+              <path fill="currentColor" d="M10 4a6 6 0 104.47 10.03l4.25 4.25 1.41-1.41-4.25-4.25A6 6 0 0010 4zm0 2a4 4 0 110 8 4 4 0 010-8z"/>
+            </svg>
+          </button>
+
+          <!-- Профиль -->
+          <a class="icon-btn icon-btn--ghost" href="#" aria-label="Профиль">
+            <svg width="18" height="18" viewBox="0 0 24 24" aria-hidden="true">
+              <path fill="currentColor" d="M12 12a4 4 0 10-4-4 4 4 0 004 4zm0 2c-4.42 0-8 2-8 4.5V20h16v-1.5C20 16 16.42 14 12 14z"/>
+            </svg>
+          </a>
+
+          <!-- Сумочка (корзина) -->
+          <button class="icon-btn icon-btn--ghost" id="btnCart" type="button" aria-label="Открыть корзину">
+            <svg width="18" height="18" viewBox="0 0 24 24" aria-hidden="true">
+              <path fill="currentColor" d="M7 8V7a5 5 0 0 1 10 0v1h2a1 1 0 0 1 1 1v12a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V9a1 1 0 0 1 1-1h2zm2 0h6V7a3 3 0 0 0-6 0v1zm-3 2v11h12V10H6z"/>
+
+            </svg>
+            <span class="badge badge--on-dark" id="cartCount">0</span>
+          </button>
+        </div>
+
+      </div>
+    </div>
+  </section>
+  <!-- Mega menu (выпадающая панель) -->
+<div class="mega" id="mega" aria-hidden="true">
+  <div class="mega__container">
+
+    <!-- Каталог -->
+    <div class="mega__panel mega__panel--catalog" data-panel="catalog">
+      <div class="mega__grid mega__grid--catalog">
+        <a class="mega-tile mega-tile--portrait" href="index.html#brand">
+  <div class="mega-card__img mega-card__img--portrait">
+    <img src="img/menu-title1.jpg" alt="Бренд">
+  </div>
+        </a>
+
+        <div class="mega-cols">
+          <div class="mega-col">
+            <div class="mega-col__title">Casual</div>
+            <a class="mega-link" href="summer.html">Летняя коллекция</a>
+            <a class="mega-link" href="bento.html">Бенто-торты</a>
+            <a class="mega-link" href="february.html">23 февраля</a>
+            <a class="mega-link" href="easter.html">Пасха</a>
+            <a class="mega-link" href="cakes.html">Пирожные</a>
+            <a class="mega-link" href="mousse.html">Муссовые бенто-торты</a>
+            <a class="mega-link" href="macarons.html">Macarons</a>
+            <a class="mega-link" href="candies.html">Шоколад и конфеты</a>
+            <a class="mega-link" href="cheesecake.html">Чизкейки</a>
+          </div>
+
+          <div class="mega-col">
+            <div class="mega-col__title">To order</div>
+            <a class="mega-link" href="fillings.html">Начинки</a>
+            <a class="mega-link" href="torty.html">Торты</a>
+            <a class="mega-link" href="torty-3d.html">3D-торты</a>
+            <a class="mega-link" href="torty-detskie.html">Детские торты</a>
+            <a class="mega-link" href="torty-svadebnye.html">Свадебные торты</a>
+            <a class="mega-link" href="torty-den-rozhdeniya.html">Торты на День Рождения</a>
+          </div>
+
+          <div class="mega-col">
+            <div class="mega-col__title">Art</div>
+            <a class="mega-link" href="#art-works">Наши работы</a>
+
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Наша жизнь -->
+    <div class="mega__panel mega__panel--life" data-panel="life">
+      <div class="mega__grid mega__grid--cards">
+        <div class="mega-left">
+        </div>
+
+        <a class="mega-tile mega-tile--portrait" href="brand.html">
+  <div class="mega-card__img mega-card__img--portrait">
+    <img src="img/menu-title2.jpg" alt="История бренда">
+  </div>
+  <div class="mega-tile__title">История бренда</div>
+</a>
+
+      </div>
+    </div>
+
+    <!-- Клиентам -->
+    <div class="mega__panel mega__panel--b2b" data-panel="b2b">
+      <div class="mega__grid mega__grid--cards">
+        <div class="mega-left">
+          <div class="mega-left__text">Наш способ говорить с миром — это говорить сладко.</div>
+
+          <div class="mega-left__contacts">
+            <a class="mega-contact" href="tel:+70000000000">+7(000)-000-00-00</a>
+            <a class="mega-contact" href="mailto:zakaz@vkusobl.ru">zakaz.loveandsweets@gmail.com</a>
+            <a class="mega-contact" href="#" target="_blank" rel="noopener">Telegram</a>
+            <a class="mega-contact" href="#" target="_blank" rel="noopener">Вконтакте</a>
+          </div>
+        </div>
+
+        <a class="mega-tile mega-tile--portrait" href="delivery.html">
+  <div class="mega-card__img mega-card__img--portrait">
+    <img src="img/menu-title3.jpg" alt="Доставка и оплата">
+  </div>
+
+          <div class="mega-tile__title">Доставка и оплата</div>
+        </a>
+
+        <div class="mega-tile mega-tile--order">
+  <div class="mega-tile__left">
+    <a class="mega-tile__imgWrap" href="#brand">
+      <img class="mega-tile__img" src="img/menu-title4.jpg" alt="О заказе">
+    </a>
+
+    <a class="mega-tile__title mega-tile__title--under" href="#brand">О заказе</a>
+  </div>
+
+  <div class="mega-tile__side">
+    <div class="mega-tile__sideLinks">
+      <a class="mega-link" href="#reviews">Отзывы</a>
+      <a class="mega-link" href="#faq">Вопрос-ответ</a>
+    </div>
+  </div>
+</div>
+
+
+
+      </div>
+    </div>
+
+    <!-- Мы в городе -->
+<div class="mega__panel mega__panel--city" data-panel="city">
+  <div class="mega__grid mega__grid--city">
+
+    <div class="mega-city__left">
+      <div class="mega-col__title">Мы в городе</div>
+
+      <div class="mega-city">
+        <div>г. Дубна</div>
+        <div>Пн-Пт 10:00–20:00</div>
+        <div>Сб-Вс 10:00–16:00</div>
+        <a class="mega-link" href="#contacts">Контакты</a>
+      </div>
+    </div>
+
+    <div class="mega-city__middle">
+      <p class="mega-city__note">
+        Наши десерты — это островки спокойствия в море повседневных дел.
+        Причаливайте к ним, чтобы на мгновение остановить время и насладиться тишиной вкуса.
+        <br> </br>
+        <br>Доставка осуществляется только по городу Дубна.</br>
+      </p>
+    </div>
+
+    <div class="city-map">
+      <iframe
+        src="https://yandex.ru/map-widget/v1/?um=constructor%3A5323ec7eeef295359140d0a676351927a92d5b06e8ba41b518464d51d93d3a63&amp;source=constructor"
+        width="463" height="356" frameborder="0">
+      </iframe>
+    </div>
+
+  </div>
+</div>
+
+
+</div>
+
+
+</header>
+<!-- Mobile menu -->
+<div class="mobile-menu" id="mobileMenu" hidden>
+  <div class="mobile-menu__overlay" data-mobile-close="true"></div>
+
+  <div class="mobile-menu__panel" role="dialog" aria-label="Меню">
+    <div class="mobile-menu__head">
+      <div class="brand__name brand__name--stack">Вкус<br>облаков</div>
+      <button class="icon-btn icon-btn--ghost" id="btnMenuClose" type="button" aria-label="Закрыть меню">✕</button>
+    </div>
+
+    <nav class="mobile-menu__nav" aria-label="Мобильная навигация">
+      <a href="index.html#catalog" data-mobile-close="true">Каталог</a>
+      <a href="brand.html" data-mobile-close="true">История бренда</a>
+      <a href="index.html#clients" data-mobile-close="true">Клиентам</a>
+      <a href="index.html#city" data-mobile-close="true">Мы в городе</a>
+    </nav>
+
+    <div class="mobile-menu__contacts">
+      <a class="header__phone" href="tel:+70000000000">+7 (000) 000-00-00</a>
+      <a class="header__tg" href="https://t.me/your_telegram" target="_blank" rel="noopener">Telegram</a>
+      <div class="header__hours">
+        пн-пт 10:00 – 20:00<br>
+        сб-вс 10:00 – 16:00
+      </div>
+    </div>
+  </div>
+</div>
+
+<main class="collection-page">
+  <div class="container" style="padding-top: 120px; padding-bottom: 60px; position: relative;">
+    <!-- Декоративные элементы фона -->
+    <div style="position: absolute; top: 80px; left: -100px; width: 400px; height: 400px; border-radius: 50%; background: linear-gradient(135deg, rgba(212, 160, 136, 0.2), rgba(242, 240, 238, 0.3)); z-index: 0; pointer-events: none;"></div>
+
+    <div style="display: grid; grid-template-columns: 1fr 380px; gap: 60px; align-items: start; position: relative; z-index: 1;">
+      <div style="padding-left: 40px;">
+        <h1 class="collection-hero__title" style="margin-bottom: 32px;">Доставка курьером</h1>
+
+        <p class="collection-hero__text" style="margin-left: 0; max-width: 700px;">
+          По городу Дубна на следующий день при заказе от 3 500 ₽. Обратите внимание,
+          минимальная сумма заказа для доставки в праздничные дни – от 5000 ₽. В стоимость доставки
+          включены 15 минут на приём/передачу каждого товара. Простой курьера свыше этого срока,
+          оплачивается дополнительно, из расчёта 15 мин = 500 ₽.
+        </p>
+      </div>
+
+      <img src="img/casual-1.jpg" alt="Десерты" style="width: 100%; height: 500px; object-fit: cover; border-radius: 20px; margin-top: -80px; margin-left: -100px; box-shadow: 0 20px 60px rgba(0,0,0,0.12);">
+    </div>
+  </div>
+
+  <!-- Grid section -->
+  <div class="container">
+    <section style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 24px; padding: 40px 0;">
+
+      <article style="background: #fff; border-radius: 22px; padding: 36px; box-shadow: 0 10px 30px rgba(0,0,0,.08);">
+        <div style="font-size: 14px; font-weight: 700; color: #6c6c6c; margin-bottom: 16px; letter-spacing: 0.1em;">01</div>
+        <h3 style="font-size: 22px; font-weight: 600; margin: 0 0 16px; color: #1f1f1f;">В пределах города</h3>
+        <p style="font-size: 15px; line-height: 1.7; color: #6c6c6c; margin: 0;">
+          Стоимость доставки от 300 рублей и варьируется от веса вашего торта и удалённости от центра.
+          Просчитывается вашим менеджером для Вас.
+        </p>
+      </article>
+
+      <article style="background: #fff; border-radius: 22px; padding: 36px; box-shadow: 0 10px 30px rgba(0,0,0,.08);">
+        <div style="font-size: 14px; font-weight: 700; color: #6c6c6c; margin-bottom: 16px; letter-spacing: 0.1em;">02</div>
+        <h3 style="font-size: 22px; font-weight: 600; margin: 0 0 16px; color: #1f1f1f;">За пределы города</h3>
+        <p style="font-size: 15px; line-height: 1.7; color: #6c6c6c; margin: 0;">
+          Доставка за пределы города Дубна обсуждается индивидуально с менеджером в зависимости от удаленности адреса доставки.
+        </p>
+      </article>
+
+      <article style="background: #fff; border-radius: 22px; padding: 36px; box-shadow: 0 10px 30px rgba(0,0,0,.08);">
+        <div style="font-size: 14px; font-weight: 700; color: #6c6c6c; margin-bottom: 16px; letter-spacing: 0.1em;">03</div>
+        <h3 style="font-size: 22px; font-weight: 600; margin: 0 0 16px; color: #1f1f1f;">Доставка на дом</h3>
+        <p style="font-size: 15px; line-height: 1.7; color: #6c6c6c; margin: 0;">
+          Доставка осуществляется в удобное для вас время в рамках согласованного временного интервала в течение дня.
+        </p>
+      </article>
+
+      <article style="background: #fff; border-radius: 22px; padding: 36px; box-shadow: 0 10px 30px rgba(0,0,0,.08);">
+        <div style="font-size: 14px; font-weight: 700; color: #6c6c6c; margin-bottom: 16px; letter-spacing: 0.1em;">04</div>
+        <h3 style="font-size: 22px; font-weight: 600; margin: 0 0 16px; color: #1f1f1f;">Доставка к точному времени</h3>
+        <p style="font-size: 15px; line-height: 1.7; color: #6c6c6c; margin: 0;">Доставка к точному времени – не доступна</p>
+      </article>
+
+      <article style="background: #fff; border-radius: 22px; padding: 36px; box-shadow: 0 10px 30px rgba(0,0,0,.08);">
+        <div style="font-size: 14px; font-weight: 700; color: #6c6c6c; margin-bottom: 16px; letter-spacing: 0.1em;">05</div>
+        <h3 style="font-size: 22px; font-weight: 600; margin: 0 0 16px; color: #1f1f1f;">При заказе менее 3500 ₽</h3>
+        <p style="font-size: 15px; line-height: 1.7; color: #6c6c6c; margin: 0;">
+          Доставка осуществляется при заказе от 3 500 ₽ в обычные дни и от 5 000 ₽ в праздничные.
+          Если Ваш заказ на сумму менее 3 500 ₽ в обычные дни и 5 000 ₽ в праздничные дни,
+          вы сможете забрать сладости самовывозом с производства.
+        </p>
+      </article>
+
+      <article style="background: #fff; border-radius: 22px; padding: 36px; box-shadow: 0 10px 30px rgba(0,0,0,.08);">
+        <div style="font-size: 14px; font-weight: 700; color: #6c6c6c; margin-bottom: 16px; letter-spacing: 0.1em;">06</div>
+        <h3 style="font-size: 22px; font-weight: 600; margin: 0 0 16px; color: #1f1f1f;">Торты по индивидуальному заказу</h3>
+        <p style="font-size: 15px; line-height: 1.7; color: #6c6c6c; margin: 0;">
+          Доставка десертов из раздела To order осуществляется по предварительному заказу от 3-х дней.
+        </p>
+      </article>
+
+      <article style="background: #fff; border-radius: 22px; padding: 36px; box-shadow: 0 10px 30px rgba(0,0,0,.08);">
+        <div style="font-size: 14px; font-weight: 700; color: #6c6c6c; margin-bottom: 16px; letter-spacing: 0.1em;">07</div>
+        <h3 style="font-size: 22px; font-weight: 600; margin: 0 0 16px; color: #1f1f1f;">Стандартный заказ</h3>
+        <p style="font-size: 15px; line-height: 1.7; color: #6c6c6c; margin: 0;">
+          Доставка пирожных и тортов из раздела Casual осуществляется на следующий день при заказе до 13:00.
+        </p>
+      </article>
+
+    </section>
+  </div>
+
+  <!-- Pickup section -->
+  <div class="container">
+    <section style="background: #fff; border-radius: 22px; padding: 60px; margin: 60px 0; box-shadow: 0 10px 30px rgba(0,0,0,.08);">
+      <h2 style="font-family: var(--brand-font); font-size: 42px; font-weight: 400; margin: 0 0 48px; color: #1f1f1f;">Самовывоз</h2>
+      <p style="font-size: 16px; line-height: 1.8; color: #6c6c6c; margin-bottom: 40px;">
+        Вы можете забрать заказ с нашего производства самостоятельно по предварительному заказу.
+      </p>
+
+      <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 48px;">
+        <div>
+          <h3 style="font-size: 13px; font-weight: 700; color: #6c6c6c; margin: 0 0 12px; letter-spacing: 0.1em; text-transform: uppercase;">Адрес</h3>
+          <p style="font-size: 16px; line-height: 1.6; color: #1f1f1f; margin: 0; font-weight: 500;">
+            ДУБНА, УЛ. ПРИМЕРНАЯ, Д.1, К.1<br>
+            (ТЕРРИТОРИЯ ПРОИЗВОДСТВА)
+          </p>
+        </div>
+
+        <div>
+          <h3 style="font-size: 13px; font-weight: 700; color: #6c6c6c; margin: 0 0 12px; letter-spacing: 0.1em; text-transform: uppercase;">Телефон</h3>
+          <p style="font-size: 16px; line-height: 1.6; color: #1f1f1f; margin: 0;">
+            <a href="tel:+70000000000" style="color: #1f1f1f; text-decoration: none;">+7 (000) 000-00-00</a>
+          </p>
+        </div>
+
+        <div>
+          <h3 style="font-size: 13px; font-weight: 700; color: #6c6c6c; margin: 0 0 12px; letter-spacing: 0.1em; text-transform: uppercase;">Время работы</h3>
+          <p style="font-size: 16px; line-height: 1.6; color: #1f1f1f; margin: 0; font-weight: 500;">
+            ПН-ПТ 10:00–20:00<br>
+            СБ-ВС 10:00–16:00
+          </p>
+        </div>
+      </div>
+
+      <div style="background: #f2f0ee; border-radius: 12px; padding: 20px 24px; margin-top: 40px;">
+        <p style="font-size: 14px; line-height: 1.6; color: #6c6c6c; margin: 0;">
+          <strong>ПОЖАЛУЙСТА, ОБРАТИТЕ ВНИМАНИЕ:</strong><br>
+          На данной точке нет кафе.<br>
+          Заказать можно только через интернет-магазин.
+        </p>
+      </div>
+    </section>
+  </div>
+
+  <!-- Payment section -->
+  <div class="container">
+    <section style="background: #fff; border-radius: 22px; padding: 60px; margin: 60px 0; max-width: 900px; box-shadow: 0 10px 30px rgba(0,0,0,.08);">
+      <h2 style="font-family: var(--brand-font); font-size: 42px; font-weight: 400; margin: 0 0 32px; color: #1f1f1f;">Оплата</h2>
+
+      <div>
+        <h3 style="font-size: 22px; font-weight: 600; margin: 0 0 20px; color: #1f1f1f;">Возврат</h3>
+        <p style="font-size: 16px; line-height: 1.8; color: #6c6c6c; margin: 0 0 24px;">
+          Обращаем Ваше внимание на то, что все заказы на индивидуальное оформление должны быть
+          предварительно оплачены. Вы можете оплатить заказ банковской картой Visa, Mastercard
+          или МИР в режиме онлайн.
+        </p>
+
+        <div style="display: flex; gap: 16px; align-items: center; margin: 32px 0;">
+          <svg width="60" height="40" viewBox="0 0 60 40" fill="none">
+            <rect width="60" height="40" rx="4" fill="#1A1F71"/>
+            <text x="10" y="26" font-family="Arial" font-size="16" font-weight="bold" fill="white">VISA</text>
+          </svg>
+
+          <svg width="60" height="40" viewBox="0 0 60 40" fill="none">
+            <rect width="60" height="40" rx="4" fill="#EB001B"/>
+            <circle cx="22" cy="20" r="12" fill="#EB001B"/>
+            <circle cx="38" cy="20" r="12" fill="#FF5F00"/>
+            <path d="M30 12c-2.5 2-4 5-4 8s1.5 6 4 8c2.5-2 4-5 4-8s-1.5-6-4-8z" fill="#F79E1B"/>
+          </svg>
+
+          <svg width="60" height="40" viewBox="0 0 60 40" fill="none">
+            <rect width="60" height="40" rx="4" fill="#4DB45E"/>
+            <text x="12" y="26" font-family="Arial" font-size="14" font-weight="bold" fill="white">МИР</text>
+          </svg>
+        </div>
+
+      </div>
+    </section>
+  </div>
+
+  <!-- Return to catalog -->
+  <div class="container">
+    <section style="background: #fff; border-radius: 22px; box-shadow: 0 10px 30px rgba(0,0,0,.08);
+                    padding: 60px 50px; text-align: center; margin: 80px 0;">
+      <h2 style="font-family: var(--brand-font); font-size: 38px; font-weight: 400;
+                  margin: 0 0 20px; line-height: 1.3; color: #1f1f1f;">
+        Вернуться к приятному
+      </h2>
+      <p style="font-size: 16px; line-height: 1.7; color: #6c6c6c; margin: 0 0 36px;
+                max-width: 800px; margin-left: auto; margin-right: auto;">
+        Большой ассортимент для самых разных поводов. Торты и пирожные украсят любое торжество
+        и превратят в праздник даже самый обычный день!
+      </p>
+
+      <div style="display: flex; gap: 16px; justify-content: center; flex-wrap: wrap; margin-bottom: 32px;">
+        <a href="summer.html" class="return-btn" style="font-size: 15px; font-weight: 600; color: #1f1f1f;
+                 text-decoration: none; padding: 12px 28px; border: 2px solid #e7e0dc;
+                 border-radius: 12px; transition: all 0.3s ease;">КАТАЛОГ CASUAL</a>
+        <a href="torty.html" class="return-btn" style="font-size: 15px; font-weight: 600; color: #1f1f1f;
+                 text-decoration: none; padding: 12px 28px; border: 2px solid #e7e0dc;
+                 border-radius: 12px; transition: all 0.3s ease;">КАТАЛОГ TO ORDER</a>
+        <a href="fillings.html" class="return-btn" style="font-size: 15px; font-weight: 600; color: #1f1f1f;
+                 text-decoration: none; padding: 12px 28px; border: 2px solid #e7e0dc;
+                 border-radius: 12px; transition: all 0.3s ease;">НАЧИНКИ</a>
+      </div>
+
+      <a href="#art-works" style="font-size: 15px; font-weight: 600; color: #1f1f1f;
+                text-decoration: none; text-underline-offset: 4px; transition: text-decoration 0.2s ease;">НАПРАВЛЕНИЕ ART</a>
+    </section>
+  </div>
+</main>
+
+  <!--FOOTER-->
+    <footer class="site-footer" id="contacts">
+  <div class="container site-footer__inner">
+
+    <div class="site-footer__grid">
+      <!-- Левая колонка -->
+      <div class="site-footer__left">
+        <div class="site-footer__lead">
+          Иногда самые важные слова можно сказать без слов.
+        </div>
+
+        <div class="site-footer__contacts">
+          <a class="site-footer__contact" href="tel:+74993220020">
+            <span class="site-footer__ico" aria-hidden="true">☎</span>
+            +7 (000) 000-00-00
+          </a>
+
+          <a class="site-footer__contact" href="mailto:zakaz.loveandsweets@gmail.com">
+            <span class="site-footer__ico" aria-hidden="true">✉</span>
+            vkus.oblakov@gmail.com
+          </a>
+
+          <a class="site-footer__contact" href="#">
+            Telegram
+          </a>
+
+          <div class="site-footer__social">
+            <a href="#" class="site-footer__social-link">Вконтакте</a>
+          </div>
+        </div>
+      </div>
+
+      <!-- Колонка 2 -->
+      <nav class="site-footer__col" aria-label="Магазин">
+        <div class="site-footer__title">Магазин</div>
+        <a class="site-footer__link" href="index.html#catalog">Каталог Casual</a>
+        <a class="site-footer__link" href="index.html#catalog">Каталог To order</a>
+        <a class="site-footer__link" href="fillings.html">Наши начинки</a>
+      </nav>
+
+      <!-- Колонка 3 -->
+      <nav class="site-footer__col" aria-label="Наша жизнь">
+        <div class="site-footer__title">Наша жизнь</div>
+        <a class="site-footer__link" href="brand.html">История бренда</a>
+      </nav>
+
+      <!-- Колонка 4 -->
+      <nav class="site-footer__col" aria-label="Клиентам">
+        <div class="site-footer__title">Клиентам</div>
+        <a class="site-footer__link" href="delivery.html">Доставка и оплата</a>
+        <a class="site-footer__link" href="#">Отзывы</a>
+        <a class="site-footer__link" href="#">Вопрос-ответ</a>
+        <a class="site-footer__link" href="#contacts">Контакты</a>
+      </nav>
+    </div>
+
+    <div class="site-footer__bottom">
+      <div class="site-footer__copy">© 2026 Вкус облаков.</div>
+
+      <a class="site-footer__policy" href="#">
+        Политика конфиденциальности
+      </a>
+
+      <div class="site-footer__dev">
+
+      </div>
+    </div>
+
+  </div>
+</footer>
+
+
+ <script src="https://api-maps.yandex.ru/2.1/?lang=ru_RU"></script>
+
+  <script src="js/app.js"></script>
+</body>
+</html>

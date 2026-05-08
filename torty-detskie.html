@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>Летняя коллекция</title>
+  <title>Детские торты - Вкус облаков</title>
   <link rel="stylesheet" href="css/main.css" />
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -16,9 +16,9 @@
 
 </head>
 
-<body class="page page--catalog" data-collection="summer">
+<body class="page page--catalog">
   <!-- Header -->
-   
+
   <header class="header header--glass">
   <section class="header__section">
     <div class="container header__container header__container--new">
@@ -96,7 +96,7 @@
         <a class="mega-tile mega-tile--portrait" href="delivery.html">
   <div class="mega-card__img mega-card__img--portrait">
     <img src="img/menu-title1.jpg" alt="Бренд">
-  </div>          
+  </div>
         </a>
 
         <div class="mega-cols">
@@ -126,7 +126,7 @@
           <div class="mega-col">
             <div class="mega-col__title">Art</div>
             <a class="mega-link" href="#art-works">Наши работы</a>
-            
+
           </div>
         </div>
       </div>
@@ -201,29 +201,6 @@
     </div>
 
     <!-- Мы в городе -->
-    <!--<div class="mega__grid mega__grid--city">
-  Левая колонка 
-  <div class="mega-city__left">
-    <div class="mega-col__title">Мы в городе</div>
-
-    <div class="mega-city">
-      <div>г.Дубна</div>
-      <div>Пн-Пт 10:00–20:00</div>
-      <div>Сб-Вс 10:00–16:00</div>
-      <a class="mega-link" href="#contacts">Контакты</a>
-    </div>
-  </div>
-
-   Центр 
-  <div class="mega-city__center">
-    <p class="mega-city__note">
-      Наши десерты — это островки спокойствия в море повседневных дел.
-      Причаливайте к ним, чтобы на мгновение остановить время и насладиться тишиной вкуса.
-    </p>
-  </div>
-</div>-->
-<!-- Мы в городе -->
-   <!-- Мы в городе -->
 <div class="mega__panel mega__panel--city" data-panel="city">
   <div class="mega__grid mega__grid--city">
 
@@ -297,7 +274,7 @@
   <main class="collection-page">
     <div class="container collection-hero">
       <div class="collection-hero__grid">
-        <h1 class="collection-hero__title">Летняя коллекция</h1>
+        <h1 class="collection-hero__title">Детские торты</h1>
 
         <p class="collection-hero__text" style="margin-left: 40px;">
           Мы печём с душой. Для будней — гармоничные десерты, для праздников — торты вашей мечты.
@@ -305,19 +282,23 @@
 
         <button class="collection-hero__filters" type="button" id="openFilters">
           ФИЛЬТРЫ И СОРТИРОВКА
-          <span aria-hidden="true" class="collection-hero__filters-ico"><!--⚙-->☰</span>
+          <span aria-hidden="true" class="collection-hero__filters-ico">☰</span>
         </button>
       </div>
 
-      <!-- чипсы категорий -->
+      <!-- навигация между категориями тортов -->
       <div class="collection-chips" id="collectionChips" aria-label="Категории">
-        <!-- заполняются JS -->
+        <a class="chip" href="torty.html">Торты</a>
+        <a class="chip" href="torty-3d.html">3D-торты</a>
+        <a class="chip is-active" href="torty-detskie.html">Детские</a>
+        <a class="chip" href="torty-svadebnye.html">Свадебные</a>
+        <a class="chip" href="torty-den-rozhdeniya.html">На День Рождения</a>
       </div>
     </div>
 
     <div class="container">
       <!-- сетка товаров -->
-      <section class="collection-grid" id="summerGrid" aria-label="Товары летней коллекции"></section>
+      <section class="collection-grid" id="productsGrid" aria-label="Детские торты"></section>
     </div>
 
 
@@ -330,21 +311,18 @@
     <button class="filtersDrawer__close" type="button" id="closeFilters" aria-label="Закрыть">×</button>
   </div>
 
-  <!-- сортировка (как справа сверху на скрине) -->
+  <!-- сортировка -->
   <div class="filtersDrawer__sort">
     <div class="filtersDrawer__sortLabel">Сортировать по</div>
     <div class="filtersDrawer__sortTabs">
       <button class="sortTab is-active" type="button" data-sort="popular">Популярности</button>
-<button class="sortTab" type="button" data-sort="price">Цене</button>
-<button class="sortTab" type="button" data-sort="new">Новинкам</button>
-
+      <button class="sortTab" type="button" data-sort="price">Цене</button>
+      <button class="sortTab" type="button" data-sort="new">Новинкам</button>
     </div>
   </div>
 
-  
-
   <div class="filtersDrawer__body">
-    <!-- АККОРДЕОН 1: Цена -->
+    <!-- АККОРДЕОН: Цена -->
     <details class="filterBlock" open>
       <summary class="filterBlock__summary">
         <span>Цена</span>
@@ -354,81 +332,31 @@
       <div class="filterBlock__content">
         <div class="priceRow">
           <label class="priceField">
-            <input id="priceMin" type="number" value="585">
+            <input id="priceMin" type="number" value="3500">
             <span class="priceField__suffix">₽</span>
           </label>
 
           <span class="priceDash">—</span>
 
           <label class="priceField">
-            <input id="priceMax" type="number" value="16000">
+            <input id="priceMax" type="number" value="8000">
             <span class="priceField__suffix">₽</span>
           </label>
         </div>
       </div>
     </details>
-
-    <!-- АККОРДЕОН 2: Коллекция 
-    <details class="filterBlock">
-      <summary class="filterBlock__summary">
-        <span>Коллекция</span>
-        <span class="filterBlock__chev" aria-hidden="true">⌄</span>
-      </summary>
-
-      <div class="filterBlock__content">
-        <label class="checkRow"><input type="checkbox"name="cats" value="winter"> Зимняя коллекция</label>
-        <label class="checkRow"><input type="checkbox"name="cats" value="summer_collection"> Летняя коллекция</label>
-        <label class="checkRow"><input type="checkbox" name="cats" value="bento"> Бенто-торты</label>
-        <<label class="checkRow"><input type="checkbox" name="cats" value="cakes"> Готовые торты</label>
-<label class="checkRow"><input type="checkbox" name="cats" value="cupcakes"> Капкейки</label>
-<label class="checkRow"><input type="checkbox" name="cats" value="berry"> Ягодные торты</label>
-<label class="checkRow"><input type="checkbox" name="cats" value="eclairs"> Эклеры</label>
-<label class="checkRow"><input type="checkbox" name="cats" value="macarons"> Macarons</label>
-<label class="checkRow"><input type="checkbox" name="cats" value="pp"> ПП десерты</label>
-
-
-      </div>
-    </details>-->
-
-    <!-- можешь добавлять блоки дальше -->
   </div>
 
   <div class="filtersDrawer__footer">
     <button class="btnApply" id="applyFilters" type="button">ПРИМЕНИТЬ ФИЛЬТРЫ</button>
-<button class="btnReset" id="resetFilters" type="button">СБРОСИТЬ ВСЕ ФИЛЬТРЫ</button>
-
+    <button class="btnReset" id="resetFilters" type="button">СБРОСИТЬ ВСЕ ФИЛЬТРЫ</button>
   </div>
 </aside>
 
-    <!-- простая панель сортировки (можно показать/скрыть по кнопке) 
-    <div class="filters-drawer" id="filtersDrawer" aria-hidden="true">
-      <div class="filters-drawer__overlay" data-close-filters="true"></div>
-      <div class="filters-drawer__panel" role="dialog" aria-modal="true" aria-label="Фильтры и сортировка">
-        <div class="filters-drawer__head">
-          <div class="title-sm">Фильтры и сортировка</div>
-          <button class="icon-btn" type="button" data-close-filters="true">Закрыть</button>
-        </div>
-
-        <div class="filters-drawer__body">
-          <div class="field">
-            <label class="label" for="sortSelect">Сортировка</label>
-            <select class="select" id="sortSelect">
-              <option value="popular">По популярности</option>
-              <option value="priceAsc">По цене: по возрастанию</option>
-              <option value="priceDesc">По цене: по убыванию</option>
-              <option value="nameAsc">По названию: А-Я</option>
-            </select>
-          </div>
-
-          <div class="hint">Фильтры по ингредиентам/аллергенам можно добавить позже — структура уже готова.</div>
-        </div>
-      </div>
-    </div>-->
   </main>
 
-  <!-- ====== ПОДВАЛ: скопируй 1-в-1 из index.html ====== -->
-   <!--FOOTER-->
-    <footer class="site-footer" id="contacts">
+  <!-- FOOTER -->
+  <footer class="site-footer" id="contacts">
   <div class="container site-footer__inner">
 
     <div class="site-footer__grid">
@@ -455,13 +383,7 @@
 
           <div class="site-footer__social">
             <a href="#" class="site-footer__social-link">Вконтакте</a>
-            <!--<span class="site-footer__sep">/</span>
-            <a href="#" class="site-footer__social-link">Instagram*</a>-->
           </div>
-
-          <!--<div class="site-footer__note">
-            *Деятельность организации запрещена на территории РФ
-          </div>-->
         </div>
       </div>
 
@@ -497,16 +419,143 @@
       </a>
 
       <div class="site-footer__dev">
-        
+
       </div>
     </div>
 
   </div>
 </footer>
 
-
- <script src="https://api-maps.yandex.ru/2.1/?lang=ru_RU"></script>
-
+  <script src="https://api-maps.yandex.ru/2.1/?lang=ru_RU"></script>
   <script src="js/app.js"></script>
+
+  <script>
+// Встроенный JavaScript для страницы Детские торты
+(function() {
+  const PRODUCTS = [
+    { title: "Мультяшный торт со свечкой", price: 4800, qtyText: "от 2.5 кг", tag: "", img: "img/картинки для сайта/Детские торты/Мультяшный торт со свечкой.jpg", imgHover: "img/картинки для сайта/Детские торты/Мультяшный торт со свечкой 2.jpg" },
+    { title: "Торт Лабубу", price: 5500, qtyText: "от 3 кг", tag: "Хит", img: "img/картинки для сайта/Детские торты/Торт Лабубу.jpg", imgHover: "img/картинки для сайта/Детские торты/Торт Лабубу 2.jpg" },
+    { title: "Торт с маршмеллоу", price: 4200, qtyText: "от 2 кг", tag: "", img: "img/картинки для сайта/Детские торты/Торт с маршмеллоу.jpg", imgHover: "img/картинки для сайта/Детские торты/Торт с маршмеллоу 2.jpg" },
+    { title: "Торт с небрежными цветными мазками", price: 3900, qtyText: "от 2 кг", tag: "Новинка", img: "img/картинки для сайта/Детские торты/Торт с небрежными цветными мазками.jpg", imgHover: "img/картинки для сайта/Детские торты/Торт с небрежными цветными мазками 2.jpg" },
+    { title: "Торт с фигуркой корабля", price: 6500, qtyText: "от 4 кг", tag: "", img: "img/картинки для сайта/Детские торты/Торт с фигуркой корабля.jpg", imgHover: "img/картинки для сайта/Детские торты/Торт с фигуркой корабля 2.jpg" }
+  ];
+
+  let sortMode = "popular";
+  let priceMin = null;
+  let priceMax = null;
+
+  const grid = document.getElementById("productsGrid");
+  const sortTabs = document.querySelectorAll(".sortTab");
+  const priceMinEl = document.getElementById("priceMin");
+  const priceMaxEl = document.getElementById("priceMax");
+  const applyBtn = document.getElementById("applyFilters");
+  const resetBtn = document.getElementById("resetFilters");
+
+  function escapeHtml(s) {
+    return String(s).replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;");
+  }
+
+  function formatPrice(price) {
+    return new Intl.NumberFormat("ru-RU").format(price) + " ₽";
+  }
+
+  function applyFiltering(items) {
+    return items.filter(p => {
+      if (priceMin !== null && p.price < priceMin) return false;
+      if (priceMax !== null && p.price > priceMax) return false;
+      return true;
+    });
+  }
+
+  function applySorting(items) {
+    const arr = [...items];
+    if (sortMode === "price") {
+      arr.sort((a, b) => a.price - b.price);
+    } else if (sortMode === "new") {
+      arr.sort((a, b) => {
+        const an = a.tag === "Новинка" ? 1 : 0;
+        const bn = b.tag === "Новинка" ? 1 : 0;
+        return bn - an;
+      });
+    }
+    return arr;
+  }
+
+  function render() {
+    const filtered = applyFiltering(PRODUCTS);
+    const sorted = applySorting(filtered);
+
+    grid.innerHTML = sorted.map(p => `
+      <article class="collect-card">
+        <div class="collect-card__img">
+          <img class="collect-card__imgMain" src="${escapeHtml(p.img)}" alt="${escapeHtml(p.title)}">
+          ${p.imgHover ? `<img class="collect-card__imgHover" src="${escapeHtml(p.imgHover)}" alt="">` : ""}
+          ${p.tag ? `<div class="collect-card__tag">${escapeHtml(p.tag)}</div>` : ""}
+          <div class="collect-card__qty">${escapeHtml(p.qtyText)}</div>
+          <a class="collect-card__btn" href="checkout.html">ЗАКАЗАТЬ</a>
+        </div>
+        <div class="collect-card__bottom">
+          <div class="collect-card__name">${escapeHtml(p.title)}</div>
+          <div class="collect-card__price">${formatPrice(p.price)}</div>
+        </div>
+      </article>
+    `).join("");
+  }
+
+  sortTabs.forEach(tab => {
+    tab.addEventListener("click", () => {
+      sortMode = tab.dataset.sort || "popular";
+      sortTabs.forEach(t => t.classList.toggle("is-active", t === tab));
+      render();
+    });
+  });
+
+  applyBtn?.addEventListener("click", () => {
+    priceMin = priceMinEl?.value ? Number(priceMinEl.value) : null;
+    priceMax = priceMaxEl?.value ? Number(priceMaxEl.value) : null;
+    render();
+  });
+
+  resetBtn?.addEventListener("click", () => {
+    if (priceMinEl) priceMinEl.value = "";
+    if (priceMaxEl) priceMaxEl.value = "";
+    priceMin = null;
+    priceMax = null;
+    render();
+  });
+
+  // Фильтры drawer
+  const openBtn = document.getElementById("openFilters");
+  const closeBtn = document.getElementById("closeFilters");
+  const drawer = document.getElementById("filtersDrawer");
+  const overlay = document.getElementById("filtersOverlay");
+
+  function openFilters() {
+    document.documentElement.classList.add("filters-isOpen");
+    document.body.classList.add("no-scroll");
+    overlay.hidden = false;
+    drawer.setAttribute("aria-hidden", "false");
+    closeBtn.focus();
+  }
+
+  function closeFilters() {
+    document.documentElement.classList.remove("filters-isOpen");
+    document.body.classList.remove("no-scroll");
+    drawer.setAttribute("aria-hidden", "true");
+    overlay.hidden = true;
+    openBtn.focus();
+  }
+
+  openBtn?.addEventListener("click", openFilters);
+  closeBtn?.addEventListener("click", closeFilters);
+  overlay?.addEventListener("click", closeFilters);
+
+  document.addEventListener("keydown", (e) => {
+    if (e.key === "Escape") closeFilters();
+  });
+
+  render();
+})();
+  </script>
 </body>
 </html>
