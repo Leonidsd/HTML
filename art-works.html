@@ -1,0 +1,744 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Наши работы — Вкус облаков</title>
+  <link rel="stylesheet" href="css/main.css" />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+<!-- Montserrat для меню/интерфейса -->
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+<style>
+  /* Галерея работ */
+  .art-gallery {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+    gap: 24px;
+    padding: 60px 0;
+  }
+
+  .art-item {
+    position: relative;
+    border-radius: 20px;
+    overflow: hidden;
+    cursor: pointer;
+    transition: transform 0.4s ease, box-shadow 0.4s ease;
+    background: #fff;
+    box-shadow: 0 8px 24px rgba(0,0,0,0.08);
+  }
+
+  .art-item:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 16px 48px rgba(0,0,0,0.15);
+  }
+
+  .art-item__image {
+    width: 100%;
+    height: 400px;
+    object-fit: cover;
+    display: block;
+    transition: transform 0.6s ease;
+  }
+
+  .art-item:hover .art-item__image {
+    transform: scale(1.05);
+  }
+
+  .art-item__overlay {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background: linear-gradient(to top, rgba(0,0,0,0.7), transparent);
+    padding: 24px;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+  }
+
+  .art-item:hover .art-item__overlay {
+    opacity: 1;
+  }
+
+  .art-item__title {
+    color: white;
+    font-size: 16px;
+    font-weight: 600;
+    margin: 0;
+    text-shadow: 0 2px 8px rgba(0,0,0,0.3);
+  }
+
+  /* Модальное окно для просмотра */
+  .art-modal {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0,0,0,0.95);
+    z-index: 9999;
+    padding: 40px;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .art-modal.active {
+    display: flex;
+  }
+
+  .art-modal__image {
+    max-width: 90%;
+    max-height: 90%;
+    object-fit: contain;
+    border-radius: 12px;
+    box-shadow: 0 20px 60px rgba(0,0,0,0.5);
+  }
+
+  .art-modal__close {
+    position: absolute;
+    top: 20px;
+    right: 30px;
+    color: white;
+    font-size: 40px;
+    font-weight: 300;
+    cursor: pointer;
+    background: none;
+    border: none;
+    padding: 10px 20px;
+    transition: opacity 0.2s;
+  }
+
+  .art-modal__close:hover {
+    opacity: 0.7;
+  }
+
+  .art-modal__nav {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    color: white;
+    font-size: 48px;
+    cursor: pointer;
+    background: rgba(255,255,255,0.1);
+    border: none;
+    padding: 20px 24px;
+    border-radius: 8px;
+    transition: background 0.2s;
+    line-height: 1;
+  }
+
+  .art-modal__nav:hover {
+    background: rgba(255,255,255,0.2);
+  }
+
+  .art-modal__prev {
+    left: 30px;
+  }
+
+  .art-modal__next {
+    right: 30px;
+  }
+
+  /* Фильтры категорий */
+  .art-filters {
+    display: flex;
+    gap: 12px;
+    justify-content: center;
+    flex-wrap: wrap;
+    padding: 40px 0 20px;
+  }
+
+  .art-filter {
+    padding: 10px 24px;
+    border: 2px solid #e7e0dc;
+    border-radius: 12px;
+    background: white;
+    color: #1f1f1f;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+  }
+
+  .art-filter:hover,
+  .art-filter.active {
+    background: #f2f0ee;
+    border-color: #d4a088;
+  }
+
+  /* Счетчик работ */
+  .art-counter {
+    text-align: center;
+    padding-top: 20px;
+    font-size: 15px;
+    color: #6c6c6c;
+  }
+</style>
+
+</head>
+
+<body class="page page--catalog" data-collection="art">
+  <!-- Header -->
+
+  <header class="header header--glass">
+  <section class="header__section">
+    <div class="container header__container header__container--new">
+
+      <!-- ЛОГО / НАЗВАНИЕ -->
+      <div class="header__logo">
+        <a href="index.html" class="brand brand--stack" aria-label="Вкус облаков">
+          <span class="brand__name brand__name--stack">Вкус<br>облаков</span>
+        </a>
+      </div>
+
+      <!-- МЕНЮ ПО ЦЕНТРУ -->
+      <nav class="header__nav header__nav--center" aria-label="Главное меню">
+  <a href="index.html#catalog" data-mega="catalog">Каталог</a>
+  <a href="brand.html" data-mega="life">История бренда</a>
+  <a href="#clients" data-mega="b2b">Клиентам</a>
+  <a href="index.html#city" data-mega="city">Мы в городе</a>
+</nav>
+
+
+      <!-- СПРАВА: КОНТАКТЫ + ИКОНКИ -->
+      <div class="header__actions header__actions--new">
+
+        <div class="header__contacts header__contacts--new">
+          <a class="header__phone" href="tel:+70000000000">+7 (000) 000-00-00</a>
+          <a class="header__tg" href="https://t.me/your_telegram" target="_blank" rel="noopener">Telegram</a>
+          <div class="header__hours">
+            пн-пт 10:00 – 20:00<br>
+            сб-вс 10:00 – 16:00
+          </div>
+        </div>
+
+        <div class="header__icons">
+
+            <button class="icon-btn icon-btn--ghost header__burger" id="btnMenu" type="button" aria-label="Открыть меню">
+  <svg width="18" height="18" viewBox="0 0 24 24" aria-hidden="true">
+    <path fill="currentColor" d="M4 6h16v2H4V6zm0 5h16v2H4v-2zm0 5h16v2H4v-2z"/>
+  </svg>
+</button>
+
+          <!-- Поиск -->
+          <button class="icon-btn icon-btn--ghost" type="button" aria-label="Поиск по сайту">
+            <svg width="18" height="18" viewBox="0 0 24 24" aria-hidden="true">
+              <path fill="currentColor" d="M10 4a6 6 0 104.47 10.03l4.25 4.25 1.41-1.41-4.25-4.25A6 6 0 0010 4zm0 2a4 4 0 110 8 4 4 0 010-8z"/>
+            </svg>
+          </button>
+
+          <!-- Профиль -->
+          <a class="icon-btn icon-btn--ghost" href="#" aria-label="Профиль">
+            <svg width="18" height="18" viewBox="0 0 24 24" aria-hidden="true">
+              <path fill="currentColor" d="M12 12a4 4 0 10-4-4 4 4 0 004 4zm0 2c-4.42 0-8 2-8 4.5V20h16v-1.5C20 16 16.42 14 12 14z"/>
+            </svg>
+          </a>
+
+          <!-- Сумочка (корзина) -->
+          <button class="icon-btn icon-btn--ghost" id="btnCart" type="button" aria-label="Открыть корзину">
+            <svg width="18" height="18" viewBox="0 0 24 24" aria-hidden="true">
+              <path fill="currentColor" d="M7 8V7a5 5 0 0 1 10 0v1h2a1 1 0 0 1 1 1v12a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V9a1 1 0 0 1 1-1h2zm2 0h6V7a3 3 0 0 0-6 0v1zm-3 2v11h12V10H6z"/>
+
+            </svg>
+            <span class="badge badge--on-dark" id="cartCount">0</span>
+          </button>
+        </div>
+
+      </div>
+    </div>
+  </section>
+  <!-- Mega menu (выпадающая панель) -->
+<div class="mega" id="mega" aria-hidden="true">
+  <div class="mega__container">
+
+    <!-- Каталог -->
+    <div class="mega__panel mega__panel--catalog" data-panel="catalog">
+      <div class="mega__grid mega__grid--catalog">
+        <a class="mega-tile mega-tile--portrait" href="index.html#brand">
+  <div class="mega-card__img mega-card__img--portrait">
+    <img src="img/menu-title1.jpg" alt="Бренд">
+  </div>
+        </a>
+
+        <div class="mega-cols">
+          <div class="mega-col">
+            <div class="mega-col__title">Casual</div>
+            <a class="mega-link" href="summer.html">Летняя коллекция</a>
+            <a class="mega-link" href="bento.html">Бенто-торты</a>
+            <a class="mega-link" href="february.html">23 февраля</a>
+            <a class="mega-link" href="easter.html">Пасха</a>
+            <a class="mega-link" href="cakes.html">Пирожные</a>
+            <a class="mega-link" href="mousse.html">Муссовые бенто-торты</a>
+            <a class="mega-link" href="macarons.html">Macarons</a>
+            <a class="mega-link" href="candies.html">Шоколад и конфеты</a>
+            <a class="mega-link" href="cheesecake.html">Чизкейки</a>
+          </div>
+
+          <div class="mega-col">
+            <div class="mega-col__title">To order</div>
+            <a class="mega-link" href="fillings.html">Начинки</a>
+            <a class="mega-link" href="torty.html">Торты</a>
+            <a class="mega-link" href="torty-3d.html">3D-торты</a>
+            <a class="mega-link" href="torty-detskie.html">Детские торты</a>
+            <a class="mega-link" href="torty-svadebnye.html">Свадебные торты</a>
+            <a class="mega-link" href="torty-den-rozhdeniya.html">Торты на День Рождения</a>
+          </div>
+
+          <div class="mega-col">
+            <div class="mega-col__title">Art</div>
+            <a class="mega-link" href="art-works.html">Наши работы</a>
+
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Наша жизнь -->
+    <div class="mega__panel mega__panel--life" data-panel="life">
+      <div class="mega__grid mega__grid--cards">
+        <div class="mega-left">
+        </div>
+
+        <a class="mega-tile mega-tile--portrait" href="brand.html">
+  <div class="mega-card__img mega-card__img--portrait">
+    <img src="img/menu-title2.jpg" alt="История бренда">
+  </div>
+  <div class="mega-tile__title">История бренда</div>
+</a>
+
+      </div>
+    </div>
+
+    <!-- Клиентам -->
+    <div class="mega__panel mega__panel--b2b" data-panel="b2b">
+      <div class="mega__grid mega__grid--cards">
+        <div class="mega-left">
+          <div class="mega-left__text">Наш способ говорить с миром — это говорить сладко.</div>
+
+          <div class="mega-left__contacts">
+            <a class="mega-contact" href="tel:+70000000000">+7(000)-000-00-00</a>
+            <a class="mega-contact" href="mailto:zakaz@vkusobl.ru">zakaz.loveandsweets@gmail.com</a>
+            <a class="mega-contact" href="#" target="_blank" rel="noopener">Telegram</a>
+            <a class="mega-contact" href="#" target="_blank" rel="noopener">Вконтакте</a>
+          </div>
+        </div>
+
+        <a class="mega-tile mega-tile--portrait" href="delivery.html">
+  <div class="mega-card__img mega-card__img--portrait">
+    <img src="img/menu-title3.jpg" alt="Доставка и оплата">
+  </div>
+
+          <div class="mega-tile__title">Доставка и оплата</div>
+        </a>
+
+        <div class="mega-tile mega-tile--order">
+  <div class="mega-tile__left">
+    <a class="mega-tile__imgWrap" href="#brand">
+      <img class="mega-tile__img" src="img/menu-title4.jpg" alt="О заказе">
+    </a>
+
+    <a class="mega-tile__title mega-tile__title--under" href="#brand">О заказе</a>
+  </div>
+
+  <div class="mega-tile__side">
+    <div class="mega-tile__sideLinks">
+      <a class="mega-link" href="#reviews">Отзывы</a>
+      <a class="mega-link" href="#faq">Вопрос-ответ</a>
+    </div>
+  </div>
+</div>
+
+
+
+      </div>
+    </div>
+
+    <!-- Мы в городе -->
+<div class="mega__panel mega__panel--city" data-panel="city">
+  <div class="mega__grid mega__grid--city">
+
+    <div class="mega-city__left">
+      <div class="mega-col__title">Мы в городе</div>
+
+      <div class="mega-city">
+        <div>г. Дубна</div>
+        <div>Пн-Пт 10:00–20:00</div>
+        <div>Сб-Вс 10:00–16:00</div>
+        <a class="mega-link" href="#contacts">Контакты</a>
+      </div>
+    </div>
+
+    <div class="mega-city__middle">
+      <p class="mega-city__note">
+        Наши десерты — это островки спокойствия в море повседневных дел.
+        Причаливайте к ним, чтобы на мгновение остановить время и насладиться тишиной вкуса.
+        <br> </br>
+        <br>Доставка осуществляется только по городу Дубна.</br>
+      </p>
+    </div>
+
+    <div class="city-map">
+      <iframe
+        src="https://yandex.ru/map-widget/v1/?um=constructor%3A5323ec7eeef295359140d0a676351927a92d5b06e8ba41b518464d51d93d3a63&amp;source=constructor"
+        width="463" height="356" frameborder="0">
+      </iframe>
+    </div>
+
+  </div>
+</div>
+
+
+</div>
+
+
+</header>
+<!-- Mobile menu -->
+<div class="mobile-menu" id="mobileMenu" hidden>
+  <div class="mobile-menu__overlay" data-mobile-close="true"></div>
+
+  <div class="mobile-menu__panel" role="dialog" aria-label="Меню">
+    <div class="mobile-menu__head">
+      <div class="brand__name brand__name--stack">Вкус<br>облаков</div>
+      <button class="icon-btn icon-btn--ghost" id="btnMenuClose" type="button" aria-label="Закрыть меню">✕</button>
+    </div>
+
+    <nav class="mobile-menu__nav" aria-label="Мобильная навигация">
+      <a href="index.html#catalog" data-mobile-close="true">Каталог</a>
+      <a href="brand.html" data-mobile-close="true">История бренда</a>
+      <a href="index.html#clients" data-mobile-close="true">Клиентам</a>
+      <a href="index.html#city" data-mobile-close="true">Мы в городе</a>
+    </nav>
+
+    <div class="mobile-menu__contacts">
+      <a class="header__phone" href="tel:+70000000000">+7 (000) 000-00-00</a>
+      <a class="header__tg" href="https://t.me/your_telegram" target="_blank" rel="noopener">Telegram</a>
+      <div class="header__hours">
+        пн-пт 10:00 – 20:00<br>
+        сб-вс 10:00 – 16:00
+      </div>
+    </div>
+  </div>
+</div>
+
+<main class="collection-page">
+  <div class="container" style="padding-top: 120px; padding-bottom: 60px;">
+    <div style="text-align: center; max-width: 800px; margin: 0 auto 20px;">
+      <h1 class="collection-hero__title" style="margin-bottom: 24px;">Наши работы</h1>
+      <p class="collection-hero__text" style="margin: 0 auto; font-size: 17px; line-height: 1.7;">
+        Каждый торт — это история, рассказанная языком вкуса и красоты.
+        Здесь собраны наши любимые работы, созданные с душой для особенных моментов наших клиентов.
+      </p>
+    </div>
+
+    <!-- Фильтры категорий -->
+    <div class="art-filters">
+      <button class="art-filter active" data-category="all">Все работы</button>
+      <button class="art-filter" data-category="торты">Торты</button>
+      <button class="art-filter" data-category="бенто">Бенто-торты</button>
+      <button class="art-filter" data-category="капкейки">Капкейки</button>
+    </div>
+
+    <div class="art-counter">
+      <span id="artCount">16</span> работ в галерее
+    </div>
+
+    <!-- Галерея работ -->
+    <div class="art-gallery" id="artGallery">
+      <!-- Будет заполнено через JavaScript -->
+    </div>
+  </div>
+
+  <!-- Призыв к действию -->
+  <div class="container">
+    <section style="background: linear-gradient(135deg, #f2f0ee, #faf7f5); border-radius: 22px;
+                    padding: 80px 60px; text-align: center; margin: 80px 0;">
+      <h2 style="font-family: var(--brand-font); font-size: 38px; font-weight: 400;
+                  margin: 0 0 20px; line-height: 1.3; color: #1f1f1f;">
+        Хотите заказать похожий торт?
+      </h2>
+      <p style="font-size: 17px; line-height: 1.7; color: #6c6c6c; margin: 0 0 36px;
+                max-width: 700px; margin-left: auto; margin-right: auto;">
+        Мы создадим для вас уникальный торт по вашим пожеланиям.
+        Любой дизайн, любой вкус — воплотим вашу мечту в реальность.
+      </p>
+
+      <div style="display: flex; gap: 16px; justify-content: center; flex-wrap: wrap;">
+        <a href="torty.html" style="font-size: 15px; font-weight: 600; color: #fff;
+                 background: #d4a088; text-decoration: none; padding: 14px 32px;
+                 border-radius: 12px; transition: all 0.3s ease; display: inline-block;">ЗАКАЗАТЬ ТОРТ</a>
+        <a href="fillings.html" style="font-size: 15px; font-weight: 600; color: #1f1f1f;
+                 text-decoration: none; padding: 14px 32px; border: 2px solid #e7e0dc;
+                 border-radius: 12px; transition: all 0.3s ease; display: inline-block;">ВЫБРАТЬ НАЧИНКУ</a>
+      </div>
+    </section>
+  </div>
+</main>
+
+<!-- Модальное окно для просмотра -->
+<div class="art-modal" id="artModal">
+  <button class="art-modal__close" id="modalClose">&times;</button>
+  <button class="art-modal__nav art-modal__prev" id="modalPrev">‹</button>
+  <img class="art-modal__image" id="modalImage" src="" alt="">
+  <button class="art-modal__nav art-modal__next" id="modalNext">›</button>
+</div>
+
+  <!--FOOTER-->
+    <footer class="site-footer" id="contacts">
+  <div class="container site-footer__inner">
+
+    <div class="site-footer__grid">
+      <!-- Левая колонка -->
+      <div class="site-footer__left">
+        <div class="site-footer__lead">
+          Иногда самые важные слова можно сказать без слов.
+        </div>
+
+        <div class="site-footer__contacts">
+          <a class="site-footer__contact" href="tel:+74993220020">
+            <span class="site-footer__ico" aria-hidden="true">☎</span>
+            +7 (000) 000-00-00
+          </a>
+
+          <a class="site-footer__contact" href="mailto:zakaz.loveandsweets@gmail.com">
+            <span class="site-footer__ico" aria-hidden="true">✉</span>
+            vkus.oblakov@gmail.com
+          </a>
+
+          <a class="site-footer__contact" href="#">
+            Telegram
+          </a>
+
+          <div class="site-footer__social">
+            <a href="#" class="site-footer__social-link">Вконтакте</a>
+          </div>
+        </div>
+      </div>
+
+      <!-- Колонка 2 -->
+      <nav class="site-footer__col" aria-label="Магазин">
+        <div class="site-footer__title">Магазин</div>
+        <a class="site-footer__link" href="summer.html">Каталог Casual</a>
+        <a class="site-footer__link" href="torty.html">Каталог To order</a>
+        <a class="site-footer__link" href="fillings.html">Наши начинки</a>
+      </nav>
+
+      <!-- Колонка 3 -->
+      <nav class="site-footer__col" aria-label="Наша жизнь">
+        <div class="site-footer__title">Наша жизнь</div>
+        <a class="site-footer__link" href="brand.html">История бренда</a>
+        <a class="site-footer__link" href="art-works.html">Наши работы</a>
+      </nav>
+
+      <!-- Колонка 4 -->
+      <nav class="site-footer__col" aria-label="Клиентам">
+        <div class="site-footer__title">Клиентам</div>
+        <a class="site-footer__link" href="delivery.html">Доставка и оплата</a>
+        <a class="site-footer__link" href="#">Отзывы</a>
+        <a class="site-footer__link" href="#">Вопрос-ответ</a>
+        <a class="site-footer__link" href="#contacts">Контакты</a>
+      </nav>
+    </div>
+
+    <div class="site-footer__bottom">
+      <div class="site-footer__copy">© 2026 Вкус облаков.</div>
+
+      <a class="site-footer__policy" href="#">
+        Политика конфиденциальности
+      </a>
+
+      <div class="site-footer__dev">
+
+      </div>
+    </div>
+
+  </div>
+</footer>
+
+
+ <script src="https://api-maps.yandex.ru/2.1/?lang=ru_RU"></script>
+
+<script>
+// Данные галереи
+const artWorks = [
+  {
+    title: 'Бенто-торт в виде бургера',
+    image: 'img/наши работы/Бенто-торт в виде бургера.jpg',
+    category: 'бенто'
+  },
+  {
+    title: 'Бенто-торт с котиками',
+    image: 'img/наши работы/Бенто-торт с котиками.jpg',
+    category: 'бенто'
+  },
+  {
+    title: 'Бенто-торт Смешарики',
+    image: 'img/наши работы/Бенто-торт Смешарики.jpg',
+    category: 'бенто'
+  },
+  {
+    title: 'Капкейки с блестками и коктейльными вишнями',
+    image: 'img/наши работы/Капкейки с блестками и коктейльными вишнями.jpg',
+    category: 'капкейки'
+  },
+  {
+    title: 'Новогодние капкейки',
+    image: 'img/наши работы/Новогодние капкейки.jpg',
+    category: 'капкейки'
+  },
+  {
+    title: 'Свадебный торт с бантами и клубникой',
+    image: 'img/наши работы/Свадебный торт с бантами и клубникой.jpg',
+    category: 'торты'
+  },
+  {
+    title: 'Торт в морском стиле',
+    image: 'img/наши работы/Торт в морском стиле.jpg',
+    category: 'торты'
+  },
+  {
+    title: 'Торт с ангелочком и перышками',
+    image: 'img/наши работы/Торт с ангелочком и перышками.jpg',
+    category: 'торты'
+  },
+  {
+    title: 'Торт с волнами и гранатом',
+    image: 'img/наши работы/Торт с волнами и гранатом.jpg',
+    category: 'торты'
+  },
+  {
+    title: 'Торт с живыми цветами',
+    image: 'img/наши работы/Торт с живыми цветами.jpg',
+    category: 'торты'
+  },
+  {
+    title: 'Торт с космонавтом-свинкой',
+    image: 'img/наши работы/Торт с космонавтом-свинкой.jpg',
+    category: 'торты'
+  },
+  {
+    title: 'Торт с кремовыми фигурками с гусятами',
+    image: 'img/наши работы/Торт с кремовыми фигурками с гусятами.jpg',
+    category: 'торты'
+  },
+  {
+    title: 'Торт с маракуйей',
+    image: 'img/наши работы/Торт с маракуйей.jpg',
+    category: 'торты'
+  },
+  {
+    title: 'Торт с серыми крысками',
+    image: 'img/наши работы/Торт с серыми крысками.jpg',
+    category: 'торты'
+  },
+  {
+    title: 'Торт-карусель',
+    image: 'img/наши работы/Торт-карусель.jpg',
+    category: 'торты'
+  },
+  {
+    title: 'Шоколадные капкейки с Орео',
+    image: 'img/наши работы/Шоколадные капкейки с Орео.jpg',
+    category: 'капкейки'
+  }
+];
+
+let currentImageIndex = 0;
+let currentCategory = 'all';
+
+// Рендерим галерею
+function renderGallery(category = 'all') {
+  const gallery = document.getElementById('artGallery');
+  const filteredWorks = category === 'all'
+    ? artWorks
+    : artWorks.filter(work => work.category === category);
+
+  gallery.innerHTML = filteredWorks.map((work, index) => `
+    <div class="art-item" data-index="${artWorks.indexOf(work)}">
+      <img class="art-item__image" src="${work.image}" alt="${work.title}" loading="lazy">
+      <div class="art-item__overlay">
+        <h3 class="art-item__title">${work.title}</h3>
+      </div>
+    </div>
+  `).join('');
+
+  // Обновляем счетчик
+  document.getElementById('artCount').textContent = filteredWorks.length;
+
+  // Добавляем обработчики
+  document.querySelectorAll('.art-item').forEach(item => {
+    item.addEventListener('click', () => {
+      currentImageIndex = parseInt(item.dataset.index);
+      openModal();
+    });
+  });
+}
+
+// Модальное окно
+function openModal() {
+  const modal = document.getElementById('artModal');
+  const modalImage = document.getElementById('modalImage');
+
+  modal.classList.add('active');
+  modalImage.src = artWorks[currentImageIndex].image;
+  modalImage.alt = artWorks[currentImageIndex].title;
+  document.body.style.overflow = 'hidden';
+}
+
+function closeModal() {
+  const modal = document.getElementById('artModal');
+  modal.classList.remove('active');
+  document.body.style.overflow = '';
+}
+
+function nextImage() {
+  currentImageIndex = (currentImageIndex + 1) % artWorks.length;
+  document.getElementById('modalImage').src = artWorks[currentImageIndex].image;
+}
+
+function prevImage() {
+  currentImageIndex = (currentImageIndex - 1 + artWorks.length) % artWorks.length;
+  document.getElementById('modalImage').src = artWorks[currentImageIndex].image;
+}
+
+// Фильтры
+document.querySelectorAll('.art-filter').forEach(filter => {
+  filter.addEventListener('click', () => {
+    document.querySelectorAll('.art-filter').forEach(f => f.classList.remove('active'));
+    filter.classList.add('active');
+
+    const category = filter.dataset.category;
+    currentCategory = category;
+    renderGallery(category);
+  });
+});
+
+// События модального окна
+document.getElementById('modalClose').addEventListener('click', closeModal);
+document.getElementById('modalPrev').addEventListener('click', prevImage);
+document.getElementById('modalNext').addEventListener('click', nextImage);
+
+document.getElementById('artModal').addEventListener('click', (e) => {
+  if (e.target.id === 'artModal') closeModal();
+});
+
+// Клавиатура
+document.addEventListener('keydown', (e) => {
+  const modal = document.getElementById('artModal');
+  if (!modal.classList.contains('active')) return;
+
+  if (e.key === 'Escape') closeModal();
+  if (e.key === 'ArrowRight') nextImage();
+  if (e.key === 'ArrowLeft') prevImage();
+});
+
+// Инициализация
+renderGallery();
+</script>
+
+  <script src="js/app.js"></script>
+</body>
+</html>
