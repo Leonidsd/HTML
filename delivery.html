@@ -48,6 +48,24 @@
   a[href="art-works.html"]:hover {
     text-decoration: underline;
   }
+
+  /* Навигация в hero блоке */
+  .hero-nav a {
+    font-size: 13px;
+    font-weight: 600;
+    color: rgba(255,255,255,0.7);
+    text-decoration: none;
+    letter-spacing: 0.1em;
+    padding-bottom: 8px;
+    border-bottom: 2px solid transparent;
+    transition: all 0.3s ease;
+  }
+
+  .hero-nav a.active,
+  .hero-nav a:hover {
+    color: white;
+    border-color: white;
+  }
 </style>
 
 </head>
@@ -296,23 +314,40 @@
 </div>
 
 <main class="collection-page">
-  <div class="container" style="padding-top: 120px; padding-bottom: 60px; position: relative;">
-    <!-- Декоративные элементы фона -->
-    <div style="position: absolute; top: 80px; left: -100px; width: 400px; height: 400px; border-radius: 50%; background: linear-gradient(135deg, rgba(212, 160, 136, 0.2), rgba(242, 240, 238, 0.3)); z-index: 0; pointer-events: none;"></div>
+  <!-- Hero Section как в PDF -->
+  <div style="position: relative; height: 600px; overflow: hidden; margin-top: 80px;">
+    <img src="img/casual-1.jpg" alt="Десерты" style="width: 100%; height: 100%; object-fit: cover; position: absolute; top: 0; left: 0;">
 
-    <div style="display: grid; grid-template-columns: 1fr 380px; gap: 60px; align-items: start; position: relative; z-index: 1;">
-      <div style="padding-left: 40px;">
-        <h1 class="collection-hero__title" style="margin-bottom: 32px;">Доставка курьером</h1>
+    <!-- Градиент overlay -->
+    <div style="position: absolute; top: 0; left: 0; right: 0; bottom: 0; background: linear-gradient(to right, rgba(0,0,0,0.4), rgba(0,0,0,0.1));"></div>
 
-        <p class="collection-hero__text" style="margin-left: 0; max-width: 700px;">
-          По городу Дубна на следующий день при заказе от 3 500 ₽. Обратите внимание,
-          минимальная сумма заказа для доставки в праздничные дни – от 5000 ₽. В стоимость доставки
-          включены 15 минут на приём/передачу каждого товара. Простой курьера свыше этого срока,
-          оплачивается дополнительно, из расчёта 15 мин = 500 ₽.
-        </p>
+    <!-- Контент поверх фото -->
+    <div class="container" style="position: relative; height: 100%; display: flex; flex-direction: column; justify-content: center; z-index: 1;">
+      <h1 style="font-family: var(--brand-font); font-size: 64px; font-weight: 400; color: white; margin: 0 0 24px; max-width: 700px; line-height: 1.2; text-shadow: 0 4px 12px rgba(0,0,0,0.3);">
+        Доставляем сладости каждый день
+      </h1>
+
+      <!-- Кнопки навигации -->
+      <div class="hero-nav" style="display: flex; gap: 24px; margin-top: 40px;">
+        <a href="#delivery" class="active">О ДОСТАВКЕ КУРЬЕРОМ</a>
+        <a href="#pickup">О САМОВЫВОЗЕ</a>
+        <a href="#payment">ОБ ОПЛАТЕ</a>
       </div>
+    </div>
+  </div>
 
-      <img src="img/casual-1.jpg" alt="Десерты" style="width: 100%; height: 500px; object-fit: cover; border-radius: 20px; margin-top: -80px; margin-left: -100px; box-shadow: 0 20px 60px rgba(0,0,0,0.12);">
+  <!-- Доставка курьером -->
+  <div class="container" id="delivery" style="padding-top: 100px;">
+    <div style="max-width: 900px; margin-bottom: 60px;">
+      <h2 style="font-family: var(--brand-font); font-size: 48px; font-weight: 400; margin: 0 0 24px; color: #1f1f1f;">
+        Доставка курьером
+      </h2>
+      <p style="font-size: 17px; line-height: 1.8; color: #6c6c6c; margin: 0;">
+        По городу Дубна на следующий день при заказе от 3 500 ₽. Обратите внимание,
+        минимальная сумма заказа для доставки в праздничные дни – от 5000 ₽. В стоимость доставки
+        включены 15 минут на приём/передачу каждого товара. Простой курьера свыше этого срока,
+        оплачивается дополнительно, из расчёта 15 мин = 500 ₽.
+      </p>
     </div>
   </div>
 
@@ -333,7 +368,7 @@
         <h3 style="font-size: 22px; font-weight: 600; margin: 0 0 16px; color: #1f1f1f;">В пределах города</h3>
         <p style="font-size: 15px; line-height: 1.7; color: #6c6c6c; margin: 0;">
           Стоимость доставки от 300 рублей и варьируется от веса вашего торта и удалённости от центра.
-          Просчитывается вашим менеджером для Вас.
+          
         </p>
       </article>
 
@@ -349,7 +384,7 @@
         </div>
         <h3 style="font-size: 22px; font-weight: 600; margin: 0 0 16px; color: #1f1f1f;">За пределы города</h3>
         <p style="font-size: 15px; line-height: 1.7; color: #6c6c6c; margin: 0;">
-          Доставка за пределы города Дубна обсуждается индивидуально с менеджером в зависимости от удаленности адреса доставки.
+          Доставка за пределы города Дубна не осуществляется.
         </p>
       </article>
 
