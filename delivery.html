@@ -49,22 +49,45 @@
     text-decoration: underline;
   }
 
-  /* Навигация в hero блоке */
-  .hero-nav a {
-    font-size: 13px;
-    font-weight: 600;
-    color: rgba(255,255,255,0.7);
-    text-decoration: none;
-    letter-spacing: 0.1em;
-    padding-bottom: 8px;
-    border-bottom: 2px solid transparent;
+  /* Исправление подчеркивания логотипа */
+  .page--catalog .brand__name--stack {
+    text-decoration: none !important;
+    text-decoration-line: none !important;
+    text-decoration-color: transparent !important;
+  }
+
+  .page--catalog .brand:hover .brand__name--stack,
+  .page--catalog .brand:focus-visible .brand__name--stack {
+    text-decoration: none !important;
+    text-decoration-color: transparent !important;
+  }
+
+  /* Стили для табов оплаты */
+  .payment-tab {
     transition: all 0.3s ease;
   }
 
-  .hero-nav a.active,
-  .hero-nav a:hover {
-    color: white;
-    border-color: white;
+  .payment-tab:hover {
+    color: #1f1f1f !important;
+  }
+
+  .payment-tab.active {
+    color: #1f1f1f !important;
+  }
+
+  .payment-content {
+    animation: fadeIn 0.5s ease;
+  }
+
+  @keyframes fadeIn {
+    from {
+      opacity: 0;
+      transform: translateY(15px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
   }
 </style>
 
@@ -226,17 +249,17 @@
 
         <div class="mega-tile mega-tile--order">
   <div class="mega-tile__left">
-    <a class="mega-tile__imgWrap" href="#brand">
+    <a class="mega-tile__imgWrap" href="about-order.html">
       <img class="mega-tile__img" src="img/menu-title4.jpg" alt="О заказе">
     </a>
 
-    <a class="mega-tile__title mega-tile__title--under" href="#brand">О заказе</a>
+    <a class="mega-tile__title mega-tile__title--under" href="about-order.html">О заказе</a>
   </div>
 
   <div class="mega-tile__side">
     <div class="mega-tile__sideLinks">
       <a class="mega-link" href="#reviews">Отзывы</a>
-      <a class="mega-link" href="#faq">Вопрос-ответ</a>
+      <a class="mega-link" href="faq.html">Вопрос-ответ</a>
     </div>
   </div>
 </div>
@@ -314,40 +337,26 @@
 </div>
 
 <main class="collection-page">
-  <!-- Hero Section как в PDF -->
-  <div style="position: relative; height: 600px; overflow: hidden; margin-top: 80px;">
-    <img src="img/casual-1.jpg" alt="Десерты" style="width: 100%; height: 100%; object-fit: cover; position: absolute; top: 0; left: 0;">
-
-    <!-- Градиент overlay -->
-    <div style="position: absolute; top: 0; left: 0; right: 0; bottom: 0; background: linear-gradient(to right, rgba(0,0,0,0.4), rgba(0,0,0,0.1));"></div>
-
-    <!-- Контент поверх фото -->
-    <div class="container" style="position: relative; height: 100%; display: flex; flex-direction: column; justify-content: center; z-index: 1;">
-      <h1 style="font-family: var(--brand-font); font-size: 64px; font-weight: 400; color: white; margin: 0 0 24px; max-width: 700px; line-height: 1.2; text-shadow: 0 4px 12px rgba(0,0,0,0.3);">
-        Доставляем сладости каждый день
-      </h1>
-
-      <!-- Кнопки навигации -->
-      <div class="hero-nav" style="display: flex; gap: 24px; margin-top: 40px;">
-        <a href="#delivery" class="active">О ДОСТАВКЕ КУРЬЕРОМ</a>
-        <a href="#pickup">О САМОВЫВОЗЕ</a>
-        <a href="#payment">ОБ ОПЛАТЕ</a>
+  <!-- Доставка курьером - двухколоночный layout -->
+  <div class="container" id="delivery" style="padding-top: 120px; padding-bottom: 80px;">
+    <div style="display: grid; grid-template-columns: 1fr 400px; gap: 80px; align-items: center;">
+      <!-- Текст слева -->
+      <div>
+        <h1 style="font-family: var(--brand-font); font-size: 56px; font-weight: 400; margin: 0 0 32px; color: #1f1f1f; line-height: 1.2;">
+          Доставка курьером
+        </h1>
+        <p style="font-size: 17px; line-height: 1.8; color: #6c6c6c; margin: 0;">
+          По городу Дубна на следующий день при заказе от 3 500 ₽. Обратите внимание,
+          минимальная сумма заказа для доставки в праздничные дни – от 5000 ₽. В стоимость доставки
+          включены 15 минут на приём/передачу каждого товара. Простой курьера свыше этого срока,
+          оплачивается дополнительно, из расчёта 15 мин = 500 ₽.
+        </p>
       </div>
-    </div>
-  </div>
 
-  <!-- Доставка курьером -->
-  <div class="container" id="delivery" style="padding-top: 100px;">
-    <div style="max-width: 900px; margin-bottom: 60px;">
-      <h2 style="font-family: var(--brand-font); font-size: 48px; font-weight: 400; margin: 0 0 24px; color: #1f1f1f;">
-        Доставка курьером
-      </h2>
-      <p style="font-size: 17px; line-height: 1.8; color: #6c6c6c; margin: 0;">
-        По городу Дубна на следующий день при заказе от 3 500 ₽. Обратите внимание,
-        минимальная сумма заказа для доставки в праздничные дни – от 5000 ₽. В стоимость доставки
-        включены 15 минут на приём/передачу каждого товара. Простой курьера свыше этого срока,
-        оплачивается дополнительно, из расчёта 15 мин = 500 ₽.
-      </p>
+      <!-- Картинка справа -->
+      <div style="border-radius: 22px; overflow: hidden; box-shadow: 0 20px 60px rgba(0,0,0,0.12);">
+        <img src="img/casual-1.jpg" alt="Пирожные" style="width: 100%; height: auto; display: block;">
+      </div>
     </div>
   </div>
 
@@ -475,84 +484,126 @@
     </section>
   </div>
 
-  <!-- Pickup section -->
-  <div class="container">
-    <section style="background: #fff; border-radius: 22px; padding: 60px; margin: 60px 0; box-shadow: 0 10px 30px rgba(0,0,0,.08);">
-      <h2 style="font-family: var(--brand-font); font-size: 42px; font-weight: 400; margin: 0 0 48px; color: #1f1f1f;">Самовывоз</h2>
-      <p style="font-size: 16px; line-height: 1.8; color: #6c6c6c; margin-bottom: 40px;">
-        Вы можете забрать заказ с нашего производства самостоятельно по предварительному заказу.
-      </p>
-
-      <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 48px;">
-        <div>
-          <h3 style="font-size: 13px; font-weight: 700; color: #6c6c6c; margin: 0 0 12px; letter-spacing: 0.1em; text-transform: uppercase;">Адрес</h3>
-          <p style="font-size: 16px; line-height: 1.6; color: #1f1f1f; margin: 0; font-weight: 500;">
-            ДУБНА, УЛ. ПРИМЕРНАЯ, Д.1, К.1<br>
-            (ТЕРРИТОРИЯ ПРОИЗВОДСТВА)
-          </p>
-        </div>
-
-        <div>
-          <h3 style="font-size: 13px; font-weight: 700; color: #6c6c6c; margin: 0 0 12px; letter-spacing: 0.1em; text-transform: uppercase;">Телефон</h3>
-          <p style="font-size: 16px; line-height: 1.6; color: #1f1f1f; margin: 0;">
-            <a href="tel:+70000000000" style="color: #1f1f1f; text-decoration: none;">+7 (000) 000-00-00</a>
-          </p>
-        </div>
-
-        <div>
-          <h3 style="font-size: 13px; font-weight: 700; color: #6c6c6c; margin: 0 0 12px; letter-spacing: 0.1em; text-transform: uppercase;">Время работы</h3>
-          <p style="font-size: 16px; line-height: 1.6; color: #1f1f1f; margin: 0; font-weight: 500;">
-            ПН-ПТ 10:00–20:00<br>
-            СБ-ВС 10:00–16:00
-          </p>
-        </div>
-      </div>
-
-      <div style="background: #f2f0ee; border-radius: 12px; padding: 20px 24px; margin-top: 40px;">
-        <p style="font-size: 14px; line-height: 1.6; color: #6c6c6c; margin: 0;">
-          <strong>ПОЖАЛУЙСТА, ОБРАТИТЕ ВНИМАНИЕ:</strong><br>
-          На данной точке нет кафе.<br>
-          Заказать можно только через интернет-магазин.
+  <!-- Самовывоз - двухколоночный layout -->
+  <div class="container" id="pickup" style="padding: 100px 0;">
+    <div style="display: grid; grid-template-columns: 1fr 400px; gap: 80px; align-items: center;">
+      <!-- Текст слева -->
+      <div>
+        <h2 style="font-family: var(--brand-font); font-size: 56px; font-weight: 400; margin: 0 0 32px; color: #1f1f1f; line-height: 1.2;">
+          Самовывоз
+        </h2>
+        <p style="font-size: 17px; line-height: 1.8; color: #6c6c6c; margin-bottom: 48px;">
+          Вы можете забрать заказ с нашего производства самостоятельно по предварительному заказу.
         </p>
+
+        <div style="display: flex; flex-direction: column; gap: 32px;">
+          <div>
+            <h3 style="font-size: 13px; font-weight: 700; color: #6c6c6c; margin: 0 0 12px; letter-spacing: 0.1em; text-transform: uppercase;">Адрес</h3>
+            <p style="font-size: 18px; line-height: 1.6; color: #1f1f1f; margin: 0; font-weight: 500;">
+              ДУБНА, УЛ. ПРИМЕРНАЯ, Д.1, К.1<br>
+              (ТЕРРИТОРИЯ ПРОИЗВОДСТВА)
+            </p>
+          </div>
+
+          <div>
+            <h3 style="font-size: 13px; font-weight: 700; color: #6c6c6c; margin: 0 0 12px; letter-spacing: 0.1em; text-transform: uppercase;">Телефон</h3>
+            <p style="font-size: 18px; line-height: 1.6; color: #1f1f1f; margin: 0; font-weight: 500;">
+              <a href="tel:+70000000000" style="color: #1f1f1f; text-decoration: none;">+7 (000) 000-00-00</a>
+            </p>
+          </div>
+
+          <div>
+            <h3 style="font-size: 13px; font-weight: 700; color: #6c6c6c; margin: 0 0 12px; letter-spacing: 0.1em; text-transform: uppercase;">Время работы</h3>
+            <p style="font-size: 18px; line-height: 1.6; color: #1f1f1f; margin: 0; font-weight: 500;">
+              ПН-ПТ 10:00–20:00<br>
+              СБ-ВС 10:00–16:00
+            </p>
+          </div>
+        </div>
+
+        <div style="background: #f2f0ee; border-radius: 12px; padding: 20px 24px; margin-top: 40px;">
+          <p style="font-size: 14px; line-height: 1.6; color: #6c6c6c; margin: 0;">
+            <strong>ПОЖАЛУЙСТА, ОБРАТИТЕ ВНИМАНИЕ:</strong><br>
+            На данной точке нет кафе. Заказать можно только через интернет-магазин.
+          </p>
+        </div>
       </div>
-    </section>
+
+      <!-- Картинка справа -->
+      <div style="border-radius: 22px; overflow: hidden; box-shadow: 0 20px 60px rgba(0,0,0,0.12);">
+        <img src="img/casual-2.jpg" alt="Пирожные" style="width: 100%; height: auto; display: block;">
+      </div>
+    </div>
   </div>
 
   <!-- Payment section -->
-  <div class="container">
-    <section style="background: #fff; border-radius: 22px; padding: 60px; margin: 60px 0; max-width: 900px; box-shadow: 0 10px 30px rgba(0,0,0,.08);">
-      <h2 style="font-family: var(--brand-font); font-size: 42px; font-weight: 400; margin: 0 0 32px; color: #1f1f1f;">Оплата</h2>
+  <section class="story" id="payment">
+    <div class="story__fade" aria-hidden="true"></div>
 
-      <div>
-        <h3 style="font-size: 22px; font-weight: 600; margin: 0 0 20px; color: #1f1f1f;">Возврат</h3>
-        <p style="font-size: 16px; line-height: 1.8; color: #6c6c6c; margin: 0 0 24px;">
-          Обращаем Ваше внимание на то, что все заказы на индивидуальное оформление должны быть
-          предварительно оплачены. Вы можете оплатить заказ банковской картой Visa, Mastercard
-          или МИР в режиме онлайн.
-        </p>
+    <div class="story__inner">
+      <div class="story__panel">
+        <div class="story__content">
+          <!-- Кнопки-табы -->
+          <div style="display: flex; gap: 40px; margin-bottom: 32px;">
+            <button class="payment-tab active" data-tab="payment" style="font-family: var(--brand-font); font-size: 36px; font-weight: 400; color: #1f1f1f; background: none; border: none; cursor: pointer; padding: 0; position: relative; transition: all 0.3s ease;">
+              Оплата
+            </button>
+            <button class="payment-tab" data-tab="refund" style="font-family: var(--brand-font); font-size: 36px; font-weight: 400; color: #a0a0a0; background: none; border: none; cursor: pointer; padding: 0; position: relative; transition: all 0.3s ease;">
+              Возврат
+            </button>
+          </div>
 
-        <div style="display: flex; gap: 16px; align-items: center; margin: 32px 0;">
-          <svg width="60" height="40" viewBox="0 0 60 40" fill="none">
-            <rect width="60" height="40" rx="4" fill="#1A1F71"/>
-            <text x="10" y="26" font-family="Arial" font-size="16" font-weight="bold" fill="white">VISA</text>
-          </svg>
+          <!-- Контент для "Оплата" -->
+          <div class="payment-content active" data-content="payment">
+            <p class="story__text">
+              Обращаем Ваше внимание на то, что все заказы на индивидуальное оформление должны быть
+              предварительно оплачены. Вы можете оплатить заказ банковской картой Visa, Mastercard
+              или МИР в режиме онлайн.
+            </p>
 
-          <svg width="60" height="40" viewBox="0 0 60 40" fill="none">
-            <rect width="60" height="40" rx="4" fill="#EB001B"/>
-            <circle cx="22" cy="20" r="12" fill="#EB001B"/>
-            <circle cx="38" cy="20" r="12" fill="#FF5F00"/>
-            <path d="M30 12c-2.5 2-4 5-4 8s1.5 6 4 8c2.5-2 4-5 4-8s-1.5-6-4-8z" fill="#F79E1B"/>
-          </svg>
+            <div style="display: flex; gap: 16px; align-items: center; margin-top: 32px;">
+              <svg width="60" height="40" viewBox="0 0 60 40" fill="none">
+                <rect width="60" height="40" rx="4" fill="#1A1F71"/>
+                <text x="10" y="26" font-family="Arial" font-size="16" font-weight="bold" fill="white">VISA</text>
+              </svg>
 
-          <svg width="60" height="40" viewBox="0 0 60 40" fill="none">
-            <rect width="60" height="40" rx="4" fill="#4DB45E"/>
-            <text x="12" y="26" font-family="Arial" font-size="14" font-weight="bold" fill="white">МИР</text>
-          </svg>
+              <svg width="60" height="40" viewBox="0 0 60 40" fill="none">
+                <rect width="60" height="40" rx="4" fill="#EB001B"/>
+                <circle cx="22" cy="20" r="12" fill="#EB001B"/>
+                <circle cx="38" cy="20" r="12" fill="#FF5F00"/>
+                <path d="M30 12c-2.5 2-4 5-4 8s1.5 6 4 8c2.5-2 4-5 4-8s-1.5-6-4-8z" fill="#F79E1B"/>
+              </svg>
+
+              <svg width="60" height="40" viewBox="0 0 60 40" fill="none">
+                <rect width="60" height="40" rx="4" fill="#4DB45E"/>
+                <text x="12" y="26" font-family="Arial" font-size="14" font-weight="bold" fill="white">МИР</text>
+              </svg>
+            </div>
+          </div>
+
+          <!-- Контент для "Возврат" -->
+          <div class="payment-content" data-content="refund" style="display: none;">
+            <p class="story__text">
+              Возврат денежных средств осуществляется в соответствии с действующим законодательством РФ.
+            </p>
+            <p class="story__text">
+              В случае отказа от заказа до его изготовления, мы возвращаем 100% стоимости.
+              Если заказ уже в процессе изготовления, возврат возможен за вычетом стоимости использованных материалов.
+            </p>
+            <p class="story__text">
+              Для оформления возврата свяжитесь с нами по телефону <a href="tel:+70000000000" style="color: #d4a088; text-decoration: none; font-weight: 600;">+7 (000) 000-00-00</a>
+              или напишите на <a href="mailto:vkus.oblakov@gmail.com" style="color: #d4a088; text-decoration: none; font-weight: 600;">vkus.oblakov@gmail.com</a>
+            </p>
+          </div>
+
         </div>
-
       </div>
-    </section>
-  </div>
+
+      <div class="story__media">
+        <img src="img/casual-3.jpg" alt="Десерт" style="width: 100%; height: 100%; object-fit: cover;">
+      </div>
+    </div>
+  </section>
 
   <!-- Как сделать заказ -->
   <div class="container">
@@ -657,9 +708,6 @@
         <a href="torty.html" class="return-btn" style="font-size: 15px; font-weight: 600; color: #1f1f1f;
                  text-decoration: none; padding: 12px 28px; border: 2px solid #e7e0dc;
                  border-radius: 12px; transition: all 0.3s ease;">КАТАЛОГ TO ORDER</a>
-        <a href="fillings.html" class="return-btn" style="font-size: 15px; font-weight: 600; color: #1f1f1f;
-                 text-decoration: none; padding: 12px 28px; border: 2px solid #e7e0dc;
-                 border-radius: 12px; transition: all 0.3s ease;">НАЧИНКИ</a>
       </div>
 
       <a href="art-works.html" style="font-size: 15px; font-weight: 600; color: #1f1f1f;
@@ -719,7 +767,7 @@
         <div class="site-footer__title">Клиентам</div>
         <a class="site-footer__link" href="delivery.html">Доставка и оплата</a>
         <a class="site-footer__link" href="#">Отзывы</a>
-        <a class="site-footer__link" href="#">Вопрос-ответ</a>
+        <a class="site-footer__link" href="faq.html">Вопрос-ответ</a>
         <a class="site-footer__link" href="#contacts">Контакты</a>
       </nav>
     </div>
@@ -743,5 +791,42 @@
  <script src="https://api-maps.yandex.ru/2.1/?lang=ru_RU"></script>
 
   <script src="js/app.js"></script>
+
+  <!-- Скрипт для переключения табов -->
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      const tabs = document.querySelectorAll('.payment-tab');
+      const contents = document.querySelectorAll('.payment-content');
+
+      tabs.forEach(tab => {
+        tab.addEventListener('click', function() {
+          const targetTab = this.getAttribute('data-tab');
+
+          // Убираем active у всех табов
+          tabs.forEach(t => {
+            t.classList.remove('active');
+            t.style.color = '#a0a0a0';
+          });
+
+          // Добавляем active к выбранному табу
+          this.classList.add('active');
+          this.style.color = '#1f1f1f';
+
+          // Скрываем все контенты
+          contents.forEach(c => {
+            c.style.display = 'none';
+            c.classList.remove('active');
+          });
+
+          // Показываем нужный контент
+          const targetContent = document.querySelector(`.payment-content[data-content="${targetTab}"]`);
+          if (targetContent) {
+            targetContent.style.display = 'block';
+            targetContent.classList.add('active');
+          }
+        });
+      });
+    });
+  </script>
 </body>
 </html>

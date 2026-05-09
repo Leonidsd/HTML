@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>Летняя коллекция</title>
+  <title>О заказе — Вкус облаков</title>
   <link rel="stylesheet" href="css/main.css" />
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -12,13 +12,36 @@
 <!-- Montserrat для меню/интерфейса -->
 <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&display=swap" rel="stylesheet">
 
+<style>
+  /* Исправление подчеркивания логотипа */
+  .page--catalog .brand__name--stack {
+    text-decoration: none !important;
+    text-decoration-line: none !important;
+    text-decoration-color: transparent !important;
+  }
 
+  .page--catalog .brand:hover .brand__name--stack,
+  .page--catalog .brand:focus-visible .brand__name--stack {
+    text-decoration: none !important;
+    text-decoration-color: transparent !important;
+  }
+
+  /* Стили для карточек */
+  .info-card {
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+  }
+
+  .info-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 14px 40px rgba(0,0,0,0.12) !important;
+  }
+</style>
 
 </head>
 
-<body class="page page--catalog" data-collection="summer">
+<body class="page page--catalog" data-collection="about-order">
   <!-- Header -->
-   
+
   <header class="header header--glass">
   <section class="header__section">
     <div class="container header__container header__container--new">
@@ -93,10 +116,10 @@
     <!-- Каталог -->
     <div class="mega__panel mega__panel--catalog" data-panel="catalog">
       <div class="mega__grid mega__grid--catalog">
-        <a class="mega-tile mega-tile--portrait" href="delivery.html">
+        <a class="mega-tile mega-tile--portrait" href="#brand">
   <div class="mega-card__img mega-card__img--portrait">
     <img src="img/menu-title1.jpg" alt="Бренд">
-  </div>          
+  </div>
         </a>
 
         <div class="mega-cols">
@@ -126,7 +149,7 @@
           <div class="mega-col">
             <div class="mega-col__title">Art</div>
             <a class="mega-link" href="art-works.html">Наши работы</a>
-            
+
           </div>
         </div>
       </div>
@@ -202,7 +225,7 @@
 
     <!-- Мы в городе -->
     <!--<div class="mega__grid mega__grid--city">
-  Левая колонка 
+  Левая колонка
   <div class="mega-city__left">
     <div class="mega-col__title">Мы в городе</div>
 
@@ -214,7 +237,7 @@
     </div>
   </div>
 
-   Центр 
+   Центр
   <div class="mega-city__center">
     <p class="mega-city__note">
       Наши десерты — это островки спокойствия в море повседневных дел.
@@ -265,6 +288,7 @@
 
 
 </header>
+
 <!-- Mobile menu -->
 <div class="mobile-menu" id="mobileMenu" hidden>
   <div class="mobile-menu__overlay" data-mobile-close="true"></div>
@@ -293,141 +317,172 @@
   </div>
 </div>
 
+<main class="collection-page">
 
-  <main class="collection-page">
-    <div class="container collection-hero">
-      <div class="collection-hero__grid">
-        <h1 class="collection-hero__title">Летняя коллекция</h1>
-
-        <p class="collection-hero__text" style="margin-left: 40px;">
-          Мы печём с душой. Для будней — гармоничные десерты, для праздников — торты вашей мечты.
+  <!-- Hero секция -->
+  <div class="container" style="padding-top: 120px; padding-bottom: 80px;">
+    <div style="display: grid; grid-template-columns: 1fr 400px; gap: 80px; align-items: center;">
+      <!-- Текст слева -->
+      <div>
+        <h1 style="font-family: var(--brand-font); font-size: 56px; font-weight: 400; margin: 0 0 32px; color: #1f1f1f; line-height: 1.2;">
+          Как сделать заказ
+        </h1>
+        <p style="font-size: 17px; line-height: 1.8; color: #6c6c6c; margin: 0;">
+          Мы создали простой и удобный процесс заказа, чтобы вы могли легко получить десерт своей мечты.
+          Всего несколько шагов — и ваш идеальный торт уже в пути к вам.
         </p>
-
-        <button class="collection-hero__filters" type="button" id="openFilters">
-          ФИЛЬТРЫ И СОРТИРОВКА
-          <span aria-hidden="true" class="collection-hero__filters-ico"><!--⚙-->☰</span>
-        </button>
       </div>
 
-      <!-- чипсы категорий -->
-      <div class="collection-chips" id="collectionChips" aria-label="Категории">
-        <!-- заполняются JS -->
+      <!-- Картинка справа -->
+      <div style="border-radius: 22px; overflow: hidden; box-shadow: 0 20px 60px rgba(0,0,0,0.12);">
+        <img src="img/casual-1.jpg" alt="Заказ десертов" style="width: 100%; height: auto; display: block;">
       </div>
     </div>
-
-    <div class="container">
-      <!-- сетка товаров -->
-      <section class="collection-grid" id="summerGrid" aria-label="Товары летней коллекции"></section>
-    </div>
-
-
-
-<div class="filtersOverlay" id="filtersOverlay" hidden></div>
-
-<aside class="filtersDrawer" id="filtersDrawer" aria-hidden="true">
-  <div class="filtersDrawer__head">
-    <h2 class="filtersDrawer__title">Фильтры и сортировка</h2>
-    <button class="filtersDrawer__close" type="button" id="closeFilters" aria-label="Закрыть">×</button>
   </div>
 
-  <!-- сортировка (как справа сверху на скрине) -->
-  <div class="filtersDrawer__sort">
-    <div class="filtersDrawer__sortLabel">Сортировать по</div>
-    <div class="filtersDrawer__sortTabs">
-      <button class="sortTab is-active" type="button" data-sort="popular">Популярности</button>
-<button class="sortTab" type="button" data-sort="price">Цене</button>
-<button class="sortTab" type="button" data-sort="new">Новинкам</button>
+  <!-- Шаги заказа -->
+  <div class="container">
+    <section style="padding: 40px 0 80px;">
+      <h2 style="font-family: var(--brand-font); font-size: 42px; font-weight: 400; margin: 0 0 60px; text-align: center; color: #1f1f1f;">
+        Процесс заказа
+      </h2>
 
-    </div>
-  </div>
-
-  
-
-  <div class="filtersDrawer__body">
-    <!-- АККОРДЕОН 1: Цена -->
-    <details class="filterBlock" open>
-      <summary class="filterBlock__summary">
-        <span>Цена</span>
-        <span class="filterBlock__chev" aria-hidden="true">⌄</span>
-      </summary>
-
-      <div class="filterBlock__content">
-        <div class="priceRow">
-          <label class="priceField">
-            <input id="priceMin" type="number" value="585">
-            <span class="priceField__suffix">₽</span>
-          </label>
-
-          <span class="priceDash">—</span>
-
-          <label class="priceField">
-            <input id="priceMax" type="number" value="16000">
-            <span class="priceField__suffix">₽</span>
-          </label>
-        </div>
-      </div>
-    </details>
-
-    <!-- АККОРДЕОН 2: Коллекция 
-    <details class="filterBlock">
-      <summary class="filterBlock__summary">
-        <span>Коллекция</span>
-        <span class="filterBlock__chev" aria-hidden="true">⌄</span>
-      </summary>
-
-      <div class="filterBlock__content">
-        <label class="checkRow"><input type="checkbox"name="cats" value="winter"> Зимняя коллекция</label>
-        <label class="checkRow"><input type="checkbox"name="cats" value="summer_collection"> Летняя коллекция</label>
-        <label class="checkRow"><input type="checkbox" name="cats" value="bento"> Бенто-торты</label>
-        <<label class="checkRow"><input type="checkbox" name="cats" value="cakes"> Готовые торты</label>
-<label class="checkRow"><input type="checkbox" name="cats" value="cupcakes"> Капкейки</label>
-<label class="checkRow"><input type="checkbox" name="cats" value="berry"> Ягодные торты</label>
-<label class="checkRow"><input type="checkbox" name="cats" value="eclairs"> Эклеры</label>
-<label class="checkRow"><input type="checkbox" name="cats" value="macarons"> Macarons</label>
-<label class="checkRow"><input type="checkbox" name="cats" value="pp"> ПП десерты</label>
-
-
-      </div>
-    </details>-->
-
-    <!-- можешь добавлять блоки дальше -->
-  </div>
-
-  <div class="filtersDrawer__footer">
-    <button class="btnApply" id="applyFilters" type="button">ПРИМЕНИТЬ ФИЛЬТРЫ</button>
-<button class="btnReset" id="resetFilters" type="button">СБРОСИТЬ ВСЕ ФИЛЬТРЫ</button>
-
-  </div>
-</aside>
-
-    <!-- простая панель сортировки (можно показать/скрыть по кнопке) 
-    <div class="filters-drawer" id="filtersDrawer" aria-hidden="true">
-      <div class="filters-drawer__overlay" data-close-filters="true"></div>
-      <div class="filters-drawer__panel" role="dialog" aria-modal="true" aria-label="Фильтры и сортировка">
-        <div class="filters-drawer__head">
-          <div class="title-sm">Фильтры и сортировка</div>
-          <button class="icon-btn" type="button" data-close-filters="true">Закрыть</button>
-        </div>
-
-        <div class="filters-drawer__body">
-          <div class="field">
-            <label class="label" for="sortSelect">Сортировка</label>
-            <select class="select" id="sortSelect">
-              <option value="popular">По популярности</option>
-              <option value="priceAsc">По цене: по возрастанию</option>
-              <option value="priceDesc">По цене: по убыванию</option>
-              <option value="nameAsc">По названию: А-Я</option>
-            </select>
+      <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 24px;">
+        <!-- Шаг 1 -->
+        <article class="info-card" style="background: #fff; border-radius: 22px; padding: 40px; box-shadow: 0 10px 30px rgba(0,0,0,.08);">
+          <div style="display: flex; align-items: center; gap: 20px; margin-bottom: 24px;">
+            <div style="width: 60px; height: 60px; border-radius: 50%; background: linear-gradient(135deg, #d4a088, #c89078); display: flex; align-items: center; justify-content: center; flex-shrink: 0;">
+              <span style="font-size: 24px; font-weight: 700; color: white;">1</span>
+            </div>
+            <h3 style="font-size: 22px; font-weight: 600; margin: 0; color: #1f1f1f;">Выберите десерт</h3>
           </div>
+          <p style="font-size: 16px; line-height: 1.7; color: #6c6c6c; margin: 0;">
+            Просмотрите наш каталог и выберите понравившийся десерт. У нас есть готовые варианты в коллекциях Casual и To order,
+            а также возможность создать уникальный торт по вашему эскизу в направлении Art.
+          </p>
+        </article>
 
-          <div class="hint">Фильтры по ингредиентам/аллергенам можно добавить позже — структура уже готова.</div>
+        <!-- Шаг 2 -->
+        <article class="info-card" style="background: #fff; border-radius: 22px; padding: 40px; box-shadow: 0 10px 30px rgba(0,0,0,.08);">
+          <div style="display: flex; align-items: center; gap: 20px; margin-bottom: 24px;">
+            <div style="width: 60px; height: 60px; border-radius: 50%; background: linear-gradient(135deg, #d4a088, #c89078); display: flex; align-items: center; justify-content: center; flex-shrink: 0;">
+              <span style="font-size: 24px; font-weight: 700; color: white;">2</span>
+            </div>
+            <h3 style="font-size: 22px; font-weight: 600; margin: 0; color: #1f1f1f;">Настройте заказ</h3>
+          </div>
+          <p style="font-size: 16px; line-height: 1.7; color: #6c6c6c; margin: 0;">
+            Добавьте выбранные десерты в корзину, укажите необходимое количество и вес. Выберите удобные дату и время доставки.
+            Если нужна консультация или помощь в выборе — свяжитесь с нами по телефону или в Telegram.
+          </p>
+        </article>
+
+        <!-- Шаг 3 -->
+        <article class="info-card" style="background: #fff; border-radius: 22px; padding: 40px; box-shadow: 0 10px 30px rgba(0,0,0,.08);">
+          <div style="display: flex; align-items: center; gap: 20px; margin-bottom: 24px;">
+            <div style="width: 60px; height: 60px; border-radius: 50%; background: linear-gradient(135deg, #d4a088, #c89078); display: flex; align-items: center; justify-content: center; flex-shrink: 0;">
+              <span style="font-size: 24px; font-weight: 700; color: white;">3</span>
+            </div>
+            <h3 style="font-size: 22px; font-weight: 600; margin: 0; color: #1f1f1f;">Оплатите заказ</h3>
+          </div>
+          <p style="font-size: 16px; line-height: 1.7; color: #6c6c6c; margin: 0;">
+            Для индивидуальных заказов требуется предоплата. Вы можете оплатить онлайн картой Visa, Mastercard или МИР.
+            Для стандартных позиций из каталога Casual возможна оплата при получении.
+          </p>
+        </article>
+
+        <!-- Шаг 4 -->
+        <article class="info-card" style="background: #fff; border-radius: 22px; padding: 40px; box-shadow: 0 10px 30px rgba(0,0,0,.08);">
+          <div style="display: flex; align-items: center; gap: 20px; margin-bottom: 24px;">
+            <div style="width: 60px; height: 60px; border-radius: 50%; background: linear-gradient(135deg, #d4a088, #c89078); display: flex; align-items: center; justify-content: center; flex-shrink: 0;">
+              <span style="font-size: 24px; font-weight: 700; color: white;">4</span>
+            </div>
+            <h3 style="font-size: 22px; font-weight: 600; margin: 0; color: #1f1f1f;">Получите заказ</h3>
+          </div>
+          <p style="font-size: 16px; line-height: 1.7; color: #6c6c6c; margin: 0;">
+            Выберите удобный способ получения: доставка курьером по городу или самовывоз с нашего производства.
+            Подробнее о доставке и адресах на странице <a href="delivery.html" style="color: #d4a088; text-decoration: none; font-weight: 600;">Доставка и оплата</a>.
+          </p>
+        </article>
+      </div>
+    </section>
+  </div>
+
+  <!-- Важная информация -->
+  <div class="container">
+    <section style="background: linear-gradient(135deg, #faf7f5, #ffffff); border-radius: 22px; padding: 60px; margin: 0 0 80px;">
+      <h2 style="font-family: var(--brand-font); font-size: 38px; font-weight: 400; margin: 0 0 48px; text-align: center; color: #1f1f1f;">
+        Важно знать
+      </h2>
+
+      <div style="display: grid; gap: 32px; max-width: 800px; margin: 0 auto;">
+        <div style="display: flex; gap: 20px;">
+          <div style="flex-shrink: 0;">
+            <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#d4a088" stroke-width="2">
+              <circle cx="12" cy="12" r="10"/>
+              <path d="M12 6v6l4 2"/>
+            </svg>
+          </div>
+          <div>
+            <h3 style="font-size: 18px; font-weight: 600; margin: 0 0 8px; color: #1f1f1f;">Сроки заказа</h3>
+            <p style="font-size: 15px; line-height: 1.7; color: #6c6c6c; margin: 0;">
+              Стандартные позиции — за 3 дня. Индивидуальные торты — за неделю. В праздничные периоды рекомендуем заказывать заранее.
+            </p>
+          </div>
+        </div>
+
+        <div style="display: flex; gap: 20px;">
+          <div style="flex-shrink: 0;">
+            <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#d4a088" stroke-width="2">
+              <path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/>
+            </svg>
+          </div>
+          <div>
+            <h3 style="font-size: 18px; font-weight: 600; margin: 0 0 8px; color: #1f1f1f;">Минимальный заказ</h3>
+            <p style="font-size: 15px; line-height: 1.7; color: #6c6c6c; margin: 0;">
+              Для доставки минимальная сумма заказа — 3500 ₽ в обычные дни и 5000 ₽ в праздничные. Самовывоз — без ограничений.
+            </p>
+          </div>
+        </div>
+
+        <div style="display: flex; gap: 20px;">
+          <div style="flex-shrink: 0;">
+            <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#d4a088" stroke-width="2">
+              <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/>
+              <polyline points="22 4 12 14.01 9 11.01"/>
+            </svg>
+          </div>
+          <div>
+            <h3 style="font-size: 18px; font-weight: 600; margin: 0 0 8px; color: #1f1f1f;">Изменение заказа</h3>
+            <p style="font-size: 15px; line-height: 1.7; color: #6c6c6c; margin: 0;">
+              Вы можете изменить начинку, декор или другие детали, если свяжетесь с нами заранее до начала изготовления.
+            </p>
+          </div>
         </div>
       </div>
-    </div>-->
-  </main>
+    </section>
+  </div>
 
-  <!-- ====== ПОДВАЛ: скопируй 1-в-1 из index.html ====== -->
-   <!--FOOTER-->
+  <!-- CTA секция -->
+  <div class="container">
+    <section style="text-align: center; padding: 0 0 100px;">
+      <h2 style="font-family: var(--brand-font); font-size: 42px; font-weight: 400; margin: 0 0 24px; color: #1f1f1f;">
+        Готовы сделать заказ?
+      </h2>
+      <p style="font-size: 18px; line-height: 1.6; color: #6c6c6c; margin: 0 0 40px; max-width: 600px; margin-left: auto; margin-right: auto;">
+        Свяжитесь с нами удобным способом, и мы поможем вам создать идеальный десерт
+      </p>
+
+      <div style="display: flex; gap: 16px; justify-content: center; flex-wrap: wrap;">
+        <a href="summer.html" style="font-size: 15px; font-weight: 600; color: white;
+                 text-decoration: none; padding: 14px 32px; background: linear-gradient(135deg, #d4a088, #c89078);
+                 border-radius: 12px; transition: all 0.3s ease; display: inline-block;">СМОТРЕТЬ КАТАЛОГ</a>
+      </div>
+    </section>
+  </div>
+
+</main>
+
+<!--FOOTER-->
     <footer class="site-footer" id="contacts">
   <div class="container site-footer__inner">
 
@@ -503,6 +558,7 @@
 
   </div>
 </footer>
+
 
 
  <script src="https://api-maps.yandex.ru/2.1/?lang=ru_RU"></script>
