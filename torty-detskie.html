@@ -433,11 +433,11 @@
 // Встроенный JavaScript для страницы Детские торты
 (function() {
   const PRODUCTS = [
-    { title: "Мультяшный торт со свечкой", price: 4800, qtyText: "от 2.5 кг", tag: "", img: "img/картинки для сайта/Детские торты/Мультяшный торт со свечкой.jpg", imgHover: "img/картинки для сайта/Детские торты/Мультяшный торт со свечкой 2.jpg" },
-    { title: "Торт Лабубу", price: 5500, qtyText: "от 3 кг", tag: "Хит", img: "img/картинки для сайта/Детские торты/Торт Лабубу.jpg", imgHover: "img/картинки для сайта/Детские торты/Торт Лабубу 2.jpg" },
-    { title: "Торт с маршмеллоу", price: 4200, qtyText: "от 2 кг", tag: "", img: "img/картинки для сайта/Детские торты/Торт с маршмеллоу.jpg", imgHover: "img/картинки для сайта/Детские торты/Торт с маршмеллоу 2.jpg" },
-    { title: "Торт с небрежными цветными мазками", price: 3900, qtyText: "от 2 кг", tag: "Новинка", img: "img/картинки для сайта/Детские торты/Торт с небрежными цветными мазками.jpg", imgHover: "img/картинки для сайта/Детские торты/Торт с небрежными цветными мазками 2.jpg" },
-    { title: "Торт с фигуркой корабля", price: 6500, qtyText: "от 4 кг", tag: "", img: "img/картинки для сайта/Детские торты/Торт с фигуркой корабля.jpg", imgHover: "img/картинки для сайта/Детские торты/Торт с фигуркой корабля 2.jpg" }
+    { id: "detskie-cartoon-candle", title: "Мультяшный торт со свечкой", price: 4800, qtyText: "от 3 кг", tag: "", img: "img/картинки для сайта/Детские торты/Мультяшный торт со свечкой.jpg", imgHover: "img/картинки для сайта/Детские торты/Мультяшный торт со свечкой 2.jpg" },
+    { id: "detskie-labubu", title: "Торт Лабубу", price: 5500, qtyText: "от 3 кг", tag: "Хит", img: "img/картинки для сайта/Детские торты/Торт Лабубу.jpg", imgHover: "img/картинки для сайта/Детские торты/Торт Лабубу 2.jpg" },
+    { id: "detskie-marshmallow", title: "Торт с маршмеллоу", price: 4200, qtyText: "от 2 кг", tag: "", img: "img/картинки для сайта/Детские торты/Торт с маршмеллоу.jpg", imgHover: "img/картинки для сайта/Детские торты/Торт с маршмеллоу 2.jpg" },
+    { id: "detskie-colorful", title: "Торт с небрежными цветными мазками", price: 3900, qtyText: "от 2 кг", tag: "Новинка", img: "img/картинки для сайта/Детские торты/Торт с небрежными цветными мазками.jpg", imgHover: "img/картинки для сайта/Детские торты/Торт с небрежными цветными мазками 2.jpg" },
+    { id: "detskie-ship", title: "Торт с фигуркой корабля", price: 6500, qtyText: "от 4 кг", tag: "", img: "img/картинки для сайта/Детские торты/Торт с фигуркой корабля.jpg", imgHover: "img/картинки для сайта/Детские торты/Торт с фигуркой корабля 2.jpg" }
   ];
 
   let sortMode = "popular";
@@ -492,7 +492,7 @@
           ${p.imgHover ? `<img class="collect-card__imgHover" src="${escapeHtml(p.imgHover)}" alt="">` : ""}
           ${p.tag ? `<div class="collect-card__tag">${escapeHtml(p.tag)}</div>` : ""}
           <div class="collect-card__qty">${escapeHtml(p.qtyText)}</div>
-          <a class="collect-card__btn" href="checkout.html">ЗАКАЗАТЬ</a>
+          <a class="collect-card__btn" href="product.html?id=${escapeHtml(p.id)}&from=torty-detskie.html">ЗАКАЗАТЬ</a>
         </div>
         <div class="collect-card__bottom">
           <div class="collect-card__name">${escapeHtml(p.title)}</div>

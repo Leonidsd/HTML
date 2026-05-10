@@ -1,0 +1,1355 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title id="pageTitle">Товар — Вкус облаков</title>
+
+  <link rel="stylesheet" href="css/main.css">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+  <!-- Montserrat для меню/интерфейса -->
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+<style>
+  /* Стили для страницы товара */
+  .product-page {
+    padding: 140px 0 80px;
+  }
+
+  .product-container {
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 0 40px;
+  }
+
+  .product-grid {
+    display: grid;
+    grid-template-columns: 2fr 3fr;
+    gap: 60px;
+    margin-bottom: 80px;
+  }
+
+  /* Галерея изображений */
+  .product-gallery {
+    position: sticky;
+    top: 140px;
+    height: fit-content;
+    display: grid;
+    grid-template-columns: 1fr 80px;
+    gap: 10px;
+    align-items: start;
+  }
+
+  .product-main-image {
+    width: 100%;
+    border-radius: 24px;
+    overflow: hidden;
+    box-shadow: 0 20px 60px rgba(0,0,0,0.12);
+  }
+
+  .product-main-image img {
+    width: 100%;
+    height: auto;
+    display: block;
+  }
+
+  .product-thumbnails {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+  }
+
+  .product-thumbnail {
+    border-radius: 12px;
+    overflow: hidden;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    border: 2px solid transparent;
+  }
+
+  .product-thumbnail:hover {
+    border-color: #d4a088;
+  }
+
+  .product-thumbnail.active {
+    border-color: #d4a088;
+  }
+
+  .product-thumbnail img {
+    width: 100%;
+    height: auto;
+    display: block;
+  }
+
+  /* Кнопка «Назад» */
+  .product-back {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 15px;
+    font-weight: 500;
+    color: #6c6c6c;
+    text-decoration: none;
+    margin-bottom: 32px;
+    transition: color 0.3s ease;
+  }
+
+  .product-back:hover {
+    color: #d4a088;
+  }
+
+  .product-back svg {
+    transition: transform 0.3s ease;
+  }
+
+  .product-back:hover svg {
+    transform: translateX(-4px);
+  }
+
+  /* Информация о товаре */
+  .product-info {
+    background: #faf7f5;
+    padding: 60px;
+    border-radius: 24px;
+  }
+
+  .product-title {
+    font-family: var(--brand-font);
+    font-size: 48px;
+    font-weight: 400;
+    margin: 0 0 16px;
+    color: #1f1f1f;
+  }
+
+  .product-price {
+    font-size: 32px;
+    font-weight: 600;
+    color: #d4a088;
+    margin: 0 0 32px;
+  }
+
+  .product-meta {
+    background: white;
+    padding: 24px;
+    border-radius: 16px;
+    margin-bottom: 32px;
+  }
+
+  .product-meta-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 12px 0;
+    border-bottom: 1px solid #e7e0dc;
+  }
+
+  .product-meta-item:last-child {
+    border-bottom: none;
+  }
+
+  .product-meta-label {
+    font-size: 14px;
+    color: #6c6c6c;
+  }
+
+  .product-meta-value {
+    font-size: 15px;
+    font-weight: 600;
+    color: #1f1f1f;
+    background: #f2f0ee;
+    padding: 6px 16px;
+    border-radius: 20px;
+  }
+
+  /* Количество */
+  .quantity-selector {
+    margin-bottom: 24px;
+  }
+
+  .quantity-label {
+    font-size: 15px;
+    font-weight: 600;
+    color: #1f1f1f;
+    margin-bottom: 12px;
+    display: block;
+  }
+
+  .quantity-controls {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+  }
+
+  .quantity-btn {
+    width: 44px;
+    height: 44px;
+    border-radius: 50%;
+    background: #e7e0dc;
+    border: none;
+    font-size: 20px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #1f1f1f;
+  }
+
+  .quantity-btn:hover {
+    background: #d4a088;
+    color: white;
+  }
+
+  .quantity-btn:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+  }
+
+  .quantity-input {
+    width: 80px;
+    height: 44px;
+    text-align: center;
+    border: 2px solid #e7e0dc;
+    border-radius: 12px;
+    font-size: 16px;
+    font-weight: 600;
+  }
+
+  .quantity-hint {
+    font-size: 13px;
+    color: #6c6c6c;
+    margin-top: 8px;
+  }
+
+  /* Кнопка заказать */
+  .product-order-btn {
+    width: 100%;
+    padding: 18px;
+    background: linear-gradient(135deg, #d4a088, #c89078);
+    color: white;
+    border: none;
+    border-radius: 12px;
+    font-size: 16px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    margin-bottom: 16px;
+  }
+
+  .product-order-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 10px 30px rgba(212, 160, 136, 0.3);
+  }
+
+  /* Выбор начинки (для тортов) */
+  .filling-selector {
+    margin-bottom: 32px;
+    display: none;
+  }
+
+  .filling-selector.active {
+    display: block;
+  }
+
+  .filling-label {
+    font-size: 15px;
+    font-weight: 600;
+    color: #1f1f1f;
+    margin-bottom: 12px;
+    display: block;
+  }
+
+  /* Кастомный выпадающий список начинок */
+  .filling-dropdown {
+    position: relative;
+    width: 100%;
+  }
+
+  .filling-dropdown__trigger {
+    width: 100%;
+    padding: 14px 48px 14px 16px;
+    background: white;
+    border: 2px solid #e7e0dc;
+    border-radius: 12px;
+    font-size: 15px;
+    color: #1f1f1f;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    text-align: left;
+    position: relative;
+    font-family: inherit;
+  }
+
+  .filling-dropdown__trigger::after {
+    content: '';
+    position: absolute;
+    right: 16px;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 10px;
+    height: 10px;
+    border-right: 2px solid #d4a088;
+    border-bottom: 2px solid #d4a088;
+    transform: translateY(-65%) rotate(45deg);
+    transition: transform 0.3s ease;
+  }
+
+  .filling-dropdown.open .filling-dropdown__trigger::after {
+    transform: translateY(-35%) rotate(-135deg);
+  }
+
+  .filling-dropdown__trigger:hover {
+    border-color: #d4a088;
+  }
+
+  .filling-dropdown.open .filling-dropdown__trigger {
+    border-color: #d4a088;
+    border-radius: 12px 12px 0 0;
+    box-shadow: 0 0 0 3px rgba(212, 160, 136, 0.1);
+  }
+
+  .filling-dropdown__list {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    right: 0;
+    background: white;
+    border: 2px solid transparent;
+    border-top: none;
+    border-radius: 0 0 12px 12px;
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.3s ease, border-color 0.3s ease;
+    z-index: 100;
+  }
+
+  .filling-dropdown.open .filling-dropdown__list {
+    max-height: 400px;
+    overflow-y: auto;
+    border-color: #d4a088;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+    scrollbar-width: none;
+  }
+
+  .filling-dropdown.open .filling-dropdown__list::-webkit-scrollbar {
+    display: none;
+  }
+
+  .filling-dropdown__item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 14px 16px;
+    cursor: pointer;
+    transition: background 0.2s ease;
+    border-bottom: 1px solid #f2f0ee;
+  }
+
+  .filling-dropdown__item:last-child {
+    border-bottom: none;
+  }
+
+  .filling-dropdown__item:hover {
+    background: #faf7f5;
+  }
+
+  .filling-dropdown__item.selected {
+    background: linear-gradient(135deg, rgba(212, 160, 136, 0.1), rgba(200, 144, 120, 0.08));
+  }
+
+  .filling-dropdown__item-name {
+    font-size: 15px;
+    color: #1f1f1f;
+    font-weight: 500;
+  }
+
+  .filling-dropdown__item.selected .filling-dropdown__item-name {
+    color: #c89078;
+    font-weight: 600;
+  }
+
+  .filling-dropdown__item-price {
+    font-size: 13px;
+    font-weight: 600;
+    color: white;
+    background: #d4a088;
+    padding: 4px 10px;
+    border-radius: 20px;
+    white-space: nowrap;
+  }
+
+  .filling-dropdown__item-standard {
+    font-size: 13px;
+    color: #a0a0a0;
+    font-style: italic;
+  }
+
+  /* Выбор веса (для тортов) */
+  .weight-selector {
+    margin-bottom: 32px;
+    display: none;
+  }
+
+  .weight-selector.active {
+    display: block;
+  }
+
+  .weight-label {
+    font-size: 15px;
+    font-weight: 600;
+    color: #1f1f1f;
+    margin-bottom: 12px;
+    display: block;
+  }
+
+  .weight-options {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 12px;
+  }
+
+  .weight-option {
+    padding: 14px;
+    background: white;
+    border: 2px solid #e7e0dc;
+    border-radius: 12px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    text-align: center;
+    font-size: 16px;
+    font-weight: 600;
+    color: #1f1f1f;
+  }
+
+  .weight-option:hover {
+    border-color: #d4a088;
+  }
+
+  .weight-option.selected {
+    border-color: #d4a088;
+    background: linear-gradient(135deg, #d4a088, #c89078);
+    color: white;
+  }
+
+  /* Кнопка рассчитать (для тортов) */
+  .calculate-btn {
+    width: 100%;
+    padding: 18px;
+    background: white;
+    color: #1f1f1f;
+    border: 2px solid #e7e0dc;
+    border-radius: 12px;
+    font-size: 16px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    margin-bottom: 16px;
+    display: none;
+  }
+
+  .calculate-btn.active {
+    display: block;
+  }
+
+  .calculate-btn:hover {
+    border-color: #d4a088;
+    background: #faf7f5;
+  }
+
+  .calculated-price {
+    background: white;
+    padding: 20px;
+    border-radius: 12px;
+    text-align: center;
+    margin-bottom: 16px;
+    display: none;
+  }
+
+  .calculated-price.active {
+    display: block;
+  }
+
+  .calculated-price-label {
+    font-size: 14px;
+    color: #6c6c6c;
+    margin-bottom: 8px;
+  }
+
+  .calculated-price-value {
+    font-size: 32px;
+    font-weight: 700;
+    color: #d4a088;
+  }
+
+  /* Табы */
+  .product-tabs {
+    margin-top: 80px;
+  }
+
+  .tabs-nav {
+    display: flex;
+    gap: 40px;
+    border-bottom: 2px solid #e7e0dc;
+    margin-bottom: 40px;
+  }
+
+  .tab-btn {
+    background: none;
+    border: none;
+    font-size: 18px;
+    font-weight: 600;
+    color: #a0a0a0;
+    padding: 16px 0;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    position: relative;
+  }
+
+  .tab-btn:hover {
+    color: #1f1f1f;
+  }
+
+  .tab-btn.active {
+    color: #1f1f1f;
+  }
+
+  .tab-btn.active::after {
+    content: '';
+    position: absolute;
+    bottom: -2px;
+    left: 0;
+    right: 0;
+    height: 2px;
+    background: #d4a088;
+  }
+
+  .tab-content {
+    display: none;
+    animation: fadeIn 0.5s ease;
+  }
+
+  .tab-content.active {
+    display: block;
+  }
+
+  @keyframes fadeIn {
+    from {
+      opacity: 0;
+      transform: translateY(15px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  .tab-section {
+    max-width: 900px;
+  }
+
+  .tab-section h3 {
+    font-family: var(--brand-font);
+    font-size: 28px;
+    font-weight: 400;
+    margin: 0 0 24px;
+    color: #1f1f1f;
+  }
+
+  .tab-section p {
+    font-size: 16px;
+    line-height: 1.8;
+    color: #6c6c6c;
+    margin: 0 0 20px;
+  }
+
+  .tab-section ul {
+    list-style: none;
+    padding: 0;
+    margin: 0 0 20px;
+  }
+
+  .tab-section li {
+    font-size: 16px;
+    line-height: 1.8;
+    color: #6c6c6c;
+    padding-left: 24px;
+    position: relative;
+    margin-bottom: 12px;
+  }
+
+  .tab-section li::before {
+    content: '•';
+    position: absolute;
+    left: 0;
+    color: #d4a088;
+    font-weight: 700;
+  }
+</style>
+
+</head>
+
+<body class="page page--catalog">
+  <!-- Header -->
+  <header class="header header--glass">
+  <section class="header__section">
+    <div class="container header__container header__container--new">
+
+      <!-- ЛОГО / НАЗВАНИЕ -->
+      <div class="header__logo">
+        <a href="index.html" class="brand brand--stack" aria-label="Вкус облаков">
+          <span class="brand__name brand__name--stack">Вкус<br>облаков</span>
+        </a>
+      </div>
+
+      <!-- МЕНЮ ПО ЦЕНТРУ -->
+      <nav class="header__nav header__nav--center" aria-label="Главное меню">
+  <a href="#catalog" data-mega="catalog">Каталог</a>
+  <a href="#brand" data-mega="life">История бренда</a>
+  <a href="#clients" data-mega="b2b">Клиентам</a>
+  <a href="#city" data-mega="city">Мы в городе</a>
+</nav>
+
+      <!-- СПРАВА: КОНТАКТЫ + ИКОНКИ -->
+      <div class="header__actions header__actions--new">
+
+        <div class="header__contacts header__contacts--new">
+          <a class="header__phone" href="tel:+70000000000">+7 (000) 000-00-00</a>
+          <a class="header__tg" href="https://t.me/your_telegram" target="_blank" rel="noopener">Telegram</a>
+          <div class="header__hours">
+            пн-пт 10:00 – 20:00<br>
+            сб-вс 10:00 – 16:00
+          </div>
+        </div>
+
+        <div class="header__icons">
+
+            <button class="icon-btn icon-btn--ghost header__burger" id="btnMenu" type="button" aria-label="Открыть меню">
+  <svg width="18" height="18" viewBox="0 0 24 24" aria-hidden="true">
+    <path fill="currentColor" d="M4 6h16v2H4V6zm0 5h16v2H4v-2zm0 5h16v2H4v-2z"/>
+  </svg>
+</button>
+
+          <!-- Поиск -->
+          <button class="icon-btn icon-btn--ghost" type="button" aria-label="Поиск по сайту">
+            <svg width="18" height="18" viewBox="0 0 24 24" aria-hidden="true">
+              <path fill="currentColor" d="M10 4a6 6 0 104.47 10.03l4.25 4.25 1.41-1.41-4.25-4.25A6 6 0 0010 4zm0 2a4 4 0 110 8 4 4 0 010-8z"/>
+            </svg>
+          </button>
+
+          <!-- Профиль -->
+          <a class="icon-btn icon-btn--ghost" href="#" aria-label="Профиль">
+            <svg width="18" height="18" viewBox="0 0 24 24" aria-hidden="true">
+              <path fill="currentColor" d="M12 12a4 4 0 10-4-4 4 4 0 004 4zm0 2c-4.42 0-8 2-8 4.5V20h16v-1.5C20 16 16.42 14 12 14z"/>
+            </svg>
+          </a>
+
+          <!-- Сумочка (корзина) -->
+          <button class="icon-btn icon-btn--ghost" id="btnCart" type="button" aria-label="Открыть корзину">
+            <svg width="18" height="18" viewBox="0 0 24 24" aria-hidden="true">
+              <path fill="currentColor" d="M7 8V7a5 5 0 0 1 10 0v1h2a1 1 0 0 1 1 1v12a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V9a1 1 0 0 1 1-1h2zm2 0h6V7a3 3 0 0 0-6 0v1zm-3 2v11h12V10H6z"/>
+
+            </svg>
+            <span class="badge badge--on-dark" id="cartCount">0</span>
+          </button>
+        </div>
+
+      </div>
+    </div>
+  </section>
+  <!-- Mega menu (выпадающая панель) -->
+<div class="mega" id="mega" aria-hidden="true">
+  <div class="mega__container">
+
+    <!-- Каталог -->
+    <div class="mega__panel mega__panel--catalog" data-panel="catalog">
+      <div class="mega__grid mega__grid--catalog">
+        <a class="mega-tile mega-tile--portrait" href="delivery.html">
+  <div class="mega-card__img mega-card__img--portrait">
+    <img src="img/menu-title1.jpg" alt="Бренд">
+  </div>
+        </a>
+
+        <div class="mega-cols">
+          <div class="mega-col">
+            <div class="mega-col__title">Casual</div>
+            <a class="mega-link" href="summer.html">Летняя коллекция</a>
+            <a class="mega-link" href="bento.html">Бенто-торты</a>
+            <a class="mega-link" href="february.html">23 февраля</a>
+            <a class="mega-link" href="easter.html">Пасха</a>
+            <a class="mega-link" href="cakes.html">Пирожные</a>
+            <a class="mega-link" href="mousse.html">Муссовые бенто-торты</a>
+            <a class="mega-link" href="macarons.html">Macarons</a>
+            <a class="mega-link" href="candies.html">Шоколад и конфеты</a>
+            <a class="mega-link" href="cheesecake.html">Чизкейки</a>
+          </div>
+
+          <div class="mega-col">
+            <div class="mega-col__title">To order</div>
+            <a class="mega-link" href="fillings.html">Начинки</a>
+            <a class="mega-link" href="torty.html">Торты</a>
+            <a class="mega-link" href="torty-3d.html">3D-торты</a>
+            <a class="mega-link" href="torty-detskie.html">Детские торты</a>
+            <a class="mega-link" href="torty-svadebnye.html">Свадебные торты</a>
+            <a class="mega-link" href="torty-den-rozhdeniya.html">Торты на День Рождения</a>
+          </div>
+
+          <div class="mega-col">
+            <div class="mega-col__title">Art</div>
+            <a class="mega-link" href="art-works.html">Наши работы</a>
+
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Наша жизнь -->
+    <div class="mega__panel mega__panel--life" data-panel="life">
+      <div class="mega__grid mega__grid--cards">
+        <div class="mega-left">
+        </div>
+
+        <a class="mega-tile mega-tile--portrait" href="brand.html">
+  <div class="mega-card__img mega-card__img--portrait">
+    <img src="img/menu-title2.jpg" alt="История бренда">
+  </div>
+  <div class="mega-tile__title">История бренда</div>
+</a>
+
+      </div>
+    </div>
+
+    <!-- Клиентам -->
+    <div class="mega__panel mega__panel--b2b" data-panel="b2b">
+      <div class="mega__grid mega__grid--cards">
+        <div class="mega-left">
+          <div class="mega-left__text">Наш способ говорить с миром — это говорить сладко.</div>
+
+          <div class="mega-left__contacts">
+            <a class="mega-contact" href="tel:+70000000000">+7(000)-000-00-00</a>
+            <a class="mega-contact" href="mailto:zakaz@vkusobl.ru">zakaz.loveandsweets@gmail.com</a>
+            <a class="mega-contact" href="#" target="_blank" rel="noopener">Telegram</a>
+            <a class="mega-contact" href="#" target="_blank" rel="noopener">Вконтакте</a>
+          </div>
+        </div>
+
+        <a class="mega-tile mega-tile--portrait" href="delivery.html">
+  <div class="mega-card__img mega-card__img--portrait">
+    <img src="img/menu-title3.jpg" alt="Доставка и оплата">
+  </div>
+
+          <div class="mega-tile__title">Доставка и оплата</div>
+        </a>
+
+        <div class="mega-tile mega-tile--order">
+  <!-- левая часть: картинка + заголовок под ней -->
+  <div class="mega-tile__left">
+    <a class="mega-tile__imgWrap" href="about-order.html">
+      <img class="mega-tile__img" src="img/menu-title4.jpg" alt="О заказе">
+    </a>
+
+    <a class="mega-tile__title mega-tile__title--under" href="about-order.html">О заказе</a>
+  </div>
+
+  <!-- правая часть: ссылки -->
+  <div class="mega-tile__side">
+    <div class="mega-tile__sideLinks">
+      <a class="mega-link" href="#reviews">Отзывы</a>
+      <a class="mega-link" href="faq.html">Вопрос-ответ</a>
+    </div>
+  </div>
+</div>
+
+
+
+      </div>
+    </div>
+
+    <!-- Мы в городе -->
+<div class="mega__panel mega__panel--city" data-panel="city">
+  <div class="mega__grid mega__grid--city">
+
+    <!-- 1) ЛЕВАЯ колонка: заголовок + контакты -->
+    <div class="mega-city__left">
+      <div class="mega-col__title">Мы в городе</div>
+
+      <div class="mega-city">
+        <div>г. Дубна</div>
+        <div>Пн-Пт 10:00–20:00</div>
+        <div>Сб-Вс 10:00–16:00</div>
+        <a class="mega-link" href="#contacts">Контакты</a>
+      </div>
+    </div>
+
+    <!-- 2) СРЕДНЯЯ колонка: текст-описание -->
+    <div class="mega-city__middle">
+      <p class="mega-city__note">
+        Наши десерты — это островки спокойствия в море повседневных дел.
+        Причаливайте к ним, чтобы на мгновение остановить время и насладиться тишиной вкуса.
+        <br> </br>
+        <br>Доставка осуществляется только по городу Дубна.</br>
+      </p>
+    </div>
+
+    <!-- 3) ПРАВАЯ колонка: карта -->
+    <div class="city-map">
+      <iframe
+        src="https://yandex.ru/map-widget/v1/?um=constructor%3A5323ec7eeef295359140d0a676351927a92d5b06e8ba41b518464d51d93d3a63&amp;source=constructor"
+        width="463" height="356" frameborder="0">
+      </iframe>
+    </div>
+
+  </div>
+</div>
+
+
+</div>
+
+
+</header>
+<!-- Mobile menu -->
+<div class="mobile-menu" id="mobileMenu" hidden>
+  <div class="mobile-menu__overlay" data-mobile-close="true"></div>
+
+  <div class="mobile-menu__panel" role="dialog" aria-label="Меню">
+    <div class="mobile-menu__head">
+      <div class="brand__name brand__name--stack">Вкус<br>облаков</div>
+      <button class="icon-btn icon-btn--ghost" id="btnMenuClose" type="button" aria-label="Закрыть меню">✕</button>
+    </div>
+
+    <nav class="mobile-menu__nav" aria-label="Мобильная навигация">
+      <a href="index.html#catalog" data-mobile-close="true">Каталог</a>
+      <a href="index.html#brand" data-mobile-close="true">История бренда</a>
+      <a href="index.html#clients" data-mobile-close="true">Клиентам</a>
+      <a href="index.html#city" data-mobile-close="true">Мы в городе</a>
+    </nav>
+
+    <div class="mobile-menu__contacts">
+      <a class="header__phone" href="tel:+70000000000">+7 (000) 000-00-00</a>
+      <a class="header__tg" href="https://t.me/your_telegram" target="_blank" rel="noopener">Telegram</a>
+      <div class="header__hours">
+        пн-пт 10:00 – 20:00<br>
+        сб-вс 10:00 – 16:00
+      </div>
+    </div>
+  </div>
+</div>
+
+  <!-- Основной контент -->
+  <main class="product-page">
+    <div class="product-container">
+      <a class="product-back" id="backLink" href="index.html">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none">
+          <path d="M15 19l-7-7 7-7" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+        <span id="backText">Назад в каталог</span>
+      </a>
+      <div class="product-grid">
+        <!-- Галерея (2 фотографии) -->
+        <div class="product-gallery">
+          <div class="product-main-image">
+            <img id="mainImage" src="" alt="">
+          </div>
+          <div class="product-thumbnails" id="thumbnailsContainer">
+            <!-- Будет заполнено JS -->
+          </div>
+        </div>
+
+        <!-- Информация о товаре -->
+        <div class="product-info">
+          <h1 class="product-title" id="productName">Загрузка...</h1>
+          <div class="product-price" id="productPrice">—</div>
+
+          <div class="product-meta" id="productMeta">
+            <!-- Будет заполнено JS -->
+          </div>
+
+          <!-- Выбор начинки (только для тортов) -->
+          <div class="filling-selector" id="fillingSelector">
+            <label class="filling-label">Выберите начинку:</label>
+            <div class="filling-dropdown" id="fillingDropdown">
+              <button type="button" class="filling-dropdown__trigger" id="fillingTrigger">
+                Выберите начинку
+              </button>
+              <div class="filling-dropdown__list" id="fillingList">
+                <!-- Будет заполнено JS -->
+              </div>
+            </div>
+          </div>
+
+          <!-- Выбор веса (только для тортов) -->
+          <div class="weight-selector" id="weightSelector">
+            <label class="weight-label">Выберите вес:</label>
+            <div class="weight-options" id="weightOptions">
+              <!-- Будет заполнено JS -->
+            </div>
+          </div>
+
+          <!-- Рассчитанная цена -->
+          <div class="calculated-price" id="calculatedPrice">
+            <div class="calculated-price-label">Итоговая стоимость:</div>
+            <div class="calculated-price-value" id="calculatedPriceValue">—</div>
+          </div>
+
+          <!-- Кнопка рассчитать (только для тортов) -->
+          <button class="calculate-btn" id="calculateBtn">Рассчитать стоимость</button>
+
+          <!-- Количество (для десертов) -->
+          <div class="quantity-selector" id="quantitySelector">
+            <label class="quantity-label">Количество:</label>
+            <div class="quantity-controls">
+              <button class="quantity-btn" id="decreaseQty">−</button>
+              <input type="number" class="quantity-input" id="quantityInput" value="1" min="1" readonly>
+              <button class="quantity-btn" id="increaseQty">+</button>
+            </div>
+            <div class="quantity-hint" id="quantityHint"></div>
+          </div>
+
+          <!-- Кнопка заказать -->
+          <button class="product-order-btn" id="orderBtn">Заказать</button>
+        </div>
+      </div>
+
+      <!-- Табы с информацией -->
+      <div class="product-tabs">
+        <div class="tabs-nav">
+          <button class="tab-btn active" data-tab="description">Описание</button>
+          <button class="tab-btn" data-tab="composition">Состав</button>
+          <button class="tab-btn" data-tab="production">Срок изготовления</button>
+          <button class="tab-btn" data-tab="delivery">Доставка</button>
+        </div>
+
+        <div class="tab-content active" data-content="description">
+          <div class="tab-section" id="descriptionContent">
+            <!-- Будет заполнено JS -->
+          </div>
+        </div>
+
+        <div class="tab-content" data-content="composition">
+          <div class="tab-section" id="compositionContent">
+            <!-- Будет заполнено JS из standardTabs -->
+          </div>
+        </div>
+
+        <div class="tab-content" data-content="production">
+          <div class="tab-section" id="productionContent">
+            <!-- Будет заполнено JS из standardTabs -->
+          </div>
+        </div>
+
+        <div class="tab-content" data-content="delivery">
+          <div class="tab-section" id="deliveryContent">
+            <!-- Будет заполнено JS из standardTabs -->
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <!-- Footer (как на index.html) -->
+  <footer class="site-footer" id="contacts">
+  <div class="container site-footer__inner">
+
+    <div class="site-footer__grid">
+      <!-- Левая колонка -->
+      <div class="site-footer__left">
+        <div class="site-footer__lead">
+          Иногда самые важные слова можно сказать без слов.
+        </div>
+
+        <div class="site-footer__contacts">
+          <a class="site-footer__contact" href="tel:+74993220020">
+            <span class="site-footer__ico" aria-hidden="true">☎</span>
+            +7 (000) 000-00-00
+          </a>
+
+          <a class="site-footer__contact" href="mailto:zakaz.loveandsweets@gmail.com">
+            <span class="site-footer__ico" aria-hidden="true">✉</span>
+            vkus.oblakov@gmail.com
+          </a>
+
+          <a class="site-footer__contact" href="#">
+            Telegram
+          </a>
+
+          <div class="site-footer__social">
+            <a href="#" class="site-footer__social-link">Вконтакте</a>
+          </div>
+        </div>
+      </div>
+
+      <!-- Колонка 2 -->
+      <nav class="site-footer__col" aria-label="Магазин">
+        <div class="site-footer__title">Магазин</div>
+        <a class="site-footer__link" href="summer.html">Каталог Casual</a>
+        <a class="site-footer__link" href="torty.html">Каталог To order</a>
+        <a class="site-footer__link" href="fillings.html">Наши начинки</a>
+      </nav>
+
+      <!-- Колонка 3 -->
+      <nav class="site-footer__col" aria-label="Наша жизнь">
+        <div class="site-footer__title">Наша жизнь</div>
+        <a class="site-footer__link" href="brand.html">История бренда</a>
+      </nav>
+
+      <!-- Колонка 4 -->
+      <nav class="site-footer__col" aria-label="Клиентам">
+        <div class="site-footer__title">Клиентам</div>
+        <a class="site-footer__link" href="delivery.html">Доставка и оплата</a>
+        <a class="site-footer__link" href="#">Отзывы</a>
+        <a class="site-footer__link" href="faq.html">Вопрос-ответ</a>
+        <a class="site-footer__link" href="#contacts">Контакты</a>
+      </nav>
+    </div>
+
+    <div class="site-footer__bottom">
+      <div class="site-footer__copy">© 2026 Вкус облаков.</div>
+
+      <a class="site-footer__policy" href="#">
+        Политика конфиденциальности
+      </a>
+
+      <div class="site-footer__dev">
+
+      </div>
+    </div>
+
+  </div>
+</footer>
+
+  <script src="js/app.js"></script>
+  <script src="js/products-data.js"></script>
+
+  <script>
+    // Получаем ID товара из URL
+    const urlParams = new URLSearchParams(window.location.search);
+    const productId = urlParams.get('id') || 'cupcake-happy-box';
+
+    // Получаем данные товара
+    const product = productsData[productId];
+
+    if (!product) {
+      alert('Товар не найден');
+      window.location.href = 'index.html';
+    }
+
+    // Глобальные переменные
+    let currentQuantity = product.quantityStep || 1;
+    let currentPrice = product.price;
+    let selectedFilling = null;
+    let selectedWeight = null;
+
+    // Загружаем данные товара
+    function loadProduct() {
+      // Заголовок страницы
+      document.getElementById('pageTitle').textContent = `${product.name} — Вкус облаков`;
+      document.getElementById('productName').textContent = product.name;
+
+      // Изображения (только 2)
+      document.getElementById('mainImage').src = product.images[0];
+      document.getElementById('mainImage').alt = product.name;
+
+      const thumbnailsContainer = document.getElementById('thumbnailsContainer');
+      thumbnailsContainer.innerHTML = '';
+      product.images.forEach((img, index) => {
+        const thumb = document.createElement('div');
+        thumb.className = `product-thumbnail ${index === 0 ? 'active' : ''}`;
+        thumb.dataset.image = img;
+        thumb.innerHTML = `<img src="${img}" alt="Вид ${index + 1}">`;
+        thumb.addEventListener('click', function() {
+          document.getElementById('mainImage').src = img;
+          document.querySelectorAll('.product-thumbnail').forEach(t => t.classList.remove('active'));
+          this.classList.add('active');
+        });
+        thumbnailsContainer.appendChild(thumb);
+      });
+
+      // Проверяем тип товара
+      if (product.type === 'cake') {
+        loadCakeProduct();
+      } else {
+        loadDessertProduct();
+      }
+
+      // Табы - стандартные тексты
+      document.getElementById('compositionContent').innerHTML = standardTabs.composition.content;
+      document.getElementById('productionContent').innerHTML = standardTabs.production.content;
+      document.getElementById('deliveryContent').innerHTML = standardTabs.delivery.content;
+
+      // Описание
+      let descHTML = `<h3>О десерте</h3><p>${product.description}</p>`;
+      if (product.descriptionFull) {
+        descHTML += `<p>${product.descriptionFull}</p>`;
+      }
+      if (product.assortment && product.assortment.length > 0) {
+        descHTML += `<h3>Ассортимент:</h3><ul>`;
+        product.assortment.forEach(item => {
+          descHTML += `<li>${item}</li>`;
+        });
+        descHTML += `</ul>`;
+      }
+      document.getElementById('descriptionContent').innerHTML = descHTML;
+    }
+
+    // Загрузка десерта
+    function loadDessertProduct() {
+      // Цена
+      document.getElementById('productPrice').textContent = product.price.toLocaleString('ru-RU') + ' ₽';
+
+      // Мета информация
+      let metaHTML = '';
+      if (product.quantityPerPack > 1) {
+        metaHTML += `
+          <div class="product-meta-item">
+            <span class="product-meta-label">В наборе:</span>
+            <span class="product-meta-value">${product.quantityPerPack} шт</span>
+          </div>
+        `;
+      }
+      if (product.servings) {
+        metaHTML += `
+          <div class="product-meta-item">
+            <span class="product-meta-label">Идеально для компании:</span>
+            <span class="product-meta-value">${product.servings}</span>
+          </div>
+        `;
+      }
+      document.getElementById('productMeta').innerHTML = metaHTML;
+
+      // Количество
+      const qtyInput = document.getElementById('quantityInput');
+      const minQty = product.minQuantity || 1;
+      qtyInput.value = minQty;
+      currentQuantity = minQty;
+
+      // Подсказка
+      let hintText = '';
+      if (product.minQuantity) {
+        hintText = `Минимальный заказ: ${product.minQuantity} шт`;
+      } else if (product.quantityPerPack > 1) {
+        hintText = `Цена за набор из ${product.quantityPerPack} шт`;
+      }
+      document.getElementById('quantityHint').textContent = hintText;
+
+      // Обновляем цену на кнопке
+      updateOrderButton();
+
+      // Показываем селектор количества
+      document.getElementById('quantitySelector').style.display = 'block';
+    }
+
+    // Загрузка торта
+    function loadCakeProduct() {
+      // Скрываем пустой блок мета-информации (он только для десертов)
+      document.getElementById('productMeta').style.display = 'none';
+
+      document.getElementById('productPrice').textContent = 'от ' + product.weights[0].price.toLocaleString('ru-RU') + ' ₽';
+
+      // Скрываем селектор количества, показываем торт с количеством
+      document.getElementById('quantitySelector').style.display = 'block';
+
+      // Показываем селекторы для торта
+      document.getElementById('fillingSelector').classList.add('active');
+      document.getElementById('weightSelector').classList.add('active');
+      document.getElementById('calculateBtn').classList.add('active');
+
+      // Заполняем начинки в кастомный выпадающий список
+      const fillingDropdown = document.getElementById('fillingDropdown');
+      const fillingTrigger = document.getElementById('fillingTrigger');
+      const fillingList = document.getElementById('fillingList');
+      fillingList.innerHTML = '';
+
+      // Находим самую дешевую начинку
+      let cheapestFilling = product.fillings[0];
+      product.fillings.forEach(filling => {
+        const price = filling.price || 0;
+        if (price < (cheapestFilling.price || 0)) {
+          cheapestFilling = filling;
+        }
+      });
+
+      product.fillings.forEach(filling => {
+        const item = document.createElement('div');
+        item.className = 'filling-dropdown__item';
+        item.dataset.id = filling.id;
+        item.dataset.price = filling.price || 0;
+
+        const nameSpan = document.createElement('span');
+        nameSpan.className = 'filling-dropdown__item-name';
+        nameSpan.textContent = filling.name;
+        item.appendChild(nameSpan);
+
+        if (filling.price > 0) {
+          const priceSpan = document.createElement('span');
+          priceSpan.className = 'filling-dropdown__item-price';
+          priceSpan.textContent = `+${filling.price} ₽`;
+          item.appendChild(priceSpan);
+        } else {
+          const stdSpan = document.createElement('span');
+          stdSpan.className = 'filling-dropdown__item-standard';
+          stdSpan.textContent = 'стандарт';
+          item.appendChild(stdSpan);
+        }
+
+        item.addEventListener('click', function() {
+          fillingList.querySelectorAll('.filling-dropdown__item').forEach(i => i.classList.remove('selected'));
+          this.classList.add('selected');
+          selectedFilling = product.fillings.find(f => f.id === this.dataset.id);
+          const priceText = selectedFilling.price > 0 ? ` (+${selectedFilling.price} ₽)` : '';
+          fillingTrigger.textContent = selectedFilling.name + priceText;
+          fillingDropdown.classList.remove('open');
+        });
+
+        fillingList.appendChild(item);
+      });
+
+      // Выбираем самую дешевую начинку по умолчанию
+      selectedFilling = cheapestFilling;
+      fillingTrigger.textContent = cheapestFilling.name;
+      fillingList.querySelector(`[data-id="${cheapestFilling.id}"]`).classList.add('selected');
+
+      // Открытие/закрытие дропдауна
+      fillingTrigger.addEventListener('click', function() {
+        fillingDropdown.classList.toggle('open');
+      });
+
+      // Закрытие при клике вне
+      document.addEventListener('click', function(e) {
+        if (!fillingDropdown.contains(e.target)) {
+          fillingDropdown.classList.remove('open');
+        }
+      });
+
+      // Заполняем веса
+      const weightsContainer = document.getElementById('weightOptions');
+      weightsContainer.innerHTML = '';
+      product.weights.forEach(weight => {
+        const div = document.createElement('div');
+        div.className = 'weight-option';
+        div.dataset.weight = weight.kg;
+        div.dataset.price = weight.price;
+        div.dataset.servings = weight.servings;
+        div.innerHTML = `${weight.kg} кг`;
+        div.addEventListener('click', function() {
+          document.querySelectorAll('.weight-option').forEach(o => o.classList.remove('selected'));
+          this.classList.add('selected');
+          selectedWeight = weight;
+        });
+        weightsContainer.appendChild(div);
+      });
+
+    }
+
+    // Обновление цены на кнопке
+    function updateOrderButton() {
+      const step = product.quantityStep || 1;
+      const numberOfSets = currentQuantity / step;
+      const totalPrice = currentPrice * numberOfSets;
+      document.getElementById('orderBtn').textContent = `Заказать (${totalPrice.toLocaleString('ru-RU')} ₽)`;
+    }
+
+    // Обработчики количества
+    document.getElementById('decreaseQty').addEventListener('click', () => {
+      const minQty = product.minQuantity || product.quantityStep || 1;
+      const step = product.quantityStep || 1;
+
+      if (currentQuantity > minQty) {
+        currentQuantity -= step;
+        document.getElementById('quantityInput').value = currentQuantity;
+        updateOrderButton();
+      }
+    });
+
+    document.getElementById('increaseQty').addEventListener('click', () => {
+      const step = product.quantityStep || 1;
+      currentQuantity += step;
+      document.getElementById('quantityInput').value = currentQuantity;
+      updateOrderButton();
+    });
+
+    // Расчет стоимости торта
+    document.getElementById('calculateBtn').addEventListener('click', function() {
+      if (!selectedFilling) {
+        alert('Пожалуйста, выберите начинку');
+        return;
+      }
+      if (!selectedWeight) {
+        alert('Пожалуйста, выберите вес');
+        return;
+      }
+
+      // Рассчитываем цену: базовая цена + цена начинки
+      const fillingPrice = selectedFilling.price || 0;
+      const totalPrice = (selectedWeight.price + fillingPrice) * currentQuantity;
+
+      // Показываем рассчитанную цену
+      document.getElementById('calculatedPriceValue').textContent = totalPrice.toLocaleString('ru-RU') + ' ₽';
+      document.getElementById('calculatedPrice').classList.add('active');
+
+      // Обновляем текущую цену для кнопки
+      currentPrice = selectedWeight.price + fillingPrice;
+
+      // Обновляем кнопку заказать
+      document.getElementById('orderBtn').textContent = `Заказать (${totalPrice.toLocaleString('ru-RU')} ₽)`;
+    });
+
+    // Табы
+    document.querySelectorAll('.tab-btn').forEach(btn => {
+      btn.addEventListener('click', function() {
+        const tabName = this.dataset.tab;
+
+        document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+        document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
+
+        this.classList.add('active');
+        document.querySelector(`[data-content="${tabName}"]`).classList.add('active');
+      });
+    });
+
+    // Кнопка заказать
+    document.getElementById('orderBtn').addEventListener('click', function() {
+      alert('Функция добавления в корзину будет реализована позже');
+      // Здесь потом будет добавление в корзину
+    });
+
+    // Логика кнопки «Назад»
+    (function() {
+      const backLink = document.getElementById('backLink');
+      const backText = document.getElementById('backText');
+      const fromPage = urlParams.get('from');
+
+      const catalogMap = {
+        'summer.html':              'Летняя коллекция',
+        'bento.html':               'Бенто-торты',
+        'february.html':            '23 февраля',
+        'easter.html':              'Пасха',
+        'cakes.html':               'Пирожные',
+        'mousse.html':              'Муссовые бенто-торты',
+        'macarons.html':            'Macarons',
+        'candies.html':             'Шоколад и конфеты',
+        'cheesecake.html':          'Чизкейки',
+        'torty.html':               'Торты',
+        'torty-3d.html':            '3D-торты',
+        'torty-detskie.html':       'Детские торты',
+        'torty-svadebnye.html':     'Свадебные торты',
+        'torty-den-rozhdeniya.html':'Торты на День Рождения',
+        'fillings.html':            'Начинки',
+        'art-works.html':           'Наши работы'
+      };
+
+      if (fromPage && catalogMap[fromPage]) {
+        backLink.href = fromPage;
+        backText.textContent = 'Назад — ' + catalogMap[fromPage];
+      } else {
+        backLink.href = 'index.html';
+        backText.textContent = 'Назад в каталог';
+      }
+    })();
+
+    // Загружаем товар при загрузке страницы
+    loadProduct();
+  </script>
+</body>
+</html>

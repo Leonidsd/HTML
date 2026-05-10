@@ -433,11 +433,11 @@
 // Встроенный JavaScript для страницы Свадебные торты
 (function() {
   const PRODUCTS = [
-    { title: "Свадебный с вафельными рюшами", price: 7800, qtyText: "от 5 кг", tag: "Хит", img: "img/картинки для сайта/Свадебные торты/Свадебный с вафельными рюшами.jpg", imgHover: "img/картинки для сайта/Свадебные торты/Свадебный с вафельными рюшами 2.jpg" },
-    { title: "Свадебный торт винтаж", price: 6900, qtyText: "от 4 кг", tag: "", img: "img/картинки для сайта/Свадебные торты/Свадебный торт винтаж.jpg", imgHover: "img/картинки для сайта/Свадебные торты/Свадебный торт винтаж 2.jpg" },
-    { title: "Свадебный торт Воспоминания", price: 7400, qtyText: "от 5 кг", tag: "", img: "img/картинки для сайта/Свадебные торты/Свадебный торт Воспоминания.jpg", imgHover: "img/картинки для сайта/Свадебные торты/Свадебный торт Воспоминания 2.jpg" },
-    { title: "Свадебный торт с бусинами", price: 6200, qtyText: "от 4 кг", tag: "Новинка", img: "img/картинки для сайта/Свадебные торты/Свадебный торт с бусинами.jpg", imgHover: "img/картинки для сайта/Свадебные торты/Свадебный торт с бусинами 2.jpg" },
-    { title: "Свадебный торт с цветами и фруктами", price: 8000, qtyText: "от 6 кг", tag: "", img: "img/картинки для сайта/Свадебные торты/Свадебный торт с цветами и фруктами.jpg", imgHover: "img/картинки для сайта/Свадебные торты/Свадебный торт с цветами и фруктами 2.jpg" }
+    { id: "svadebnye-wafer-ruffles", title: "Свадебный с вафельными рюшами", price: 7800, qtyText: "от 5 кг", tag: "Хит", img: "img/картинки для сайта/Свадебные торты/Свадебный с вафельными рюшами.jpg", imgHover: "img/картинки для сайта/Свадебные торты/Свадебный с вафельными рюшами 2.jpg" },
+    { id: "svadebnye-vintage", title: "Свадебный торт винтаж", price: 6900, qtyText: "от 4 кг", tag: "", img: "img/картинки для сайта/Свадебные торты/Свадебный торт винтаж.jpg", imgHover: "img/картинки для сайта/Свадебные торты/Свадебный торт винтаж 2.jpg" },
+    { id: "svadebnye-memories", title: "Свадебный торт Воспоминания", price: 7400, qtyText: "от 5 кг", tag: "", img: "img/картинки для сайта/Свадебные торты/Свадебный торт Воспоминания.jpg", imgHover: "img/картинки для сайта/Свадебные торты/Свадебный торт Воспоминания 2.jpg" },
+    { id: "svadebnye-beads", title: "Свадебный торт с бусинами", price: 6200, qtyText: "от 4 кг", tag: "Новинка", img: "img/картинки для сайта/Свадебные торты/Свадебный торт с бусинами.jpg", imgHover: "img/картинки для сайта/Свадебные торты/Свадебный торт с бусинами 2.jpg" },
+    { id: "svadebnye-flowers-fruits", title: "Свадебный торт с цветами и фруктами", price: 8000, qtyText: "от 6 кг", tag: "", img: "img/картинки для сайта/Свадебные торты/Свадебный торт с цветами и фруктами.jpg", imgHover: "img/картинки для сайта/Свадебные торты/Свадебный торт с цветами и фруктами 2.jpg" }
   ];
 
   let sortMode = "popular";
@@ -492,7 +492,7 @@
           ${p.imgHover ? `<img class="collect-card__imgHover" src="${escapeHtml(p.imgHover)}" alt="">` : ""}
           ${p.tag ? `<div class="collect-card__tag">${escapeHtml(p.tag)}</div>` : ""}
           <div class="collect-card__qty">${escapeHtml(p.qtyText)}</div>
-          <a class="collect-card__btn" href="checkout.html">ЗАКАЗАТЬ</a>
+          <a class="collect-card__btn" href="product.html?id=${escapeHtml(p.id)}&from=torty-svadebnye.html">ЗАКАЗАТЬ</a>
         </div>
         <div class="collect-card__bottom">
           <div class="collect-card__name">${escapeHtml(p.title)}</div>

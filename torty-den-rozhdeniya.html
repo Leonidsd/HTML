@@ -433,11 +433,11 @@
 // Встроенный JavaScript для страницы Торты на День Рождения
 (function() {
   const PRODUCTS = [
-    { title: "Торт с котиками", price: 5300, qtyText: "от 3 кг", tag: "", img: "img/картинки для сайта/На день рождение/Торт с котиками.jpg", imgHover: "img/картинки для сайта/На день рождение/Торт с котиками 2.jpg" },
-    { title: "Торт с цветами", price: 4700, qtyText: "от 2.5 кг", tag: "Хит", img: "img/картинки для сайта/На день рождение/Торт с цветами.jpg", imgHover: "img/картинки для сайта/На день рождение/Торт с цветами 2.jpg" },
-    { title: "Торт со свечами вишнями", price: 5900, qtyText: "от 3 кг", tag: "Новинка", img: "img/картинки для сайта/На день рождение/Торт со свечами вишнями.jpg", imgHover: "img/картинки для сайта/На день рождение/Торт со свечами вишнями 2.jpg" },
-    { title: "Торт Хоккей", price: 6400, qtyText: "от 4 кг", tag: "", img: "img/картинки для сайта/На день рождение/Торт Хоккей.jpg", imgHover: "img/картинки для сайта/На день рождение/Торт Хоккей 2.jpg" },
-    { title: "Торт-календарь", price: 5100, qtyText: "от 3 кг", tag: "", img: "img/картинки для сайта/На день рождение/Торт-календарь.jpg", imgHover: "img/картинки для сайта/На день рождение/Торт-календарь 2.jpg" }
+    { id: "dr-cats", title: "Торт с котиками", price: 5300, qtyText: "от 3 кг", tag: "", img: "img/картинки для сайта/На день рождение/Торт с котиками.jpg", imgHover: "img/картинки для сайта/На день рождение/Торт с котиками 2.jpg" },
+    { id: "dr-flowers", title: "Торт с цветами", price: 4700, qtyText: "от 3 кг", tag: "Хит", img: "img/картинки для сайта/На день рождение/Торт с цветами.jpg", imgHover: "img/картинки для сайта/На день рождение/Торт с цветами 2.jpg" },
+    { id: "dr-cherry-candles", title: "Торт со свечами вишнями", price: 5900, qtyText: "от 3 кг", tag: "Новинка", img: "img/картинки для сайта/На день рождение/Торт со свечами вишнями.jpg", imgHover: "img/картинки для сайта/На день рождение/Торт со свечами вишнями 2.jpg" },
+    { id: "dr-hockey", title: "Торт Хоккей", price: 6400, qtyText: "от 4 кг", tag: "", img: "img/картинки для сайта/На день рождение/Торт Хоккей.jpg", imgHover: "img/картинки для сайта/На день рождение/Торт Хоккей 2.jpg" },
+    { id: "dr-calendar", title: "Торт-календарь", price: 5100, qtyText: "от 3 кг", tag: "", img: "img/картинки для сайта/На день рождение/Торт-календарь.jpg", imgHover: "img/картинки для сайта/На день рождение/Торт-календарь 2.jpg" }
   ];
 
   let sortMode = "popular";
@@ -492,7 +492,7 @@
           ${p.imgHover ? `<img class="collect-card__imgHover" src="${escapeHtml(p.imgHover)}" alt="">` : ""}
           ${p.tag ? `<div class="collect-card__tag">${escapeHtml(p.tag)}</div>` : ""}
           <div class="collect-card__qty">${escapeHtml(p.qtyText)}</div>
-          <a class="collect-card__btn" href="checkout.html">ЗАКАЗАТЬ</a>
+          <a class="collect-card__btn" href="product.html?id=${escapeHtml(p.id)}&from=torty-den-rozhdeniya.html">ЗАКАЗАТЬ</a>
         </div>
         <div class="collect-card__bottom">
           <div class="collect-card__name">${escapeHtml(p.title)}</div>

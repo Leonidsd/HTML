@@ -433,11 +433,11 @@
 // Встроенный JavaScript для страницы 3D-торты
 (function() {
   const PRODUCTS = [
-    { title: "Торт «LouisVuitton»", price: 9600, qtyText: "от 4 кг", tag: "Новинка", img: "img/картинки для сайта/3D-торты/Торт «LouisVuitton».jpg", imgHover: "img/картинки для сайта/3D-торты/Торт «LouisVuitton» 2.jpg" },
-    { title: "Торт KFC", price: 6200, qtyText: "от 3 кг", tag: "", img: "img/картинки для сайта/3D-торты/Торт KFC.jpg", imgHover: "img/картинки для сайта/3D-торты/Торт KFC 2.jpg" },
-    { title: "Торт Кастрюля с пельменями", price: 5900, qtyText: "от 3 кг", tag: "Хит", img: "img/картинки для сайта/3D-торты/Торт Кастрюля с пельменями.jpg", imgHover: "img/картинки для сайта/3D-торты/Торт Кастрюля с пельменями 2.jpg" },
-    { title: "Торт Кино", price: 7400, qtyText: "от 6 кг", tag: "", img: "img/картинки для сайта/3D-торты/Торт Кино.jpg", imgHover: "img/картинки для сайта/3D-торты/Торт Кино 2.jpg" },
-    { title: "Торт с бабочками", price: 6500, qtyText: "от 2.5 кг", tag: "", img: "img/картинки для сайта/3D-торты/Торт с бабочками.jpg", imgHover: "img/картинки для сайта/3D-торты/Торт с бабочками 2.jpg" }
+    { id: "torty3d-louis-vuitton", title: "Торт «LouisVuitton»", price: 9600, qtyText: "от 4 кг", tag: "Новинка", img: "img/картинки для сайта/3D-торты/Торт «LouisVuitton».jpg", imgHover: "img/картинки для сайта/3D-торты/Торт «LouisVuitton» 2.jpg" },
+    { id: "torty3d-kfc", title: "Торт KFC", price: 6200, qtyText: "от 3 кг", tag: "", img: "img/картинки для сайта/3D-торты/Торт KFC.jpg", imgHover: "img/картинки для сайта/3D-торты/Торт KFC 2.jpg" },
+    { id: "torty3d-dumplings", title: "Торт Кастрюля с пельменями", price: 5900, qtyText: "от 3 кг", tag: "Хит", img: "img/картинки для сайта/3D-торты/Торт Кастрюля с пельменями.jpg", imgHover: "img/картинки для сайта/3D-торты/Торт Кастрюля с пельменями 2.jpg" },
+    { id: "torty3d-cinema", title: "Торт Кино", price: 7400, qtyText: "от 6 кг", tag: "", img: "img/картинки для сайта/3D-торты/Торт Кино.jpg", imgHover: "img/картинки для сайта/3D-торты/Торт Кино 2.jpg" },
+    { id: "torty3d-butterflies", title: "Торт с бабочками", price: 6500, qtyText: "от 3 кг", tag: "", img: "img/картинки для сайта/3D-торты/Торт с бабочками.jpg", imgHover: "img/картинки для сайта/3D-торты/Торт с бабочками 2.jpg" }
   ];
 
   let sortMode = "popular";
@@ -492,7 +492,7 @@
           ${p.imgHover ? `<img class="collect-card__imgHover" src="${escapeHtml(p.imgHover)}" alt="">` : ""}
           ${p.tag ? `<div class="collect-card__tag">${escapeHtml(p.tag)}</div>` : ""}
           <div class="collect-card__qty">${escapeHtml(p.qtyText)}</div>
-          <a class="collect-card__btn" href="checkout.html">ЗАКАЗАТЬ</a>
+          <a class="collect-card__btn" href="product.html?id=${escapeHtml(p.id)}&from=torty-3d.html">ЗАКАЗАТЬ</a>
         </div>
         <div class="collect-card__bottom">
           <div class="collect-card__name">${escapeHtml(p.title)}</div>

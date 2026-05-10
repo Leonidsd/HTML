@@ -433,11 +433,11 @@
 // Встроенный JavaScript для страницы Торты
 (function() {
   const PRODUCTS = [
-    { title: "Торт наполеон с ягодами", price: 4500, qtyText: "от 2 кг", tag: "Хит", img: "img/картинки для сайта/Торты/Торт наполеон с ягодами.jpg", imgHover: "img/картинки для сайта/Торты/Торт наполеон с ягодами 2.jpg" },
-    { title: "Торт праздничный шик", price: 6800, qtyText: "от 3 кг", tag: "", img: "img/картинки для сайта/Торты/Торт Праздничный шик.jpg", imgHover: "img/картинки для сайта/Торты/Торт праздничный шик 2.jpg" },
-    { title: "Торт расписной цветами", price: 3200, qtyText: "от 2.7 кг", tag: "Новинка", img: "img/картинки для сайта/Торты/Торт расписной цветами.jpg", imgHover: "img/картинки для сайта/Торты/Торт расписной цветами 2.jpg" },
-    { title: "Торт с бабочками из вафельной бумаги", price: 6500, qtyText: "от 2.5 кг", tag: "", img: "img/картинки для сайта/Торты/Торт с бабочками из вафельной бумаги.jpg", imgHover: "img/картинки для сайта/Торты/Торт с бабочками из вафельной бумаги 2.jpg" },
-    { title: "Торт Ягодное лукошко", price: 7200, qtyText: "от 3 кг", tag: "", img: "img/картинки для сайта/Торты/Торт Ягодное лукошко.jpg", imgHover: "img/картинки для сайта/Торты/Торт Ягодное лукошко 2.jpg" }
+    { id: "torty-napoleon", title: "Торт наполеон с ягодами", price: 4500, qtyText: "от 2 кг", tag: "Хит", img: "img/картинки для сайта/Торты/Торт наполеон с ягодами.jpg", imgHover: "img/картинки для сайта/Торты/Торт наполеон с ягодами 2.jpg" },
+    { id: "torty-prazdnichny-shik", title: "Торт праздничный шик", price: 6800, qtyText: "от 3 кг", tag: "", img: "img/картинки для сайта/Торты/Торт Праздничный шик.jpg", imgHover: "img/картинки для сайта/Торты/Торт праздничный шик 2.jpg" },
+    { id: "torty-raspisnoy", title: "Торт расписной цветами", price: 3200, qtyText: "от 3 кг", tag: "Новинка", img: "img/картинки для сайта/Торты/Торт расписной цветами.jpg", imgHover: "img/картинки для сайта/Торты/Торт расписной цветами 2.jpg" },
+    { id: "torty-babochki", title: "Торт с бабочками из вафельной бумаги", price: 6500, qtyText: "от 3 кг", tag: "", img: "img/картинки для сайта/Торты/Торт с бабочками из вафельной бумаги.jpg", imgHover: "img/картинки для сайта/Торты/Торт с бабочками из вафельной бумаги 2.jpg" },
+    { id: "torty-yagodnoe-lukoshko", title: "Торт Ягодное лукошко", price: 7200, qtyText: "от 3 кг", tag: "", img: "img/картинки для сайта/Торты/Торт Ягодное лукошко.jpg", imgHover: "img/картинки для сайта/Торты/Торт Ягодное лукошко 2.jpg" }
   ];
 
   let sortMode = "popular";
@@ -492,7 +492,7 @@
           ${p.imgHover ? `<img class="collect-card__imgHover" src="${escapeHtml(p.imgHover)}" alt="">` : ""}
           ${p.tag ? `<div class="collect-card__tag">${escapeHtml(p.tag)}</div>` : ""}
           <div class="collect-card__qty">${escapeHtml(p.qtyText)}</div>
-          <a class="collect-card__btn" href="checkout.html">ЗАКАЗАТЬ</a>
+          <a class="collect-card__btn" href="product.html?id=${escapeHtml(p.id)}&from=torty.html">ЗАКАЗАТЬ</a>
         </div>
         <div class="collect-card__bottom">
           <div class="collect-card__name">${escapeHtml(p.title)}</div>

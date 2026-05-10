@@ -1180,92 +1180,92 @@ const COLLECTION_PAGES = {
 
 const SUMMER_PRODUCTS = [
   // пример — подставь свои фото/цены/бейджи
-  { id:"summer", cat:"summer", title:"Торт «Ягодное лукошко»", priceText:"3 300 ₽", qtyText:"от 1 шт", tag:"Хит", img:"img/summer-1.jpg",imgHover: "img/summer-1b.jpg" },
-  { id:"summer", cat:"summer", title:"3D Пирожные с сублимированной малиной", priceText:"от 750 ₽", qtyText:"от 4 шт", tag:"", img:"img/summer-2.jpg",imgHover: "img/summer-2b.jpg" },
-  { id:"summer", cat:"summer", title:"Зефир в вафельном стаканчике", priceText:"от 400 ₽", qtyText:"от 6 шт", tag:"", img:"img/summer-3.jpg",imgHover: "img/summer-3b.jpg" },
-  { id:"summer", cat:"summer", title:"Торт Праздничный шик", priceText:"6 000 ₽", qtyText:"4 кг", tag:"Новинка", img:"img/summer-4.jpg",imgHover: "img/summer-4b.jpg" },
-  { id:"summer", cat:"summer", title:"Бенто-Торт «Любящие сердца»", priceText:"1 000 ₽", qtyText:"от 1 шт", tag:"", img:"img/summer-5.jpg",imgHover: "img/summer-5b.jpg" },
-  { id:"summer", cat:"summer", title:"Меренговый рулет с ягодами", priceText:"1100 ₽", qtyText:"1 кг", tag:"", img:"img/summer-6.jpg",imgHover: "img/summer-6b.jpg" },
+  { id:"summer-berry-basket", cat:"summer", title:"Торт «Ягодное лукошко»", priceText:"от 3 300 ₽", qtyText:"от 3 кг", tag:"Хит", img:"img/summer-1.jpg",imgHover: "img/summer-1b.jpg" },
+  { id:"summer-3d-raspberry", cat:"summer", title:"3D Пирожные с сублимированной малиной", priceText:"от 750 ₽", qtyText:"от 4 шт", tag:"", img:"img/summer-2.jpg",imgHover: "img/summer-2b.jpg" },
+  { id:"summer-marshmallow-cup", cat:"summer", title:"Зефир в вафельном стаканчике", priceText:"от 400 ₽", qtyText:"от 6 шт", tag:"", img:"img/summer-3.jpg",imgHover: "img/summer-3b.jpg" },
+  { id:"summer-festive-chic", cat:"summer", title:"Торт Праздничный шик", priceText:"от 4 500 ₽", qtyText:"от 3 кг", tag:"Новинка", img:"img/summer-4.jpg",imgHover: "img/summer-4b.jpg" },
+  { id:"summer-loving-hearts", cat:"summer", title:"Бенто-Торт «Любящие сердца»", priceText:"1 000 ₽", qtyText:"от 1 шт", tag:"", img:"img/summer-5.jpg",imgHover: "img/summer-5b.jpg" },
+  { id:"summer-meringue-roll", cat:"summer", title:"Меренговый рулет с ягодами", priceText:"1100 ₽", qtyText:"1 кг", tag:"", img:"img/summer-6.jpg",imgHover: "img/summer-6b.jpg" },
 ];
 
 const BENTO_PRODUCTS = [
   // пример — замени на свои
-  { id:"bento", cat:"bento", title:"Бенто «Клубника»", priceText:"1 000 ₽", qtyText:"от 1 шт", tag:"Хит", img:"img/bento-1.jpg",imgHover: "img/bento-1b.jpg" },
-  { id:"bento", cat:"bento", title:"Бенто «Любовь»", priceText:"1 250 ₽", qtyText:"от 1 шт", tag:"", img:"img/bento-2.jpg",imgHover: "img/bento-2b.jpg" },
-  { id:"bento", cat:"bento", title:"Бенто «Капибара»", priceText:"1 100 ₽", qtyText:"от 1 шт", tag:"Новинка", img:"img/bento-3.jpg",imgHover: "img/bento-3b.jpg" },
-  { id:"bento", cat:"bento", title:"Бенто «Любимой маме»", priceText:"1 200 ₽", qtyText:"от 1 шт", tag:"Хит", img:"img/bento-4.jpg",imgHover: "img/bento-4b.jpg" },
-  { id:"bento", cat:"bento", title:"Бенто «Моей булочке»", priceText:"1 150 ₽", qtyText:"от 1 шт", tag:"", img:"img/bento-5.jpg",imgHover: "img/bento-5b.jpg" },
-  { id:"bento", cat:"bento", title:"Бенто «Happy Birthday»", priceText:"1 050 ₽", qtyText:"от 1 шт", tag:"Новинка", img:"img/bento-6.jpg",imgHover: "img/bento-6b.jpg" },
+  { id:"bento-strawberry", cat:"bento", title:"Бенто «Клубника»", priceText:"1 000 ₽", qtyText:"от 1 шт", tag:"Хит", img:"img/bento-1.jpg",imgHover: "img/bento-1b.jpg" },
+  { id:"bento-love", cat:"bento", title:"Бенто «Любовь»", priceText:"1 250 ₽", qtyText:"от 1 шт", tag:"", img:"img/bento-2.jpg",imgHover: "img/bento-2b.jpg" },
+  { id:"bento-capybara", cat:"bento", title:"Бенто «Капибара»", priceText:"1 100 ₽", qtyText:"от 1 шт", tag:"Новинка", img:"img/bento-3.jpg",imgHover: "img/bento-3b.jpg" },
+  { id:"bento-dear-mom", cat:"bento", title:"Бенто «Любимой маме»", priceText:"1 200 ₽", qtyText:"от 1 шт", tag:"Хит", img:"img/bento-4.jpg",imgHover: "img/bento-4b.jpg" },
+  { id:"bento-my-bun", cat:"bento", title:"Бенто «Моей булочке»", priceText:"1 150 ₽", qtyText:"от 1 шт", tag:"", img:"img/bento-5.jpg",imgHover: "img/bento-5b.jpg" },
+  { id:"bento-happy-birthday", cat:"bento", title:"Бенто «Happy Birthday»", priceText:"1 050 ₽", qtyText:"от 1 шт", tag:"Новинка", img:"img/bento-6.jpg",imgHover: "img/bento-6b.jpg" },
 ];
 
 const FEBRUARY_PRODUCTS = [
   // пример — замени на свои
-  { id:"february", cat:"february", title:"Десерт «Пиво»", priceText:"700 ₽", qtyText:"от 1 шт", tag:"Хит", img:"img/february-1.jpg",imgHover: "img/february-1b.jpg" },
-  { id:"february", cat:"february", title:"Macarons «23»", priceText:"1 670 ₽", qtyText:"от 8 шт", tag:"Новинка", img:"img/february-2.jpg",imgHover: "img/february-2b.jpg" },
-  { id:"february", cat:"february", title:"Пирожные «Защитник»", priceText:"900 ₽", qtyText:"от 4 шт", tag:"", img:"img/february-3.jpg",imgHover: "img/february-3b.jpg" },
-  { id:"february", cat:"february", title:"Бенто «23 февраля»", priceText:"1 100 ₽", qtyText:"от 1 шт", tag:"", img:"img/february-4.jpg",imgHover: "img/february-4b.jpg" },
-  { id:"february", cat:"february", title:"Конфеты «Пельмени»", priceText:"550 ₽", qtyText:"от 1 шт", tag:"", img:"img/february-5.jpg",imgHover: "img/february-5b.jpg" },
+  { id:"february-beer", cat:"february", title:"Десерт «Пиво»", priceText:"700 ₽", qtyText:"от 1 шт", tag:"Хит", img:"img/february-1.jpg",imgHover: "img/february-1b.jpg" },
+  { id:"february-macarons-23", cat:"february", title:"Macarons «23»", priceText:"1 670 ₽", qtyText:"от 8 шт", tag:"Новинка", img:"img/february-2.jpg",imgHover: "img/february-2b.jpg" },
+  { id:"february-defender", cat:"february", title:"Пирожные «Защитник»", priceText:"900 ₽", qtyText:"от 4 шт", tag:"", img:"img/february-3.jpg",imgHover: "img/february-3b.jpg" },
+  { id:"february-bento-23", cat:"february", title:"Бенто «23 февраля»", priceText:"1 100 ₽", qtyText:"от 1 шт", tag:"", img:"img/february-4.jpg",imgHover: "img/february-4b.jpg" },
+  { id:"february-dumplings", cat:"february", title:"Конфеты «Пельмени»", priceText:"550 ₽", qtyText:"от 1 шт", tag:"", img:"img/february-5.jpg",imgHover: "img/february-5b.jpg" },
 
 ];
 
 const EASTER_PRODUCTS = [
   // пример — замени на свои
-  { id:"easter", cat:"easter", title:"Десерт «Пасхальные яйца»", priceText:"900 ₽", qtyText:"от 7 шт", tag:"Хит", img:"img/easter-1.jpg",imgHover: "img/easter-1b.jpg" },
-  { id:"easter", cat:"easter", title:"Творожная пасха", priceText:"1 300 ₽", qtyText:"от 1 шт", tag:"", img:"img/easter-2.jpg",imgHover: "img/easter-2b.jpg" },
-  { id:"easter", cat:"easter", title:"Пасхальный кулич", priceText:"350 ₽", qtyText:"от 1 шт", tag:"Новинка", img:"img/easter-3.jpg",imgHover: "img/easter-3b.jpg" },
-  { id:"easter", cat:"easter", title:"Творожный чизкейк", priceText:"1 300 ₽", qtyText:"от 3 шт", tag:"", img:"img/easter-4.jpg",imgHover: "img/easter-4b.jpg" },
-  { id:"easter", cat:"easter", title:"Творожная пасха", priceText:"600 ₽", qtyText:"от 1 шт", tag:"", img:"img/easter-5.jpg",imgHover: "img/easter-5b.jpg" },
+  { id:"easter-eggs", cat:"easter", title:"Десерт «Пасхальные яйца»", priceText:"900 ₽", qtyText:"от 7 шт", tag:"Хит", img:"img/easter-1.jpg",imgHover: "img/easter-1b.jpg" },
+  { id:"easter-paskha-1", cat:"easter", title:"Творожная пасха", priceText:"1 300 ₽", qtyText:"от 1 шт", tag:"", img:"img/easter-2.jpg",imgHover: "img/easter-2b.jpg" },
+  { id:"easter-kulich", cat:"easter", title:"Пасхальный кулич", priceText:"350 ₽", qtyText:"от 1 шт", tag:"Новинка", img:"img/easter-3.jpg",imgHover: "img/easter-3b.jpg" },
+  { id:"easter-cheesecake", cat:"easter", title:"Творожный чизкейк", priceText:"1 300 ₽", qtyText:"от 3 шт", tag:"", img:"img/easter-4.jpg",imgHover: "img/easter-4b.jpg" },
+  { id:"easter-paskha-2", cat:"easter", title:"Творожная пасха", priceText:"600 ₽", qtyText:"от 1 шт", tag:"", img:"img/easter-5.jpg",imgHover: "img/easter-5b.jpg" },
 
 ];
 
 const CAKES_PRODUCTS = [
   // пример — замени на свои
-  { id:"cakes", cat:"cakes", title:"Мини Чизкейк", priceText:"от 300 ₽", qtyText:"от 2 шт", tag:"Новинка", img:"img/cakes-1.jpg",imgHover: "img/cakes-1b.jpg" },
-  { id:"cakes", cat:"cakes", title:"Ассорти пирожных", priceText:"от 300 ₽", qtyText:"от 4 шт", tag:"", img:"img/cakes-2.jpg",imgHover: "img/cakes-2b.jpg" },
-  { id:"cakes", cat:"cakes", title:"Муссовые сердца", priceText:"от 750 ₽", qtyText:"от 4 шт", tag:"Хит", img:"img/cakes-3.jpg",imgHover: "img/cakes-3b.jpg" },
-  { id:"cakes", cat:"cakes", title:"Пирожное картошка", priceText:"от 600 ₽", qtyText:"от 4 шт", tag:"", img:"img/cakes-4.jpg",imgHover: "img/cakes-4b.jpg" },
-  { id:"cakes", cat:"cakes", title:"Мадлен", priceText:"от 860 ₽", qtyText:"от 8 шт", tag:"", img:"img/cakes-5.jpg",imgHover: "img/cakes-5b.jpg" },
+  { id:"cakes-mini-cheesecake", cat:"cakes", title:"Мини Чизкейк", priceText:"от 300 ₽", qtyText:"от 2 шт", tag:"Новинка", img:"img/cakes-1.jpg",imgHover: "img/cakes-1b.jpg" },
+  { id:"cakes-assortment", cat:"cakes", title:"Ассорти пирожных", priceText:"1 200 ₽", qtyText:"набор 4 шт", tag:"", img:"img/cakes-2.jpg",imgHover: "img/cakes-2b.jpg" },
+  { id:"cakes-mousse-hearts", cat:"cakes", title:"Муссовые сердца", priceText:"от 750 ₽", qtyText:"от 4 шт", tag:"Хит", img:"img/cakes-3.jpg",imgHover: "img/cakes-3b.jpg" },
+  { id:"cakes-potato", cat:"cakes", title:"Пирожное картошка", priceText:"от 600 ₽", qtyText:"от 4 шт", tag:"", img:"img/cakes-4.jpg",imgHover: "img/cakes-4b.jpg" },
+  { id:"cakes-madeleine", cat:"cakes", title:"Мадлен", priceText:"от 860 ₽", qtyText:"от 8 шт", tag:"", img:"img/cakes-5.jpg",imgHover: "img/cakes-5b.jpg" },
 
 ];
 
 const MOUSSE_PRODUCTS = [
   // пример — замени на свои
-  { id:"mousse", cat:"mousse", title:"Шоколадный муссовый бенто-торт", priceText:"1280 ₽", qtyText:"от 1 шт", tag:"", img:"img/mousse-1.jpg",imgHover: "img/mousse-1b.jpg" },
-  { id:"mousse", cat:"mousse", title:"Ягодный муссовый бенто-торт", priceText:"1150 ₽", qtyText:"от 1 шт", tag:"", img:"img/mousse-2.jpg",imgHover: "img/mousse-2b.jpg" },
-  { id:"mousse", cat:"mousse", title:"Кремовый муссовый бенто-торт", priceText:"1150 ₽", qtyText:"от 1 шт", tag:"", img:"img/mousse-3.jpg",imgHover: "img/mousse-3b.jpg" },
-  { id:"mousse", cat:"mousse", title:"Лимонный муссовый бенто-торт", priceText:"900 ₽", qtyText:"от 1 шт", tag:"Хит", img:"img/mousse-4.jpg",imgHover: "img/mousse-4b.jpg" },
-  { id:"mousse", cat:"mousse", title:"Кофейный муссовый бенто-торт", priceText:"850 ₽", qtyText:"от 1 шт", tag:"Новинка", img:"img/mousse-5.jpg",imgHover: "img/mousse-5b.jpg" },
+  { id:"mousse-chocolate", cat:"mousse", title:"Шоколадный муссовый бенто-торт", priceText:"1280 ₽", qtyText:"от 1 шт", tag:"", img:"img/mousse-1.jpg",imgHover: "img/mousse-1b.jpg" },
+  { id:"mousse-berry", cat:"mousse", title:"Ягодный муссовый бенто-торт", priceText:"1150 ₽", qtyText:"от 1 шт", tag:"", img:"img/mousse-2.jpg",imgHover: "img/mousse-2b.jpg" },
+  { id:"mousse-cream", cat:"mousse", title:"Кремовый муссовый бенто-торт", priceText:"1150 ₽", qtyText:"от 1 шт", tag:"", img:"img/mousse-3.jpg",imgHover: "img/mousse-3b.jpg" },
+  { id:"mousse-lemon", cat:"mousse", title:"Лимонный муссовый бенто-торт", priceText:"900 ₽", qtyText:"от 1 шт", tag:"Хит", img:"img/mousse-4.jpg",imgHover: "img/mousse-4b.jpg" },
+  { id:"mousse-coffee", cat:"mousse", title:"Кофейный муссовый бенто-торт", priceText:"850 ₽", qtyText:"от 1 шт", tag:"Новинка", img:"img/mousse-5.jpg",imgHover: "img/mousse-5b.jpg" },
 
 ];
 
 const MACARONS_PRODUCTS = [
   // пример — замени на свои
-  { id:"macarons", cat:"macarons", title:"Набор1 Французских Macarons", priceText:"1800 ₽", qtyText:"от 1 шт", tag:"Новинка", img:"img/macarons-1.jpg",imgHover: "img/macarons-1b.jpg" },
-  { id:"macarons", cat:"macarons", title:"Набор2 Французских Macarons", priceText:"1890 ₽", qtyText:"от 1 шт", tag:"", img:"img/macarons-2.jpg",imgHover: "img/macarons-2b.jpg" },
-  { id:"macarons", cat:"macarons", title:"Набор3 Французских Macarons", priceText:"1900 ₽", qtyText:"от 1 шт", tag:"", img:"img/macarons-3.jpg",imgHover: "img/macarons-3b.jpg" },
-  { id:"macarons", cat:"macarons", title:"Набор4 Французских Macarons", priceText:"1700 ₽", qtyText:"от 1 шт", tag:"Хит", img:"img/macarons-4.jpg",imgHover: "img/macarons-4b.jpg" },
-  { id:"macarons", cat:"macarons", title:"Классические Французские Macarons", priceText:"1200 ₽", qtyText:"от 1 шт", tag:"", img:"img/macarons-5.jpg",imgHover: "img/macarons-5b.jpg" },
-  { id:"macarons", cat:"macarons", title:"Набор5 Французских Macarons", priceText:"1400 ₽", qtyText:"от 1 шт", tag:"Новинка", img:"img/macarons-6.jpg",imgHover: "img/macarons-6b.jpg" },
+  { id:"macarons-set-1", cat:"macarons", title:"Набор1 Французских Macarons", priceText:"1800 ₽", qtyText:"от 1 шт", tag:"Новинка", img:"img/macarons-1.jpg",imgHover: "img/macarons-1b.jpg" },
+  { id:"macarons-set-2", cat:"macarons", title:"Набор2 Французских Macarons", priceText:"1890 ₽", qtyText:"от 1 шт", tag:"", img:"img/macarons-2.jpg",imgHover: "img/macarons-2b.jpg" },
+  { id:"macarons-set-3", cat:"macarons", title:"Набор3 Французских Macarons", priceText:"1900 ₽", qtyText:"от 1 шт", tag:"", img:"img/macarons-3.jpg",imgHover: "img/macarons-3b.jpg" },
+  { id:"macarons-set-4", cat:"macarons", title:"Набор4 Французских Macarons", priceText:"1700 ₽", qtyText:"от 1 шт", tag:"Хит", img:"img/macarons-4.jpg",imgHover: "img/macarons-4b.jpg" },
+  { id:"macarons-classic", cat:"macarons", title:"Классические Французские Macarons", priceText:"1200 ₽", qtyText:"от 1 шт", tag:"", img:"img/macarons-5.jpg",imgHover: "img/macarons-5b.jpg" },
+  { id:"macarons-set-5", cat:"macarons", title:"Набор5 Французских Macarons", priceText:"1400 ₽", qtyText:"от 1 шт", tag:"Новинка", img:"img/macarons-6.jpg",imgHover: "img/macarons-6b.jpg" },
 
 ];
 
 const CANDIES_PRODUCTS = [
   // пример — замени на свои
-  { id:"candies", cat:"candies", title:"Дубайский шоколад", priceText:"1200 ₽", qtyText:"от 1 шт", tag:"Новинка", img:"img/candies-1.jpg",imgHover: "img/candies-1b.jpg" },
-  { id:"candies", cat:"candies", title:"Конфеты «Галактическая любовь»", priceText:"450 ₽", qtyText:"от 1 шт", tag:"Хит", img:"img/candies-2.jpg",imgHover: "img/candies-2b.jpg" },
-  { id:"candies", cat:"candies", title:"Набор1 конфет", priceText:"500 ₽", qtyText:"от 1 шт", tag:"", img:"img/candies-3.jpg",imgHover: "img/candies-3b.jpg" },
-  { id:"candies", cat:"candies", title:"Набор2 конфет", priceText:"300 ₽", qtyText:"от 1 шт", tag:"", img:"img/candies-4.jpg",imgHover: "img/candies-4b.jpg" },
-  { id:"candies", cat:"candies", title:"Набор конфет «Поцелуй»", priceText:"780 ₽", qtyText:"от 1 шт", tag:"Новинка", img:"img/candies-5.jpg",imgHover: "img/candies-5b.jpg" },
-  { id:"candies", cat:"candies", title:"Конфеты «Сердечки»", priceText:"570 ₽", qtyText:"от 1 шт", tag:"", img:"img/candies-6.jpg",imgHover: "img/candies-6b.jpg" },
+  { id:"candies-dubai-chocolate", cat:"candies", title:"Дубайский шоколад", priceText:"1200 ₽", qtyText:"от 1 шт", tag:"Новинка", img:"img/candies-1.jpg",imgHover: "img/candies-1b.jpg" },
+  { id:"candies-galactic-love", cat:"candies", title:"Конфеты «Галактическая любовь»", priceText:"450 ₽", qtyText:"от 1 шт", tag:"Хит", img:"img/candies-2.jpg",imgHover: "img/candies-2b.jpg" },
+  { id:"candies-set-1", cat:"candies", title:"Набор1 конфет", priceText:"500 ₽", qtyText:"от 1 шт", tag:"", img:"img/candies-3.jpg",imgHover: "img/candies-3b.jpg" },
+  { id:"candies-set-2", cat:"candies", title:"Набор2 конфет", priceText:"300 ₽", qtyText:"от 1 шт", tag:"", img:"img/candies-4.jpg",imgHover: "img/candies-4b.jpg" },
+  { id:"candies-kiss", cat:"candies", title:"Набор конфет «Поцелуй»", priceText:"780 ₽", qtyText:"от 1 шт", tag:"Новинка", img:"img/candies-5.jpg",imgHover: "img/candies-5b.jpg" },
+  { id:"candies-hearts", cat:"candies", title:"Конфеты «Сердечки»", priceText:"570 ₽", qtyText:"от 1 шт", tag:"", img:"img/candies-6.jpg",imgHover: "img/candies-6b.jpg" },
 
 ];
 
 const CHEESECAKE_PRODUCTS = [
   // пример — замени на свои
-  { id:"cheesecake", cat:"cheesecake", title:"Чизкейк «Дубайский шоколад»", priceText:"1200 ₽", qtyText:"от 1 шт", tag:"Новинка", img:"img/cheesecake-1.jpg",imgHover: "img/cheesecake-1b.jpg" },
-  { id:"cheesecake", cat:"cheesecake", title:"Чизкейк «Малина-маракуя»", priceText:"1150 ₽", qtyText:"от 1 шт", tag:"Хит", img:"img/cheesecake-2.jpg",imgHover: "img/cheesecake-2b.jpg" },
-  { id:"cheesecake", cat:"cheesecake", title:"Чизкейк «Тирамису»", priceText:"1000 ₽", qtyText:"от 1 шт", tag:"", img:"img/cheesecake-3.jpg",imgHover: "img/cheesecake-3b.jpg" },
-  { id:"cheesecake", cat:"cheesecake", title:"Чизкейк «С голубикой»", priceText:"1170 ₽", qtyText:"от 1 шт", tag:"", img:"img/cheesecake-4.jpg",imgHover: "img/cheesecake-4b.jpg" },
+  { id:"cheesecake-dubai", cat:"cheesecake", title:"Чизкейк «Дубайский шоколад»", priceText:"1200 ₽", qtyText:"от 1 шт", tag:"Новинка", img:"img/cheesecake-1.jpg",imgHover: "img/cheesecake-1b.jpg" },
+  { id:"cheesecake-raspberry-passion", cat:"cheesecake", title:"Чизкейк «Малина-маракуя»", priceText:"1150 ₽", qtyText:"от 1 шт", tag:"Хит", img:"img/cheesecake-2.jpg",imgHover: "img/cheesecake-2b.jpg" },
+  { id:"cheesecake-tiramisu", cat:"cheesecake", title:"Чизкейк «Тирамису»", priceText:"1000 ₽", qtyText:"от 1 шт", tag:"", img:"img/cheesecake-3.jpg",imgHover: "img/cheesecake-3b.jpg" },
+  { id:"cheesecake-blueberry", cat:"cheesecake", title:"Чизкейк «С голубикой»", priceText:"1170 ₽", qtyText:"от 1 шт", tag:"", img:"img/cheesecake-4.jpg",imgHover: "img/cheesecake-4b.jpg" },
 
 ];
 
@@ -1377,7 +1377,7 @@ if (pageKey === "cheesecake") PRODUCTS = CHEESECAKE_PRODUCTS;
       <div class="collect-card__qty">${escapeHtml(p.qtyText)}</div>
 
       <!-- кнопка -->
-      <a class="collect-card__btn" href="#" data-order="${escapeHtml(p.id || p.title)}">
+      <a class="collect-card__btn" href="product.html?id=${escapeHtml(p.id)}&from=${encodeURIComponent(location.pathname.split('/').pop())}" data-order="${escapeHtml(p.id || p.title)}">
         ЗАКАЗАТЬ
       </a>
     </div>
