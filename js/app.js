@@ -213,6 +213,13 @@ function initCasualSlider(){
     return card.getBoundingClientRect().width + gap;
   }
 
+  function updateDisabled() {
+    const maxScroll = viewport.scrollWidth - viewport.clientWidth - 2;
+    const x = viewport.scrollLeft;
+    prevBtn.disabled = x <= 2;
+    nextBtn.disabled = x >= maxScroll;
+  }
+
   prevBtn.addEventListener("click", () => {
     viewport.scrollBy({ left: -getStep(), behavior: "smooth" });
   });
@@ -220,6 +227,10 @@ function initCasualSlider(){
   nextBtn.addEventListener("click", () => {
     viewport.scrollBy({ left: getStep(), behavior: "smooth" });
   });
+
+  viewport.addEventListener("scroll", updateDisabled, { passive: true });
+  window.addEventListener("resize", updateDisabled);
+  updateDisabled();
 })();
 
 
@@ -1167,15 +1178,15 @@ const SUMMER_CATEGORIES = [
   {id: "cheesecake", title: "Чизкейки" },
 ];
 const COLLECTION_PAGES = {
-  summer: "summer.html",
-  bento: "bento.html",
-  february: "february.html",
-  easter: "easter.html",
-  cakes: "cakes.html",
-  mousse: "mousse.html",
-  macarons: "macarons.html",
-  candies: "candies.html",
-  cheesecake: "cheesecake.html",
+  summer: "casual.html?cat=summer",
+  bento: "casual.html?cat=bento",
+  february: "casual.html?cat=february",
+  easter: "casual.html?cat=easter",
+  cakes: "casual.html?cat=cakes",
+  mousse: "casual.html?cat=mousse",
+  macarons: "casual.html?cat=macarons",
+  candies: "casual.html?cat=candies",
+  cheesecake: "casual.html?cat=cheesecake",
 };
 
 const SUMMER_PRODUCTS = [
@@ -1377,7 +1388,7 @@ if (pageKey === "cheesecake") PRODUCTS = CHEESECAKE_PRODUCTS;
       <div class="collect-card__qty">${escapeHtml(p.qtyText)}</div>
 
       <!-- кнопка -->
-      <a class="collect-card__btn" href="product.html?id=${escapeHtml(p.id)}&from=${encodeURIComponent(location.pathname.split('/').pop())}" data-order="${escapeHtml(p.id || p.title)}">
+      <a class="collect-card__btn" href="product.html?id=${escapeHtml(p.id)}&from=${encodeURIComponent(location.pathname.split('/').pop() + location.search)}" data-order="${escapeHtml(p.id || p.title)}">
         ЗАКАЗАТЬ
       </a>
     </div>
@@ -1415,9 +1426,12 @@ if (pageKey === "cheesecake") PRODUCTS = CHEESECAKE_PRODUCTS;
   const page = btn.dataset.page;            // ← если есть, значит это отдельная страница
 
   // 1) если чип ведёт на ДРУГУЮ страницу — переходим
-  if (page && !location.pathname.endsWith(page)) {
-    window.location.href = page;
-    return;
+  if (page) {
+    const currentPage = location.pathname.split('/').pop() + location.search;
+    if (currentPage !== page) {
+      window.location.href = page;
+      return;
+    }
   }
 
   // 2) если мы УЖЕ на нужной странице (или страницы нет) — фильтруем и подсвечиваем

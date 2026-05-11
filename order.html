@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>Торты - Вкус облаков</title>
+  <title>Торты — Вкус облаков</title>
   <link rel="stylesheet" href="css/main.css" />
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -102,25 +102,25 @@
         <div class="mega-cols">
           <div class="mega-col">
             <div class="mega-col__title">Casual</div>
-            <a class="mega-link" href="summer.html">Летняя коллекция</a>
-            <a class="mega-link" href="bento.html">Бенто-торты</a>
-            <a class="mega-link" href="february.html">23 февраля</a>
-            <a class="mega-link" href="easter.html">Пасха</a>
-            <a class="mega-link" href="cakes.html">Пирожные</a>
-            <a class="mega-link" href="mousse.html">Муссовые бенто-торты</a>
-            <a class="mega-link" href="macarons.html">Macarons</a>
-            <a class="mega-link" href="candies.html">Шоколад и конфеты</a>
-            <a class="mega-link" href="cheesecake.html">Чизкейки</a>
+            <a class="mega-link" href="casual.html?cat=summer">Летняя коллекция</a>
+            <a class="mega-link" href="casual.html?cat=bento">Бенто-торты</a>
+            <a class="mega-link" href="casual.html?cat=february">23 февраля</a>
+            <a class="mega-link" href="casual.html?cat=easter">Пасха</a>
+            <a class="mega-link" href="casual.html?cat=cakes">Пирожные</a>
+            <a class="mega-link" href="casual.html?cat=mousse">Муссовые бенто-торты</a>
+            <a class="mega-link" href="casual.html?cat=macarons">Macarons</a>
+            <a class="mega-link" href="casual.html?cat=candies">Шоколад и конфеты</a>
+            <a class="mega-link" href="casual.html?cat=cheesecake">Чизкейки</a>
           </div>
 
           <div class="mega-col">
             <div class="mega-col__title">To order</div>
             <a class="mega-link" href="fillings.html">Начинки</a>
-            <a class="mega-link" href="torty.html">Торты</a>
-            <a class="mega-link" href="torty-3d.html">3D-торты</a>
-            <a class="mega-link" href="torty-detskie.html">Детские торты</a>
-            <a class="mega-link" href="torty-svadebnye.html">Свадебные торты</a>
-            <a class="mega-link" href="torty-den-rozhdeniya.html">Торты на День Рождения</a>
+            <a class="mega-link" href="order.html?cat=torty">Торты</a>
+            <a class="mega-link" href="order.html?cat=torty-3d">3D-торты</a>
+            <a class="mega-link" href="order.html?cat=torty-detskie">Детские торты</a>
+            <a class="mega-link" href="order.html?cat=torty-svadebnye">Свадебные торты</a>
+            <a class="mega-link" href="order.html?cat=torty-den-rozhdeniya">Торты на День Рождения</a>
           </div>
 
           <div class="mega-col">
@@ -136,13 +136,7 @@
     <div class="mega__panel mega__panel--life" data-panel="life">
       <div class="mega__grid mega__grid--cards">
         <div class="mega-left">
-          <!--<div class="mega-left__text">Дети и взрослые о любимых сладостях</div>-->
         </div>
-
-        <!--<a class="mega-tile" href="#journal">
-          <div class="mega-tile__img mega-tile__img--pink"></div>
-          <div class="mega-tile__title">Журнал</div>
-        </a>-->
 
         <a class="mega-tile mega-tile--portrait" href="brand.html">
   <div class="mega-card__img mega-card__img--portrait">
@@ -274,7 +268,7 @@
   <main class="collection-page">
     <div class="container collection-hero">
       <div class="collection-hero__grid">
-        <h1 class="collection-hero__title">Торты</h1>
+        <h1 class="collection-hero__title" id="heroTitle">Торты</h1>
 
         <p class="collection-hero__text" style="margin-left: 40px;">
           Мы печём с душой. Для будней — гармоничные десерты, для праздников — торты вашей мечты.
@@ -288,11 +282,7 @@
 
       <!-- навигация между категориями тортов -->
       <div class="collection-chips" id="collectionChips" aria-label="Категории">
-        <a class="chip is-active" href="torty.html">Торты</a>
-        <a class="chip" href="torty-3d.html">3D-торты</a>
-        <a class="chip" href="torty-detskie.html">Детские</a>
-        <a class="chip" href="torty-svadebnye.html">Свадебные</a>
-        <a class="chip" href="torty-den-rozhdeniya.html">На День Рождения</a>
+        <!-- заполняются JS -->
       </div>
     </div>
 
@@ -390,8 +380,8 @@
       <!-- Колонка 2 -->
       <nav class="site-footer__col" aria-label="Магазин">
         <div class="site-footer__title">Магазин</div>
-        <a class="site-footer__link" href="summer.html">Каталог Casual</a>
-        <a class="site-footer__link" href="torty.html">Каталог To order</a>
+        <a class="site-footer__link" href="casual.html?cat=summer">Каталог Casual</a>
+        <a class="site-footer__link" href="order.html?cat=torty">Каталог To order</a>
         <a class="site-footer__link" href="fillings.html">Наши начинки</a>
       </nav>
 
@@ -430,15 +420,82 @@
   <script src="js/app.js"></script>
 
   <script>
-// Встроенный JavaScript для страницы Торты
+// Единый JavaScript для всех страниц To Order
 (function() {
-  const PRODUCTS = [
-    { id: "torty-napoleon", title: "Торт наполеон с ягодами", price: 4500, qtyText: "от 2 кг", tag: "Хит", img: "img/картинки для сайта/Торты/Торт наполеон с ягодами.jpg", imgHover: "img/картинки для сайта/Торты/Торт наполеон с ягодами 2.jpg" },
-    { id: "torty-prazdnichny-shik", title: "Торт праздничный шик", price: 6800, qtyText: "от 3 кг", tag: "", img: "img/картинки для сайта/Торты/Торт Праздничный шик.jpg", imgHover: "img/картинки для сайта/Торты/Торт праздничный шик 2.jpg" },
-    { id: "torty-raspisnoy", title: "Торт расписной цветами", price: 3200, qtyText: "от 3 кг", tag: "Новинка", img: "img/картинки для сайта/Торты/Торт расписной цветами.jpg", imgHover: "img/картинки для сайта/Торты/Торт расписной цветами 2.jpg" },
-    { id: "torty-babochki", title: "Торт с бабочками из вафельной бумаги", price: 6500, qtyText: "от 3 кг", tag: "", img: "img/картинки для сайта/Торты/Торт с бабочками из вафельной бумаги.jpg", imgHover: "img/картинки для сайта/Торты/Торт с бабочками из вафельной бумаги 2.jpg" },
-    { id: "torty-yagodnoe-lukoshko", title: "Торт Ягодное лукошко", price: 7200, qtyText: "от 3 кг", tag: "", img: "img/картинки для сайта/Торты/Торт Ягодное лукошко.jpg", imgHover: "img/картинки для сайта/Торты/Торт Ягодное лукошко 2.jpg" }
-  ];
+  // Данные всех категорий
+  const ORDER_CATEGORIES = {
+    'torty': {
+      title: 'Торты',
+      chipLabel: 'Торты',
+      products: [
+        { id: "torty-napoleon", title: "Торт наполеон с ягодами", price: 4500, qtyText: "от 2 кг", tag: "Хит", img: "img/картинки для сайта/Торты/Торт наполеон с ягодами.jpg", imgHover: "img/картинки для сайта/Торты/Торт наполеон с ягодами 2.jpg" },
+        { id: "torty-prazdnichny-shik", title: "Торт праздничный шик", price: 6800, qtyText: "от 3 кг", tag: "", img: "img/картинки для сайта/Торты/Торт Праздничный шик.jpg", imgHover: "img/картинки для сайта/Торты/Торт праздничный шик 2.jpg" },
+        { id: "torty-raspisnoy", title: "Торт расписной цветами", price: 3200, qtyText: "от 3 кг", tag: "Новинка", img: "img/картинки для сайта/Торты/Торт расписной цветами.jpg", imgHover: "img/картинки для сайта/Торты/Торт расписной цветами 2.jpg" },
+        { id: "torty-babochki", title: "Торт с бабочками из вафельной бумаги", price: 6500, qtyText: "от 3 кг", tag: "", img: "img/картинки для сайта/Торты/Торт с бабочками из вафельной бумаги.jpg", imgHover: "img/картинки для сайта/Торты/Торт с бабочками из вафельной бумаги 2.jpg" },
+        { id: "torty-yagodnoe-lukoshko", title: "Торт Ягодное лукошко", price: 7200, qtyText: "от 3 кг", tag: "", img: "img/картинки для сайта/Торты/Торт Ягодное лукошко.jpg", imgHover: "img/картинки для сайта/Торты/Торт Ягодное лукошко 2.jpg" }
+      ]
+    },
+    'torty-3d': {
+      title: '3D-торты',
+      chipLabel: '3D-торты',
+      products: [
+        { id: "torty3d-louis-vuitton", title: "Торт «LouisVuitton»", price: 9600, qtyText: "от 4 кг", tag: "Новинка", img: "img/картинки для сайта/3D-торты/Торт «LouisVuitton».jpg", imgHover: "img/картинки для сайта/3D-торты/Торт «LouisVuitton» 2.jpg" },
+        { id: "torty3d-kfc", title: "Торт KFC", price: 6200, qtyText: "от 3 кг", tag: "", img: "img/картинки для сайта/3D-торты/Торт KFC.jpg", imgHover: "img/картинки для сайта/3D-торты/Торт KFC 2.jpg" },
+        { id: "torty3d-dumplings", title: "Торт Кастрюля с пельменями", price: 5900, qtyText: "от 3 кг", tag: "Хит", img: "img/картинки для сайта/3D-торты/Торт Кастрюля с пельменями.jpg", imgHover: "img/картинки для сайта/3D-торты/Торт Кастрюля с пельменями 2.jpg" },
+        { id: "torty3d-cinema", title: "Торт Кино", price: 7400, qtyText: "от 6 кг", tag: "", img: "img/картинки для сайта/3D-торты/Торт Кино.jpg", imgHover: "img/картинки для сайта/3D-торты/Торт Кино 2.jpg" },
+        { id: "torty3d-butterflies", title: "Торт с бабочками", price: 6500, qtyText: "от 3 кг", tag: "", img: "img/картинки для сайта/3D-торты/Торт с бабочками.jpg", imgHover: "img/картинки для сайта/3D-торты/Торт с бабочками 2.jpg" }
+      ]
+    },
+    'torty-detskie': {
+      title: 'Детские торты',
+      chipLabel: 'Детские',
+      products: [
+        { id: "detskie-cartoon-candle", title: "Мультяшный торт со свечкой", price: 4800, qtyText: "от 3 кг", tag: "", img: "img/картинки для сайта/Детские торты/Мультяшный торт со свечкой.jpg", imgHover: "img/картинки для сайта/Детские торты/Мультяшный торт со свечкой 2.jpg" },
+        { id: "detskie-labubu", title: "Торт Лабубу", price: 5500, qtyText: "от 3 кг", tag: "Хит", img: "img/картинки для сайта/Детские торты/Торт Лабубу.jpg", imgHover: "img/картинки для сайта/Детские торты/Торт Лабубу 2.jpg" },
+        { id: "detskie-marshmallow", title: "Торт с маршмеллоу", price: 4200, qtyText: "от 2 кг", tag: "", img: "img/картинки для сайта/Детские торты/Торт с маршмеллоу.jpg", imgHover: "img/картинки для сайта/Детские торты/Торт с маршмеллоу 2.jpg" },
+        { id: "detskie-colorful", title: "Торт с небрежными цветными мазками", price: 3900, qtyText: "от 2 кг", tag: "Новинка", img: "img/картинки для сайта/Детские торты/Торт с небрежными цветными мазками.jpg", imgHover: "img/картинки для сайта/Детские торты/Торт с небрежными цветными мазками 2.jpg" },
+        { id: "detskie-ship", title: "Торт с фигуркой корабля", price: 6500, qtyText: "от 4 кг", tag: "", img: "img/картинки для сайта/Детские торты/Торт с фигуркой корабля.jpg", imgHover: "img/картинки для сайта/Детские торты/Торт с фигуркой корабля 2.jpg" }
+      ]
+    },
+    'torty-svadebnye': {
+      title: 'Свадебные торты',
+      chipLabel: 'Свадебные',
+      products: [
+        { id: "svadebnye-wafer-ruffles", title: "Свадебный с вафельными рюшами", price: 7800, qtyText: "от 5 кг", tag: "Хит", img: "img/картинки для сайта/Свадебные торты/Свадебный с вафельными рюшами.jpg", imgHover: "img/картинки для сайта/Свадебные торты/Свадебный с вафельными рюшами 2.jpg" },
+        { id: "svadebnye-vintage", title: "Свадебный торт винтаж", price: 6900, qtyText: "от 4 кг", tag: "", img: "img/картинки для сайта/Свадебные торты/Свадебный торт винтаж.jpg", imgHover: "img/картинки для сайта/Свадебные торты/Свадебный торт винтаж 2.jpg" },
+        { id: "svadebnye-memories", title: "Свадебный торт Воспоминания", price: 7400, qtyText: "от 5 кг", tag: "", img: "img/картинки для сайта/Свадебные торты/Свадебный торт Воспоминания.jpg", imgHover: "img/картинки для сайта/Свадебные торты/Свадебный торт Воспоминания 2.jpg" },
+        { id: "svadebnye-beads", title: "Свадебный торт с бусинами", price: 6200, qtyText: "от 4 кг", tag: "Новинка", img: "img/картинки для сайта/Свадебные торты/Свадебный торт с бусинами.jpg", imgHover: "img/картинки для сайта/Свадебные торты/Свадебный торт с бусинами 2.jpg" },
+        { id: "svadebnye-flowers-fruits", title: "Свадебный торт с цветами и фруктами", price: 8000, qtyText: "от 6 кг", tag: "", img: "img/картинки для сайта/Свадебные торты/Свадебный торт с цветами и фруктами.jpg", imgHover: "img/картинки для сайта/Свадебные торты/Свадебный торт с цветами и фруктами 2.jpg" }
+      ]
+    },
+    'torty-den-rozhdeniya': {
+      title: 'Торты на День Рождения',
+      chipLabel: 'На День Рождения',
+      products: [
+        { id: "dr-cats", title: "Торт с котиками", price: 5300, qtyText: "от 3 кг", tag: "", img: "img/картинки для сайта/На день рождение/Торт с котиками.jpg", imgHover: "img/картинки для сайта/На день рождение/Торт с котиками 2.jpg" },
+        { id: "dr-flowers", title: "Торт с цветами", price: 4700, qtyText: "от 3 кг", tag: "Хит", img: "img/картинки для сайта/На день рождение/Торт с цветами.jpg", imgHover: "img/картинки для сайта/На день рождение/Торт с цветами 2.jpg" },
+        { id: "dr-cherry-candles", title: "Торт со свечами вишнями", price: 5900, qtyText: "от 3 кг", tag: "Новинка", img: "img/картинки для сайта/На день рождение/Торт со свечами вишнями.jpg", imgHover: "img/картинки для сайта/На день рождение/Торт со свечами вишнями 2.jpg" },
+        { id: "dr-hockey", title: "Торт Хоккей", price: 6400, qtyText: "от 4 кг", tag: "", img: "img/картинки для сайта/На день рождение/Торт Хоккей.jpg", imgHover: "img/картинки для сайта/На день рождение/Торт Хоккей 2.jpg" },
+        { id: "dr-calendar", title: "Торт-календарь", price: 5100, qtyText: "от 3 кг", tag: "", img: "img/картинки для сайта/На день рождение/Торт-календарь.jpg", imgHover: "img/картинки для сайта/На день рождение/Торт-календарь 2.jpg" }
+      ]
+    }
+  };
+
+  // Определяем текущую категорию из URL
+  const urlParams = new URLSearchParams(window.location.search);
+  const cat = urlParams.get('cat') || 'torty';
+  const categoryData = ORDER_CATEGORIES[cat] || ORDER_CATEGORIES['torty'];
+  const PRODUCTS = categoryData.products;
+
+  // Устанавливаем заголовок и title
+  document.title = categoryData.title + ' — Вкус облаков';
+  document.getElementById('heroTitle').textContent = categoryData.title;
+
+  // Генерируем чипсы с активным состоянием
+  const chipsWrap = document.getElementById('collectionChips');
+  chipsWrap.innerHTML = Object.entries(ORDER_CATEGORIES).map(([key, data]) =>
+    `<a class="chip${key === cat ? ' is-active' : ''}" href="order.html?cat=${key}">${data.chipLabel}</a>`
+  ).join('');
 
   let sortMode = "popular";
   let priceMin = null;
@@ -492,7 +549,7 @@
           ${p.imgHover ? `<img class="collect-card__imgHover" src="${escapeHtml(p.imgHover)}" alt="">` : ""}
           ${p.tag ? `<div class="collect-card__tag">${escapeHtml(p.tag)}</div>` : ""}
           <div class="collect-card__qty">${escapeHtml(p.qtyText)}</div>
-          <a class="collect-card__btn" href="product.html?id=${escapeHtml(p.id)}&from=torty.html">ЗАКАЗАТЬ</a>
+          <a class="collect-card__btn" href="product.html?id=${escapeHtml(p.id)}&from=${encodeURIComponent('order.html?cat=' + cat)}">ЗАКАЗАТЬ</a>
         </div>
         <div class="collect-card__bottom">
           <div class="collect-card__name">${escapeHtml(p.title)}</div>
