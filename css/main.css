@@ -729,6 +729,9 @@ body{ font-family: var(--font); }
   .header__nav--center{ display:none; }
   .header__contacts--new{ display:none; }
   .header__burger{ display:inline-flex; }
+  .header__container{ grid-template-columns: auto 1fr; }
+  .header__actions{ margin-left: auto; }
+  .header__icons{ margin-left: auto; }
 }
 
 /* ===== Mobile menu ===== */
@@ -1029,8 +1032,10 @@ margin-left: -114px;
   .casual__head{
     grid-template-columns: 1fr;
   }
+  .casual__meta{ margin-left: 0; }
   .casual__arrows{
     padding-top: 0;
+    margin-left: 0;
   }
   .casual__title{
     font-size: 42px;
@@ -1203,6 +1208,9 @@ margin-left: -114px;
 
 /* Адаптив: на мобиле — по одной карточке */
 @media (max-width: 980px){
+  .toorder__head{ grid-template-columns: 1fr; }
+  .toorder__meta{ margin-left: 0; }
+  .toorder__arrows{ margin-left: 0; margin-top: 0; }
   .toorder-card{ width: 78vw; }
   .toorder-card__img{ height: 52vw; min-height: 320px; }
 }
@@ -1666,6 +1674,11 @@ margin-left: -114px;
     grid-template-columns: 1fr;
     gap: 40px;
   }
+  .why__col{
+    display: flex;
+    flex-direction: column;
+    gap: 36px;
+  }
   .why__col--left .why-item{
     text-align: left;
     margin-left: 0;
@@ -1907,10 +1920,12 @@ margin-left: -114px;
 }
 
 .site-footer__ico{
-  width: 18px;
-  display:inline-grid;
-  place-items:center;
+  width: 16px;
+  height: 16px;
+  display:inline-block;
+  vertical-align: middle;
   opacity: .75;
+  flex-shrink: 0;
 }
 
 .site-footer__social{
@@ -2477,7 +2492,7 @@ a.mega-col__title:hover{
   width: 100%;
   height: 100%;
   object-fit: cover;
-  transition: opacity .4s ease;
+  transition: opacity .6s ease;
 }
 
 /* hover-картинка поверх основной */
@@ -2485,7 +2500,7 @@ a.mega-col__title:hover{
   position: absolute;
   inset: 0;
   opacity: 0;
-  transition: opacity .25s ease;
+  transition: opacity .6s ease;
   pointer-events: none;
 }
 
@@ -2536,7 +2551,7 @@ a.mega-col__title:hover{
   width: 100%;
   height: 100%;
   object-fit: cover;
-  transition: opacity .4s ease;
+  transition: opacity .6s ease;
 }
 
 /* hover-картинка (если добавила второй <img>) */
@@ -2544,7 +2559,7 @@ a.mega-col__title:hover{
   position: absolute;
   inset: 0;
   opacity: 0;
-  transition: opacity .25s ease;
+  transition: opacity .6s ease;
   pointer-events: none;
 }
 
@@ -3192,6 +3207,7 @@ font-size: 16px;
   .hero{ min-height: 80vh; padding: 100px 0 60px; }
   .hero__title{ font-size: 36px; }
   .hero__text{ font-size: 15px; }
+  .hero__actions{ align-items: flex-start; }
 
   /* Casual / ToOrder sliders */
   .casual__head{ grid-template-columns: 1fr; gap: 16px; }
@@ -3214,7 +3230,8 @@ font-size: 16px;
   .fillings__meta{ margin-left: 0; }
 
   /* Story */
-  .story__inner{ grid-template-columns: 1fr; }
+  .story{ padding: 30px 0; margin-top: -20px; }
+  .story__inner{ grid-template-columns: 1fr; width: calc(100% - 24px); margin: 0 auto; }
   .story__panel{
     clip-path: none;
     padding: 32px 20px;
@@ -3222,7 +3239,7 @@ font-size: 16px;
   }
   .story__title{ font-size: 36px; }
   .story__media{
-    height: 300px;
+    height: 280px;
     margin: 0;
     padding: 0;
   }
@@ -3272,12 +3289,15 @@ font-size: 16px;
   /* Container: минимальные поля */
   .container{ width: calc(100% - 24px); }
 
+  /* Hero background: zoom out slightly */
+  .page-bg{ background-size: cover; background-position: center 20%; }
+
   /* Hero */
   .hero{ min-height: 70vh; padding: 90px 0 40px; }
   .hero__title{ font-size: 28px; }
   .hero__text{ font-size: 14px; }
-  .hero__actions{ flex-direction: column; }
-  .hero__actions .btn{ width: 100%; text-align: center; }
+  .hero__actions{ flex-direction: column; align-items: flex-start; }
+  .hero__actions .btn{ text-align: left; }
 
   /* Casual / ToOrder */
   .casual__title{ font-size: 28px; }
@@ -3299,9 +3319,10 @@ font-size: 16px;
   .fillings-card{ height: 280px; }
 
   /* Story */
-  .story{ padding: 40px 0; }
+  .story{ padding: 20px 0; margin-top: -10px; }
+  .story__inner{ width: calc(100% - 32px); margin: 0 auto; }
   .story__title{ font-size: 28px; }
-  .story__media{ height: 220px; }
+  .story__media{ height: 200px; }
   .story__text{ font-size: 14px; }
 
   /* Discounts */
