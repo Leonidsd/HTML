@@ -315,10 +315,10 @@
     .value-card { padding: 32px 24px; }
     .brand-values-grid { grid-template-columns: repeat(2, 1fr) !important; gap: 24px !important; }
     .stat-number { font-size: 36px; }
-    .timeline-item { grid-template-columns: 1fr; gap: 16px; }
-    .timeline::before { left: 24px; }
-    .timeline-dot { position: relative !important; left: 0 !important; margin: 0 auto; }
-    .timeline-item:nth-child(even) .timeline-content { grid-row: 2; }
+    .timeline-item { display: flex; flex-direction: column; gap: 0; padding-left: 40px; position: relative; }
+    .timeline::before { left: 12px; transform: translateX(0); }
+    .timeline-dot { position: absolute !important; left: 0 !important; top: 32px; margin: 0; }
+    .timeline-item:nth-child(even) .timeline-content { grid-column: unset; grid-row: unset; }
     .timeline-content { padding: 24px; }
     .big-section { grid-template-columns: 1fr; gap: 40px; margin: 60px 0; }
     .big-section-img img { height: 300px; }
@@ -558,7 +558,7 @@
 
   <div class="mobile-menu__panel" role="dialog" aria-label="Меню">
     <div class="mobile-menu__head">
-      <div class="brand__name brand__name--stack">Вкус<br>облаков</div>
+      <a href="index.html" class="brand__name brand__name--stack" style="color:#fff;text-decoration:none;">Вкус<br>облаков</a>
       <button class="icon-btn icon-btn--ghost" id="btnMenuClose" type="button" aria-label="Закрыть меню">✕</button>
     </div>
 
@@ -784,9 +784,10 @@
 
           <div class="value-card">
             <div class="value-icon">
-              <svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="#d4a088" stroke-width="2">
-                <circle cx="12" cy="12" r="3"/>
-                <path d="M12 1v6m0 6v6M5.64 5.64l4.24 4.24m4.24 4.24l4.24 4.24M1 12h6m6 0h6M5.64 18.36l4.24-4.24m4.24-4.24l4.24-4.24"/>
+              <svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="#d4a088" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                <circle cx="11" cy="11" r="7"/>
+                <path d="M21 21l-4.35-4.35"/>
+                <circle cx="11" cy="11" r="3"/>
               </svg>
             </div>
             <h3 style="font-family: var(--brand-font); font-size: 24px; font-weight: 400;

@@ -1301,7 +1301,7 @@ margin-left: -114px;
   .fillings__grid{
     grid-template-columns: 1fr;
   }
-  .fillings-card{ height: 260px; }
+  .fillings-card{ height: 300px; }
 }
 
 /* =========================
@@ -1673,6 +1673,9 @@ margin-left: -114px;
   .why__col--left .why-item__head{
     justify-content: flex-start;
     flex-direction: row;
+  }
+  .why__col--left .why-item__title{
+    text-align: left;
   }
   .why__img{ width: 140px; }
 }
@@ -2474,6 +2477,7 @@ a.mega-col__title:hover{
   width: 100%;
   height: 100%;
   object-fit: cover;
+  transition: opacity .4s ease;
 }
 
 /* hover-картинка поверх основной */
@@ -2532,6 +2536,7 @@ a.mega-col__title:hover{
   width: 100%;
   height: 100%;
   object-fit: cover;
+  transition: opacity .4s ease;
 }
 
 /* hover-картинка (если добавила второй <img>) */
@@ -3191,11 +3196,13 @@ font-size: 16px;
   /* Casual / ToOrder sliders */
   .casual__head{ grid-template-columns: 1fr; gap: 16px; }
   .casual__title{ font-size: 36px; }
+  .casual__meta{ margin-left: 0; }
   .casual__arrows{ margin-left: 0; padding-top: 0; }
   .casual-card{ width: 80vw; }
   .casual-card__img{ height: 200px; }
   .toorder__head{ grid-template-columns: 1fr; gap: 16px; }
   .toorder__title{ font-size: 30px; }
+  .toorder__meta{ margin-left: 0; }
   .toorder__arrows{ margin-left: 0; margin-top: 0; }
   .toorder-card{ width: 80vw; }
   .toorder-card__img{ height: 380px; min-height: unset; }
@@ -3289,7 +3296,7 @@ font-size: 16px;
   .fillings{ padding: 40px 0 60px; }
   .fillings--page{ padding-top: 100px !important; padding-bottom: 60px !important; }
   .fillings__title{ font-size: 26px; }
-  .fillings-card{ height: 200px; }
+  .fillings-card{ height: 280px; }
 
   /* Story */
   .story{ padding: 40px 0; }

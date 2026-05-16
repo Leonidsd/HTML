@@ -265,7 +265,7 @@
 
   <div class="mobile-menu__panel" role="dialog" aria-label="Меню">
     <div class="mobile-menu__head">
-      <div class="brand__name brand__name--stack">Вкус<br>облаков</div>
+      <a href="index.html" class="brand__name brand__name--stack" style="color:#fff;text-decoration:none;">Вкус<br>облаков</a>
       <button class="icon-btn icon-btn--ghost" id="btnMenuClose" type="button" aria-label="Закрыть меню">✕</button>
     </div>
 
@@ -1083,5 +1083,77 @@
   <script src="https://api-maps.yandex.ru/2.1/?lang=ru_RU"></script>
 
   <script src="js/app.js"></script>
+  <script>
+  // === Автосмена фото товаров каждые 3 секунды ===
+  (function(){
+    const INTERVAL = 3000;
+    let paused = new Set(); // карточки, на которых зафиксирована 2я фотка
+    let showHover = false; // текущее состояние: false=main, true=hover
+
+    // Все карточки с двумя фото
+    const cards = document.querySelectorAll('.casual-card__img, .toorder-card__img');
+
+    function toggleAll(){
+      showHover = !showHover;
+      cards.forEach(card => {
+        if(paused.has(card)) return; // зафиксирована
+        const main = card.querySelector('.casual-card__imgMain, .toorder-card__imgMain');
+        const hover = card.querySelector('.casual-card__imgHover, .toorder-card__imgHover');
+        if(!main || !hover) return;
+        if(showHover){
+          main.style.opacity = '0';
+          hover.style.opacity = '1';
+        } else {
+          main.style.opacity = '1';
+          hover.style.opacity = '0';
+        }
+      });
+    }
+
+    let timer = setInterval(toggleAll, INTERVAL);
+
+    // При клике на карточку — фиксируем hover-фото (пока видна кнопка «Заказать»)
+    cards.forEach(card => {
+      card.addEventListener('click', function(e){
+        // Если клик по кнопке — не блокируем
+        if(e.target.closest('.casual-card__btn, .toorder-card__btn, .toorder-card__actions a')) return;
+        const main = card.querySelector('.casual-card__imgMain, .toorder-card__imgMain');
+        const hover = card.querySelector('.casual-card__imgHover, .toorder-card__imgHover');
+        if(!main || !hover) return;
+        if(paused.has(card)){
+          // Разфиксируем
+          paused.delete(card);
+        } else {
+          // Фиксируем на hover
+          paused.add(card);
+          main.style.opacity = '0';
+          hover.style.opacity = '1';
+        }
+      });
+    });
+
+    // Клик в другое место страницы — снять фиксацию со всех
+    document.addEventListener('click', function(e){
+      if(!e.target.closest('.casual-card__img, .toorder-card__img')){
+        if(paused.size > 0){
+          paused.clear();
+          // Синхронизируем все с текущим состоянием
+          cards.forEach(card => {
+            const main = card.querySelector('.casual-card__imgMain, .toorder-card__imgMain');
+            const hover = card.querySelector('.casual-card__imgHover, .toorder-card__imgHover');
+            if(!main || !hover) return;
+            if(showHover){
+              main.style.opacity = '0';
+              hover.style.opacity = '1';
+            } else {
+              main.style.opacity = '1';
+              hover.style.opacity = '0';
+            }
+          });
+        }
+      }
+    });
+  })();
+  </script>
 </body>
 </html>
