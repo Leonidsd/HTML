@@ -1,0 +1,1217 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Личный кабинет — Вкус облаков</title>
+  <link rel="stylesheet" href="css/main.css" />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+<!-- Montserrat для меню/интерфейса -->
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+<style>
+  .page--catalog .brand__name--stack {
+    text-decoration: underline;
+    text-decoration-color: transparent;
+    text-underline-offset: 6px;
+  }
+  .page--catalog .brand:hover .brand__name--stack,
+  .page--catalog .brand:focus-visible .brand__name--stack {
+    text-decoration-color: rgba(0,0,0,.85);
+  }
+
+  /* ====== Личный кабинет ====== */
+  .lk {
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 0 20px;
+  }
+
+  .lk__header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 40px;
+    gap: 20px;
+    flex-wrap: wrap;
+  }
+
+  .lk__title {
+    font-family: var(--brand-font);
+    font-size: 42px;
+    font-weight: 400;
+    color: #1f1f1f;
+    margin: 0;
+    line-height: 1.2;
+  }
+
+  .lk__logout {
+    font-size: 14px;
+    font-weight: 500;
+    color: #6c6c6c;
+    text-decoration: underline;
+    text-underline-offset: 3px;
+    text-decoration-color: transparent;
+    transition: text-decoration-color 0.2s ease;
+    background: none;
+    border: none;
+    cursor: pointer;
+    font-family: var(--font);
+    padding: 0;
+  }
+
+  .lk__logout:hover {
+    text-decoration-color: #6c6c6c;
+  }
+
+  /* Табы */
+  .lk__tabs {
+    display: flex;
+    gap: 0;
+    border-bottom: 2px solid #e7e0dc;
+    margin-bottom: 32px;
+    overflow-x: auto;
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+  }
+
+  .lk__tabs::-webkit-scrollbar {
+    display: none;
+  }
+
+  .lk__tab {
+    padding: 14px 24px;
+    font-size: 14px;
+    font-weight: 500;
+    font-family: var(--font);
+    color: #6c6c6c;
+    background: none;
+    border: none;
+    border-bottom: 2px solid transparent;
+    margin-bottom: -2px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    white-space: nowrap;
+    position: relative;
+  }
+
+  .lk__tab:hover {
+    color: #1f1f1f;
+  }
+
+  .lk__tab.is-active {
+    color: #1f1f1f;
+    font-weight: 600;
+    border-bottom-color: #1f1f1f;
+  }
+
+  .lk__tab-badge {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 18px;
+    height: 18px;
+    padding: 0 5px;
+    font-size: 11px;
+    font-weight: 600;
+    color: #fff;
+    background: #d4a088;
+    border-radius: 9px;
+    margin-left: 6px;
+    vertical-align: middle;
+  }
+
+  /* Панели */
+  .lk__panel {
+    display: none;
+  }
+
+  .lk__panel.is-active {
+    display: block;
+  }
+
+  /* ---- Профиль ---- */
+  .lk__form {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+    max-width: 600px;
+  }
+
+  .lk__field {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+  }
+
+  .lk__field--full {
+    grid-column: 1 / -1;
+  }
+
+  .lk__field-label {
+    font-size: 13px;
+    font-weight: 500;
+    color: #6c6c6c;
+  }
+
+  .lk__field-input {
+    padding: 12px 14px;
+    font-size: 15px;
+    font-family: var(--font);
+    border: 2px solid #e7e0dc;
+    border-radius: 10px;
+    background: #fff;
+    color: #1f1f1f;
+    outline: none;
+    transition: border-color 0.3s ease;
+    box-sizing: border-box;
+    width: 100%;
+  }
+
+  .lk__field-input:focus {
+    border-color: #d4a088;
+  }
+
+  .lk__field-input:disabled {
+    background: #faf8f7;
+    color: #999;
+  }
+
+  .lk__form-actions {
+    grid-column: 1 / -1;
+    display: flex;
+    gap: 12px;
+    margin-top: 8px;
+  }
+
+  .lk__btn {
+    padding: 12px 28px;
+    font-size: 14px;
+    font-weight: 600;
+    font-family: var(--font);
+    color: #1f1f1f;
+    background: #f7f4f2;
+    border: 2px solid #e7e0dc;
+    border-radius: 10px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    letter-spacing: 0.3px;
+  }
+
+  .lk__btn:hover {
+    background: #f2f0ee;
+    border-color: #d4a088;
+  }
+
+  .lk__btn--ghost {
+    background: transparent;
+    border-color: transparent;
+    color: #6c6c6c;
+  }
+
+  .lk__btn--ghost:hover {
+    color: #1f1f1f;
+    background: transparent;
+    border-color: transparent;
+  }
+
+  /* ---- Заказы ---- */
+  .lk__orders {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+  }
+
+  .order-card {
+    border: 2px solid #e7e0dc;
+    border-radius: 16px;
+    padding: 20px 24px;
+    transition: box-shadow 0.3s ease;
+  }
+
+  .order-card:hover {
+    box-shadow: 0 8px 24px rgba(0,0,0,0.06);
+  }
+
+  .order-card__top {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 12px;
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+
+  .order-card__id {
+    font-size: 15px;
+    font-weight: 600;
+    color: #1f1f1f;
+  }
+
+  .order-card__date {
+    font-size: 13px;
+    color: #6c6c6c;
+  }
+
+  .order-card__status {
+    display: inline-block;
+    padding: 4px 12px;
+    font-size: 12px;
+    font-weight: 600;
+    border-radius: 20px;
+    letter-spacing: 0.3px;
+  }
+
+  .order-card__status--delivered {
+    background: #e8f5e9;
+    color: #2e7d32;
+  }
+
+  .order-card__status--progress {
+    background: #fff3e0;
+    color: #e65100;
+  }
+
+  .order-card__status--cooking {
+    background: #fce4ec;
+    color: #c62828;
+  }
+
+  .order-card__items {
+    display: flex;
+    gap: 12px;
+    margin-bottom: 14px;
+    flex-wrap: wrap;
+  }
+
+  .order-card__item {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    background: #faf8f7;
+    border-radius: 10px;
+    padding: 8px 12px;
+  }
+
+  .order-card__item-img {
+    width: 44px;
+    height: 44px;
+    border-radius: 8px;
+    object-fit: cover;
+    background: #eee;
+  }
+
+  .order-card__item-name {
+    font-size: 13px;
+    font-weight: 500;
+    color: #1f1f1f;
+  }
+
+  .order-card__item-qty {
+    font-size: 12px;
+    color: #6c6c6c;
+  }
+
+  .order-card__bottom {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 12px;
+  }
+
+  .order-card__total {
+    font-size: 16px;
+    font-weight: 600;
+    color: #1f1f1f;
+  }
+
+  .order-card__actions {
+    display: flex;
+    gap: 8px;
+  }
+
+  .order-card__btn {
+    padding: 8px 18px;
+    font-size: 12px;
+    font-weight: 600;
+    font-family: var(--font);
+    color: #1f1f1f;
+    background: #fff;
+    border: 2px solid #e7e0dc;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    text-decoration: none;
+    letter-spacing: 0.3px;
+  }
+
+  .order-card__btn:hover {
+    background: #f2f0ee;
+    border-color: #d4a088;
+  }
+
+  /* Трекер доставки */
+  .order-card__tracker {
+    display: none;
+    margin-top: 16px;
+    padding-top: 16px;
+    border-top: 1px solid #f0ebe8;
+  }
+
+  .order-card__tracker.is-open {
+    display: block;
+  }
+
+  .tracker {
+    display: flex;
+    align-items: flex-start;
+    gap: 0;
+    position: relative;
+  }
+
+  .tracker__step {
+    flex: 1;
+    text-align: center;
+    position: relative;
+  }
+
+  .tracker__dot {
+    width: 14px;
+    height: 14px;
+    border-radius: 50%;
+    background: #e7e0dc;
+    margin: 0 auto 8px;
+    position: relative;
+    z-index: 1;
+  }
+
+  .tracker__step--done .tracker__dot {
+    background: #2e7d32;
+  }
+
+  .tracker__step--current .tracker__dot {
+    background: #e65100;
+    box-shadow: 0 0 0 4px rgba(230, 81, 0, 0.15);
+  }
+
+  .tracker__label {
+    font-size: 11px;
+    color: #6c6c6c;
+    line-height: 1.3;
+  }
+
+  .tracker__step--done .tracker__label {
+    color: #2e7d32;
+    font-weight: 500;
+  }
+
+  .tracker__step--current .tracker__label {
+    color: #e65100;
+    font-weight: 600;
+  }
+
+  .tracker__line {
+    position: absolute;
+    top: 7px;
+    left: 15%;
+    right: 15%;
+    height: 2px;
+    background: #e7e0dc;
+    z-index: 0;
+  }
+
+  .tracker__line-fill {
+    height: 100%;
+    background: #2e7d32;
+    transition: width 0.4s ease;
+  }
+
+  /* ---- Уведомления ---- */
+  .lk__notifs {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+  }
+
+  .notif {
+    display: flex;
+    gap: 14px;
+    align-items: flex-start;
+    padding: 16px 20px;
+    border: 2px solid #e7e0dc;
+    border-radius: 14px;
+    transition: box-shadow 0.3s ease;
+  }
+
+  .notif:hover {
+    box-shadow: 0 6px 20px rgba(0,0,0,0.05);
+  }
+
+  .notif--unread {
+    background: #fdfbfa;
+    border-color: #d4a088;
+  }
+
+  .notif__icon {
+    width: 36px;
+    height: 36px;
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    font-size: 18px;
+  }
+
+  .notif__icon--promo {
+    background: #fce4ec;
+  }
+
+  .notif__icon--order {
+    background: #e8f5e9;
+  }
+
+  .notif__icon--info {
+    background: #e3f2fd;
+  }
+
+  .notif__body {
+    flex: 1;
+  }
+
+  .notif__title {
+    font-size: 14px;
+    font-weight: 600;
+    color: #1f1f1f;
+    margin: 0 0 4px;
+  }
+
+  .notif__text {
+    font-size: 13px;
+    color: #6c6c6c;
+    line-height: 1.5;
+    margin: 0;
+  }
+
+  .notif__time {
+    font-size: 12px;
+    color: #b0a8a3;
+    white-space: nowrap;
+    flex-shrink: 0;
+  }
+
+  /* ---- Пустое состояние ---- */
+  .lk__empty {
+    text-align: center;
+    padding: 60px 20px;
+    color: #6c6c6c;
+  }
+
+  .lk__empty-icon {
+    font-size: 48px;
+    margin-bottom: 16px;
+    opacity: 0.4;
+  }
+
+  .lk__empty-text {
+    font-size: 16px;
+    margin: 0 0 24px;
+  }
+
+  /* Адаптив */
+  @media (max-width: 600px) {
+    .lk__title { font-size: 32px; }
+    .lk__form { grid-template-columns: 1fr; }
+    .lk__tabs { gap: 0; }
+    .lk__tab { padding: 12px 16px; font-size: 13px; }
+    .order-card { padding: 16px; }
+    .order-card__items { flex-direction: column; }
+    .tracker { flex-direction: column; gap: 8px; }
+  }
+</style>
+
+</head>
+
+<body class="page page--catalog">
+  <!-- Header -->
+
+  <header class="header header--glass">
+  <section class="header__section">
+    <div class="container header__container header__container--new">
+
+      <!-- ЛОГО / НАЗВАНИЕ -->
+      <div class="header__logo">
+        <a href="index.html" class="brand brand--stack" aria-label="Вкус облаков">
+          <span class="brand__name brand__name--stack">Вкус<br>облаков</span>
+        </a>
+      </div>
+
+      <!-- МЕНЮ ПО ЦЕНТРУ -->
+      <nav class="header__nav header__nav--center" aria-label="Главное меню">
+  <a href="#catalog" data-mega="catalog">Каталог</a>
+  <a href="#brand" data-mega="life">История бренда</a>
+  <a href="#clients" data-mega="b2b">Клиентам</a>
+  <a href="#city" data-mega="city">Мы в городе</a>
+</nav>
+
+
+      <!-- СПРАВА: КОНТАКТЫ + ИКОНКИ -->
+      <div class="header__actions header__actions--new">
+
+        <div class="header__contacts header__contacts--new">
+          <a class="header__phone" href="tel:+70000000000">+7 (000) 000-00-00</a>
+          <a class="header__tg" href="https://t.me/your_telegram" target="_blank" rel="noopener">Telegram</a>
+          <div class="header__hours">
+            пн-пт 10:00 – 20:00<br>
+            сб-вс 10:00 – 16:00
+          </div>
+        </div>
+
+        <div class="header__icons">
+
+            <button class="icon-btn icon-btn--ghost header__burger" id="btnMenu" type="button" aria-label="Открыть меню">
+  <svg width="18" height="18" viewBox="0 0 24 24" aria-hidden="true">
+    <path fill="currentColor" d="M4 6h16v2H4V6zm0 5h16v2H4v-2zm0 5h16v2H4v-2z"/>
+  </svg>
+</button>
+
+          <!-- Профиль -->
+          <a class="icon-btn icon-btn--ghost" href="auth.html" aria-label="Профиль">
+            <svg width="18" height="18" viewBox="0 0 24 24" aria-hidden="true">
+              <path fill="currentColor" d="M12 12a4 4 0 10-4-4 4 4 0 004 4zm0 2c-4.42 0-8 2-8 4.5V20h16v-1.5C20 16 16.42 14 12 14z"/>
+            </svg>
+          </a>
+
+          <!-- Сумочка (корзина) -->
+          <button class="icon-btn icon-btn--ghost" id="btnCart" type="button" aria-label="Открыть корзину">
+            <svg width="18" height="18" viewBox="0 0 24 24" aria-hidden="true">
+              <path fill="currentColor" d="M7 8V7a5 5 0 0 1 10 0v1h2a1 1 0 0 1 1 1v12a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V9a1 1 0 0 1 1-1h2zm2 0h6V7a3 3 0 0 0-6 0v1zm-3 2v11h12V10H6z"/>
+
+            </svg>
+            <span class="badge badge--on-dark" id="cartCount">0</span>
+          </button>
+        </div>
+
+      </div>
+    </div>
+  </section>
+  <!-- Mega menu (выпадающая панель) -->
+<div class="mega" id="mega" aria-hidden="true">
+  <div class="mega__container">
+
+    <!-- Каталог -->
+    <div class="mega__panel mega__panel--catalog" data-panel="catalog">
+      <div class="mega__grid mega__grid--catalog">
+        <a class="mega-tile mega-tile--portrait" href="#brand">
+  <div class="mega-card__img mega-card__img--portrait">
+    <img src="img/menu-title1.jpg" alt="Бренд">
+  </div>
+        </a>
+
+        <div class="mega-cols">
+          <div class="mega-col">
+            <a class="mega-col__title" href="casual.html">Casual</a>
+            <a class="mega-link" href="casual.html?cat=summer">Летняя коллекция</a>
+            <a class="mega-link" href="casual.html?cat=bento">Бенто-торты</a>
+            <a class="mega-link" href="casual.html?cat=february">23 февраля</a>
+            <a class="mega-link" href="casual.html?cat=easter">Пасха</a>
+            <a class="mega-link" href="casual.html?cat=cakes">Пирожные</a>
+            <a class="mega-link" href="casual.html?cat=mousse">Муссовые бенто-торты</a>
+            <a class="mega-link" href="casual.html?cat=macarons">Macarons</a>
+            <a class="mega-link" href="casual.html?cat=candies">Шоколад и конфеты</a>
+            <a class="mega-link" href="casual.html?cat=cheesecake">Чизкейки</a>
+          </div>
+
+          <div class="mega-col">
+            <a class="mega-col__title" href="order.html">To order</a>
+            <a class="mega-link" href="order.html?cat=torty">Торты</a>
+            <a class="mega-link" href="order.html?cat=torty-3d">3D-торты</a>
+            <a class="mega-link" href="order.html?cat=torty-detskie">Детские торты</a>
+            <a class="mega-link" href="order.html?cat=torty-svadebnye">Свадебные торты</a>
+            <a class="mega-link" href="order.html?cat=torty-den-rozhdeniya">Торты на День Рождения</a>
+            <a class="mega-link mega-link--separated" href="fillings.html">Начинки</a>
+          </div>
+
+          <div class="mega-col">
+            <div class="mega-col__title">Art</div>
+            <a class="mega-link" href="art-works.html">Наши работы</a>
+
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Наша жизнь -->
+    <div class="mega__panel mega__panel--life" data-panel="life">
+      <div class="mega__grid mega__grid--cards">
+        <div class="mega-left">
+        </div>
+
+        <a class="mega-tile mega-tile--portrait" href="brand.html">
+  <div class="mega-card__img mega-card__img--portrait">
+    <img src="img/menu-title2.jpg" alt="История бренда">
+  </div>
+  <div class="mega-tile__title">История бренда</div>
+</a>
+
+      </div>
+    </div>
+
+    <!-- Клиентам -->
+    <div class="mega__panel mega__panel--b2b" data-panel="b2b">
+      <div class="mega__grid mega__grid--cards">
+        <div class="mega-left">
+          <div class="mega-left__text">Наш способ говорить с миром — это говорить сладко.</div>
+
+          <div class="mega-left__contacts">
+            <a class="mega-contact" href="tel:+70000000000">+7(000)-000-00-00</a>
+            <a class="mega-contact" href="mailto:zakaz@vkusobl.ru">zakaz.loveandsweets@gmail.com</a>
+            <a class="mega-contact" href="#" target="_blank" rel="noopener">Telegram</a>
+            <a class="mega-contact" href="#" target="_blank" rel="noopener">Вконтакте</a>
+          </div>
+        </div>
+
+        <a class="mega-tile mega-tile--portrait" href="delivery.html">
+  <div class="mega-card__img mega-card__img--portrait">
+    <img src="img/menu-title3.jpg" alt="Доставка и оплата">
+  </div>
+
+          <div class="mega-tile__title">Доставка и оплата</div>
+        </a>
+
+        <div class="mega-tile mega-tile--order">
+  <div class="mega-tile__left">
+    <a class="mega-tile__imgWrap" href="about-order.html">
+      <img class="mega-tile__img" src="img/menu-title4.jpg" alt="О заказе">
+    </a>
+
+    <a class="mega-tile__title mega-tile__title--under" href="about-order.html">О заказе</a>
+  </div>
+
+  <div class="mega-tile__side">
+    <div class="mega-tile__sideLinks">
+      <a class="mega-link" href="#reviews">Отзывы</a>
+      <a class="mega-link" href="faq.html">Вопрос-ответ</a>
+    </div>
+  </div>
+</div>
+
+
+
+      </div>
+    </div>
+
+    <!-- Мы в городе -->
+<div class="mega__panel mega__panel--city" data-panel="city">
+  <div class="mega__grid mega__grid--city">
+
+    <div class="mega-city__left">
+      <div class="mega-col__title">Мы в городе</div>
+
+      <div class="mega-city">
+        <div>г. Дубна</div>
+        <div>Пн-Пт 10:00–20:00</div>
+        <div>Сб-Вс 10:00–16:00</div>
+        <a class="mega-link" href="#contacts">Контакты</a>
+      </div>
+    </div>
+
+    <div class="mega-city__middle">
+      <p class="mega-city__note">
+        Наши десерты — это островки спокойствия в море повседневных дел.
+        Причаливайте к ним, чтобы на мгновение остановить время и насладиться тишиной вкуса.
+        <br> </br>
+        <br>Доставка осуществляется только по городу Дубна.</br>
+      </p>
+    </div>
+
+    <div class="city-map">
+      <iframe
+        src="https://yandex.ru/map-widget/v1/?um=constructor%3A5323ec7eeef295359140d0a676351927a92d5b06e8ba41b518464d51d93d3a63&amp;source=constructor"
+        width="463" height="356" frameborder="0">
+      </iframe>
+    </div>
+
+  </div>
+</div>
+
+
+</div>
+
+
+</header>
+
+<!-- Mobile menu -->
+<div class="mobile-menu" id="mobileMenu" hidden>
+  <div class="mobile-menu__overlay" data-mobile-close="true"></div>
+
+  <div class="mobile-menu__panel" role="dialog" aria-label="Меню">
+    <div class="mobile-menu__head">
+      <div class="brand__name brand__name--stack">Вкус<br>облаков</div>
+      <button class="icon-btn icon-btn--ghost" id="btnMenuClose" type="button" aria-label="Закрыть меню">&#10005;</button>
+    </div>
+
+    <nav class="mobile-menu__nav" aria-label="Мобильная навигация">
+      <a href="index.html#catalog" data-mobile-close="true">Каталог</a>
+      <a href="index.html#brand" data-mobile-close="true">История бренда</a>
+      <a href="index.html#clients" data-mobile-close="true">Клиентам</a>
+      <a href="index.html#city" data-mobile-close="true">Мы в городе</a>
+    </nav>
+
+    <div class="mobile-menu__contacts">
+      <a class="header__phone" href="tel:+70000000000">+7 (000) 000-00-00</a>
+      <a class="header__tg" href="https://t.me/your_telegram" target="_blank" rel="noopener">Telegram</a>
+      <div class="header__hours">
+        пн-пт 10:00 – 20:00<br>
+        сб-вс 10:00 – 16:00
+      </div>
+    </div>
+  </div>
+</div>
+
+<main class="collection-page">
+
+  <div class="container" style="padding-top: 120px; padding-bottom: 80px;">
+    <div class="lk">
+
+      <!-- Заголовок -->
+      <div class="lk__header">
+        <h1 class="lk__title">Личный кабинет</h1>
+        <button class="lk__logout" type="button" onclick="location.href='auth.html'">Выйти</button>
+      </div>
+
+      <!-- Табы -->
+      <div class="lk__tabs" id="lkTabs">
+        <button class="lk__tab is-active" type="button" data-tab="profile">Профиль</button>
+        <button class="lk__tab" type="button" data-tab="orders">Мои заказы</button>
+        <button class="lk__tab" type="button" data-tab="notifications">
+          Уведомления
+          <span class="lk__tab-badge" id="notifBadge">3</span>
+        </button>
+      </div>
+
+      <!-- ======== Панель: Профиль ======== -->
+      <div class="lk__panel is-active" data-panel="profile">
+        <form class="lk__form" id="profileForm" onsubmit="return false;">
+          <div class="lk__field">
+            <span class="lk__field-label">Фамилия</span>
+            <input class="lk__field-input" type="text" name="surname" value="Иванов" disabled>
+          </div>
+          <div class="lk__field">
+            <span class="lk__field-label">Имя</span>
+            <input class="lk__field-input" type="text" name="name" value="Иван" disabled>
+          </div>
+          <div class="lk__field">
+            <span class="lk__field-label">Отчество</span>
+            <input class="lk__field-input" type="text" name="patronymic" value="Иванович" disabled>
+          </div>
+          <div class="lk__field">
+            <span class="lk__field-label">Телефон</span>
+            <input class="lk__field-input" type="tel" name="phone" value="+7 (999) 123-45-67" disabled>
+          </div>
+          <div class="lk__field lk__field--full">
+            <span class="lk__field-label">Email</span>
+            <input class="lk__field-input" type="email" name="email" value="ivanov@mail.ru" disabled>
+          </div>
+          <div class="lk__field lk__field--full">
+            <span class="lk__field-label">Адрес доставки</span>
+            <input class="lk__field-input" type="text" name="address" value="г. Дубна, ул. Примерная, д. 10, кв. 5" disabled>
+          </div>
+
+          <div class="lk__form-actions">
+            <button class="lk__btn" type="button" id="editProfileBtn">РЕДАКТИРОВАТЬ</button>
+            <button class="lk__btn lk__btn--ghost" type="button" id="saveProfileBtn" style="display:none;">СОХРАНИТЬ</button>
+            <button class="lk__btn lk__btn--ghost" type="button" id="cancelProfileBtn" style="display:none;">ОТМЕНА</button>
+          </div>
+        </form>
+      </div>
+
+      <!-- ======== Панель: Мои заказы ======== -->
+      <div class="lk__panel" data-panel="orders">
+        <div class="lk__orders">
+
+          <!-- Заказ 1: В доставке -->
+          <div class="order-card">
+            <div class="order-card__top">
+              <div>
+                <span class="order-card__id">Заказ #1247</span>
+                <span class="order-card__date">10 мая 2026</span>
+              </div>
+              <span class="order-card__status order-card__status--progress">В доставке</span>
+            </div>
+
+            <div class="order-card__items">
+              <div class="order-card__item">
+                <img class="order-card__item-img" src="img/картинки для сайта/Торты/Торт Ягодное лукошко.jpg" alt="Торт Ягодное лукошко">
+                <div>
+                  <div class="order-card__item-name">Торт «Ягодное лукошко»</div>
+                  <div class="order-card__item-qty">3 кг</div>
+                </div>
+              </div>
+              <div class="order-card__item">
+                <img class="order-card__item-img" src="img/summer-3.jpg" alt="Macarons ассорти">
+                <div>
+                  <div class="order-card__item-name">Macarons ассорти</div>
+                  <div class="order-card__item-qty">12 шт</div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Трекер доставки -->
+            <div class="order-card__tracker is-open" id="tracker1">
+              <div class="tracker" style="position: relative;">
+                <div class="tracker__line">
+                  <div class="tracker__line-fill" style="width: 62%;"></div>
+                </div>
+                <div class="tracker__step tracker__step--done">
+                  <div class="tracker__dot"></div>
+                  <div class="tracker__label">Оформлен</div>
+                </div>
+                <div class="tracker__step tracker__step--done">
+                  <div class="tracker__dot"></div>
+                  <div class="tracker__label">Готовится</div>
+                </div>
+                <div class="tracker__step tracker__step--current">
+                  <div class="tracker__dot"></div>
+                  <div class="tracker__label">В доставке</div>
+                </div>
+                <div class="tracker__step">
+                  <div class="tracker__dot"></div>
+                  <div class="tracker__label">Доставлен</div>
+                </div>
+              </div>
+            </div>
+
+            <div class="order-card__bottom">
+              <span class="order-card__total">5 850 &#8381;</span>
+              <div class="order-card__actions">
+                <button class="order-card__btn" type="button" onclick="toggleTracker('tracker1')">Отследить</button>
+              </div>
+            </div>
+          </div>
+
+          <!-- Заказ 2: Готовится -->
+          <div class="order-card">
+            <div class="order-card__top">
+              <div>
+                <span class="order-card__id">Заказ #1243</span>
+                <span class="order-card__date">7 мая 2026</span>
+              </div>
+              <span class="order-card__status order-card__status--cooking">Готовится</span>
+            </div>
+
+            <div class="order-card__items">
+              <div class="order-card__item">
+                <img class="order-card__item-img" src="img/картинки для сайта/3D-торты/Торт с бабочками.jpg" alt="3D-торт Сердце">
+                <div>
+                  <div class="order-card__item-name">3D-торт Сердце</div>
+                  <div class="order-card__item-qty">2 кг</div>
+                </div>
+              </div>
+            </div>
+
+            <div class="order-card__tracker" id="tracker2">
+              <div class="tracker" style="position: relative;">
+                <div class="tracker__line">
+                  <div class="tracker__line-fill" style="width: 35%;"></div>
+                </div>
+                <div class="tracker__step tracker__step--done">
+                  <div class="tracker__dot"></div>
+                  <div class="tracker__label">Оформлен</div>
+                </div>
+                <div class="tracker__step tracker__step--current">
+                  <div class="tracker__dot"></div>
+                  <div class="tracker__label">Готовится</div>
+                </div>
+                <div class="tracker__step">
+                  <div class="tracker__dot"></div>
+                  <div class="tracker__label">В доставке</div>
+                </div>
+                <div class="tracker__step">
+                  <div class="tracker__dot"></div>
+                  <div class="tracker__label">Доставлен</div>
+                </div>
+              </div>
+            </div>
+
+            <div class="order-card__bottom">
+              <span class="order-card__total">4 200 &#8381;</span>
+              <div class="order-card__actions">
+                <button class="order-card__btn" type="button" onclick="toggleTracker('tracker2')">Отследить</button>
+              </div>
+            </div>
+          </div>
+
+          <!-- Заказ 3: Доставлен -->
+          <div class="order-card">
+            <div class="order-card__top">
+              <div>
+                <span class="order-card__id">Заказ #1198</span>
+                <span class="order-card__date">28 апреля 2026</span>
+              </div>
+              <span class="order-card__status order-card__status--delivered">Доставлен</span>
+            </div>
+
+            <div class="order-card__items">
+              <div class="order-card__item">
+                <img class="order-card__item-img" src="img/картинки для сайта/Свадебные торты/Свадебный торт с бусинами.jpg" alt="Свадебный торт Элегант">
+                <div>
+                  <div class="order-card__item-name">Свадебный торт «Элегант»</div>
+                  <div class="order-card__item-qty">5 кг</div>
+                </div>
+              </div>
+              <div class="order-card__item">
+                <img class="order-card__item-img" src="img/summer-5.jpg" alt="Чизкейк классический">
+                <div>
+                  <div class="order-card__item-name">Чизкейк классический</div>
+                  <div class="order-card__item-qty">1.5 кг</div>
+                </div>
+              </div>
+            </div>
+
+            <div class="order-card__bottom">
+              <span class="order-card__total">12 300 &#8381;</span>
+              <div class="order-card__actions">
+                <button class="order-card__btn" type="button" onclick="repeatOrder(1198)">Повторить заказ</button>
+              </div>
+            </div>
+          </div>
+
+          <!-- Заказ 4: Доставлен -->
+          <div class="order-card">
+            <div class="order-card__top">
+              <div>
+                <span class="order-card__id">Заказ #1152</span>
+                <span class="order-card__date">15 апреля 2026</span>
+              </div>
+              <span class="order-card__status order-card__status--delivered">Доставлен</span>
+            </div>
+
+            <div class="order-card__items">
+              <div class="order-card__item">
+                <img class="order-card__item-img" src="img/картинки для сайта/Торты/Торт Праздничный шик.jpg" alt="Торт Праздничный шик">
+                <div>
+                  <div class="order-card__item-name">Торт Праздничный шик</div>
+                  <div class="order-card__item-qty">3 кг</div>
+                </div>
+              </div>
+            </div>
+
+            <div class="order-card__bottom">
+              <span class="order-card__total">4 500 &#8381;</span>
+              <div class="order-card__actions">
+                <button class="order-card__btn" type="button" onclick="repeatOrder(1152)">Повторить заказ</button>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+      <!-- ======== Панель: Уведомления ======== -->
+      <div class="lk__panel" data-panel="notifications">
+        <div class="lk__notifs">
+
+          <div class="notif notif--unread">
+            <div class="notif__icon notif__icon--promo">&#127873;</div>
+            <div class="notif__body">
+              <p class="notif__title">Скидка 15% на торты ко Дню Рождения</p>
+              <p class="notif__text">Только до 20 мая! Закажите торт из коллекции «На День Рождения» со скидкой 15%. Промокод: BIRTHDAY15</p>
+            </div>
+            <span class="notif__time">Сегодня</span>
+          </div>
+
+          <div class="notif notif--unread">
+            <div class="notif__icon notif__icon--order">&#9989;</div>
+            <div class="notif__body">
+              <p class="notif__title">Заказ #1247 передан курьеру</p>
+              <p class="notif__text">Ваш заказ уже в пути. Ожидаемое время доставки: 14:00 - 15:00</p>
+            </div>
+            <span class="notif__time">2 часа назад</span>
+          </div>
+
+          <div class="notif notif--unread">
+            <div class="notif__icon notif__icon--promo">&#127856;</div>
+            <div class="notif__body">
+              <p class="notif__title">Новая коллекция Macarons</p>
+              <p class="notif__text">Попробуйте 4 новых вкуса: лаванда-мёд, фисташка, манго-маракуйя и солёная карамель</p>
+            </div>
+            <span class="notif__time">Вчера</span>
+          </div>
+
+          <div class="notif">
+            <div class="notif__icon notif__icon--order">&#128230;</div>
+            <div class="notif__body">
+              <p class="notif__title">Заказ #1198 доставлен</p>
+              <p class="notif__text">Ваш заказ успешно доставлен. Приятного аппетита!</p>
+            </div>
+            <span class="notif__time">28 апр</span>
+          </div>
+
+          <div class="notif">
+            <div class="notif__icon notif__icon--info">&#128276;</div>
+            <div class="notif__body">
+              <p class="notif__title">Изменения в графике работы</p>
+              <p class="notif__text">С 1 по 5 мая мы работаем по праздничному графику: 10:00 - 18:00</p>
+            </div>
+            <span class="notif__time">30 апр</span>
+          </div>
+
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+</main>
+
+<!--FOOTER-->
+    <footer class="site-footer" id="contacts">
+  <div class="container site-footer__inner">
+
+    <div class="site-footer__grid">
+      <!-- Левая колонка -->
+      <div class="site-footer__left">
+        <div class="site-footer__lead">
+          Иногда самые важные слова можно сказать без слов.
+        </div>
+
+        <div class="site-footer__contacts">
+          <a class="site-footer__contact" href="tel:+74993220020">
+            <span class="site-footer__ico" aria-hidden="true">&#9742;</span>
+            +7 (000) 000-00-00
+          </a>
+
+          <a class="site-footer__contact" href="mailto:zakaz.loveandsweets@gmail.com">
+            <span class="site-footer__ico" aria-hidden="true">&#9993;</span>
+            vkus.oblakov@gmail.com
+          </a>
+
+          <a class="site-footer__contact" href="#">
+            Telegram
+          </a>
+
+          <div class="site-footer__social">
+            <a href="#" class="site-footer__social-link">Вконтакте</a>
+          </div>
+        </div>
+      </div>
+
+      <!-- Колонка 2 -->
+      <nav class="site-footer__col" aria-label="Магазин">
+        <div class="site-footer__title">Магазин</div>
+        <a class="site-footer__link" href="casual.html">Каталог Casual</a>
+        <a class="site-footer__link" href="order.html">Каталог To order</a>
+        <a class="site-footer__link" href="fillings.html">Наши начинки</a>
+      </nav>
+
+      <!-- Колонка 3 -->
+      <nav class="site-footer__col" aria-label="Наша жизнь">
+        <div class="site-footer__title">Наша жизнь</div>
+        <a class="site-footer__link" href="brand.html">История бренда</a>
+      </nav>
+
+      <!-- Колонка 4 -->
+      <nav class="site-footer__col" aria-label="Клиентам">
+        <div class="site-footer__title">Клиентам</div>
+        <a class="site-footer__link" href="delivery.html">Доставка и оплата</a>
+        <a class="site-footer__link" href="#">Отзывы</a>
+        <a class="site-footer__link" href="faq.html">Вопрос-ответ</a>
+        <a class="site-footer__link" href="#contacts">Контакты</a>
+      </nav>
+    </div>
+
+    <div class="site-footer__bottom">
+      <div class="site-footer__copy">&copy; 2026 Вкус облаков.</div>
+
+      <a class="site-footer__policy" href="#">
+        Политика конфиденциальности
+      </a>
+
+      <div class="site-footer__dev">
+
+      </div>
+    </div>
+
+  </div>
+</footer>
+
+
+
+ <script src="https://api-maps.yandex.ru/2.1/?lang=ru_RU"></script>
+
+  <script src="js/app.js"></script>
+
+  <script>
+    // ====== Табы ======
+    const tabs = document.querySelectorAll('.lk__tab');
+    const panels = document.querySelectorAll('.lk__panel');
+
+    tabs.forEach(tab => {
+      tab.addEventListener('click', () => {
+        const target = tab.dataset.tab;
+
+        tabs.forEach(t => t.classList.remove('is-active'));
+        tab.classList.add('is-active');
+
+        panels.forEach(p => {
+          p.classList.toggle('is-active', p.dataset.panel === target);
+        });
+      });
+    });
+
+    // ====== Редактирование профиля ======
+    const editBtn = document.getElementById('editProfileBtn');
+    const saveBtn = document.getElementById('saveProfileBtn');
+    const cancelBtn = document.getElementById('cancelProfileBtn');
+    const profileForm = document.getElementById('profileForm');
+    let savedValues = {};
+
+    editBtn.addEventListener('click', () => {
+      const inputs = profileForm.querySelectorAll('.lk__field-input');
+      savedValues = {};
+      inputs.forEach(inp => {
+        savedValues[inp.name] = inp.value;
+        inp.disabled = false;
+      });
+      editBtn.style.display = 'none';
+      saveBtn.style.display = '';
+      cancelBtn.style.display = '';
+    });
+
+    saveBtn.addEventListener('click', () => {
+      const inputs = profileForm.querySelectorAll('.lk__field-input');
+      inputs.forEach(inp => inp.disabled = true);
+      editBtn.style.display = '';
+      saveBtn.style.display = 'none';
+      cancelBtn.style.display = 'none';
+    });
+
+    cancelBtn.addEventListener('click', () => {
+      const inputs = profileForm.querySelectorAll('.lk__field-input');
+      inputs.forEach(inp => {
+        inp.value = savedValues[inp.name] || inp.value;
+        inp.disabled = true;
+      });
+      editBtn.style.display = '';
+      saveBtn.style.display = 'none';
+      cancelBtn.style.display = 'none';
+    });
+
+    // ====== Трекер доставки ======
+    function toggleTracker(id) {
+      const el = document.getElementById(id);
+      if (el) el.classList.toggle('is-open');
+    }
+
+    // ====== Повторить заказ ======
+    function repeatOrder(orderId) {
+      alert('Заказ #' + orderId + ' добавлен в корзину. Перейдите в корзину для оформления.');
+    }
+  </script>
+</body>
+</html>

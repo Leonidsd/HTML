@@ -1,0 +1,1497 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Кабинет курьера — Вкус облаков</title>
+  <link rel="stylesheet" href="css/main.css" />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+<style>
+  * { box-sizing: border-box; }
+
+  .cr {
+    display: flex;
+    min-height: 100vh;
+    font-family: var(--font);
+  }
+
+  /* ====== Sidebar ====== */
+  .cr__side {
+    width: 260px;
+    background: #1f1f1f;
+    color: #fff;
+    flex-shrink: 0;
+    display: flex;
+    flex-direction: column;
+    position: fixed;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    z-index: 100;
+    overflow-y: auto;
+    scrollbar-width: none;
+  }
+
+  .cr__side::-webkit-scrollbar { display: none; }
+
+  .cr__side-header {
+    padding: 28px 24px 20px;
+    border-bottom: 1px solid rgba(255,255,255,0.08);
+  }
+
+  .cr__side-brand {
+    font-family: var(--brand-font);
+    font-size: 22px;
+    color: #fff;
+    text-decoration: none;
+    display: block;
+    line-height: 1.2;
+  }
+
+  .cr__side-role {
+    font-size: 12px;
+    color: rgba(255,255,255,0.4);
+    margin-top: 6px;
+    letter-spacing: 0.5px;
+  }
+
+  .cr__nav {
+    padding: 16px 12px;
+    flex: 1;
+  }
+
+  .cr__nav-label {
+    font-size: 10px;
+    font-weight: 700;
+    color: rgba(255,255,255,0.3);
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+    padding: 8px 12px 6px;
+  }
+
+  .cr__nav-btn {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    width: 100%;
+    padding: 10px 12px;
+    font-size: 14px;
+    font-family: var(--font);
+    color: rgba(255,255,255,0.65);
+    background: none;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    text-align: left;
+    margin-bottom: 2px;
+  }
+
+  .cr__nav-btn:hover {
+    background: rgba(255,255,255,0.06);
+    color: #fff;
+  }
+
+  .cr__nav-btn.is-active {
+    background: rgba(212,160,136,0.15);
+    color: #d4a088;
+    font-weight: 600;
+  }
+
+  .cr__nav-btn svg { width: 18px; height: 18px; flex-shrink: 0; opacity: 0.7; }
+  .cr__nav-btn.is-active svg { opacity: 1; }
+
+  .cr__nav-badge {
+    margin-left: auto;
+    background: #e65100;
+    color: #fff;
+    font-size: 11px;
+    font-weight: 700;
+    padding: 1px 7px;
+    border-radius: 10px;
+    min-width: 20px;
+    text-align: center;
+  }
+
+  .cr__side-footer {
+    padding: 16px 24px;
+    border-top: 1px solid rgba(255,255,255,0.08);
+  }
+
+  .cr__logout {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 13px;
+    color: rgba(255,255,255,0.5);
+    background: none;
+    border: none;
+    cursor: pointer;
+    font-family: var(--font);
+    padding: 0;
+    transition: color 0.2s;
+  }
+
+  .cr__logout:hover { color: #fff; }
+
+  /* ====== Main ====== */
+  .cr__main {
+    flex: 1;
+    margin-left: 260px;
+    background: #f9f7f5;
+    min-height: 100vh;
+  }
+
+  .cr__topbar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 20px 36px;
+    background: #fff;
+    border-bottom: 1px solid #e7e0dc;
+    position: sticky;
+    top: 0;
+    z-index: 50;
+  }
+
+  .cr__topbar-title {
+    font-size: 20px;
+    font-weight: 600;
+    color: #1f1f1f;
+  }
+
+  .cr__topbar-user {
+    font-size: 14px;
+    color: #6c6c6c;
+  }
+
+  .cr__content {
+    padding: 32px 36px;
+  }
+
+  .cr__panel {
+    display: none;
+  }
+
+  .cr__panel.is-active {
+    display: block;
+  }
+
+  /* ====== Date strip (calendar) ====== */
+  .date-strip {
+    display: flex;
+    gap: 6px;
+    flex-wrap: wrap;
+    margin-bottom: 24px;
+  }
+
+  .date-chip {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 62px;
+    height: 72px;
+    border: 2px solid #e7e0dc;
+    border-radius: 14px;
+    background: #fff;
+    cursor: pointer;
+    transition: all 0.2s;
+    position: relative;
+  }
+
+  .date-chip:hover {
+    border-color: #d4a088;
+    background: #fdfbfa;
+  }
+
+  .date-chip.is-active {
+    background: #1f1f1f;
+    border-color: #1f1f1f;
+    color: #fff;
+  }
+
+  .date-chip.is-today {
+    border-color: #d4a088;
+  }
+
+  .date-chip__dow {
+    font-size: 10px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    color: #b0a8a3;
+    margin-bottom: 2px;
+  }
+
+  .date-chip.is-active .date-chip__dow { color: rgba(255,255,255,0.5); }
+
+  .date-chip__day {
+    font-size: 20px;
+    font-weight: 700;
+    color: #1f1f1f;
+    line-height: 1;
+  }
+
+  .date-chip.is-active .date-chip__day { color: #fff; }
+
+  .date-chip__month {
+    font-size: 9px;
+    color: #b0a8a3;
+    margin-top: 1px;
+  }
+
+  .date-chip.is-active .date-chip__month { color: rgba(255,255,255,0.45); }
+
+  .date-chip__dot {
+    position: absolute;
+    bottom: 5px;
+    width: 5px;
+    height: 5px;
+    border-radius: 50%;
+    background: #d4a088;
+  }
+
+  .date-chip.is-active .date-chip__dot { background: #d4a088; }
+
+  /* ====== Day header ====== */
+  .day-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 20px;
+    flex-wrap: wrap;
+    gap: 12px;
+  }
+
+  .day-header__info {
+    display: flex;
+    align-items: baseline;
+    gap: 12px;
+  }
+
+  .day-header__date {
+    font-size: 18px;
+    font-weight: 700;
+    color: #1f1f1f;
+  }
+
+  .day-header__count {
+    font-size: 14px;
+    color: #6c6c6c;
+  }
+
+  /* ====== Stats row ====== */
+  .cr-stats {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+    margin-bottom: 28px;
+  }
+
+  .cr-stat {
+    background: #fff;
+    border: 2px solid #e7e0dc;
+    border-radius: 16px;
+    padding: 22px 24px;
+    transition: box-shadow 0.3s;
+  }
+
+  .cr-stat:hover { box-shadow: 0 8px 24px rgba(0,0,0,0.06); }
+
+  .cr-stat__icon {
+    width: 40px;
+    height: 40px;
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 20px;
+    margin-bottom: 12px;
+  }
+
+  .cr-stat__icon--active { background: #fff3e0; }
+  .cr-stat__icon--done { background: #e8f5e9; }
+  .cr-stat__icon--total { background: #e3f2fd; }
+
+  .cr-stat__value {
+    font-size: 28px;
+    font-weight: 700;
+    color: #1f1f1f;
+    margin-bottom: 4px;
+  }
+
+  .cr-stat__label {
+    font-size: 13px;
+    color: #6c6c6c;
+  }
+
+  /* ====== Delivery cards ====== */
+  .del-list {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+  }
+
+  .del-card {
+    background: #fff;
+    border: 2px solid #e7e0dc;
+    border-radius: 16px;
+    padding: 24px;
+    transition: box-shadow 0.3s;
+  }
+
+  .del-card:hover { box-shadow: 0 8px 24px rgba(0,0,0,0.06); }
+
+  .del-card__top {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 16px;
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+
+  .del-card__id {
+    font-size: 16px;
+    font-weight: 700;
+    color: #1f1f1f;
+  }
+
+  .del-card__time-slot {
+    font-size: 13px;
+    color: #6c6c6c;
+    margin-left: 10px;
+  }
+
+  .del-card__status {
+    display: inline-block;
+    padding: 4px 14px;
+    font-size: 12px;
+    font-weight: 600;
+    border-radius: 20px;
+    letter-spacing: 0.3px;
+  }
+
+  .del-card__status--pending { background: #e3f2fd; color: #1565c0; }
+  .del-card__status--pickup { background: #fff3e0; color: #e65100; }
+  .del-card__status--transit { background: #fff3e0; color: #e65100; }
+  .del-card__status--done { background: #e8f5e9; color: #2e7d32; }
+  .del-card__status--problem { background: #fce4ec; color: #c62828; }
+
+  .del-card__body {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+    margin-bottom: 18px;
+  }
+
+  .del-card__section {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+  }
+
+  .del-card__label {
+    font-size: 11px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.8px;
+    color: #b0a8a3;
+  }
+
+  .del-card__value {
+    font-size: 14px;
+    color: #1f1f1f;
+    line-height: 1.5;
+  }
+
+  .del-card__value a {
+    color: #1565c0;
+    text-decoration: underline;
+    text-underline-offset: 2px;
+  }
+
+  .del-card__items {
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+    margin-bottom: 18px;
+    padding: 14px;
+    background: #faf8f7;
+    border-radius: 10px;
+  }
+
+  .del-card__item {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .del-card__item-img {
+    width: 40px;
+    height: 40px;
+    border-radius: 8px;
+    object-fit: cover;
+    background: #eee;
+  }
+
+  .del-card__item-name {
+    font-size: 13px;
+    font-weight: 500;
+    color: #1f1f1f;
+  }
+
+  .del-card__item-qty {
+    font-size: 12px;
+    color: #6c6c6c;
+  }
+
+  .del-card__actions {
+    display: flex;
+    gap: 8px;
+    flex-wrap: wrap;
+    border-top: 1px solid #f0ebe8;
+    padding-top: 16px;
+  }
+
+  .cr-btn {
+    padding: 10px 20px;
+    font-size: 13px;
+    font-weight: 600;
+    font-family: var(--font);
+    color: #1f1f1f;
+    background: #f7f4f2;
+    border: 2px solid #e7e0dc;
+    border-radius: 10px;
+    cursor: pointer;
+    transition: all 0.3s;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    text-decoration: none;
+  }
+
+  .cr-btn:hover {
+    background: #f2f0ee;
+    border-color: #d4a088;
+  }
+
+  .cr-btn--primary {
+    background: #1f1f1f;
+    color: #fff;
+    border-color: #1f1f1f;
+  }
+
+  .cr-btn--primary:hover {
+    background: #333;
+    border-color: #333;
+  }
+
+  .cr-btn--success {
+    background: #2e7d32;
+    color: #fff;
+    border-color: #2e7d32;
+  }
+
+  .cr-btn--success:hover {
+    background: #388e3c;
+    border-color: #388e3c;
+  }
+
+  .cr-btn--danger {
+    background: #fff;
+    color: #c62828;
+    border-color: #ef9a9a;
+  }
+
+  .cr-btn--danger:hover {
+    background: #fce4ec;
+    border-color: #c62828;
+  }
+
+  .cr-btn--sm {
+    padding: 7px 14px;
+    font-size: 12px;
+  }
+
+  /* ====== Empty state ====== */
+  .del-empty {
+    text-align: center;
+    padding: 60px 20px;
+    color: #b0a8a3;
+  }
+
+  .del-empty__icon { font-size: 48px; margin-bottom: 12px; opacity: 0.4; }
+  .del-empty__text { font-size: 15px; margin: 0; }
+
+  /* ====== Map ====== */
+  .map-placeholder {
+    width: 100%;
+    height: 300px;
+    background: #fff;
+    border: 2px solid #e7e0dc;
+    border-radius: 16px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    color: #b0a8a3;
+    margin-bottom: 24px;
+    overflow: hidden;
+  }
+
+  .map-placeholder iframe {
+    width: 100%;
+    height: 100%;
+    border: none;
+    border-radius: 14px;
+  }
+
+  /* ====== Route builder ====== */
+  .route-builder {
+    background: #fff;
+    border: 2px solid #e7e0dc;
+    border-radius: 16px;
+    padding: 24px;
+    margin-bottom: 24px;
+  }
+
+  .route-builder__title {
+    font-size: 16px;
+    font-weight: 600;
+    color: #1f1f1f;
+    margin-bottom: 20px;
+  }
+
+  .route-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+    margin-bottom: 16px;
+  }
+
+  .route-point {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+    position: relative;
+  }
+
+  .route-point__label {
+    font-size: 11px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.8px;
+    color: #b0a8a3;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+  }
+
+  .route-point__marker {
+    width: 18px;
+    height: 18px;
+    border-radius: 50%;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 10px;
+    font-weight: 700;
+    color: #fff;
+    flex-shrink: 0;
+  }
+
+  .route-point__marker--start { background: #2e7d32; }
+  .route-point__marker--end { background: #c62828; }
+  .route-point__marker--mid { background: #1565c0; }
+
+  .route-point__input {
+    padding: 10px 14px;
+    font-size: 14px;
+    font-family: var(--font);
+    border: 2px solid #e7e0dc;
+    border-radius: 8px;
+    outline: none;
+    transition: border-color 0.3s;
+    width: 100%;
+  }
+
+  .route-point__input:focus { border-color: #d4a088; }
+  .route-point__input:read-only { background: #faf8f7; color: #999; }
+
+  .route-point__remove {
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 22px;
+    height: 22px;
+    border-radius: 50%;
+    background: #fce4ec;
+    border: none;
+    cursor: pointer;
+    font-size: 13px;
+    color: #c62828;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: background 0.2s;
+  }
+
+  .route-point__remove:hover { background: #ef9a9a; color: #fff; }
+
+  .route-add-row {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 16px;
+  }
+
+  .route-add-btn {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    padding: 8px 18px;
+    font-size: 13px;
+    font-weight: 600;
+    font-family: var(--font);
+    color: #6c6c6c;
+    background: #faf8f7;
+    border: 2px dashed #e7e0dc;
+    border-radius: 10px;
+    cursor: pointer;
+    transition: all 0.2s;
+  }
+
+  .route-add-btn:hover {
+    border-color: #d4a088;
+    color: #1f1f1f;
+    background: #fdfbfa;
+  }
+
+  .route-actions {
+    display: flex;
+    gap: 12px;
+    align-items: center;
+    flex-wrap: wrap;
+  }
+
+  .route-yandex-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 12px 20px;
+    background: #fff;
+    border: 2px solid #f44336;
+    border-radius: 12px;
+    color: #d32f2f;
+    font-size: 14px;
+    font-weight: 600;
+    text-decoration: none;
+    margin-bottom: 24px;
+    transition: background .2s, color .2s;
+  }
+  .route-yandex-link:hover {
+    background: #f44336;
+    color: #fff;
+  }
+
+  /* ====== History table ====== */
+  .cr-table-wrap {
+    background: #fff;
+    border: 2px solid #e7e0dc;
+    border-radius: 16px;
+    overflow: hidden;
+    margin-bottom: 24px;
+  }
+
+  .cr-table-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 20px 24px;
+    border-bottom: 1px solid #f0ebe8;
+  }
+
+  .cr-table-header__title {
+    font-size: 16px;
+    font-weight: 600;
+    color: #1f1f1f;
+  }
+
+  table.cr-table {
+    width: 100%;
+    border-collapse: collapse;
+  }
+
+  .cr-table th {
+    text-align: left;
+    padding: 12px 16px;
+    font-size: 12px;
+    font-weight: 600;
+    color: #6c6c6c;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    border-bottom: 1px solid #f0ebe8;
+    background: #fdfbfa;
+  }
+
+  .cr-table td {
+    padding: 14px 16px;
+    font-size: 14px;
+    color: #1f1f1f;
+    border-bottom: 1px solid #f0ebe8;
+    vertical-align: middle;
+  }
+
+  .cr-table tr:last-child td { border-bottom: none; }
+  .cr-table tr:hover td { background: #fdfbfa; }
+
+  /* ====== Alert ====== */
+  .cr-alert {
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+    padding: 16px 20px;
+    border-radius: 12px;
+    margin-bottom: 16px;
+  }
+
+  .cr-alert--info {
+    background: #e3f2fd;
+    border: 1px solid #90caf9;
+  }
+
+  .cr-alert__icon { font-size: 20px; flex-shrink: 0; }
+  .cr-alert__text { font-size: 14px; color: #1f1f1f; line-height: 1.5; }
+
+  /* ====== Modal ====== */
+  .modal-overlay {
+    display: none;
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,0.4);
+    z-index: 200;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .modal-overlay.is-open { display: flex; }
+
+  .modal {
+    background: #fff;
+    border-radius: 20px;
+    padding: 32px;
+    width: 100%;
+    max-width: 460px;
+    box-shadow: 0 24px 48px rgba(0,0,0,0.15);
+  }
+
+  .modal__title {
+    font-size: 18px;
+    font-weight: 700;
+    color: #1f1f1f;
+    margin-bottom: 20px;
+  }
+
+  .modal__field {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    margin-bottom: 16px;
+  }
+
+  .modal__label {
+    font-size: 13px;
+    font-weight: 500;
+    color: #6c6c6c;
+  }
+
+  .modal__select {
+    padding: 10px 14px;
+    font-size: 14px;
+    font-family: var(--font);
+    border: 2px solid #e7e0dc;
+    border-radius: 8px;
+    outline: none;
+    background: #fff;
+    cursor: pointer;
+    transition: border-color 0.3s;
+  }
+
+  .modal__select:focus { border-color: #d4a088; }
+
+  .modal__textarea {
+    padding: 10px 14px;
+    font-size: 14px;
+    font-family: var(--font);
+    border: 2px solid #e7e0dc;
+    border-radius: 8px;
+    outline: none;
+    resize: vertical;
+    min-height: 80px;
+    transition: border-color 0.3s;
+  }
+
+  .modal__textarea:focus { border-color: #d4a088; }
+
+  .modal__actions {
+    display: flex;
+    gap: 8px;
+    margin-top: 20px;
+  }
+
+  /* ====== Responsive ====== */
+  @media (max-width: 768px) {
+    .cr__side { width: 60px; }
+    .cr__side-header, .cr__side-role, .cr__nav-label,
+    .cr__nav-btn span, .cr__nav-badge, .cr__side-footer { display: none; }
+    .cr__nav-btn { justify-content: center; padding: 12px; }
+    .cr__main { margin-left: 60px; }
+    .cr__content { padding: 20px; }
+    .cr__topbar { padding: 16px 20px; }
+    .cr-stats { grid-template-columns: 1fr; }
+    .del-card__body { grid-template-columns: 1fr; }
+    .route-grid { grid-template-columns: 1fr; }
+  }
+</style>
+</head>
+
+<body class="page" style="background: #f9f7f5;">
+
+<div class="cr">
+
+  <!-- ====== Sidebar ====== -->
+  <aside class="cr__side">
+    <div class="cr__side-header">
+      <a href="index.html" class="cr__side-brand">Вкус облаков</a>
+      <div class="cr__side-role">Курьер</div>
+    </div>
+
+    <nav class="cr__nav">
+      <div class="cr__nav-label">Доставки</div>
+      <button class="cr__nav-btn is-active" type="button" data-section="active">
+        <svg viewBox="0 0 24 24"><path fill="currentColor" d="M18 18.5c.83 0 1.5-.67 1.5-1.5s-.67-1.5-1.5-1.5-1.5.67-1.5 1.5.67 1.5 1.5 1.5zM19.96 10H17V7H3c-1.1 0-2 .9-2 2v6h2c0 1.66 1.34 3 3 3s3-1.34 3-3h6c0 1.66 1.34 3 3 3s3-1.34 3-3h2v-3.28L19.96 10zM6 18.5c-.83 0-1.5-.67-1.5-1.5s.67-1.5 1.5-1.5 1.5.67 1.5 1.5-.67 1.5-1.5 1.5z"/></svg>
+        <span>Доставки</span>
+        <span class="cr__nav-badge" id="activeBadge">3</span>
+      </button>
+      <button class="cr__nav-btn" type="button" data-section="history">
+        <svg viewBox="0 0 24 24"><path fill="currentColor" d="M13 3c-4.97 0-9 4.03-9 9H1l3.89 3.89.07.14L9 12H6c0-3.87 3.13-7 7-7s7 3.13 7 7-3.13 7-7 7c-1.93 0-3.68-.79-4.94-2.06l-1.42 1.42C8.27 19.99 10.51 21 13 21c4.97 0 9-4.03 9-9s-4.03-9-9-9zm-1 5v5l4.28 2.54.72-1.21-3.5-2.08V8H12z"/></svg>
+        <span>История</span>
+      </button>
+
+      <div class="cr__nav-label" style="margin-top: 16px;">Инструменты</div>
+      <button class="cr__nav-btn" type="button" data-section="route">
+        <svg viewBox="0 0 24 24"><path fill="currentColor" d="M21.71 11.29l-9-9c-.39-.39-1.02-.39-1.41 0l-9 9c-.39.39-.39 1.02 0 1.41l9 9c.39.39 1.02.39 1.41 0l9-9c.39-.38.39-1.01 0-1.41zM14 14.5V12h-4v3H8v-4c0-.55.45-1 1-1h5V7.5l3.5 3.5-3.5 3.5z"/></svg>
+        <span>Маршрут</span>
+      </button>
+    </nav>
+
+    <div class="cr__side-footer">
+      <button class="cr__logout" type="button" onclick="location.href='auth.html'">
+        <svg width="16" height="16" viewBox="0 0 24 24"><path fill="currentColor" d="M17 7l-1.41 1.41L18.17 11H8v2h10.17l-2.58 2.58L17 17l5-5zM4 5h8V3H4c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h8v-2H4V5z"/></svg>
+        Выйти
+      </button>
+    </div>
+  </aside>
+
+  <!-- ====== Main ====== -->
+  <div class="cr__main">
+
+    <div class="cr__topbar">
+      <div class="cr__topbar-title" id="crTopTitle">Доставки</div>
+      <div class="cr__topbar-user">Курьер: Алексей К.</div>
+    </div>
+
+    <div class="cr__content">
+
+      <!-- ========== Доставки (календарь + заказы) ========== -->
+      <div class="cr__panel is-active" data-section="active">
+
+        <!-- Лента дат -->
+        <div class="date-strip" id="dateStrip"></div>
+
+        <!-- Шапка дня + кнопка маршрута -->
+        <div class="day-header">
+          <div class="day-header__info">
+            <div class="day-header__date" id="dayTitle"></div>
+            <div class="day-header__count" id="dayCount"></div>
+          </div>
+          <button class="cr-btn cr-btn--primary" id="calcRouteBtn" onclick="calcDayRoute()" style="display:none;">
+            &#128204; Рассчитать маршрут на день
+          </button>
+        </div>
+
+        <!-- Статистика дня -->
+        <div class="cr-stats" id="dayStats" style="display:none;">
+          <div class="cr-stat">
+            <div class="cr-stat__icon cr-stat__icon--active">&#128666;</div>
+            <div class="cr-stat__value" id="statActive">0</div>
+            <div class="cr-stat__label">Активных</div>
+          </div>
+          <div class="cr-stat">
+            <div class="cr-stat__icon cr-stat__icon--done">&#9989;</div>
+            <div class="cr-stat__value" id="statDone">0</div>
+            <div class="cr-stat__label">Выполнено</div>
+          </div>
+          <div class="cr-stat">
+            <div class="cr-stat__icon cr-stat__icon--total">&#128197;</div>
+            <div class="cr-stat__value" id="statTotal">0</div>
+            <div class="cr-stat__label">Всего</div>
+          </div>
+        </div>
+
+        <!-- Список заказов -->
+        <div class="del-list" id="deliveryList"></div>
+
+      </div>
+
+      <!-- ========== История ========== -->
+      <div class="cr__panel" data-section="history">
+        <div class="cr-table-wrap">
+          <div class="cr-table-header">
+            <div class="cr-table-header__title">История доставок</div>
+          </div>
+          <table class="cr-table">
+            <thead>
+              <tr>
+                <th>Заказ</th>
+                <th>Дата</th>
+                <th>Адрес</th>
+                <th>Статус</th>
+                <th>Время доставки</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr><td><strong>#1246</strong></td><td>12 мая 2026</td><td>ул. Мира, д. 7, кв. 22</td><td><span class="del-card__status del-card__status--done">Доставлен</span></td><td>12:34</td></tr>
+              <tr><td><strong>#1244</strong></td><td>12 мая 2026</td><td>ул. Понтекорво, д. 15</td><td><span class="del-card__status del-card__status--done">Доставлен</span></td><td>11:08</td></tr>
+              <tr><td><strong>#1241</strong></td><td>11 мая 2026</td><td>ул. Сахарова, д. 3, кв. 41</td><td><span class="del-card__status del-card__status--done">Доставлен</span></td><td>17:22</td></tr>
+              <tr><td><strong>#1239</strong></td><td>11 мая 2026</td><td>ул. Флёрова, д. 8, кв. 12</td><td><span class="del-card__status del-card__status--done">Доставлен</span></td><td>15:45</td></tr>
+              <tr><td><strong>#1235</strong></td><td>11 мая 2026</td><td>пр-т Боголюбова, д. 19</td><td><span class="del-card__status del-card__status--problem">Проблема</span></td><td>—</td></tr>
+              <tr><td><strong>#1232</strong></td><td>10 мая 2026</td><td>ул. Строителей, д. 11, кв. 5</td><td><span class="del-card__status del-card__status--done">Доставлен</span></td><td>14:10</td></tr>
+              <tr><td><strong>#1230</strong></td><td>10 мая 2026</td><td>ул. Центральная, д. 2</td><td><span class="del-card__status del-card__status--done">Доставлен</span></td><td>11:55</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- ========== Маршрут ========== -->
+      <div class="cr__panel" data-section="route">
+
+        <div class="cr-alert cr-alert--info">
+          <div class="cr-alert__icon">&#128205;</div>
+          <div class="cr-alert__text">Постройте маршрут через несколько точек. Первая и последняя точки — адрес пекарни (фиксированный).</div>
+        </div>
+
+        <div class="map-placeholder" id="routeMap">
+          <iframe
+            src="https://yandex.ru/map-widget/v1/?um=constructor%3A5323ec7eeef295359140d0a676351927a92d5b06e8ba41b518464d51d93d3a63&amp;source=constructor"
+            allowfullscreen>
+          </iframe>
+        </div>
+
+        <div class="route-builder">
+          <div class="route-builder__title">Точки маршрута</div>
+
+          <div class="route-grid" id="routeGrid">
+            <!-- Генерируется JS -->
+          </div>
+
+          <div class="route-add-row">
+            <button class="route-add-btn" type="button" onclick="addRoutePoint()">+ Добавить точку</button>
+          </div>
+
+          <div class="route-actions">
+            <button class="cr-btn cr-btn--primary" onclick="buildMultiRoute()">&#128204; Построить маршрут</button>
+            <button class="cr-btn" onclick="resetRoute()">Сбросить</button>
+          </div>
+        </div>
+
+        <a id="routeYandexLink" href="#" target="_blank" rel="noopener" class="route-yandex-link" style="display:none;">
+          &#127760; Открыть маршрут в Яндекс.Картах
+        </a>
+
+      </div>
+
+    </div>
+  </div>
+
+</div>
+
+<!-- ====== Модалка: Изменить статус ====== -->
+<div class="modal-overlay" id="statusModal">
+  <div class="modal">
+    <div class="modal__title">Изменить статус доставки</div>
+    <div class="modal__field">
+      <span class="modal__label">Заказ</span>
+      <div style="font-size:16px; font-weight:600;" id="modalOrderId"></div>
+    </div>
+    <div class="modal__field">
+      <span class="modal__label">Новый статус</span>
+      <select class="modal__select" id="modalStatus">
+        <option value="pickup">Забрать из пекарни</option>
+        <option value="transit">В пути к клиенту</option>
+        <option value="delivered">Доставлен клиенту</option>
+      </select>
+    </div>
+    <div class="modal__actions">
+      <button class="cr-btn cr-btn--primary" onclick="saveStatus()">Сохранить</button>
+      <button class="cr-btn" onclick="closeStatusModal()">Отмена</button>
+    </div>
+  </div>
+</div>
+
+<!-- ====== Модалка: Проблема с доставкой ====== -->
+<div class="modal-overlay" id="problemModal">
+  <div class="modal">
+    <div class="modal__title" style="color: #c62828;">Сообщить о проблеме</div>
+    <div class="modal__field">
+      <span class="modal__label">Заказ</span>
+      <div style="font-size:16px; font-weight:600;" id="problemOrderId"></div>
+    </div>
+    <div class="modal__field">
+      <span class="modal__label">Тип проблемы</span>
+      <select class="modal__select" id="problemType">
+        <option value="">Выберите тип проблемы...</option>
+        <option value="no-client">Клиент не отвечает / отсутствует</option>
+        <option value="wrong-address">Неверный адрес</option>
+        <option value="damaged">Товар повреждён при транспортировке</option>
+        <option value="access">Нет доступа к подъезду / дому</option>
+        <option value="refuse">Клиент отказался от заказа</option>
+        <option value="other">Другое</option>
+      </select>
+    </div>
+    <div class="modal__field">
+      <span class="modal__label">Описание проблемы</span>
+      <textarea class="modal__textarea" id="problemDesc" placeholder="Опишите подробности проблемы..."></textarea>
+    </div>
+    <div class="modal__actions">
+      <button class="cr-btn cr-btn--danger" onclick="saveProblem()">Отправить</button>
+      <button class="cr-btn" onclick="closeProblemModal()">Отмена</button>
+    </div>
+  </div>
+</div>
+
+<script src="config.js"></script>
+<script>
+  const BASE_ADDR = CONFIG.bakeryAddress;
+  const MONTHS_SHORT = ['янв','фев','мар','апр','мая','июн','июл','авг','сен','окт','ноя','дек'];
+  const MONTHS_FULL = ['января','февраля','марта','апреля','мая','июня','июля','августа','сентября','октября','ноября','декабря'];
+  const DOWS = ['Вс','Пн','Вт','Ср','Чт','Пт','Сб'];
+
+  // ====== Демо-заказы (привязаны к смещению от сегодня) ======
+  function buildDemoOrders() {
+    const today = new Date();
+    const d = (offset) => {
+      const dt = new Date(today);
+      dt.setDate(dt.getDate() + offset);
+      return dt.toISOString().slice(0, 10);
+    };
+
+    return {
+      [d(0)]: [
+        { id: 1247, time: '14:00 – 15:00', status: 'transit', statusLabel: 'В пути',
+          client: 'Иванов Иван Иванович', phone: '+7 (999) 123-45-67', phoneFull: '+79991234567',
+          address: 'г. Дубна, ул. Примерная, д. 10, кв. 5', sum: '5 850', pay: 'оплачен онлайн',
+          items: [
+            { name: 'Торт «Ягодное лукошко»', qty: '3 кг', img: 'img/картинки для сайта/Торты/Торт Ягодное лукошко.jpg' },
+            { name: 'Macarons ассорти', qty: '12 шт', img: 'img/summer-3.jpg' }
+          ]},
+        { id: 1250, time: '16:00 – 17:00', status: 'pickup', statusLabel: 'Забрать',
+          client: 'Петрова Анна Владимировна', phone: '+7 (999) 111-22-33', phoneFull: '+79991112233',
+          address: 'г. Дубна, ул. Строителей, д. 25, кв. 14', sum: '3 300', pay: 'наличные при получении',
+          items: [
+            { name: 'Торт «Ягодное лукошко»', qty: '3 кг', img: 'img/summer-1.jpg' }
+          ]},
+        { id: 1248, time: '18:00 – 19:00', status: 'pending', statusLabel: 'Ожидает',
+          client: 'Козлова Елена Ивановна', phone: '+7 (999) 555-66-77', phoneFull: '+79995556677',
+          address: 'г. Дубна, пр-т Боголюбова, д. 42, кв. 8', sum: '5 100', pay: 'оплачен онлайн',
+          items: [
+            { name: 'Macarons ассорти', qty: '24 шт', img: 'img/summer-3.jpg' },
+            { name: 'Чизкейк классический', qty: '1.5 кг', img: 'img/summer-5.jpg' }
+          ]}
+      ],
+      [d(1)]: [
+        { id: 1253, time: '10:00 – 11:00', status: 'pending', statusLabel: 'Ожидает',
+          client: 'Миронова Людмила Сергеевна', phone: '+7 (999) 888-99-00', phoneFull: '+79998889900',
+          address: 'г. Дубна, ул. Мира, д. 7, кв. 22', sum: '7 200', pay: 'оплачен онлайн',
+          items: [
+            { name: '3D-торт Бабочки', qty: '2.5 кг', img: 'img/картинки для сайта/3D-торты/Торт с бабочками.jpg' }
+          ]},
+        { id: 1254, time: '15:00 – 16:00', status: 'pending', statusLabel: 'Ожидает',
+          client: 'Сидоров Кирилл Михайлович', phone: '+7 (999) 333-44-55', phoneFull: '+79993334455',
+          address: 'г. Дубна, ул. Сахарова, д. 3, кв. 41', sum: '4 500', pay: 'наличные при получении',
+          items: [
+            { name: 'Торт «Праздничный шик»', qty: '3 кг', img: 'img/картинки для сайта/Торты/Торт Праздничный шик.jpg' }
+          ]}
+      ],
+      [d(3)]: [
+        { id: 1260, time: '12:00 – 13:00', status: 'pending', statusLabel: 'Ожидает',
+          client: 'Волкова Наталья Петровна', phone: '+7 (999) 222-11-00', phoneFull: '+79992221100',
+          address: 'г. Дубна, ул. Флёрова, д. 8, кв. 12', sum: '14 400', pay: 'оплачен онлайн',
+          items: [
+            { name: 'Свадебный торт «Элегант»', qty: '6 кг', img: 'img/картинки для сайта/Свадебные торты/Свадебный торт с бусинами.jpg' }
+          ]}
+      ]
+    };
+  }
+
+  const DEMO_ORDERS = buildDemoOrders();
+  let selectedDate = new Date().toISOString().slice(0, 10);
+
+  // ====== Навигация ======
+  const SECTION_TITLES = {
+    active: 'Доставки',
+    history: 'История доставок',
+    route: 'Маршрут доставки'
+  };
+
+  const navBtns = document.querySelectorAll('.cr__nav-btn[data-section]');
+  const panels = document.querySelectorAll('.cr__panel[data-section]');
+  const topTitle = document.getElementById('crTopTitle');
+
+  function switchSection(section) {
+    navBtns.forEach(b => b.classList.toggle('is-active', b.dataset.section === section));
+    panels.forEach(p => p.classList.toggle('is-active', p.dataset.section === section));
+    topTitle.textContent = SECTION_TITLES[section] || section;
+  }
+
+  navBtns.forEach(btn => {
+    btn.addEventListener('click', () => switchSection(btn.dataset.section));
+  });
+
+  // ====== Лента дат ======
+  function buildDateStrip() {
+    const strip = document.getElementById('dateStrip');
+    strip.innerHTML = '';
+    const today = new Date();
+    const todayStr = today.toISOString().slice(0, 10);
+
+    for (let i = 0; i < 31; i++) {
+      const dt = new Date(today);
+      dt.setDate(dt.getDate() + i);
+      const key = dt.toISOString().slice(0, 10);
+      const hasOrders = DEMO_ORDERS[key] && DEMO_ORDERS[key].length > 0;
+
+      const chip = document.createElement('div');
+      chip.className = 'date-chip';
+      if (key === selectedDate) chip.classList.add('is-active');
+      if (key === todayStr) chip.classList.add('is-today');
+
+      chip.innerHTML =
+        '<div class="date-chip__dow">' + DOWS[dt.getDay()] + '</div>' +
+        '<div class="date-chip__day">' + dt.getDate() + '</div>' +
+        '<div class="date-chip__month">' + MONTHS_SHORT[dt.getMonth()] + '</div>' +
+        (hasOrders ? '<div class="date-chip__dot"></div>' : '');
+
+      chip.addEventListener('click', () => {
+        selectedDate = key;
+        document.querySelectorAll('.date-chip').forEach(c => c.classList.remove('is-active'));
+        chip.classList.add('is-active');
+        renderDay();
+      });
+
+      strip.appendChild(chip);
+    }
+  }
+
+  // ====== Рендер дня ======
+  function renderDay() {
+    const orders = DEMO_ORDERS[selectedDate] || [];
+    const dt = new Date(selectedDate + 'T12:00:00');
+    const todayStr = new Date().toISOString().slice(0, 10);
+
+    document.getElementById('dayTitle').textContent =
+      dt.getDate() + ' ' + MONTHS_FULL[dt.getMonth()] + ' ' + dt.getFullYear() +
+      (selectedDate === todayStr ? ' (сегодня)' : '');
+
+    document.getElementById('dayCount').textContent =
+      orders.length > 0 ? orders.length + ' доставок' : '';
+
+    // Stats
+    const statsBlock = document.getElementById('dayStats');
+    const routeBtn = document.getElementById('calcRouteBtn');
+
+    if (orders.length > 0) {
+      statsBlock.style.display = '';
+      routeBtn.style.display = '';
+      const active = orders.filter(o => o.status !== 'done').length;
+      const done = orders.filter(o => o.status === 'done').length;
+      document.getElementById('statActive').textContent = active;
+      document.getElementById('statDone').textContent = done;
+      document.getElementById('statTotal').textContent = orders.length;
+    } else {
+      statsBlock.style.display = 'none';
+      routeBtn.style.display = 'none';
+    }
+
+    // Cards
+    const list = document.getElementById('deliveryList');
+
+    if (orders.length === 0) {
+      list.innerHTML =
+        '<div class="del-empty">' +
+        '  <div class="del-empty__icon">&#128230;</div>' +
+        '  <p class="del-empty__text">Нет доставок на этот день</p>' +
+        '</div>';
+      return;
+    }
+
+    list.innerHTML = orders.map(o => {
+      const itemsHtml = o.items.map(it =>
+        '<div class="del-card__item">' +
+        '  <img class="del-card__item-img" src="' + it.img + '" alt="">' +
+        '  <div><div class="del-card__item-name">' + it.name + '</div>' +
+        '  <div class="del-card__item-qty">' + it.qty + '</div></div>' +
+        '</div>'
+      ).join('');
+
+      return (
+        '<div class="del-card" data-order="' + o.id + '">' +
+        '  <div class="del-card__top">' +
+        '    <div><span class="del-card__id">Заказ #' + o.id + '</span>' +
+        '    <span class="del-card__time-slot">Доставить к ' + o.time + '</span></div>' +
+        '    <span class="del-card__status del-card__status--' + o.status + '" id="status' + o.id + '">' + o.statusLabel + '</span>' +
+        '  </div>' +
+        '  <div class="del-card__body">' +
+        '    <div class="del-card__section"><span class="del-card__label">Клиент</span><span class="del-card__value">' + o.client + '</span></div>' +
+        '    <div class="del-card__section"><span class="del-card__label">Телефон</span><span class="del-card__value"><a href="tel:' + o.phoneFull + '">' + o.phone + '</a></span></div>' +
+        '    <div class="del-card__section"><span class="del-card__label">Адрес доставки</span><span class="del-card__value">' + o.address + '</span></div>' +
+        '    <div class="del-card__section"><span class="del-card__label">Сумма</span><span class="del-card__value">' + o.sum + ' &#8381; (' + o.pay + ')</span></div>' +
+        '  </div>' +
+        '  <div class="del-card__items">' + itemsHtml + '</div>' +
+        '  <div class="del-card__actions">' +
+        '    <button class="cr-btn cr-btn--success" onclick="markDelivered(' + o.id + ')">&#9989; Доставлен</button>' +
+        '    <button class="cr-btn" onclick="openStatusModal(' + o.id + ')">&#9998; Статус</button>' +
+        '    <button class="cr-btn cr-btn--danger" onclick="openProblemModal(' + o.id + ')">&#9888; Проблема</button>' +
+        '  </div>' +
+        '</div>'
+      );
+    }).join('');
+  }
+
+  // ====== Рассчитать маршрут на день ======
+  function calcDayRoute() {
+    const orders = DEMO_ORDERS[selectedDate] || [];
+    if (!orders.length) return;
+
+    // Переключаемся на вкладку маршрут и заполняем точки
+    switchSection('route');
+    resetRoute();
+
+    // Добавляем промежуточные точки по количеству заказов
+    const addresses = orders.map(o => o.address);
+    // Удалим дефолтные промежуточные (если есть)
+    routePoints = [];
+    addresses.forEach(a => routePoints.push(a));
+    renderRouteGrid();
+    buildMultiRoute();
+  }
+
+  // ====== Статус — модалка ======
+  let currentStatusOrder = null;
+
+  function openStatusModal(orderId) {
+    currentStatusOrder = orderId;
+    document.getElementById('modalOrderId').textContent = '#' + orderId;
+    document.getElementById('statusModal').classList.add('is-open');
+  }
+
+  function closeStatusModal() {
+    document.getElementById('statusModal').classList.remove('is-open');
+    currentStatusOrder = null;
+  }
+
+  function saveStatus() {
+    const sel = document.getElementById('modalStatus');
+    const newStatus = sel.value;
+    const label = sel.options[sel.selectedIndex].text;
+
+    if (currentStatusOrder) {
+      const statusEl = document.getElementById('status' + currentStatusOrder);
+      if (statusEl) {
+        statusEl.textContent = label;
+        statusEl.className = 'del-card__status';
+        if (newStatus === 'delivered') statusEl.classList.add('del-card__status--done');
+        else if (newStatus === 'transit') statusEl.classList.add('del-card__status--transit');
+        else if (newStatus === 'pickup') statusEl.classList.add('del-card__status--pickup');
+      }
+      // Обновляем демо-данные
+      const orders = DEMO_ORDERS[selectedDate] || [];
+      const order = orders.find(o => o.id === currentStatusOrder);
+      if (order) {
+        const map = { pickup: 'pickup', transit: 'transit', delivered: 'done' };
+        const labelMap = { pickup: 'Забрать', transit: 'В пути', delivered: 'Доставлен' };
+        order.status = map[newStatus] || newStatus;
+        order.statusLabel = labelMap[newStatus] || label;
+      }
+      alert('Статус заказа #' + currentStatusOrder + ' обновлён: ' + label);
+    }
+    closeStatusModal();
+  }
+
+  // ====== Доставлен ======
+  function markDelivered(orderId) {
+    if (confirm('Подтвердить доставку заказа #' + orderId + ' клиенту?')) {
+      const statusEl = document.getElementById('status' + orderId);
+      if (statusEl) {
+        statusEl.textContent = 'Доставлен';
+        statusEl.className = 'del-card__status del-card__status--done';
+      }
+      const orders = DEMO_ORDERS[selectedDate] || [];
+      const order = orders.find(o => o.id === orderId);
+      if (order) { order.status = 'done'; order.statusLabel = 'Доставлен'; }
+      renderDay();
+      alert('Заказ #' + orderId + ' отмечен как доставленный. Информация передана администратору и клиенту.');
+    }
+  }
+
+  // ====== Проблема — модалка ======
+  let currentProblemOrder = null;
+
+  function openProblemModal(orderId) {
+    currentProblemOrder = orderId;
+    document.getElementById('problemOrderId').textContent = '#' + orderId;
+    document.getElementById('problemType').value = '';
+    document.getElementById('problemDesc').value = '';
+    document.getElementById('problemModal').classList.add('is-open');
+  }
+
+  function closeProblemModal() {
+    document.getElementById('problemModal').classList.remove('is-open');
+    currentProblemOrder = null;
+  }
+
+  function saveProblem() {
+    const type = document.getElementById('problemType');
+    const desc = document.getElementById('problemDesc').value.trim();
+
+    if (!type.value) { alert('Выберите тип проблемы'); return; }
+    if (!desc) { alert('Опишите подробности проблемы'); return; }
+
+    const orders = DEMO_ORDERS[selectedDate] || [];
+    const order = orders.find(o => o.id === currentProblemOrder);
+    if (order) { order.status = 'problem'; order.statusLabel = 'Проблема'; }
+    renderDay();
+
+    alert(
+      'Проблема с заказом #' + currentProblemOrder + ' отправлена администратору.\n\n' +
+      'Тип: ' + type.options[type.selectedIndex].text + '\n' +
+      'Описание: ' + desc
+    );
+    closeProblemModal();
+  }
+
+  // ====== Конструктор маршрута ======
+  let routePoints = [''];
+
+  function renderRouteGrid() {
+    const grid = document.getElementById('routeGrid');
+    const total = routePoints.length + 2; // +start +end
+    let html = '';
+
+    // Старт (всегда первый, read-only)
+    html += pointHtml(0, 'Старт (пекарня)', BASE_ADDR, true, 'start');
+
+    // Промежуточные
+    routePoints.forEach((addr, i) => {
+      html += pointHtml(i + 1, 'Точка ' + (i + 1), addr, false, 'mid', i);
+    });
+
+    // Финиш (всегда последний, read-only)
+    html += pointHtml(routePoints.length + 1, 'Финиш (пекарня)', BASE_ADDR, true, 'end');
+
+    grid.innerHTML = html;
+  }
+
+  function pointHtml(num, label, value, readonly, type, removeIdx) {
+    const markerClass = 'route-point__marker--' + type;
+    const markerText = type === 'start' ? 'A' : type === 'end' ? (num < 26 ? String.fromCharCode(65 + num) : 'Z') : String.fromCharCode(65 + num);
+    const removeBtn = (!readonly && routePoints.length > 1)
+      ? '<button class="route-point__remove" onclick="removeRoutePoint(' + removeIdx + ')" title="Удалить">&#10005;</button>'
+      : '';
+
+    return (
+      '<div class="route-point">' +
+      removeBtn +
+      '  <span class="route-point__label">' +
+      '    <span class="route-point__marker ' + markerClass + '">' + markerText + '</span> ' + label +
+      '  </span>' +
+      '  <input class="route-point__input" type="text" value="' + (value || '') + '"' +
+      (readonly ? ' readonly' : ' placeholder="Введите адрес..."') +
+      (readonly ? '' : ' data-point-idx="' + removeIdx + '"') +
+      '>' +
+      '</div>'
+    );
+  }
+
+  function addRoutePoint() {
+    routePoints.push('');
+    renderRouteGrid();
+  }
+
+  function removeRoutePoint(idx) {
+    if (routePoints.length <= 1) return;
+    routePoints.splice(idx, 1);
+    renderRouteGrid();
+  }
+
+  function syncPointValues() {
+    document.querySelectorAll('.route-point__input[data-point-idx]').forEach(inp => {
+      const idx = parseInt(inp.dataset.pointIdx);
+      if (!isNaN(idx)) routePoints[idx] = inp.value;
+    });
+  }
+
+  function buildMultiRoute() {
+    syncPointValues();
+
+    const filled = routePoints.filter(p => p.trim());
+    if (filled.length === 0) {
+      alert('Добавьте хотя бы один адрес доставки');
+      return;
+    }
+
+    // Собираем все точки маршрута: пекарня → промежуточные → пекарня
+    const allPoints = [BASE_ADDR, ...filled, BASE_ADDR];
+    const numPoints = filled.length;
+
+    // Строим URL для Яндекс.Карт (текстовый маршрут через rtext)
+    const rtext = allPoints.map(addr => encodeURIComponent(addr)).join('~');
+    const yandexUrl = 'https://yandex.ru/maps/?rtext=' + rtext + '&rtt=auto';
+
+    // Обновляем iframe — показываем маршрут через embed-виджет
+    const embedUrl = 'https://yandex.ru/map-widget/v1/?rtext=' + rtext + '&rtt=auto';
+    const iframe = document.querySelector('#routeMap iframe');
+    iframe.src = embedUrl;
+
+    // Показываем ссылку «Открыть в Яндекс.Картах»
+    const linkEl = document.getElementById('routeYandexLink');
+    linkEl.href = yandexUrl;
+    linkEl.style.display = 'inline-flex';
+  }
+
+  function resetRoute() {
+    routePoints = [''];
+    renderRouteGrid();
+    document.getElementById('routeYandexLink').style.display = 'none';
+  }
+
+  // ====== Init ======
+  buildDateStrip();
+  renderDay();
+  renderRouteGrid();
+
+  // Закрытие модалок по клику на оверлей
+  document.querySelectorAll('.modal-overlay').forEach(overlay => {
+    overlay.addEventListener('click', (e) => {
+      if (e.target === overlay) overlay.classList.remove('is-open');
+    });
+  });
+</script>
+
+</body>
+</html>

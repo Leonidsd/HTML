@@ -23,10 +23,10 @@
   }
 
   /* Анимация для ссылок */
-  a[href]:not(.btn) {
+  a[href]:not(.btn):not(.return-btn):not(.brand) {
     transition: text-decoration 0.2s ease;
   }
-  a[href]:not(.btn):hover {
+  a[href]:not(.btn):not(.return-btn):not(.brand):hover {
     text-decoration: underline !important;
   }
 
@@ -42,24 +42,20 @@
   .return-btn:hover {
     background: #f2f0ee;
     border-color: #d4a088;
+    text-decoration: none;
   }
 
-  /* Анимация для ссылки ART */
-  a[href="art-works.html"]:hover {
-    text-decoration: underline;
-  }
 
-  /* Исправление подчеркивания логотипа */
+  /* Подчёркивание логотипа «Вкус облаков» — только при наведении */
   .page--catalog .brand__name--stack {
-    text-decoration: none !important;
-    text-decoration-line: none !important;
-    text-decoration-color: transparent !important;
+    text-decoration: underline;
+    text-decoration-color: transparent;
+    text-underline-offset: 6px;
   }
 
   .page--catalog .brand:hover .brand__name--stack,
   .page--catalog .brand:focus-visible .brand__name--stack {
-    text-decoration: none !important;
-    text-decoration-color: transparent !important;
+    text-decoration-color: rgba(0,0,0,.85);
   }
 
   /* Стили для табов оплаты */
@@ -136,15 +132,8 @@
   </svg>
 </button>
 
-          <!-- Поиск -->
-          <button class="icon-btn icon-btn--ghost" type="button" aria-label="Поиск по сайту">
-            <svg width="18" height="18" viewBox="0 0 24 24" aria-hidden="true">
-              <path fill="currentColor" d="M10 4a6 6 0 104.47 10.03l4.25 4.25 1.41-1.41-4.25-4.25A6 6 0 0010 4zm0 2a4 4 0 110 8 4 4 0 010-8z"/>
-            </svg>
-          </button>
-
           <!-- Профиль -->
-          <a class="icon-btn icon-btn--ghost" href="#" aria-label="Профиль">
+          <a class="icon-btn icon-btn--ghost" href="auth.html" aria-label="Профиль">
             <svg width="18" height="18" viewBox="0 0 24 24" aria-hidden="true">
               <path fill="currentColor" d="M12 12a4 4 0 10-4-4 4 4 0 004 4zm0 2c-4.42 0-8 2-8 4.5V20h16v-1.5C20 16 16.42 14 12 14z"/>
             </svg>
@@ -178,7 +167,7 @@
 
         <div class="mega-cols">
           <div class="mega-col">
-            <div class="mega-col__title">Casual</div>
+            <a class="mega-col__title" href="casual.html">Casual</a>
             <a class="mega-link" href="casual.html?cat=summer">Летняя коллекция</a>
             <a class="mega-link" href="casual.html?cat=bento">Бенто-торты</a>
             <a class="mega-link" href="casual.html?cat=february">23 февраля</a>
@@ -191,13 +180,13 @@
           </div>
 
           <div class="mega-col">
-            <div class="mega-col__title">To order</div>
-            <a class="mega-link" href="fillings.html">Начинки</a>
+            <a class="mega-col__title" href="order.html">To order</a>
             <a class="mega-link" href="order.html?cat=torty">Торты</a>
             <a class="mega-link" href="order.html?cat=torty-3d">3D-торты</a>
             <a class="mega-link" href="order.html?cat=torty-detskie">Детские торты</a>
             <a class="mega-link" href="order.html?cat=torty-svadebnye">Свадебные торты</a>
             <a class="mega-link" href="order.html?cat=torty-den-rozhdeniya">Торты на День Рождения</a>
+            <a class="mega-link mega-link--separated" href="fillings.html">Начинки</a>
           </div>
 
           <div class="mega-col">
@@ -508,7 +497,7 @@
           <div>
             <h3 style="font-size: 13px; font-weight: 700; color: #6c6c6c; margin: 0 0 12px; letter-spacing: 0.1em; text-transform: uppercase;">Телефон</h3>
             <p style="font-size: 18px; line-height: 1.6; color: #1f1f1f; margin: 0; font-weight: 500;">
-              <a href="tel:+70000000000" style="color: #1f1f1f; text-decoration: none;">+7 (000) 000-00-00</a>
+              <a href="tel:+70000000000" style="color: #1f1f1f;">+7 (000) 000-00-00</a>
             </p>
           </div>
 
@@ -591,8 +580,8 @@
               Если заказ уже в процессе изготовления, возврат возможен за вычетом стоимости использованных материалов.
             </p>
             <p class="story__text">
-              Для оформления возврата свяжитесь с нами по телефону <a href="tel:+70000000000" style="color: #d4a088; text-decoration: none; font-weight: 600;">+7 (000) 000-00-00</a>
-              или напишите на <a href="mailto:vkus.oblakov@gmail.com" style="color: #d4a088; text-decoration: none; font-weight: 600;">vkus.oblakov@gmail.com</a>
+              Для оформления возврата свяжитесь с нами по телефону <a href="tel:+70000000000" style="color: #1f1f1f; font-weight: 600;">+7 (000) 000-00-00</a>
+              или напишите на <a href="mailto:vkus.oblakov@gmail.com" style="color: #1f1f1f; font-weight: 600;">vkus.oblakov@gmail.com</a>
             </p>
           </div>
 
@@ -701,17 +690,18 @@
         и превратят в праздник даже самый обычный день!
       </p>
 
-      <div style="display: flex; gap: 16px; justify-content: center; flex-wrap: wrap; margin-bottom: 32px;">
-        <a href="casual.html?cat=summer" class="return-btn" style="font-size: 15px; font-weight: 600; color: #1f1f1f;
+      <div style="display: flex; gap: 16px; justify-content: center; flex-wrap: wrap; margin-bottom: 20px;">
+        <a href="casual.html" class="return-btn" style="font-size: 15px; font-weight: 600; color: #1f1f1f;
                  text-decoration: none; padding: 12px 28px; border: 2px solid #e7e0dc;
                  border-radius: 12px; transition: all 0.3s ease;">КАТАЛОГ CASUAL</a>
-        <a href="order.html?cat=torty" class="return-btn" style="font-size: 15px; font-weight: 600; color: #1f1f1f;
+        <a href="order.html" class="return-btn" style="font-size: 15px; font-weight: 600; color: #1f1f1f;
                  text-decoration: none; padding: 12px 28px; border: 2px solid #e7e0dc;
                  border-radius: 12px; transition: all 0.3s ease;">КАТАЛОГ TO ORDER</a>
       </div>
 
-      <a href="art-works.html" style="font-size: 15px; font-weight: 600; color: #1f1f1f;
-                text-decoration: none; text-underline-offset: 4px; transition: text-decoration 0.2s ease;">НАПРАВЛЕНИЕ ART</a>
+      <a href="art-works.html" class="return-btn" style="font-size: 15px; font-weight: 600; color: #1f1f1f;
+                 text-decoration: none; padding: 12px 28px; border: 2px solid #e7e0dc;
+                 border-radius: 12px; transition: all 0.3s ease; display: inline-block;">ART</a>
     </section>
   </div>
 </main>
@@ -751,8 +741,8 @@
       <!-- Колонка 2 -->
       <nav class="site-footer__col" aria-label="Магазин">
         <div class="site-footer__title">Магазин</div>
-        <a class="site-footer__link" href="casual.html?cat=summer">Каталог Casual</a>
-        <a class="site-footer__link" href="order.html?cat=torty">Каталог To order</a>
+        <a class="site-footer__link" href="casual.html">Каталог Casual</a>
+        <a class="site-footer__link" href="order.html">Каталог To order</a>
         <a class="site-footer__link" href="fillings.html">Наши начинки</a>
       </nav>
 

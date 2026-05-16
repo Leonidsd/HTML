@@ -1167,6 +1167,7 @@ function initCityIframeMap() {
 
 
 const SUMMER_CATEGORIES = [
+  { id: "all", title: "Все" },
   { id: "summer", title: "Летняя коллекция" },
   { id: "bento", title: "Бенто-торты" },
   { id: "february", title: "23 февраля" },
@@ -1175,9 +1176,10 @@ const SUMMER_CATEGORIES = [
   { id: "mousse", title: "Муссовые бенто-торты" },
   { id: "macarons", title: "Macarons" },
   { id: "candies", title: "Шоколад и конфеты" },
-  {id: "cheesecake", title: "Чизкейки" },
+  { id: "cheesecake", title: "Чизкейки" },
 ];
 const COLLECTION_PAGES = {
+  all: "casual.html",
   summer: "casual.html?cat=summer",
   bento: "casual.html?cat=bento",
   february: "casual.html?cat=february",
@@ -1288,7 +1290,14 @@ function initSummerCollectionPage() {
   // состояние
     const pageKey = document.body.dataset.collection || "summer";
 
-let PRODUCTS = SUMMER_PRODUCTS;
+const ALL_CASUAL_PRODUCTS = [
+  ...SUMMER_PRODUCTS, ...BENTO_PRODUCTS, ...FEBRUARY_PRODUCTS,
+  ...EASTER_PRODUCTS, ...CAKES_PRODUCTS, ...MOUSSE_PRODUCTS,
+  ...MACARONS_PRODUCTS, ...CANDIES_PRODUCTS, ...CHEESECAKE_PRODUCTS
+];
+
+let PRODUCTS = ALL_CASUAL_PRODUCTS;
+if (pageKey === "summer") PRODUCTS = SUMMER_PRODUCTS;
 if (pageKey === "bento") PRODUCTS = BENTO_PRODUCTS;
 if (pageKey === "february") PRODUCTS = FEBRUARY_PRODUCTS;
 if (pageKey === "easter") PRODUCTS = EASTER_PRODUCTS;

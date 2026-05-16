@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>Наши работы — Вкус облаков</title>
+  <title>Вход — Вкус облаков</title>
   <link rel="stylesheet" href="css/main.css" />
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -13,175 +13,204 @@
 <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&display=swap" rel="stylesheet">
 
 <style>
-  /* Галерея работ */
-  .art-gallery {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
-    gap: 24px;
-    padding: 60px 0;
+  .page--catalog .brand__name--stack {
+    text-decoration: underline;
+    text-decoration-color: transparent;
+    text-underline-offset: 6px;
   }
 
-  .art-item {
-    position: relative;
-    border-radius: 20px;
-    overflow: hidden;
-    cursor: pointer;
-    transition: transform 0.4s ease, box-shadow 0.4s ease;
-    background: #fff;
-    box-shadow: 0 8px 24px rgba(0,0,0,0.08);
+  .page--catalog .brand:hover .brand__name--stack,
+  .page--catalog .brand:focus-visible .brand__name--stack {
+    text-decoration-color: rgba(0,0,0,.85);
   }
 
-  .art-item:hover {
-    transform: translateY(-8px);
-    box-shadow: 0 16px 48px rgba(0,0,0,0.15);
+  .auth {
+    max-width: 420px;
+    margin: 0 auto;
+    padding: 0 20px;
   }
 
-  .art-item__image {
-    width: 100%;
-    height: 400px;
-    object-fit: cover;
-    display: block;
-    transition: transform 0.6s ease;
+  .auth__title {
+    font-family: var(--brand-font);
+    font-size: 42px;
+    font-weight: 400;
+    color: #1f1f1f;
+    text-align: center;
+    margin: 0 0 12px;
+    line-height: 1.2;
   }
 
-  .art-item:hover .art-item__image {
-    transform: scale(1.05);
-  }
-
-  .art-item__overlay {
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    right: 0;
-    background: linear-gradient(to top, rgba(0,0,0,0.7), transparent);
-    padding: 24px;
-    opacity: 0;
-    transition: opacity 0.3s ease;
-  }
-
-  .art-item:hover .art-item__overlay {
-    opacity: 1;
-  }
-
-  .art-item__title {
-    color: white;
+  .auth__subtitle {
     font-size: 16px;
-    font-weight: 600;
-    margin: 0;
-    text-shadow: 0 2px 8px rgba(0,0,0,0.3);
+    color: #6c6c6c;
+    text-align: center;
+    margin: 0 0 36px;
+    line-height: 1.6;
   }
 
-  /* Модальное окно для просмотра */
-  .art-modal {
-    display: none;
-    position: fixed;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background: rgba(0,0,0,0.95);
-    z-index: 9999;
-    padding: 40px;
-    align-items: center;
-    justify-content: center;
-  }
-
-  .art-modal.active {
+  .auth__form {
     display: flex;
+    flex-direction: column;
+    gap: 16px;
   }
 
-  .art-modal__image {
-    max-width: 90%;
-    max-height: 90%;
-    object-fit: contain;
-    border-radius: 12px;
-    box-shadow: 0 20px 60px rgba(0,0,0,0.5);
-  }
-
-  .art-modal__close {
-    position: absolute;
-    top: 20px;
-    right: 30px;
-    color: white;
-    font-size: 40px;
-    font-weight: 300;
-    cursor: pointer;
-    background: none;
-    border: none;
-    padding: 10px 20px;
-    transition: opacity 0.2s;
-  }
-
-  .art-modal__close:hover {
-    opacity: 0.7;
-  }
-
-  .art-modal__nav {
-    position: absolute;
-    top: 50%;
-    transform: translateY(-50%);
-    color: white;
-    font-size: 48px;
-    cursor: pointer;
-    background: rgba(255,255,255,0.1);
-    border: none;
-    padding: 20px 24px;
-    border-radius: 8px;
-    transition: background 0.2s;
-    line-height: 1;
-  }
-
-  .art-modal__nav:hover {
-    background: rgba(255,255,255,0.2);
-  }
-
-  .art-modal__prev {
-    left: 30px;
-  }
-
-  .art-modal__next {
-    right: 30px;
-  }
-
-  /* Фильтры категорий */
-  .art-filters {
+  .auth__label {
     display: flex;
-    gap: 12px;
-    justify-content: center;
-    flex-wrap: wrap;
-    padding: 40px 0 20px;
+    flex-direction: column;
+    gap: 6px;
+    font-size: 14px;
+    font-weight: 500;
+    color: #1f1f1f;
   }
 
-  .art-filter {
-    padding: 10px 24px;
+  .auth__input {
+    width: 100%;
+    padding: 14px 16px;
+    font-size: 15px;
+    font-family: var(--font);
     border: 2px solid #e7e0dc;
     border-radius: 12px;
-    background: white;
+    background: #fff;
     color: #1f1f1f;
-    font-size: 14px;
-    font-weight: 600;
-    cursor: pointer;
-    transition: all 0.3s ease;
+    outline: none;
+    transition: border-color 0.3s ease;
+    box-sizing: border-box;
   }
 
-  .art-filter:hover,
-  .art-filter.active {
+  .auth__input:focus {
+    border-color: #d4a088;
+  }
+
+  .auth__input::placeholder {
+    color: #b0a8a3;
+  }
+
+  .auth__submit {
+    width: 100%;
+    padding: 14px;
+    font-size: 15px;
+    font-weight: 600;
+    font-family: var(--font);
+    color: #1f1f1f;
+    background: #f7f4f2;
+    border: 2px solid #e7e0dc;
+    border-radius: 12px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    margin-top: 8px;
+    letter-spacing: 0.5px;
+  }
+
+  .auth__submit:hover {
     background: #f2f0ee;
     border-color: #d4a088;
   }
 
-  /* Счетчик работ */
-  .art-counter {
+  .auth__toggle {
     text-align: center;
-    padding-top: 20px;
-    font-size: 15px;
+    margin-top: 24px;
+    font-size: 14px;
     color: #6c6c6c;
+  }
+
+  .auth__toggle-link {
+    color: #1f1f1f;
+    font-weight: 600;
+    text-decoration: underline;
+    text-underline-offset: 4px;
+    text-decoration-color: #d4a088;
+    cursor: pointer;
+    background: none;
+    border: none;
+    font-size: 14px;
+    font-family: var(--font);
+    padding: 0;
+  }
+
+  .auth__toggle-link:hover {
+    text-decoration-color: #1f1f1f;
+  }
+
+  .auth__reg-field {
+    display: none;
+  }
+
+  .auth--register .auth__reg-field {
+    display: flex;
+  }
+
+  .auth__login-field {
+    display: flex;
+  }
+
+  .auth--register .auth__login-field {
+    display: none;
+  }
+
+  .auth__method {
+    display: flex;
+    gap: 0;
+    border: 2px solid #e7e0dc;
+    border-radius: 12px;
+    overflow: hidden;
+    margin-bottom: 4px;
+  }
+
+  .auth__method-btn {
+    flex: 1;
+    padding: 12px;
+    font-size: 14px;
+    font-weight: 500;
+    font-family: var(--font);
+    color: #6c6c6c;
+    background: #fff;
+    border: none;
+    cursor: pointer;
+    transition: all 0.3s ease;
+  }
+
+  .auth__method-btn.is-active {
+    background: #f7f4f2;
+    color: #1f1f1f;
+    font-weight: 600;
+  }
+
+  .auth__method-btn:not(.is-active):hover {
+    background: #faf8f7;
+  }
+
+  .auth__phone-field,
+  .auth__email-field {
+    display: none;
+  }
+
+  .auth__phone-field.is-visible,
+  .auth__email-field.is-visible {
+    display: flex;
+  }
+
+  .auth__forgot {
+    text-align: right;
+    margin-top: -8px;
+  }
+
+  .auth__forgot a {
+    font-size: 13px;
+    color: #6c6c6c;
+    text-decoration: underline;
+    text-underline-offset: 3px;
+    text-decoration-color: transparent;
+    transition: text-decoration-color 0.2s ease;
+  }
+
+  .auth__forgot a:hover {
+    text-decoration-color: #6c6c6c;
   }
 </style>
 
 </head>
 
-<body class="page page--catalog" data-collection="art">
+<body class="page page--catalog">
   <!-- Header -->
 
   <header class="header header--glass">
@@ -197,10 +226,10 @@
 
       <!-- МЕНЮ ПО ЦЕНТРУ -->
       <nav class="header__nav header__nav--center" aria-label="Главное меню">
-  <a href="index.html#catalog" data-mega="catalog">Каталог</a>
-  <a href="brand.html" data-mega="life">История бренда</a>
+  <a href="#catalog" data-mega="catalog">Каталог</a>
+  <a href="#brand" data-mega="life">История бренда</a>
   <a href="#clients" data-mega="b2b">Клиентам</a>
-  <a href="index.html#city" data-mega="city">Мы в городе</a>
+  <a href="#city" data-mega="city">Мы в городе</a>
 </nav>
 
 
@@ -251,7 +280,7 @@
     <!-- Каталог -->
     <div class="mega__panel mega__panel--catalog" data-panel="catalog">
       <div class="mega__grid mega__grid--catalog">
-        <a class="mega-tile mega-tile--portrait" href="index.html#brand">
+        <a class="mega-tile mega-tile--portrait" href="#brand">
   <div class="mega-card__img mega-card__img--portrait">
     <img src="img/menu-title1.jpg" alt="Бренд">
   </div>
@@ -389,6 +418,7 @@
 
 
 </header>
+
 <!-- Mobile menu -->
 <div class="mobile-menu" id="mobileMenu" hidden>
   <div class="mobile-menu__overlay" data-mobile-close="true"></div>
@@ -396,12 +426,12 @@
   <div class="mobile-menu__panel" role="dialog" aria-label="Меню">
     <div class="mobile-menu__head">
       <div class="brand__name brand__name--stack">Вкус<br>облаков</div>
-      <button class="icon-btn icon-btn--ghost" id="btnMenuClose" type="button" aria-label="Закрыть меню">✕</button>
+      <button class="icon-btn icon-btn--ghost" id="btnMenuClose" type="button" aria-label="Закрыть меню">&#10005;</button>
     </div>
 
     <nav class="mobile-menu__nav" aria-label="Мобильная навигация">
       <a href="index.html#catalog" data-mobile-close="true">Каталог</a>
-      <a href="brand.html" data-mobile-close="true">История бренда</a>
+      <a href="index.html#brand" data-mobile-close="true">История бренда</a>
       <a href="index.html#clients" data-mobile-close="true">Клиентам</a>
       <a href="index.html#city" data-mobile-close="true">Мы в городе</a>
     </nav>
@@ -418,43 +448,85 @@
 </div>
 
 <main class="collection-page">
-  <div class="container" style="padding-top: 120px; padding-bottom: 60px;">
-    <div style="text-align: center; max-width: 800px; margin: 0 auto 20px;">
-      <h1 class="collection-hero__title" style="margin-bottom: 24px;">Наши работы</h1>
-      <p class="collection-hero__text" style="margin: 0 auto; font-size: 17px; line-height: 1.7;">
-        Каждый торт — это история, рассказанная языком вкуса и красоты.
-        Здесь собраны наши любимые работы, созданные с душой для особенных моментов наших клиентов.
-      </p>
-    </div>
 
-    <!-- Фильтры категорий -->
-    <div class="art-filters">
-      <button class="art-filter active" data-category="all">Все работы</button>
-      <button class="art-filter" data-category="торты">Торты</button>
-      <button class="art-filter" data-category="бенто">Бенто-торты</button>
-      <button class="art-filter" data-category="капкейки">Капкейки</button>
-    </div>
+  <div class="container" style="padding-top: 120px; padding-bottom: 80px;">
+    <div class="auth" id="authBlock">
+      <h1 class="auth__title" id="authTitle">Вход</h1>
+      <p class="auth__subtitle" id="authSubtitle">Войдите в аккаунт, чтобы отслеживать заказы</p>
 
-    <div class="art-counter">
-      <span id="artCount">16</span> работ в галерее
-    </div>
+      <form class="auth__form" id="authForm" onsubmit="return handleAuth(event);">
 
-    <!-- Галерея работ -->
-    <div class="art-gallery" id="artGallery">
-      <!-- Будет заполнено через JavaScript -->
+        <!-- Поля только для регистрации -->
+        <label class="auth__label auth__reg-field">
+          Фамилия
+          <input class="auth__input" type="text" name="surname" placeholder="Иванов" autocomplete="family-name">
+        </label>
+
+        <label class="auth__label auth__reg-field">
+          Имя
+          <input class="auth__input" type="text" name="name" placeholder="Иван" autocomplete="given-name">
+        </label>
+
+        <label class="auth__label auth__reg-field">
+          Отчество
+          <input class="auth__input" type="text" name="patronymic" placeholder="Иванович" autocomplete="additional-name">
+        </label>
+
+        <label class="auth__label auth__reg-field">
+          Телефон
+          <input class="auth__input" type="tel" name="phone" placeholder="+7 (___) ___-__-__" autocomplete="tel">
+        </label>
+
+        <label class="auth__label auth__reg-field">
+          Email
+          <input class="auth__input" type="email" name="reg-email" placeholder="example@mail.ru" autocomplete="email">
+        </label>
+
+        <label class="auth__label auth__reg-field">
+          Пароль
+          <input class="auth__input" type="password" name="reg-password" placeholder="Придумайте пароль" autocomplete="new-password">
+        </label>
+
+        <!-- Поля только для входа -->
+        <div class="auth__login-field" style="flex-direction: column; gap: 16px;">
+          <div class="auth__method" id="loginMethod">
+            <button class="auth__method-btn is-active" type="button" data-method="phone">Телефон</button>
+            <button class="auth__method-btn" type="button" data-method="email">Email</button>
+          </div>
+
+          <label class="auth__label auth__phone-field is-visible" id="loginPhone">
+            Телефон
+            <input class="auth__input" type="tel" name="login-phone" placeholder="+7 (___) ___-__-__" autocomplete="tel">
+          </label>
+
+          <label class="auth__label auth__email-field" id="loginEmail">
+            Email
+            <input class="auth__input" type="email" name="login-email" placeholder="example@mail.ru" autocomplete="email">
+          </label>
+
+          <label class="auth__label">
+            Пароль
+            <input class="auth__input" type="password" name="password" placeholder="Введите пароль" autocomplete="current-password">
+          </label>
+
+          <div class="auth__forgot" id="forgotLink">
+            <a href="#">Забыли пароль?</a>
+          </div>
+        </div>
+
+        <button class="auth__submit" type="submit" id="authSubmit">ВОЙТИ</button>
+      </form>
+
+      <div class="auth__toggle">
+        <span id="authToggleText">Нет аккаунта?</span>
+        <button class="auth__toggle-link" id="authToggle" type="button">Зарегистрироваться</button>
+      </div>
     </div>
   </div>
+
 </main>
 
-<!-- Модальное окно для просмотра -->
-<div class="art-modal" id="artModal">
-  <button class="art-modal__close" id="modalClose">&times;</button>
-  <button class="art-modal__nav art-modal__prev" id="modalPrev">‹</button>
-  <img class="art-modal__image" id="modalImage" src="" alt="">
-  <button class="art-modal__nav art-modal__next" id="modalNext">›</button>
-</div>
-
-  <!--FOOTER-->
+<!--FOOTER-->
     <footer class="site-footer" id="contacts">
   <div class="container site-footer__inner">
 
@@ -467,12 +539,12 @@
 
         <div class="site-footer__contacts">
           <a class="site-footer__contact" href="tel:+74993220020">
-            <span class="site-footer__ico" aria-hidden="true">☎</span>
+            <span class="site-footer__ico" aria-hidden="true">&#9742;</span>
             +7 (000) 000-00-00
           </a>
 
           <a class="site-footer__contact" href="mailto:zakaz.loveandsweets@gmail.com">
-            <span class="site-footer__ico" aria-hidden="true">✉</span>
+            <span class="site-footer__ico" aria-hidden="true">&#9993;</span>
             vkus.oblakov@gmail.com
           </a>
 
@@ -498,7 +570,6 @@
       <nav class="site-footer__col" aria-label="Наша жизнь">
         <div class="site-footer__title">Наша жизнь</div>
         <a class="site-footer__link" href="brand.html">История бренда</a>
-        <a class="site-footer__link" href="art-works.html">Наши работы</a>
       </nav>
 
       <!-- Колонка 4 -->
@@ -512,7 +583,7 @@
     </div>
 
     <div class="site-footer__bottom">
-      <div class="site-footer__copy">© 2026 Вкус облаков.</div>
+      <div class="site-footer__copy">&copy; 2026 Вкус облаков.</div>
 
       <a class="site-footer__policy" href="#">
         Политика конфиденциальности
@@ -527,186 +598,95 @@
 </footer>
 
 
+
  <script src="https://api-maps.yandex.ru/2.1/?lang=ru_RU"></script>
 
-<script>
-// Данные галереи
-const artWorks = [
-  {
-    title: 'Бенто-торт в виде бургера',
-    image: 'img/наши работы/Бенто-торт в виде бургера.jpg',
-    category: 'бенто'
-  },
-  {
-    title: 'Бенто-торт с котиками',
-    image: 'img/наши работы/Бенто-торт с котиками.jpg',
-    category: 'бенто'
-  },
-  {
-    title: 'Бенто-торт Смешарики',
-    image: 'img/наши работы/Бенто-торт Смешарики.jpg',
-    category: 'бенто'
-  },
-  {
-    title: 'Капкейки с блестками и коктейльными вишнями',
-    image: 'img/наши работы/Капкейки с блестками и коктейльными вишнями.jpg',
-    category: 'капкейки'
-  },
-  {
-    title: 'Новогодние капкейки',
-    image: 'img/наши работы/Новогодние капкейки.jpg',
-    category: 'капкейки'
-  },
-  {
-    title: 'Свадебный торт с бантами и клубникой',
-    image: 'img/наши работы/Свадебный торт с бантами и клубникой.jpg',
-    category: 'торты'
-  },
-  {
-    title: 'Торт в морском стиле',
-    image: 'img/наши работы/Торт в морском стиле.jpg',
-    category: 'торты'
-  },
-  {
-    title: 'Торт с ангелочком и перышками',
-    image: 'img/наши работы/Торт с ангелочком и перышками.jpg',
-    category: 'торты'
-  },
-  {
-    title: 'Торт с волнами и гранатом',
-    image: 'img/наши работы/Торт с волнами и гранатом.jpg',
-    category: 'торты'
-  },
-  {
-    title: 'Торт с живыми цветами',
-    image: 'img/наши работы/Торт с живыми цветами.jpg',
-    category: 'торты'
-  },
-  {
-    title: 'Торт с космонавтом-свинкой',
-    image: 'img/наши работы/Торт с космонавтом-свинкой.jpg',
-    category: 'торты'
-  },
-  {
-    title: 'Торт с кремовыми фигурками с гусятами',
-    image: 'img/наши работы/Торт с кремовыми фигурками с гусятами.jpg',
-    category: 'торты'
-  },
-  {
-    title: 'Торт с маракуйей',
-    image: 'img/наши работы/Торт с маракуйей.jpg',
-    category: 'торты'
-  },
-  {
-    title: 'Торт с серыми крысками',
-    image: 'img/наши работы/Торт с серыми крысками.jpg',
-    category: 'торты'
-  },
-  {
-    title: 'Торт-карусель',
-    image: 'img/наши работы/Торт-карусель.jpg',
-    category: 'торты'
-  },
-  {
-    title: 'Шоколадные капкейки с Орео',
-    image: 'img/наши работы/Шоколадные капкейки с Орео.jpg',
-    category: 'капкейки'
-  }
-];
-
-let currentImageIndex = 0;
-let currentCategory = 'all';
-
-// Рендерим галерею
-function renderGallery(category = 'all') {
-  const gallery = document.getElementById('artGallery');
-  const filteredWorks = category === 'all'
-    ? artWorks
-    : artWorks.filter(work => work.category === category);
-
-  gallery.innerHTML = filteredWorks.map((work, index) => `
-    <div class="art-item" data-index="${artWorks.indexOf(work)}">
-      <img class="art-item__image" src="${work.image}" alt="${work.title}" loading="lazy">
-      <div class="art-item__overlay">
-        <h3 class="art-item__title">${work.title}</h3>
-      </div>
-    </div>
-  `).join('');
-
-  // Обновляем счетчик
-  document.getElementById('artCount').textContent = filteredWorks.length;
-
-  // Добавляем обработчики
-  document.querySelectorAll('.art-item').forEach(item => {
-    item.addEventListener('click', () => {
-      currentImageIndex = parseInt(item.dataset.index);
-      openModal();
-    });
-  });
-}
-
-// Модальное окно
-function openModal() {
-  const modal = document.getElementById('artModal');
-  const modalImage = document.getElementById('modalImage');
-
-  modal.classList.add('active');
-  modalImage.src = artWorks[currentImageIndex].image;
-  modalImage.alt = artWorks[currentImageIndex].title;
-  document.body.style.overflow = 'hidden';
-}
-
-function closeModal() {
-  const modal = document.getElementById('artModal');
-  modal.classList.remove('active');
-  document.body.style.overflow = '';
-}
-
-function nextImage() {
-  currentImageIndex = (currentImageIndex + 1) % artWorks.length;
-  document.getElementById('modalImage').src = artWorks[currentImageIndex].image;
-}
-
-function prevImage() {
-  currentImageIndex = (currentImageIndex - 1 + artWorks.length) % artWorks.length;
-  document.getElementById('modalImage').src = artWorks[currentImageIndex].image;
-}
-
-// Фильтры
-document.querySelectorAll('.art-filter').forEach(filter => {
-  filter.addEventListener('click', () => {
-    document.querySelectorAll('.art-filter').forEach(f => f.classList.remove('active'));
-    filter.classList.add('active');
-
-    const category = filter.dataset.category;
-    currentCategory = category;
-    renderGallery(category);
-  });
-});
-
-// События модального окна
-document.getElementById('modalClose').addEventListener('click', closeModal);
-document.getElementById('modalPrev').addEventListener('click', prevImage);
-document.getElementById('modalNext').addEventListener('click', nextImage);
-
-document.getElementById('artModal').addEventListener('click', (e) => {
-  if (e.target.id === 'artModal') closeModal();
-});
-
-// Клавиатура
-document.addEventListener('keydown', (e) => {
-  const modal = document.getElementById('artModal');
-  if (!modal.classList.contains('active')) return;
-
-  if (e.key === 'Escape') closeModal();
-  if (e.key === 'ArrowRight') nextImage();
-  if (e.key === 'ArrowLeft') prevImage();
-});
-
-// Инициализация
-renderGallery();
-</script>
-
   <script src="js/app.js"></script>
+  <script src="config.js"></script>
+
+  <script>
+    // Обработка отправки формы
+    function handleAuth(e) {
+      e.preventDefault();
+      const form = document.getElementById('authForm');
+      const isRegister = document.getElementById('authBlock').classList.contains('auth--register');
+
+      if (!isRegister) {
+        // Режим входа — проверяем admin/admin
+        const emailInput = form.querySelector('[name="login-email"]');
+        const phoneInput = form.querySelector('[name="login-phone"]');
+        const passInput = form.querySelector('[name="password"]');
+
+        const loginValue = (emailInput && emailInput.closest('.is-visible') ? emailInput.value : '') ||
+                           (phoneInput && phoneInput.closest('.is-visible') ? phoneInput.value : '');
+
+        if (loginValue === CONFIG.adminLogin && passInput.value === CONFIG.adminPassword) {
+          location.href = 'admin.html';
+          return false;
+        }
+
+        if (loginValue === CONFIG.courierLogin && passInput.value === CONFIG.courierPassword) {
+          location.href = 'courier.html';
+          return false;
+        }
+      }
+
+      location.href = 'profile.html';
+      return false;
+    }
+
+    // Переключение между входом и регистрацией
+    const authBlock = document.getElementById('authBlock');
+    const authTitle = document.getElementById('authTitle');
+    const authSubtitle = document.getElementById('authSubtitle');
+    const authSubmit = document.getElementById('authSubmit');
+    const authToggle = document.getElementById('authToggle');
+    const authToggleText = document.getElementById('authToggleText');
+
+    let isLogin = true;
+
+    authToggle.addEventListener('click', () => {
+      isLogin = !isLogin;
+
+      if (isLogin) {
+        authBlock.classList.remove('auth--register');
+        authTitle.textContent = 'Вход';
+        authSubtitle.textContent = 'Войдите в аккаунт, чтобы отслеживать заказы';
+        authSubmit.textContent = 'ВОЙТИ';
+        authToggleText.textContent = 'Нет аккаунта?';
+        authToggle.textContent = 'Зарегистрироваться';
+        document.title = 'Вход — Вкус облаков';
+      } else {
+        authBlock.classList.add('auth--register');
+        authTitle.textContent = 'Регистрация';
+        authSubtitle.textContent = 'Создайте аккаунт для удобного оформления заказов';
+        authSubmit.textContent = 'ЗАРЕГИСТРИРОВАТЬСЯ';
+        authToggleText.textContent = 'Уже есть аккаунт?';
+        authToggle.textContent = 'Войти';
+        document.title = 'Регистрация — Вкус облаков';
+      }
+    });
+
+    // Переключение телефон / email при входе
+    const methodBtns = document.querySelectorAll('#loginMethod .auth__method-btn');
+    const loginPhone = document.getElementById('loginPhone');
+    const loginEmail = document.getElementById('loginEmail');
+
+    methodBtns.forEach(btn => {
+      btn.addEventListener('click', () => {
+        methodBtns.forEach(b => b.classList.remove('is-active'));
+        btn.classList.add('is-active');
+
+        const method = btn.dataset.method;
+        if (method === 'phone') {
+          loginPhone.classList.add('is-visible');
+          loginEmail.classList.remove('is-visible');
+        } else {
+          loginPhone.classList.remove('is-visible');
+          loginEmail.classList.add('is-visible');
+        }
+      });
+    });
+  </script>
 </body>
 </html>

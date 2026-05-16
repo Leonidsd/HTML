@@ -13,17 +13,16 @@
 <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&display=swap" rel="stylesheet">
 
 <style>
-  /* Исправление подчеркивания логотипа */
+  /* Подчёркивание логотипа «Вкус облаков» — только при наведении */
   .page--catalog .brand__name--stack {
-    text-decoration: none !important;
-    text-decoration-line: none !important;
-    text-decoration-color: transparent !important;
+    text-decoration: underline;
+    text-decoration-color: transparent;
+    text-underline-offset: 6px;
   }
 
   .page--catalog .brand:hover .brand__name--stack,
   .page--catalog .brand:focus-visible .brand__name--stack {
-    text-decoration: none !important;
-    text-decoration-color: transparent !important;
+    text-decoration-color: rgba(0,0,0,.85);
   }
 
   /* Стили для карточек */
@@ -34,6 +33,13 @@
   .info-card:hover {
     transform: translateY(-4px);
     box-shadow: 0 14px 40px rgba(0,0,0,0.12) !important;
+  }
+
+  a[href="casual.html"]:hover,
+  a[href="order.html"]:hover {
+    background: #f2f0ee !important;
+    border-color: #d4a088 !important;
+    text-decoration: none;
   }
 </style>
 
@@ -82,15 +88,8 @@
   </svg>
 </button>
 
-          <!-- Поиск -->
-          <button class="icon-btn icon-btn--ghost" type="button" aria-label="Поиск по сайту">
-            <svg width="18" height="18" viewBox="0 0 24 24" aria-hidden="true">
-              <path fill="currentColor" d="M10 4a6 6 0 104.47 10.03l4.25 4.25 1.41-1.41-4.25-4.25A6 6 0 0010 4zm0 2a4 4 0 110 8 4 4 0 010-8z"/>
-            </svg>
-          </button>
-
           <!-- Профиль -->
-          <a class="icon-btn icon-btn--ghost" href="#" aria-label="Профиль">
+          <a class="icon-btn icon-btn--ghost" href="auth.html" aria-label="Профиль">
             <svg width="18" height="18" viewBox="0 0 24 24" aria-hidden="true">
               <path fill="currentColor" d="M12 12a4 4 0 10-4-4 4 4 0 004 4zm0 2c-4.42 0-8 2-8 4.5V20h16v-1.5C20 16 16.42 14 12 14z"/>
             </svg>
@@ -124,7 +123,7 @@
 
         <div class="mega-cols">
           <div class="mega-col">
-            <div class="mega-col__title">Casual</div>
+            <a class="mega-col__title" href="casual.html">Casual</a>
             <a class="mega-link" href="casual.html?cat=summer">Летняя коллекция</a>
             <a class="mega-link" href="casual.html?cat=bento">Бенто-торты</a>
             <a class="mega-link" href="casual.html?cat=february">23 февраля</a>
@@ -137,13 +136,13 @@
           </div>
 
           <div class="mega-col">
-            <div class="mega-col__title">To order</div>
-            <a class="mega-link" href="fillings.html">Начинки</a>
+            <a class="mega-col__title" href="order.html">To order</a>
             <a class="mega-link" href="order.html?cat=torty">Торты</a>
             <a class="mega-link" href="order.html?cat=torty-3d">3D-торты</a>
             <a class="mega-link" href="order.html?cat=torty-detskie">Детские торты</a>
             <a class="mega-link" href="order.html?cat=torty-svadebnye">Свадебные торты</a>
             <a class="mega-link" href="order.html?cat=torty-den-rozhdeniya">Торты на День Рождения</a>
+            <a class="mega-link mega-link--separated" href="fillings.html">Начинки</a>
           </div>
 
           <div class="mega-col">
@@ -400,7 +399,7 @@
           </div>
           <p style="font-size: 16px; line-height: 1.7; color: #6c6c6c; margin: 0;">
             Выберите удобный способ получения: доставка курьером по городу или самовывоз с нашего производства.
-            Подробнее о доставке и адресах на странице <a href="delivery.html" style="color: #d4a088; text-decoration: none; font-weight: 600;">Доставка и оплата</a>.
+            Подробнее о доставке и адресах на странице <a href="delivery.html" style="color: #d4a088; font-weight: 600; text-decoration: underline; text-underline-offset: 3px; text-decoration-color: #d4a088;">Доставка и оплата</a>.
           </p>
         </article>
       </div>
@@ -473,9 +472,12 @@
       </p>
 
       <div style="display: flex; gap: 16px; justify-content: center; flex-wrap: wrap;">
-        <a href="casual.html?cat=summer" style="font-size: 15px; font-weight: 600; color: white;
-                 text-decoration: none; padding: 14px 32px; background: linear-gradient(135deg, #d4a088, #c89078);
-                 border-radius: 12px; transition: all 0.3s ease; display: inline-block;">СМОТРЕТЬ КАТАЛОГ</a>
+        <a href="casual.html" style="font-size: 15px; font-weight: 600; color: #1f1f1f;
+                 text-decoration: none; padding: 14px 32px; border: 2px solid #e7e0dc;
+                 border-radius: 12px; transition: all 0.3s ease; display: inline-block;">КАТАЛОГ CASUAL</a>
+        <a href="order.html" style="font-size: 15px; font-weight: 600; color: #1f1f1f;
+                 text-decoration: none; padding: 14px 32px; border: 2px solid #e7e0dc;
+                 border-radius: 12px; transition: all 0.3s ease; display: inline-block;">КАТАЛОГ TO ORDER</a>
       </div>
     </section>
   </div>
@@ -523,8 +525,8 @@
       <!-- Колонка 2 -->
       <nav class="site-footer__col" aria-label="Магазин">
         <div class="site-footer__title">Магазин</div>
-        <a class="site-footer__link" href="casual.html?cat=summer">Каталог Casual</a>
-        <a class="site-footer__link" href="order.html?cat=torty">Каталог To order</a>
+        <a class="site-footer__link" href="casual.html">Каталог Casual</a>
+        <a class="site-footer__link" href="order.html">Каталог To order</a>
         <a class="site-footer__link" href="fillings.html">Наши начинки</a>
       </nav>
 

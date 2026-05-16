@@ -1,0 +1,1578 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Админ-панель — Вкус облаков</title>
+  <link rel="stylesheet" href="css/main.css" />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+<style>
+  * { box-sizing: border-box; }
+
+  .adm {
+    display: flex;
+    min-height: 100vh;
+    font-family: var(--font);
+  }
+
+  /* ====== Sidebar ====== */
+  .adm__side {
+    width: 260px;
+    background: #1f1f1f;
+    color: #fff;
+    padding: 0;
+    flex-shrink: 0;
+    display: flex;
+    flex-direction: column;
+    position: fixed;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    z-index: 100;
+    overflow-y: auto;
+    scrollbar-width: none;
+  }
+
+  .adm__side::-webkit-scrollbar { display: none; }
+
+  .adm__side-header {
+    padding: 28px 24px 20px;
+    border-bottom: 1px solid rgba(255,255,255,0.08);
+  }
+
+  .adm__side-brand {
+    font-family: var(--brand-font);
+    font-size: 22px;
+    color: #fff;
+    text-decoration: none;
+    display: block;
+    line-height: 1.2;
+  }
+
+  .adm__side-role {
+    font-size: 12px;
+    color: rgba(255,255,255,0.4);
+    margin-top: 6px;
+    letter-spacing: 0.5px;
+  }
+
+  .adm__nav {
+    padding: 16px 12px;
+    flex: 1;
+  }
+
+  .adm__nav-group {
+    margin-bottom: 8px;
+  }
+
+  .adm__nav-label {
+    font-size: 10px;
+    font-weight: 700;
+    color: rgba(255,255,255,0.3);
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+    padding: 8px 12px 6px;
+  }
+
+  .adm__nav-btn {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    width: 100%;
+    padding: 10px 12px;
+    font-size: 14px;
+    font-family: var(--font);
+    color: rgba(255,255,255,0.65);
+    background: none;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    text-align: left;
+  }
+
+  .adm__nav-btn:hover {
+    background: rgba(255,255,255,0.06);
+    color: #fff;
+  }
+
+  .adm__nav-btn.is-active {
+    background: rgba(212,160,136,0.15);
+    color: #d4a088;
+    font-weight: 600;
+  }
+
+  .adm__nav-btn svg {
+    width: 18px;
+    height: 18px;
+    flex-shrink: 0;
+    opacity: 0.7;
+  }
+
+  .adm__nav-btn.is-active svg { opacity: 1; }
+
+  .adm__nav-badge {
+    margin-left: auto;
+    background: #c62828;
+    color: #fff;
+    font-size: 11px;
+    font-weight: 700;
+    padding: 1px 7px;
+    border-radius: 10px;
+    min-width: 20px;
+    text-align: center;
+  }
+
+  .adm__side-footer {
+    padding: 16px 24px;
+    border-top: 1px solid rgba(255,255,255,0.08);
+  }
+
+  .adm__logout {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 13px;
+    color: rgba(255,255,255,0.5);
+    background: none;
+    border: none;
+    cursor: pointer;
+    font-family: var(--font);
+    padding: 0;
+    transition: color 0.2s;
+  }
+
+  .adm__logout:hover { color: #fff; }
+
+  /* ====== Main content ====== */
+  .adm__main {
+    flex: 1;
+    margin-left: 260px;
+    background: #f9f7f5;
+    min-height: 100vh;
+  }
+
+  .adm__topbar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 20px 36px;
+    background: #fff;
+    border-bottom: 1px solid #e7e0dc;
+    position: sticky;
+    top: 0;
+    z-index: 50;
+  }
+
+  .adm__topbar-title {
+    font-size: 20px;
+    font-weight: 600;
+    color: #1f1f1f;
+  }
+
+  .adm__topbar-user {
+    font-size: 14px;
+    color: #6c6c6c;
+  }
+
+  .adm__content {
+    padding: 32px 36px;
+  }
+
+  .adm__panel {
+    display: none;
+  }
+
+  .adm__panel.is-active {
+    display: block;
+  }
+
+  /* ====== Dashboard stats ====== */
+  .stats-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 20px;
+    margin-bottom: 32px;
+  }
+
+  .stat-card {
+    background: #fff;
+    border: 2px solid #e7e0dc;
+    border-radius: 16px;
+    padding: 24px;
+    transition: box-shadow 0.3s;
+  }
+
+  .stat-card:hover {
+    box-shadow: 0 8px 24px rgba(0,0,0,0.06);
+  }
+
+  .stat-card__icon {
+    width: 40px;
+    height: 40px;
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 20px;
+    margin-bottom: 14px;
+  }
+
+  .stat-card__icon--orders { background: #fff3e0; }
+  .stat-card__icon--revenue { background: #e8f5e9; }
+  .stat-card__icon--products { background: #e3f2fd; }
+  .stat-card__icon--users { background: #fce4ec; }
+
+  .stat-card__value {
+    font-size: 28px;
+    font-weight: 700;
+    color: #1f1f1f;
+    margin-bottom: 4px;
+  }
+
+  .stat-card__label {
+    font-size: 13px;
+    color: #6c6c6c;
+  }
+
+  .stat-card__trend {
+    font-size: 12px;
+    font-weight: 600;
+    margin-top: 8px;
+  }
+
+  .stat-card__trend--up { color: #2e7d32; }
+  .stat-card__trend--down { color: #c62828; }
+
+  /* ====== Tables ====== */
+  .adm-table-wrap {
+    background: #fff;
+    border: 2px solid #e7e0dc;
+    border-radius: 16px;
+    overflow: hidden;
+    margin-bottom: 24px;
+  }
+
+  .adm-table-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 20px 24px;
+    border-bottom: 1px solid #f0ebe8;
+    flex-wrap: wrap;
+    gap: 12px;
+  }
+
+  .adm-table-header__title {
+    font-size: 16px;
+    font-weight: 600;
+    color: #1f1f1f;
+  }
+
+  .adm-table-header__actions {
+    display: flex;
+    gap: 8px;
+    align-items: center;
+  }
+
+  .adm-search {
+    padding: 8px 14px;
+    font-size: 13px;
+    font-family: var(--font);
+    border: 2px solid #e7e0dc;
+    border-radius: 8px;
+    outline: none;
+    width: 220px;
+    transition: border-color 0.3s;
+  }
+
+  .adm-search:focus { border-color: #d4a088; }
+
+  .adm-btn {
+    padding: 8px 18px;
+    font-size: 13px;
+    font-weight: 600;
+    font-family: var(--font);
+    color: #1f1f1f;
+    background: #f7f4f2;
+    border: 2px solid #e7e0dc;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all 0.3s;
+    text-decoration: none;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+  }
+
+  .adm-btn:hover {
+    background: #f2f0ee;
+    border-color: #d4a088;
+  }
+
+  .adm-btn--primary {
+    background: #1f1f1f;
+    color: #fff;
+    border-color: #1f1f1f;
+  }
+
+  .adm-btn--primary:hover {
+    background: #333;
+    border-color: #333;
+  }
+
+  .adm-btn--sm {
+    padding: 5px 12px;
+    font-size: 12px;
+  }
+
+  table.adm-table {
+    width: 100%;
+    border-collapse: collapse;
+  }
+
+  .adm-table th {
+    text-align: left;
+    padding: 12px 16px;
+    font-size: 12px;
+    font-weight: 600;
+    color: #6c6c6c;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    border-bottom: 1px solid #f0ebe8;
+    background: #fdfbfa;
+  }
+
+  .adm-table td {
+    padding: 14px 16px;
+    font-size: 14px;
+    color: #1f1f1f;
+    border-bottom: 1px solid #f0ebe8;
+    vertical-align: middle;
+  }
+
+  .adm-table tr:last-child td { border-bottom: none; }
+
+  .adm-table tr:hover td { background: #fdfbfa; }
+
+  .adm-table__status {
+    display: inline-block;
+    padding: 3px 10px;
+    font-size: 11px;
+    font-weight: 600;
+    border-radius: 20px;
+    letter-spacing: 0.3px;
+  }
+
+  .adm-table__status--new { background: #e3f2fd; color: #1565c0; }
+  .adm-table__status--cooking { background: #fce4ec; color: #c62828; }
+  .adm-table__status--delivery { background: #fff3e0; color: #e65100; }
+  .adm-table__status--done { background: #e8f5e9; color: #2e7d32; }
+  .adm-table__status--cancelled { background: #f5f5f5; color: #757575; }
+  .adm-table__status--active { background: #e8f5e9; color: #2e7d32; }
+  .adm-table__status--low { background: #fff3e0; color: #e65100; }
+  .adm-table__status--out { background: #fce4ec; color: #c62828; }
+
+  .adm-table__actions {
+    display: flex;
+    gap: 6px;
+  }
+
+  .adm-table__img {
+    width: 40px;
+    height: 40px;
+    border-radius: 8px;
+    object-fit: cover;
+    background: #f0ebe8;
+  }
+
+  .adm-table__product {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+
+  /* ====== Section cards ====== */
+  .section-cards {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+    margin-bottom: 32px;
+  }
+
+  .section-card {
+    background: #fff;
+    border: 2px solid #e7e0dc;
+    border-radius: 16px;
+    padding: 24px;
+    cursor: pointer;
+    transition: all 0.3s;
+  }
+
+  .section-card:hover {
+    box-shadow: 0 8px 24px rgba(0,0,0,0.06);
+    border-color: #d4a088;
+  }
+
+  .section-card__icon {
+    font-size: 28px;
+    margin-bottom: 12px;
+  }
+
+  .section-card__title {
+    font-size: 15px;
+    font-weight: 600;
+    color: #1f1f1f;
+    margin-bottom: 6px;
+  }
+
+  .section-card__desc {
+    font-size: 13px;
+    color: #6c6c6c;
+    line-height: 1.5;
+  }
+
+  /* ====== Alerts ====== */
+  .adm-alert {
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+    padding: 16px 20px;
+    border-radius: 12px;
+    margin-bottom: 16px;
+  }
+
+  .adm-alert--warn {
+    background: #fff8e1;
+    border: 1px solid #ffe082;
+  }
+
+  .adm-alert--danger {
+    background: #fce4ec;
+    border: 1px solid #ef9a9a;
+  }
+
+  .adm-alert--info {
+    background: #e3f2fd;
+    border: 1px solid #90caf9;
+  }
+
+  .adm-alert__icon { font-size: 20px; flex-shrink: 0; }
+  .adm-alert__text { font-size: 14px; color: #1f1f1f; line-height: 1.5; }
+  .adm-alert__text strong { font-weight: 600; }
+
+  /* ====== Production bar ====== */
+  .prod-bar {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 12px;
+  }
+
+  .prod-bar__label {
+    font-size: 14px;
+    color: #1f1f1f;
+    width: 120px;
+    flex-shrink: 0;
+  }
+
+  .prod-bar__track {
+    flex: 1;
+    height: 12px;
+    background: #f0ebe8;
+    border-radius: 6px;
+    overflow: hidden;
+  }
+
+  .prod-bar__fill {
+    height: 100%;
+    border-radius: 6px;
+    transition: width 0.4s ease;
+  }
+
+  .prod-bar__fill--ok { background: #66bb6a; }
+  .prod-bar__fill--warn { background: #ffa726; }
+  .prod-bar__fill--danger { background: #ef5350; }
+
+  .prod-bar__pct {
+    font-size: 14px;
+    font-weight: 600;
+    width: 45px;
+    text-align: right;
+  }
+
+  /* ====== Settings form ====== */
+  .adm-form {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    max-width: 500px;
+  }
+
+  .adm-form__field {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+  }
+
+  .adm-form__label {
+    font-size: 13px;
+    font-weight: 500;
+    color: #6c6c6c;
+  }
+
+  .adm-form__input {
+    padding: 10px 14px;
+    font-size: 14px;
+    font-family: var(--font);
+    border: 2px solid #e7e0dc;
+    border-radius: 8px;
+    outline: none;
+    transition: border-color 0.3s;
+  }
+
+  .adm-form__input:focus { border-color: #d4a088; }
+
+  .adm-form__row {
+    display: flex;
+    gap: 12px;
+    align-items: flex-end;
+  }
+
+  .adm-form__row .adm-form__field { flex: 1; }
+
+  .adm-select {
+    padding: 8px 14px;
+    font-size: 13px;
+    font-family: var(--font);
+    border: 2px solid #e7e0dc;
+    border-radius: 8px;
+    outline: none;
+    background: #fff;
+    cursor: pointer;
+  }
+
+  /* ====== Charts placeholder ====== */
+  .chart-placeholder {
+    background: #fff;
+    border: 2px solid #e7e0dc;
+    border-radius: 16px;
+    padding: 40px;
+    text-align: center;
+    color: #b0a8a3;
+    margin-bottom: 24px;
+  }
+
+  .chart-placeholder__icon {
+    font-size: 48px;
+    margin-bottom: 12px;
+    opacity: 0.4;
+  }
+
+  .chart-placeholder__text {
+    font-size: 14px;
+  }
+
+  /* ====== Responsive ====== */
+  @media (max-width: 1100px) {
+    .stats-grid { grid-template-columns: repeat(2, 1fr); }
+    .section-cards { grid-template-columns: repeat(2, 1fr); }
+  }
+
+  @media (max-width: 768px) {
+    .adm__side {
+      width: 60px;
+      padding: 0;
+    }
+    .adm__side-header,
+    .adm__side-role,
+    .adm__nav-label,
+    .adm__nav-btn span,
+    .adm__nav-badge,
+    .adm__side-footer { display: none; }
+    .adm__nav-btn { justify-content: center; padding: 12px; }
+    .adm__main { margin-left: 60px; }
+    .adm__content { padding: 20px; }
+    .adm__topbar { padding: 16px 20px; }
+    .stats-grid { grid-template-columns: 1fr; }
+    .section-cards { grid-template-columns: 1fr; }
+  }
+</style>
+</head>
+
+<body class="page" style="background: #f9f7f5;">
+
+<div class="adm">
+
+  <!-- ====== Sidebar ====== -->
+  <aside class="adm__side">
+    <div class="adm__side-header">
+      <a href="index.html" class="adm__side-brand">Вкус облаков</a>
+      <div class="adm__side-role">Администратор</div>
+    </div>
+
+    <nav class="adm__nav">
+      <div class="adm__nav-group">
+        <div class="adm__nav-label">Обзор</div>
+        <button class="adm__nav-btn is-active" type="button" data-section="dashboard">
+          <svg viewBox="0 0 24 24"><path fill="currentColor" d="M3 13h8V3H3v10zm0 8h8v-6H3v6zm10 0h8V11h-8v10zm0-18v6h8V3h-8z"/></svg>
+          <span>Главная</span>
+        </button>
+      </div>
+
+      <div class="adm__nav-group">
+        <div class="adm__nav-label">Управление</div>
+        <button class="adm__nav-btn" type="button" data-section="orders">
+          <svg viewBox="0 0 24 24"><path fill="currentColor" d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm0 16H5V5h14v14zM7 10h2v7H7zm4-3h2v10h-2zm4 6h2v4h-2z"/></svg>
+          <span>Заказы</span>
+          <span class="adm__nav-badge">5</span>
+        </button>
+        <button class="adm__nav-btn" type="button" data-section="catalog">
+          <svg viewBox="0 0 24 24"><path fill="currentColor" d="M4 6H2v14c0 1.1.9 2 2 2h14v-2H4V6zm16-4H8c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zm0 14H8V4h12v12z"/></svg>
+          <span>Каталог товаров</span>
+        </button>
+        <button class="adm__nav-btn" type="button" data-section="recipes">
+          <svg viewBox="0 0 24 24"><path fill="currentColor" d="M18.06 22.99h1.66c.84 0 1.53-.64 1.63-1.46L23 5.05h-5V1h-1.97v4.05h-4.97l.3 2.34c1.71.47 3.31 1.32 4.27 2.26 1.44 1.42 2.43 2.89 2.43 5.29v8.05zM1 21.99V21h15.03v.99c0 .55-.45 1-1.01 1H2.01c-.56 0-1.01-.45-1.01-1zm15.03-7c0-4.5-6.8-5-9.52-5.14L5.5 2.84h-.98L3.54 9.8C1.45 9.88 1 10.95 1 13v6.01h15.03V15z"/></svg>
+          <span>Рецептуры</span>
+        </button>
+        <button class="adm__nav-btn" type="button" data-section="ingredients">
+          <svg viewBox="0 0 24 24"><path fill="currentColor" d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-7 14c-3.31 0-6-2.69-6-6s2.69-6 6-6 6 2.69 6 6-2.69 6-6 6zm0-10c-2.21 0-4 1.79-4 4s1.79 4 4 4 4-1.79 4-4-1.79-4-4-4z"/></svg>
+          <span>Ингредиенты</span>
+          <span class="adm__nav-badge">2</span>
+        </button>
+      </div>
+
+      <div class="adm__nav-group">
+        <div class="adm__nav-label">Производство</div>
+        <button class="adm__nav-btn" type="button" data-section="production">
+          <svg viewBox="0 0 24 24"><path fill="currentColor" d="M19.35 10.04C18.67 6.59 15.64 4 12 4 9.11 4 6.6 5.64 5.35 8.04 2.34 8.36 0 10.91 0 14c0 3.31 2.69 6 6 6h13c2.76 0 5-2.24 5-5 0-2.64-2.05-4.78-4.65-4.96zM19 18H6c-2.21 0-4-1.79-4-4s1.79-4 4-4h.71C7.37 7.69 9.48 6 12 6c3.04 0 5.5 2.46 5.5 5.5v.5H19c1.66 0 3 1.34 3 3s-1.34 3-3 3z"/></svg>
+          <span>Производство</span>
+        </button>
+        <button class="adm__nav-btn" type="button" data-section="booking">
+          <svg viewBox="0 0 24 24"><path fill="currentColor" d="M19 4h-1V2h-2v2H8V2H6v2H5c-1.11 0-1.99.9-1.99 2L3 20c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 16H5V10h14v10zm0-12H5V6h14v2zm-7 5h5v5h-5v-5z"/></svg>
+          <span>Бронирование</span>
+        </button>
+      </div>
+
+      <div class="adm__nav-group">
+        <div class="adm__nav-label">Маркетинг</div>
+        <button class="adm__nav-btn" type="button" data-section="promos">
+          <svg viewBox="0 0 24 24"><path fill="currentColor" d="M21 5H3c-1.1 0-2 .9-2 2v10c0 1.1.9 2 2 2h18c1.1 0 2-.9 2-2V7c0-1.1-.9-2-2-2zM3 17V7h18v10H3zm5-6l4-4 4 4-4 4-4-4z"/></svg>
+          <span>Акции</span>
+        </button>
+        <button class="adm__nav-btn" type="button" data-section="stats">
+          <svg viewBox="0 0 24 24"><path fill="currentColor" d="M5 9.2h3V19H5V9.2zM10.6 5h2.8v14h-2.8V5zm5.6 8H19v6h-2.8v-6z"/></svg>
+          <span>Статистика</span>
+        </button>
+      </div>
+
+      <div class="adm__nav-group">
+        <div class="adm__nav-label">Система</div>
+        <button class="adm__nav-btn" type="button" data-section="users">
+          <svg viewBox="0 0 24 24"><path fill="currentColor" d="M16 11c1.66 0 2.99-1.34 2.99-3S17.66 5 16 5c-1.66 0-3 1.34-3 3s1.34 3 3 3zm-8 0c1.66 0 2.99-1.34 2.99-3S9.66 5 8 5C6.34 5 5 6.34 5 8s1.34 3 3 3zm0 2c-2.33 0-7 1.17-7 3.5V19h14v-2.5c0-2.33-4.67-3.5-7-3.5zm8 0c-.29 0-.62.02-.97.05 1.16.84 1.97 1.97 1.97 3.45V19h6v-2.5c0-2.33-4.67-3.5-7-3.5z"/></svg>
+          <span>Пользователи</span>
+        </button>
+      </div>
+    </nav>
+
+    <div class="adm__side-footer">
+      <button class="adm__logout" type="button" onclick="location.href='auth.html'">
+        <svg width="16" height="16" viewBox="0 0 24 24"><path fill="currentColor" d="M17 7l-1.41 1.41L18.17 11H8v2h10.17l-2.58 2.58L17 17l5-5zM4 5h8V3H4c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h8v-2H4V5z"/></svg>
+        Выйти
+      </button>
+    </div>
+  </aside>
+
+  <!-- ====== Main ====== -->
+  <div class="adm__main">
+
+    <div class="adm__topbar">
+      <div class="adm__topbar-title" id="admTopTitle">Главная</div>
+      <div class="adm__topbar-user">Администратор</div>
+    </div>
+
+    <div class="adm__content">
+
+      <!-- ========== Dashboard ========== -->
+      <div class="adm__panel is-active" data-section="dashboard">
+
+        <div class="stats-grid">
+          <div class="stat-card">
+            <div class="stat-card__icon stat-card__icon--orders">&#128230;</div>
+            <div class="stat-card__value">47</div>
+            <div class="stat-card__label">Заказов за неделю</div>
+            <div class="stat-card__trend stat-card__trend--up">+12% к прошлой неделе</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-card__icon stat-card__icon--revenue">&#128176;</div>
+            <div class="stat-card__value">312 400 &#8381;</div>
+            <div class="stat-card__label">Выручка за неделю</div>
+            <div class="stat-card__trend stat-card__trend--up">+8% к прошлой неделе</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-card__icon stat-card__icon--products">&#127856;</div>
+            <div class="stat-card__value">86</div>
+            <div class="stat-card__label">Товаров в каталоге</div>
+            <div class="stat-card__trend stat-card__trend--up">+3 новых</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-card__icon stat-card__icon--users">&#128100;</div>
+            <div class="stat-card__value">234</div>
+            <div class="stat-card__label">Зарегистрированных клиентов</div>
+            <div class="stat-card__trend stat-card__trend--up">+18 за неделю</div>
+          </div>
+        </div>
+
+        <!-- Alerts -->
+        <div class="adm-alert adm-alert--danger">
+          <div class="adm-alert__icon">&#9888;</div>
+          <div class="adm-alert__text"><strong>Нехватка ингредиентов:</strong> Сливки 33% — осталось 2 л (порог: 5 л), Фисташковая паста — закончилась</div>
+        </div>
+
+        <div class="adm-alert adm-alert--warn">
+          <div class="adm-alert__icon">&#128337;</div>
+          <div class="adm-alert__text"><strong>5 новых заказов</strong> ожидают подтверждения</div>
+        </div>
+
+        <!-- Quick links -->
+        <div class="section-cards">
+          <div class="section-card" onclick="switchSection('orders')">
+            <div class="section-card__icon">&#128196;</div>
+            <div class="section-card__title">Управление заказами</div>
+            <div class="section-card__desc">Просмотр, изменение статусов, назначение курьеров</div>
+          </div>
+          <div class="section-card" onclick="switchSection('catalog')">
+            <div class="section-card__icon">&#127874;</div>
+            <div class="section-card__title">Каталог товаров</div>
+            <div class="section-card__desc">Добавление, редактирование товаров и параметров</div>
+          </div>
+          <div class="section-card" onclick="switchSection('ingredients')">
+            <div class="section-card__icon">&#129370;</div>
+            <div class="section-card__title">Ингредиенты</div>
+            <div class="section-card__desc">Остатки на складе, уведомления о нехватке</div>
+          </div>
+          <div class="section-card" onclick="switchSection('production')">
+            <div class="section-card__icon">&#9881;</div>
+            <div class="section-card__title">Производство</div>
+            <div class="section-card__desc">Загрузка производства и контроль мощностей</div>
+          </div>
+          <div class="section-card" onclick="switchSection('promos')">
+            <div class="section-card__icon">&#127881;</div>
+            <div class="section-card__title">Акции и контент</div>
+            <div class="section-card__desc">Управление акциями и информацией на сайте</div>
+          </div>
+          <div class="section-card" onclick="switchSection('stats')">
+            <div class="section-card__icon">&#128200;</div>
+            <div class="section-card__title">Статистика</div>
+            <div class="section-card__desc">Аналитика заказов, популярные товары, выручка</div>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- ========== Заказы ========== -->
+      <div class="adm__panel" data-section="orders">
+
+        <div class="adm-table-wrap">
+          <div class="adm-table-header">
+            <div class="adm-table-header__title">Все заказы</div>
+            <div class="adm-table-header__actions">
+              <select class="adm-select" id="orderFilter">
+                <option value="all">Все статусы</option>
+                <option value="new">Новые</option>
+                <option value="cooking">Готовится</option>
+                <option value="delivery">В доставке</option>
+                <option value="done">Доставлен</option>
+                <option value="cancelled">Отменён</option>
+              </select>
+              <input class="adm-search" type="text" placeholder="Поиск по номеру...">
+            </div>
+          </div>
+
+          <table class="adm-table">
+            <thead>
+              <tr>
+                <th>Заказ</th>
+                <th>Клиент</th>
+                <th>Состав</th>
+                <th>Сумма</th>
+                <th>Статус</th>
+                <th>Курьер</th>
+                <th>Действия</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><strong>#1250</strong><br><span style="font-size:12px;color:#6c6c6c">12 мая 2026</span></td>
+                <td>Петрова А.В.<br><span style="font-size:12px;color:#6c6c6c">+7 (999) 111-22-33</span></td>
+                <td>Торт «Ягодное лукошко» (3 кг)</td>
+                <td>3 300 &#8381;</td>
+                <td><span class="adm-table__status adm-table__status--new">Новый</span></td>
+                <td>—</td>
+                <td>
+                  <div class="adm-table__actions">
+                    <button class="adm-btn adm-btn--sm" onclick="alert('Просмотр заказа #1250')">&#128065;</button>
+                    <button class="adm-btn adm-btn--sm" onclick="alert('Изменение статуса')">&#9998;</button>
+                  </div>
+                </td>
+              </tr>
+              <tr>
+                <td><strong>#1249</strong><br><span style="font-size:12px;color:#6c6c6c">12 мая 2026</span></td>
+                <td>Сидоров К.М.<br><span style="font-size:12px;color:#6c6c6c">+7 (999) 333-44-55</span></td>
+                <td>3D-торт Бабочки (2.5 кг)</td>
+                <td>7 200 &#8381;</td>
+                <td><span class="adm-table__status adm-table__status--new">Новый</span></td>
+                <td>—</td>
+                <td>
+                  <div class="adm-table__actions">
+                    <button class="adm-btn adm-btn--sm" onclick="alert('Просмотр заказа #1249')">&#128065;</button>
+                    <button class="adm-btn adm-btn--sm" onclick="alert('Изменение статуса')">&#9998;</button>
+                  </div>
+                </td>
+              </tr>
+              <tr>
+                <td><strong>#1248</strong><br><span style="font-size:12px;color:#6c6c6c">11 мая 2026</span></td>
+                <td>Козлова Е.И.<br><span style="font-size:12px;color:#6c6c6c">+7 (999) 555-66-77</span></td>
+                <td>Macarons ассорти (24 шт), Чизкейк (1.5 кг)</td>
+                <td>5 100 &#8381;</td>
+                <td><span class="adm-table__status adm-table__status--cooking">Готовится</span></td>
+                <td>—</td>
+                <td>
+                  <div class="adm-table__actions">
+                    <button class="adm-btn adm-btn--sm" onclick="alert('Просмотр заказа #1248')">&#128065;</button>
+                    <button class="adm-btn adm-btn--sm" onclick="alert('Изменение статуса')">&#9998;</button>
+                  </div>
+                </td>
+              </tr>
+              <tr>
+                <td><strong>#1247</strong><br><span style="font-size:12px;color:#6c6c6c">10 мая 2026</span></td>
+                <td>Иванов И.И.<br><span style="font-size:12px;color:#6c6c6c">+7 (999) 123-45-67</span></td>
+                <td>Торт «Ягодное лукошко» (3 кг), Macarons (12 шт)</td>
+                <td>5 850 &#8381;</td>
+                <td><span class="adm-table__status adm-table__status--delivery">В доставке</span></td>
+                <td>Алексей К.</td>
+                <td>
+                  <div class="adm-table__actions">
+                    <button class="adm-btn adm-btn--sm" onclick="alert('Просмотр заказа #1247')">&#128065;</button>
+                    <button class="adm-btn adm-btn--sm" onclick="alert('Изменение статуса')">&#9998;</button>
+                  </div>
+                </td>
+              </tr>
+              <tr>
+                <td><strong>#1246</strong><br><span style="font-size:12px;color:#6c6c6c">10 мая 2026</span></td>
+                <td>Миронова Л.С.<br><span style="font-size:12px;color:#6c6c6c">+7 (999) 888-99-00</span></td>
+                <td>Свадебный торт «Элегант» (6 кг)</td>
+                <td>14 400 &#8381;</td>
+                <td><span class="adm-table__status adm-table__status--done">Доставлен</span></td>
+                <td>Дмитрий В.</td>
+                <td>
+                  <div class="adm-table__actions">
+                    <button class="adm-btn adm-btn--sm" onclick="alert('Просмотр заказа #1246')">&#128065;</button>
+                  </div>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+      </div>
+
+      <!-- ========== Каталог товаров ========== -->
+      <div class="adm__panel" data-section="catalog">
+
+        <div class="adm-table-wrap">
+          <div class="adm-table-header">
+            <div class="adm-table-header__title">Товары каталога</div>
+            <div class="adm-table-header__actions">
+              <select class="adm-select">
+                <option>Все коллекции</option>
+                <option>Casual</option>
+                <option>To order</option>
+              </select>
+              <input class="adm-search" type="text" placeholder="Поиск товара...">
+              <button class="adm-btn adm-btn--primary" onclick="alert('Форма добавления товара')">+ Добавить</button>
+            </div>
+          </div>
+
+          <table class="adm-table">
+            <thead>
+              <tr>
+                <th>Товар</th>
+                <th>Коллекция</th>
+                <th>Цена</th>
+                <th>Мин. вес/кол-во</th>
+                <th>Статус</th>
+                <th>Действия</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>
+                  <div class="adm-table__product">
+                    <img class="adm-table__img" src="img/summer-1.jpg" alt="">
+                    <span>Торт «Ягодное лукошко»</span>
+                  </div>
+                </td>
+                <td>Casual / Летняя</td>
+                <td>от 3 300 &#8381;</td>
+                <td>от 3 кг</td>
+                <td><span class="adm-table__status adm-table__status--active">Активен</span></td>
+                <td>
+                  <div class="adm-table__actions">
+                    <button class="adm-btn adm-btn--sm" onclick="alert('Редактировать товар')">&#9998;</button>
+                    <button class="adm-btn adm-btn--sm" onclick="alert('Параметры изделия')">&#9881;</button>
+                  </div>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <div class="adm-table__product">
+                    <img class="adm-table__img" src="img/summer-4.jpg" alt="">
+                    <span>Торт «Праздничный шик»</span>
+                  </div>
+                </td>
+                <td>Casual / Летняя</td>
+                <td>от 4 500 &#8381;</td>
+                <td>от 3 кг</td>
+                <td><span class="adm-table__status adm-table__status--active">Активен</span></td>
+                <td>
+                  <div class="adm-table__actions">
+                    <button class="adm-btn adm-btn--sm" onclick="alert('Редактировать товар')">&#9998;</button>
+                    <button class="adm-btn adm-btn--sm" onclick="alert('Параметры изделия')">&#9881;</button>
+                  </div>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <div class="adm-table__product">
+                    <img class="adm-table__img" src="img/summer-3.jpg" alt="">
+                    <span>Зефир в вафельном стаканчике</span>
+                  </div>
+                </td>
+                <td>Casual / Летняя</td>
+                <td>от 400 &#8381;</td>
+                <td>от 6 шт</td>
+                <td><span class="adm-table__status adm-table__status--active">Активен</span></td>
+                <td>
+                  <div class="adm-table__actions">
+                    <button class="adm-btn adm-btn--sm" onclick="alert('Редактировать товар')">&#9998;</button>
+                    <button class="adm-btn adm-btn--sm" onclick="alert('Параметры изделия')">&#9881;</button>
+                  </div>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <div class="adm-table__product">
+                    <div class="adm-table__img" style="background: #f0ebe8;"></div>
+                    <span>Свадебный торт «Элегант»</span>
+                  </div>
+                </td>
+                <td>To order / Свадебные</td>
+                <td>от 2 400 &#8381;/кг</td>
+                <td>от 4 кг</td>
+                <td><span class="adm-table__status adm-table__status--active">Активен</span></td>
+                <td>
+                  <div class="adm-table__actions">
+                    <button class="adm-btn adm-btn--sm" onclick="alert('Редактировать товар')">&#9998;</button>
+                    <button class="adm-btn adm-btn--sm" onclick="alert('Параметры изделия')">&#9881;</button>
+                  </div>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+      </div>
+
+      <!-- ========== Рецептуры ========== -->
+      <div class="adm__panel" data-section="recipes">
+
+        <div class="adm-table-wrap">
+          <div class="adm-table-header">
+            <div class="adm-table-header__title">Рецептуры</div>
+            <div class="adm-table-header__actions">
+              <input class="adm-search" type="text" placeholder="Поиск рецептуры...">
+              <button class="adm-btn adm-btn--primary" onclick="alert('Добавить рецептуру')">+ Добавить</button>
+            </div>
+          </div>
+
+          <table class="adm-table">
+            <thead>
+              <tr>
+                <th>Название</th>
+                <th>Привязанные товары</th>
+                <th>Ингредиентов</th>
+                <th>Обновлена</th>
+                <th>Действия</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><strong>Бисквит ванильный</strong></td>
+                <td>Торт «Ягодное лукошко», Торт «Праздничный шик»</td>
+                <td>8</td>
+                <td>5 мая 2026</td>
+                <td>
+                  <div class="adm-table__actions">
+                    <button class="adm-btn adm-btn--sm" onclick="alert('Редактировать рецептуру')">&#9998;</button>
+                    <button class="adm-btn adm-btn--sm" onclick="alert('Просмотр рецептуры')">&#128065;</button>
+                  </div>
+                </td>
+              </tr>
+              <tr>
+                <td><strong>Крем-чиз сливочный</strong></td>
+                <td>Чизкейк классический, Бенто-торт</td>
+                <td>5</td>
+                <td>3 мая 2026</td>
+                <td>
+                  <div class="adm-table__actions">
+                    <button class="adm-btn adm-btn--sm" onclick="alert('Редактировать рецептуру')">&#9998;</button>
+                    <button class="adm-btn adm-btn--sm" onclick="alert('Просмотр рецептуры')">&#128065;</button>
+                  </div>
+                </td>
+              </tr>
+              <tr>
+                <td><strong>Муссовая основа манго-маракуйя</strong></td>
+                <td>Муссовый бенто-торт «Тропик»</td>
+                <td>11</td>
+                <td>28 апр 2026</td>
+                <td>
+                  <div class="adm-table__actions">
+                    <button class="adm-btn adm-btn--sm" onclick="alert('Редактировать рецептуру')">&#9998;</button>
+                    <button class="adm-btn adm-btn--sm" onclick="alert('Просмотр рецептуры')">&#128065;</button>
+                  </div>
+                </td>
+              </tr>
+              <tr>
+                <td><strong>Ганаш шоколадный</strong></td>
+                <td>Macarons шоколад, 3D-торт Сердце</td>
+                <td>4</td>
+                <td>20 апр 2026</td>
+                <td>
+                  <div class="adm-table__actions">
+                    <button class="adm-btn adm-btn--sm" onclick="alert('Редактировать рецептуру')">&#9998;</button>
+                    <button class="adm-btn adm-btn--sm" onclick="alert('Просмотр рецептуры')">&#128065;</button>
+                  </div>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+      </div>
+
+      <!-- ========== Ингредиенты ========== -->
+      <div class="adm__panel" data-section="ingredients">
+
+        <div class="adm-alert adm-alert--danger">
+          <div class="adm-alert__icon">&#9888;</div>
+          <div class="adm-alert__text"><strong>Фисташковая паста</strong> — закончилась на складе. Необходимо срочное пополнение.</div>
+        </div>
+        <div class="adm-alert adm-alert--warn">
+          <div class="adm-alert__icon">&#9888;</div>
+          <div class="adm-alert__text"><strong>Сливки 33%</strong> — осталось 2 л (порог уведомления: 5 л)</div>
+        </div>
+
+        <div class="adm-table-wrap">
+          <div class="adm-table-header">
+            <div class="adm-table-header__title">Склад ингредиентов</div>
+            <div class="adm-table-header__actions">
+              <input class="adm-search" type="text" placeholder="Поиск ингредиента...">
+              <button class="adm-btn" onclick="alert('Настройка порогов уведомлений')">Пороги</button>
+              <button class="adm-btn adm-btn--primary" onclick="alert('Добавить ингредиент')">+ Добавить</button>
+            </div>
+          </div>
+
+          <table class="adm-table">
+            <thead>
+              <tr>
+                <th>Ингредиент</th>
+                <th>Остаток</th>
+                <th>Ед. изм.</th>
+                <th>Порог</th>
+                <th>Статус</th>
+                <th>Действия</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><strong>Мука пшеничная в/с</strong></td>
+                <td>25</td>
+                <td>кг</td>
+                <td>5 кг</td>
+                <td><span class="adm-table__status adm-table__status--active">В наличии</span></td>
+                <td><button class="adm-btn adm-btn--sm" onclick="alert('Редактировать')">&#9998;</button></td>
+              </tr>
+              <tr>
+                <td><strong>Сливки 33%</strong></td>
+                <td>2</td>
+                <td>л</td>
+                <td>5 л</td>
+                <td><span class="adm-table__status adm-table__status--low">Мало</span></td>
+                <td><button class="adm-btn adm-btn--sm" onclick="alert('Редактировать')">&#9998;</button></td>
+              </tr>
+              <tr>
+                <td><strong>Сахар</strong></td>
+                <td>18</td>
+                <td>кг</td>
+                <td>3 кг</td>
+                <td><span class="adm-table__status adm-table__status--active">В наличии</span></td>
+                <td><button class="adm-btn adm-btn--sm" onclick="alert('Редактировать')">&#9998;</button></td>
+              </tr>
+              <tr>
+                <td><strong>Масло сливочное 82.5%</strong></td>
+                <td>8</td>
+                <td>кг</td>
+                <td>3 кг</td>
+                <td><span class="adm-table__status adm-table__status--active">В наличии</span></td>
+                <td><button class="adm-btn adm-btn--sm" onclick="alert('Редактировать')">&#9998;</button></td>
+              </tr>
+              <tr>
+                <td><strong>Шоколад тёмный 70%</strong></td>
+                <td>4</td>
+                <td>кг</td>
+                <td>2 кг</td>
+                <td><span class="adm-table__status adm-table__status--active">В наличии</span></td>
+                <td><button class="adm-btn adm-btn--sm" onclick="alert('Редактировать')">&#9998;</button></td>
+              </tr>
+              <tr>
+                <td><strong>Фисташковая паста</strong></td>
+                <td>0</td>
+                <td>кг</td>
+                <td>1 кг</td>
+                <td><span class="adm-table__status adm-table__status--out">Нет в наличии</span></td>
+                <td><button class="adm-btn adm-btn--sm" onclick="alert('Редактировать')">&#9998;</button></td>
+              </tr>
+              <tr>
+                <td><strong>Яйца куриные</strong></td>
+                <td>120</td>
+                <td>шт</td>
+                <td>30 шт</td>
+                <td><span class="adm-table__status adm-table__status--active">В наличии</span></td>
+                <td><button class="adm-btn adm-btn--sm" onclick="alert('Редактировать')">&#9998;</button></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+      </div>
+
+      <!-- ========== Производство ========== -->
+      <div class="adm__panel" data-section="production">
+
+        <div class="adm-table-wrap" style="padding: 24px;">
+          <div class="adm-table-header__title" style="margin-bottom: 24px;">Загрузка производства на неделю</div>
+
+          <div class="prod-bar">
+            <div class="prod-bar__label">Пн, 12 мая</div>
+            <div class="prod-bar__track"><div class="prod-bar__fill prod-bar__fill--danger" style="width: 92%;"></div></div>
+            <div class="prod-bar__pct" style="color:#c62828;">92%</div>
+          </div>
+          <div class="prod-bar">
+            <div class="prod-bar__label">Вт, 13 мая</div>
+            <div class="prod-bar__track"><div class="prod-bar__fill prod-bar__fill--warn" style="width: 75%;"></div></div>
+            <div class="prod-bar__pct" style="color:#e65100;">75%</div>
+          </div>
+          <div class="prod-bar">
+            <div class="prod-bar__label">Ср, 14 мая</div>
+            <div class="prod-bar__track"><div class="prod-bar__fill prod-bar__fill--warn" style="width: 68%;"></div></div>
+            <div class="prod-bar__pct" style="color:#e65100;">68%</div>
+          </div>
+          <div class="prod-bar">
+            <div class="prod-bar__label">Чт, 15 мая</div>
+            <div class="prod-bar__track"><div class="prod-bar__fill prod-bar__fill--ok" style="width: 45%;"></div></div>
+            <div class="prod-bar__pct" style="color:#2e7d32;">45%</div>
+          </div>
+          <div class="prod-bar">
+            <div class="prod-bar__label">Пт, 16 мая</div>
+            <div class="prod-bar__track"><div class="prod-bar__fill prod-bar__fill--ok" style="width: 30%;"></div></div>
+            <div class="prod-bar__pct" style="color:#2e7d32;">30%</div>
+          </div>
+          <div class="prod-bar">
+            <div class="prod-bar__label">Сб, 17 мая</div>
+            <div class="prod-bar__track"><div class="prod-bar__fill prod-bar__fill--ok" style="width: 15%;"></div></div>
+            <div class="prod-bar__pct" style="color:#2e7d32;">15%</div>
+          </div>
+          <div class="prod-bar">
+            <div class="prod-bar__label">Вс, 18 мая</div>
+            <div class="prod-bar__track"><div class="prod-bar__fill prod-bar__fill--ok" style="width: 5%;"></div></div>
+            <div class="prod-bar__pct" style="color:#2e7d32;">5%</div>
+          </div>
+        </div>
+
+        <div class="adm-alert adm-alert--warn">
+          <div class="adm-alert__icon">&#9888;</div>
+          <div class="adm-alert__text"><strong>Понедельник 12 мая:</strong> загрузка близка к максимуму. Рекомендуется перенести часть заказов на другие дни.</div>
+        </div>
+
+        <div class="adm-table-wrap">
+          <div class="adm-table-header">
+            <div class="adm-table-header__title">Заказы в производстве</div>
+          </div>
+          <table class="adm-table">
+            <thead>
+              <tr>
+                <th>Заказ</th>
+                <th>Товар</th>
+                <th>Дата готовности</th>
+                <th>Приоритет</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>#1250</td>
+                <td>Торт «Ягодное лукошко» 3 кг</td>
+                <td>13 мая 2026</td>
+                <td><span class="adm-table__status adm-table__status--delivery">Высокий</span></td>
+              </tr>
+              <tr>
+                <td>#1249</td>
+                <td>3D-торт Бабочки 2.5 кг</td>
+                <td>14 мая 2026</td>
+                <td><span class="adm-table__status adm-table__status--delivery">Высокий</span></td>
+              </tr>
+              <tr>
+                <td>#1248</td>
+                <td>Macarons ассорти 24 шт + Чизкейк 1.5 кг</td>
+                <td>14 мая 2026</td>
+                <td><span class="adm-table__status adm-table__status--cooking">Средний</span></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+      </div>
+
+      <!-- ========== Бронирование ========== -->
+      <div class="adm__panel" data-section="booking">
+
+        <div class="adm-table-wrap" style="padding: 24px;">
+          <div class="adm-table-header__title" style="margin-bottom: 24px;">Правила бронирования</div>
+
+          <div class="adm-form">
+            <div class="adm-form__field">
+              <span class="adm-form__label">Минимальный срок заказа (дней до даты)</span>
+              <input class="adm-form__input" type="number" value="3" min="1">
+            </div>
+            <div class="adm-form__field">
+              <span class="adm-form__label">Максимальный срок предзаказа (дней)</span>
+              <input class="adm-form__input" type="number" value="30" min="1">
+            </div>
+            <div class="adm-form__field">
+              <span class="adm-form__label">Максимум заказов в день</span>
+              <input class="adm-form__input" type="number" value="15" min="1">
+            </div>
+            <div class="adm-form__field">
+              <span class="adm-form__label">Выходные дни (без приёма заказов)</span>
+              <input class="adm-form__input" type="text" value="Воскресенье" placeholder="Через запятую">
+            </div>
+            <div class="adm-form__field">
+              <span class="adm-form__label">Окна доставки</span>
+              <input class="adm-form__input" type="text" value="10:00-13:00, 13:00-16:00, 16:00-19:00" placeholder="Через запятую">
+            </div>
+            <div>
+              <button class="adm-btn adm-btn--primary" onclick="alert('Правила бронирования сохранены')">Сохранить</button>
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- ========== Акции ========== -->
+      <div class="adm__panel" data-section="promos">
+
+        <div class="adm-table-wrap">
+          <div class="adm-table-header">
+            <div class="adm-table-header__title">Акции и промокоды</div>
+            <div class="adm-table-header__actions">
+              <button class="adm-btn adm-btn--primary" onclick="alert('Создать акцию')">+ Новая акция</button>
+            </div>
+          </div>
+
+          <table class="adm-table">
+            <thead>
+              <tr>
+                <th>Название</th>
+                <th>Промокод</th>
+                <th>Скидка</th>
+                <th>Период</th>
+                <th>Статус</th>
+                <th>Действия</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><strong>День рождения -15%</strong></td>
+                <td>BIRTHDAY15</td>
+                <td>15%</td>
+                <td>1–20 мая 2026</td>
+                <td><span class="adm-table__status adm-table__status--active">Активна</span></td>
+                <td>
+                  <div class="adm-table__actions">
+                    <button class="adm-btn adm-btn--sm" onclick="alert('Редактировать акцию')">&#9998;</button>
+                  </div>
+                </td>
+              </tr>
+              <tr>
+                <td><strong>Лето с Macarons</strong></td>
+                <td>MACARONS10</td>
+                <td>10%</td>
+                <td>1 июня – 31 авг 2026</td>
+                <td><span class="adm-table__status adm-table__status--new">Запланирована</span></td>
+                <td>
+                  <div class="adm-table__actions">
+                    <button class="adm-btn adm-btn--sm" onclick="alert('Редактировать акцию')">&#9998;</button>
+                  </div>
+                </td>
+              </tr>
+              <tr>
+                <td><strong>Весенняя коллекция</strong></td>
+                <td>SPRING20</td>
+                <td>20%</td>
+                <td>1–30 апр 2026</td>
+                <td><span class="adm-table__status adm-table__status--cancelled">Завершена</span></td>
+                <td>
+                  <div class="adm-table__actions">
+                    <button class="adm-btn adm-btn--sm" onclick="alert('Редактировать акцию')">&#9998;</button>
+                  </div>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <div class="adm-table-wrap" style="padding: 24px;">
+          <div class="adm-table-header__title" style="margin-bottom: 24px;">Информация на сайте</div>
+          <div class="adm-form">
+            <div class="adm-form__field">
+              <span class="adm-form__label">Баннер на главной странице</span>
+              <input class="adm-form__input" type="text" value="Скидка 15% на торты ко Дню Рождения! Промокод: BIRTHDAY15">
+            </div>
+            <div class="adm-form__field">
+              <span class="adm-form__label">Уведомление для пользователей</span>
+              <input class="adm-form__input" type="text" value="Новая коллекция Macarons уже в каталоге!">
+            </div>
+            <div>
+              <button class="adm-btn adm-btn--primary" onclick="alert('Информация обновлена')">Сохранить</button>
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- ========== Статистика ========== -->
+      <div class="adm__panel" data-section="stats">
+
+        <div class="stats-grid" style="grid-template-columns: repeat(3, 1fr);">
+          <div class="stat-card">
+            <div class="stat-card__value">189</div>
+            <div class="stat-card__label">Заказов за месяц</div>
+            <div class="stat-card__trend stat-card__trend--up">+15% к прошлому месяцу</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-card__value">1 247 600 &#8381;</div>
+            <div class="stat-card__label">Выручка за месяц</div>
+            <div class="stat-card__trend stat-card__trend--up">+22% к прошлому месяцу</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-card__value">6 600 &#8381;</div>
+            <div class="stat-card__label">Средний чек</div>
+            <div class="stat-card__trend stat-card__trend--up">+6% к прошлому месяцу</div>
+          </div>
+        </div>
+
+        <div class="chart-placeholder">
+          <div class="chart-placeholder__icon">&#128200;</div>
+          <div class="chart-placeholder__text">График заказов по дням (подключение аналитики при интеграции с бекендом)</div>
+        </div>
+
+        <div class="adm-table-wrap">
+          <div class="adm-table-header">
+            <div class="adm-table-header__title">Популярные товары (май 2026)</div>
+          </div>
+          <table class="adm-table">
+            <thead>
+              <tr>
+                <th>#</th>
+                <th>Товар</th>
+                <th>Заказов</th>
+                <th>Выручка</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>1</td>
+                <td>Торт «Ягодное лукошко»</td>
+                <td>34</td>
+                <td>112 200 &#8381;</td>
+              </tr>
+              <tr>
+                <td>2</td>
+                <td>Macarons ассорти</td>
+                <td>28</td>
+                <td>44 800 &#8381;</td>
+              </tr>
+              <tr>
+                <td>3</td>
+                <td>Чизкейк классический</td>
+                <td>22</td>
+                <td>55 000 &#8381;</td>
+              </tr>
+              <tr>
+                <td>4</td>
+                <td>3D-торт Сердце</td>
+                <td>18</td>
+                <td>129 600 &#8381;</td>
+              </tr>
+              <tr>
+                <td>5</td>
+                <td>Торт «Праздничный шик»</td>
+                <td>15</td>
+                <td>67 500 &#8381;</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+      </div>
+
+      <!-- ========== Пользователи ========== -->
+      <div class="adm__panel" data-section="users">
+
+        <div class="adm-table-wrap">
+          <div class="adm-table-header">
+            <div class="adm-table-header__title">Пользователи</div>
+            <div class="adm-table-header__actions">
+              <input class="adm-search" type="text" placeholder="Поиск по имени, телефону...">
+            </div>
+          </div>
+
+          <table class="adm-table">
+            <thead>
+              <tr>
+                <th>Имя</th>
+                <th>Телефон</th>
+                <th>Email</th>
+                <th>Заказов</th>
+                <th>Сумма заказов</th>
+                <th>Регистрация</th>
+                <th>Действия</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><strong>Иванов Иван Иванович</strong></td>
+                <td>+7 (999) 123-45-67</td>
+                <td>ivanov@mail.ru</td>
+                <td>12</td>
+                <td>78 400 &#8381;</td>
+                <td>15 янв 2026</td>
+                <td>
+                  <div class="adm-table__actions">
+                    <button class="adm-btn adm-btn--sm" onclick="alert('Просмотр пользователя')">&#128065;</button>
+                    <button class="adm-btn adm-btn--sm" onclick="alert('Редактировать')">&#9998;</button>
+                  </div>
+                </td>
+              </tr>
+              <tr>
+                <td><strong>Петрова Анна Владимировна</strong></td>
+                <td>+7 (999) 111-22-33</td>
+                <td>petrova@gmail.com</td>
+                <td>8</td>
+                <td>52 100 &#8381;</td>
+                <td>3 фев 2026</td>
+                <td>
+                  <div class="adm-table__actions">
+                    <button class="adm-btn adm-btn--sm" onclick="alert('Просмотр пользователя')">&#128065;</button>
+                    <button class="adm-btn adm-btn--sm" onclick="alert('Редактировать')">&#9998;</button>
+                  </div>
+                </td>
+              </tr>
+              <tr>
+                <td><strong>Козлова Елена Ивановна</strong></td>
+                <td>+7 (999) 555-66-77</td>
+                <td>kozlova@yandex.ru</td>
+                <td>5</td>
+                <td>31 500 &#8381;</td>
+                <td>20 мар 2026</td>
+                <td>
+                  <div class="adm-table__actions">
+                    <button class="adm-btn adm-btn--sm" onclick="alert('Просмотр пользователя')">&#128065;</button>
+                    <button class="adm-btn adm-btn--sm" onclick="alert('Редактировать')">&#9998;</button>
+                  </div>
+                </td>
+              </tr>
+              <tr>
+                <td><strong>Сидоров Кирилл Михайлович</strong></td>
+                <td>+7 (999) 333-44-55</td>
+                <td>sidorov@mail.ru</td>
+                <td>3</td>
+                <td>21 600 &#8381;</td>
+                <td>10 апр 2026</td>
+                <td>
+                  <div class="adm-table__actions">
+                    <button class="adm-btn adm-btn--sm" onclick="alert('Просмотр пользователя')">&#128065;</button>
+                    <button class="adm-btn adm-btn--sm" onclick="alert('Редактировать')">&#9998;</button>
+                  </div>
+                </td>
+              </tr>
+              <tr>
+                <td><strong>Миронова Людмила Сергеевна</strong></td>
+                <td>+7 (999) 888-99-00</td>
+                <td>mironova@gmail.com</td>
+                <td>2</td>
+                <td>28 800 &#8381;</td>
+                <td>25 апр 2026</td>
+                <td>
+                  <div class="adm-table__actions">
+                    <button class="adm-btn adm-btn--sm" onclick="alert('Просмотр пользователя')">&#128065;</button>
+                    <button class="adm-btn adm-btn--sm" onclick="alert('Редактировать')">&#9998;</button>
+                  </div>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+      </div>
+
+    </div>
+  </div>
+
+</div>
+
+<script>
+  const SECTION_TITLES = {
+    dashboard: 'Главная',
+    orders: 'Управление заказами',
+    catalog: 'Каталог товаров',
+    recipes: 'Рецептуры',
+    ingredients: 'Ингредиенты и остатки',
+    production: 'Производственная загрузка',
+    booking: 'Правила бронирования',
+    promos: 'Акции и информация',
+    stats: 'Статистика заказов',
+    users: 'Пользователи'
+  };
+
+  const navBtns = document.querySelectorAll('.adm__nav-btn[data-section]');
+  const panels = document.querySelectorAll('.adm__panel[data-section]');
+  const topTitle = document.getElementById('admTopTitle');
+
+  function switchSection(section) {
+    navBtns.forEach(b => b.classList.toggle('is-active', b.dataset.section === section));
+    panels.forEach(p => p.classList.toggle('is-active', p.dataset.section === section));
+    topTitle.textContent = SECTION_TITLES[section] || section;
+  }
+
+  navBtns.forEach(btn => {
+    btn.addEventListener('click', () => switchSection(btn.dataset.section));
+  });
+</script>
+
+</body>
+</html>

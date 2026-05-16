@@ -62,7 +62,7 @@ body{
   background: var(--bg);
 }
 
-a{ color:inherit; text-decoration:none; }
+a{ color:inherit; text-decoration:none; text-decoration-thickness: from-font; }
 a:hover{ text-decoration: underline; }
 
 img{ max-width:100%; display:block; }
@@ -176,9 +176,8 @@ img{ max-width:100%; display:block; }
   line-height: 1.05;
   color:#fff;
   text-decoration: underline;
-  text-decoration-color: transparent; /* по умолчанию скрыто */
+  text-decoration-color: transparent;
   text-underline-offset: 6px;
-  text-decoration-thickness: 1px;
   margin-top: 10px;
 }
 
@@ -200,15 +199,10 @@ img{ max-width:100%; display:block; }
   font-size: var(--header-link-size);
   color:#fff;
   opacity:.95;
-  
 
-  /* только подчёркивание по hover */
   text-decoration: underline;
   text-decoration-color: transparent;
   text-underline-offset: 6px;
-  text-decoration-thickness: 1px;
-
-  
 }
 .header__nav--center a:hover,
 .header__nav--center a:focus-visible{
@@ -234,9 +228,12 @@ img{ max-width:100%; display:block; }
   color:#fff;
   font-size: 15px;
   font-weight: 300;
-  text-decoration: none;
+  text-decoration: underline;
+  text-underline-offset: 5px;
+  text-decoration-color: transparent;
   margin-top: 10px;
 }
+.header__phone:hover{ text-decoration-color: rgba(255,255,255,.85); }
 .header__tg{
   color:#fff;
   font-size: 15px;
@@ -785,7 +782,6 @@ body{ font-family: var(--font); }
   text-decoration: underline;
   text-decoration-color: transparent;
   text-underline-offset: 6px;
-  text-decoration-thickness: 1px;
 }
 .mobile-menu__nav a:hover{
   text-decoration-color: rgba(255,255,255,.95);
@@ -824,9 +820,8 @@ body.menu-open{
   letter-spacing: .2px;
 
   text-decoration: underline;
-  text-decoration-color: transparent; /* скрыто до hover */
+  text-decoration-color: transparent;
   text-underline-offset: 8px;
-  text-decoration-thickness: 1px;
 }
 
 .hero-link-btn:hover,
@@ -880,7 +875,6 @@ body.menu-open{
   color: #111;
   text-decoration: underline;
   text-underline-offset: 10px;
-  text-decoration-thickness: 1px;
   text-decoration-color: rgba(0,0,0,.5);
 }
 .casual__link:hover{
@@ -1046,7 +1040,6 @@ margin-left: -114px;
   color: #111;
   text-decoration: underline;
   text-underline-offset: 10px;
-  text-decoration-thickness: 1px;
   text-decoration-color: rgba(0,0,0,.5);
 }
 .toorder__link:hover{ text-decoration-color: rgba(0,0,0,.9); }
@@ -1213,7 +1206,6 @@ margin-left: -114px;
   color: #111;
   text-decoration: underline;
   text-underline-offset: 10px;
-  text-decoration-thickness: 1px;
   text-decoration-color: rgba(0,0,0,.5);
 }
 .fillings__link:hover{
@@ -1335,7 +1327,6 @@ margin-left: -114px;
   color: #111;
   text-decoration: underline;
   text-underline-offset: 10px;
-  text-decoration-thickness: 1px;
   text-decoration-color: rgba(0,0,0,.55);
 }
 .story__link:hover{
@@ -1470,11 +1461,10 @@ margin-left: -114px;
   color: #111;
   text-decoration: underline;
   text-underline-offset: 10px;
-  text-decoration-thickness: 1px;
   text-decoration-color: rgba(0,0,0,.55);
   margin: 0;
   font-family: var(--brand-font);
-  font-size: 37px;     /* чуть меньше, чем Casual */
+  font-size: 37px;
   line-height: 1.02;
   font-weight: 300;
   letter-spacing: .2px;
@@ -1482,7 +1472,6 @@ margin-left: -114px;
 
 .discounts__title-link:hover{
   text-decoration-color: rgb(0, 0, 0);
-  text-decoration-thickness: 1px;
 }
 
 
@@ -2045,7 +2034,7 @@ margin-left: -114px;
   color: #111;
   text-decoration: none;
 }
-.mega-contact:hover{ text-decoration: underline; }
+.mega-contact:hover{ text-decoration: underline; text-underline-offset: 4px; }
 
 .mega-soc{
   color: rgba(0,0,0,.65);
@@ -2063,12 +2052,22 @@ margin-left: -114px;
   margin-bottom: 14px;
   color: #111;
   font-weight: 300;
+  text-decoration: none;
+  display: block;
+}
+a.mega-col__title:hover{
+  color: #e5a1a1;
+  text-decoration: underline;
+  text-underline-offset: 6px;
 }
 .mega-link{
   display: block;
   padding: 6px 0;
   color: rgba(0,0,0,.82);
   text-decoration: none;
+}
+.mega-link--separated{
+  margin-top: 18px;
 }
 .mega-link:hover{
   text-decoration: underline;
@@ -2228,6 +2227,11 @@ margin-left: -114px;
 .mega-tile__title--under{
   display: inline-block;
   margin-top: 14px;
+  text-decoration: none;
+}
+.mega-tile--order:hover .mega-tile__title--under{
+  text-decoration: underline;
+  text-underline-offset: 6px;
 }
 
 /* правая часть */
@@ -2351,6 +2355,11 @@ margin-left: -114px;
   text-decoration-color: rgba(0,0,0,.85);
   text-decoration: underline;
   text-underline-offset: 3px;
+}
+/* Бренд «Вкус облаков»: подчёркивание тёмное при открытом меню */
+.header.header--mega-open .brand:hover .brand__name--stack,
+.header.header--mega-open .brand:focus-visible .brand__name--stack{
+  text-decoration-color: rgba(0,0,0,.85);
 }
 
 .mega__grid--city{
@@ -3080,7 +3089,7 @@ font-size: 16px;
 /* ===== summer.html: чёрное подчёркивание/hover в шапке ===== */
 .page--catalog .brand__name--stack{
   color:#111;
-  text-decoration-color: transparent; /* скрыто до hover */
+  text-decoration-color: transparent;
 }
 
 /* Подчёркивание названия "Вкус облаков" на hover — ЧЁРНОЕ */
@@ -3105,6 +3114,17 @@ font-size: 16px;
   background: rgba(0,0,0,.06);
   border-color: rgba(0,0,0,.35);
   color: #111;
+}
+
+/* Телефон и Telegram: подчёркивание чёрное на светлых страницах */
+.page--catalog .header__phone:hover,
+.page--catalog .header__phone:focus-visible{
+  text-decoration-color: rgba(0,0,0,.85);
+}
+
+.page--catalog .header__tg:hover,
+.page--catalog .header__tg:focus-visible{
+  text-decoration-color: rgba(0,0,0,.85);
 }
 
 

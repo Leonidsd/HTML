@@ -259,12 +259,12 @@
   }
 
   /* Hover эффекты для кнопок призыва к действию */
-  a[href="casual.html?cat=summer"]:hover,
-  a[href="order.html?cat=torty"]:hover,
+  a[href="casual.html"]:hover,
+  a[href="order.html"]:hover,
   a[href="art-works.html"]:hover {
     background: #f2f0ee !important;
     border-color: #d4a088 !important;
-    text-decoration: underline;
+    text-decoration: none;
   }
 
   .fade-in {
@@ -350,15 +350,8 @@
   </svg>
 </button>
 
-          <!-- Поиск -->
-          <button class="icon-btn icon-btn--ghost" type="button" aria-label="Поиск по сайту">
-            <svg width="18" height="18" viewBox="0 0 24 24" aria-hidden="true">
-              <path fill="currentColor" d="M10 4a6 6 0 104.47 10.03l4.25 4.25 1.41-1.41-4.25-4.25A6 6 0 0010 4zm0 2a4 4 0 110 8 4 4 0 010-8z"/>
-            </svg>
-          </button>
-
           <!-- Профиль -->
-          <a class="icon-btn icon-btn--ghost" href="#" aria-label="Профиль">
+          <a class="icon-btn icon-btn--ghost" href="auth.html" aria-label="Профиль">
             <svg width="18" height="18" viewBox="0 0 24 24" aria-hidden="true">
               <path fill="currentColor" d="M12 12a4 4 0 10-4-4 4 4 0 004 4zm0 2c-4.42 0-8 2-8 4.5V20h16v-1.5C20 16 16.42 14 12 14z"/>
             </svg>
@@ -392,7 +385,7 @@
 
         <div class="mega-cols">
           <div class="mega-col">
-            <div class="mega-col__title">Casual</div>
+            <a class="mega-col__title" href="casual.html">Casual</a>
             <a class="mega-link" href="casual.html?cat=summer">Летняя коллекция</a>
             <a class="mega-link" href="casual.html?cat=bento">Бенто-торты</a>
             <a class="mega-link" href="casual.html?cat=february">23 февраля</a>
@@ -405,13 +398,13 @@
           </div>
 
           <div class="mega-col">
-            <div class="mega-col__title">To order</div>
-            <a class="mega-link" href="fillings.html">Начинки</a>
+            <a class="mega-col__title" href="order.html">To order</a>
             <a class="mega-link" href="order.html?cat=torty">Торты</a>
             <a class="mega-link" href="order.html?cat=torty-3d">3D-торты</a>
             <a class="mega-link" href="order.html?cat=torty-detskie">Детские торты</a>
             <a class="mega-link" href="order.html?cat=torty-svadebnye">Свадебные торты</a>
             <a class="mega-link" href="order.html?cat=torty-den-rozhdeniya">Торты на День Рождения</a>
+            <a class="mega-link mega-link--separated" href="fillings.html">Начинки</a>
           </div>
 
           <div class="mega-col">
@@ -775,10 +768,10 @@
         </p>
 
         <div style="display: flex; gap: 16px; justify-content: center; flex-wrap: wrap;">
-          <a href="casual.html?cat=summer" style="font-size: 15px; font-weight: 600; color: #1f1f1f;
+          <a href="casual.html" style="font-size: 15px; font-weight: 600; color: #1f1f1f;
                    text-decoration: none; padding: 14px 32px; border: 2px solid #e7e0dc;
                    border-radius: 12px; transition: all 0.3s ease; display: inline-block;">КАТАЛОГ CASUAL</a>
-          <a href="order.html?cat=torty" style="font-size: 15px; font-weight: 600; color: #1f1f1f;
+          <a href="order.html" style="font-size: 15px; font-weight: 600; color: #1f1f1f;
                    text-decoration: none; padding: 14px 32px; border: 2px solid #e7e0dc;
                    border-radius: 12px; transition: all 0.3s ease; display: inline-block;">КАТАЛОГ TO ORDER</a>
           <a href="art-works.html" style="font-size: 15px; font-weight: 600; color: #1f1f1f;
@@ -825,8 +818,8 @@
       <!-- Колонка 2 -->
       <nav class="site-footer__col" aria-label="Магазин">
         <div class="site-footer__title">Магазин</div>
-        <a class="site-footer__link" href="casual.html?cat=summer">Каталог Casual</a>
-        <a class="site-footer__link" href="order.html?cat=torty">Каталог To order</a>
+        <a class="site-footer__link" href="casual.html">Каталог Casual</a>
+        <a class="site-footer__link" href="order.html">Каталог To order</a>
         <a class="site-footer__link" href="fillings.html">Наши начинки</a>
       </nav>
 
