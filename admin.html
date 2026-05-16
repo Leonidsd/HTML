@@ -600,6 +600,17 @@
     .adm__topbar { padding: 16px 20px; }
     .stats-grid { grid-template-columns: 1fr; }
     .section-cards { grid-template-columns: 1fr; }
+    .adm-table-wrap { overflow-x: auto; -webkit-overflow-scrolling: touch; }
+    .adm-search { width: 100%; }
+  }
+
+  @media (max-width: 480px) {
+    .adm__topbar { flex-wrap: wrap; gap: 8px; }
+    .adm__topbar-title { font-size: 16px; }
+    .adm__content { padding: 12px; }
+    .adm-table { font-size: 13px; }
+    .adm-table th, .adm-table td { padding: 8px 10px; }
+    .adm-btn { padding: 6px 12px; font-size: 12px; }
   }
 </style>
 </head>

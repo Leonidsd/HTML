@@ -3128,6 +3128,156 @@ font-size: 16px;
 }
 
 
+/* ==========================================================
+   RESPONSIVE — планшеты (768px)
+   ========================================================== */
+@media (max-width: 768px){
+  /* Container: чуть меньше боковые */
+  .container{ width: min(var(--container), calc(100% - 32px)); }
+
+  /* Hero */
+  .hero{ min-height: 80vh; padding: 100px 0 60px; }
+  .hero__title{ font-size: 36px; }
+  .hero__text{ font-size: 15px; }
+
+  /* Casual / ToOrder sliders */
+  .casual__title{ font-size: 36px; }
+  .casual-card{ width: 80vw; }
+  .casual-card__img{ height: 200px; }
+  .toorder-card{ width: 80vw; }
+  .toorder-card__img{ height: 380px; min-height: unset; }
+
+  /* Fillings */
+  .fillings{ padding: 50px 0 100px; }
+  .fillings__title{ font-size: 30px; }
+  .fillings__meta{ margin-left: 0; }
+
+  /* Story */
+  .story__inner{ grid-template-columns: 1fr; }
+  .story__panel{
+    clip-path: none;
+    padding: 32px 20px;
+    margin: 0;
+  }
+  .story__title{ font-size: 36px; }
+  .story__media{
+    height: 300px;
+    margin: 0;
+    padding: 0;
+  }
+  .story__video{ border-radius: 20px; }
+
+  /* Discounts */
+  .discounts{ padding: 60px 0 60px; }
+  .discounts__head{ grid-template-columns: 1fr; }
+  .discounts__meta{ margin-left: 0; }
+  .discounts__title{ font-size: 32px; }
+  .discounts__title-link{ font-size: 32px; }
+  .discounts__grid{ grid-template-columns: 1fr; }
+  .discount-card{ padding: 28px 20px; min-height: unset; }
+
+  /* Why */
+  .why{ padding: 50px 0 60px; }
+  .why__title{ font-size: 30px; }
+
+  /* FAQ */
+  .faq{ padding: 50px 0 100px; }
+  .faq__title{ font-size: 32px; }
+  .faq-item__q{ font-size: 16px; padding: 16px 14px; }
+  .faq-item__a{ padding: 0 14px 14px 40px; font-size: 14px; }
+
+  /* Footer */
+  .site-footer{ padding: 100px 0 40px; }
+  .site-footer::before{ top: -100px; }
+  .site-footer__grid{ gap: 32px; }
+  .site-footer__lead{ font-size: 18px; }
+
+  /* Collection (catalog pages) */
+  .collection-hero__title{ font-size: 36px; }
+  .collect-card__img{ height: 280px; }
+
+  /* Mega menu / modals */
+  .mega{ height: auto; max-height: 80vh; overflow-y: auto; }
+  .mega__grid--catalog{ grid-template-columns: 1fr; }
+  .mega__grid--cards{ grid-template-columns: 1fr; }
+  .modal__card{ width: calc(100% - 16px); margin: 3vh auto; }
+}
+
+
+/* ==========================================================
+   RESPONSIVE — телефоны (480px)
+   ========================================================== */
+@media (max-width: 480px){
+  /* Container: минимальные поля */
+  .container{ width: calc(100% - 24px); }
+
+  /* Hero */
+  .hero{ min-height: 70vh; padding: 90px 0 40px; }
+  .hero__title{ font-size: 28px; }
+  .hero__text{ font-size: 14px; }
+  .hero__actions{ flex-direction: column; }
+  .hero__actions .btn{ width: 100%; text-align: center; }
+
+  /* Casual / ToOrder */
+  .casual__title{ font-size: 28px; }
+  .casual-card{ width: 85vw; }
+  .casual-card__img{ height: 180px; }
+  .toorder-card{ width: 85vw; }
+  .toorder-card__img{ height: 300px; min-height: unset; }
+
+  /* Fillings */
+  .fillings{ padding: 40px 0 60px; }
+  .fillings__title{ font-size: 26px; }
+  .fillings-card{ height: 200px; }
+
+  /* Story */
+  .story{ padding: 40px 0; }
+  .story__title{ font-size: 28px; }
+  .story__media{ height: 220px; }
+  .story__text{ font-size: 14px; }
+
+  /* Discounts */
+  .discounts{ padding: 40px 0; }
+  .discounts__title{ font-size: 26px; }
+  .discounts__title-link{ font-size: 26px; }
+  .discount-card{ padding: 20px 16px; }
+  .discount-card__title{ font-size: 20px; }
+  .discount-card__text{ font-size: 14px; }
+
+  /* Why */
+  .why{ padding: 40px 0 50px; }
+  .why__title{ font-size: 26px; }
+  .why__head{ margin-bottom: 32px; }
+  .why-item__title{ font-size: 17px; }
+  .why-item__text{ font-size: 14px; }
+  .why-item__icon{ width: 36px; height: 36px; }
+
+  /* FAQ */
+  .faq{ padding: 40px 0 60px; }
+  .faq__title{ font-size: 26px; }
+  .faq-item__q{ font-size: 15px; padding: 14px 12px; }
+  .faq-item__a{ padding: 0 12px 12px 36px; font-size: 13px; }
+  .faq__cta{ padding: 14px 12px; font-size: 11px; }
+
+  /* Footer */
+  .site-footer{ padding: 80px 0 30px; }
+  .site-footer::before{ top: -80px; }
+  .site-footer__grid{ gap: 24px; }
+  .site-footer__lead{ font-size: 16px; }
+  .site-footer__bottom{ font-size: 11px; }
+
+  /* Collection (catalog pages) */
+  .collection-hero__title{ font-size: 28px; }
+  .collect-card__img{ height: 240px; }
+
+  /* Checkout */
+  .times{ grid-template-columns: repeat(4, 1fr); }
+
+  /* General: cards, buttons */
+  .btn--lg{ padding: 14px 20px; font-size: 13px; }
+}
+
+
 
 
 

@@ -303,6 +303,33 @@
     border-radius: 24px;
     z-index: -1;
   }
+
+  /* ====== Responsive ====== */
+  @media (max-width: 768px) {
+    .brand-video video { height: 300px; }
+    .value-card { padding: 32px 24px; }
+    .brand-values-grid { grid-template-columns: repeat(2, 1fr) !important; gap: 24px !important; }
+    .stat-number { font-size: 36px; }
+    .timeline-item { grid-template-columns: 1fr; gap: 16px; }
+    .timeline::before { left: 24px; }
+    .timeline-dot { position: relative !important; left: 0 !important; margin: 0 auto; }
+    .timeline-item:nth-child(even) .timeline-content { grid-row: 2; }
+    .timeline-content { padding: 24px; }
+    .big-section { grid-template-columns: 1fr; gap: 40px; margin: 60px 0; }
+    .big-section-img img { height: 300px; }
+    .big-section-img::before { display: none; }
+    .brand-stats-grid { grid-template-columns: repeat(2, 1fr) !important; gap: 24px !important; }
+    .brand-team-grid { grid-template-columns: 1fr !important; }
+  }
+  @media (max-width: 480px) {
+    .brand-video video { height: 200px; }
+    .brand-values-grid { grid-template-columns: 1fr !important; }
+    .stat-number { font-size: 28px; }
+    .brand-stats-grid { grid-template-columns: 1fr !important; }
+    .value-card { padding: 24px 16px; }
+    .big-section-img img { height: 220px; }
+    .big-section { margin: 40px 0; }
+  }
 </style>
 
 </head>
@@ -583,7 +610,7 @@
 
       <!-- Статистика -->
       <div class="stats-section" style="margin-bottom: 120px;">
-        <div style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 60px;">
+        <div class="brand-stats-grid" style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 60px;">
           <div class="stat-item">
             <span class="stat-number">5+</span>
             <span class="stat-label">Лет на рынке</span>
@@ -685,7 +712,7 @@
           Наши ценности
         </h2>
 
-        <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 32px;">
+        <div class="brand-values-grid" style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 32px;">
 
           <div class="value-card">
             <div class="value-icon">

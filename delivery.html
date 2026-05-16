@@ -85,6 +85,25 @@
       transform: translateY(0);
     }
   }
+
+  /* ====== Responsive ====== */
+  @media (max-width: 768px) {
+    .del-hero-grid { grid-template-columns: 1fr !important; gap: 32px !important; }
+    .del-hero-grid img,
+    .del-hero-grid > div:last-child { max-width: 100%; }
+    .del-hero-grid > div:last-child img { width: 100% !important; height: auto !important; }
+    .del-info-grid { grid-template-columns: 1fr !important; }
+    .del-pickup-grid { grid-template-columns: 1fr !important; gap: 32px !important; }
+    .del-pickup-grid > div:last-child img { width: 100% !important; height: auto !important; }
+    .del-steps-grid { grid-template-columns: repeat(2, 1fr) !important; }
+    .del-payment-tabs { flex-direction: column !important; gap: 12px !important; }
+    .del-hero-title { font-size: 36px !important; }
+  }
+  @media (max-width: 480px) {
+    .del-steps-grid { grid-template-columns: 1fr !important; }
+    .del-info-grid article { padding: 24px !important; }
+    .del-hero-title { font-size: 28px !important; }
+  }
 </style>
 
 </head>
@@ -328,10 +347,10 @@
 <main class="collection-page">
   <!-- Доставка курьером - двухколоночный layout -->
   <div class="container" id="delivery" style="padding-top: 120px; padding-bottom: 80px;">
-    <div style="display: grid; grid-template-columns: 1fr 400px; gap: 80px; align-items: center;">
+    <div class="del-hero-grid" style="display: grid; grid-template-columns: 1fr 400px; gap: 80px; align-items: center;">
       <!-- Текст слева -->
       <div>
-        <h1 style="font-family: var(--brand-font); font-size: 56px; font-weight: 400; margin: 0 0 32px; color: #1f1f1f; line-height: 1.2;">
+        <h1 class="del-hero-title" style="font-family: var(--brand-font); font-size: 56px; font-weight: 400; margin: 0 0 32px; color: #1f1f1f; line-height: 1.2;">
           Доставка курьером
         </h1>
         <p style="font-size: 17px; line-height: 1.8; color: #6c6c6c; margin: 0;">
@@ -351,7 +370,7 @@
 
   <!-- Grid section -->
   <div class="container">
-    <section style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 24px; padding: 40px 0;">
+    <section class="del-info-grid" style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 24px; padding: 40px 0;">
 
       <article style="background: #fff; border-radius: 22px; padding: 36px; box-shadow: 0 10px 30px rgba(0,0,0,.08); position: relative; overflow: hidden;">
         <div style="display: flex; align-items: center; gap: 16px; margin-bottom: 20px;">
@@ -475,10 +494,10 @@
 
   <!-- Самовывоз - двухколоночный layout -->
   <div class="container" id="pickup" style="padding: 100px 0;">
-    <div style="display: grid; grid-template-columns: 1fr 400px; gap: 80px; align-items: center;">
+    <div class="del-pickup-grid" style="display: grid; grid-template-columns: 1fr 400px; gap: 80px; align-items: center;">
       <!-- Текст слева -->
       <div>
-        <h2 style="font-family: var(--brand-font); font-size: 56px; font-weight: 400; margin: 0 0 32px; color: #1f1f1f; line-height: 1.2;">
+        <h2 class="del-hero-title" style="font-family: var(--brand-font); font-size: 56px; font-weight: 400; margin: 0 0 32px; color: #1f1f1f; line-height: 1.2;">
           Самовывоз
         </h2>
         <p style="font-size: 17px; line-height: 1.8; color: #6c6c6c; margin-bottom: 48px;">
@@ -533,7 +552,7 @@
       <div class="story__panel">
         <div class="story__content">
           <!-- Кнопки-табы -->
-          <div style="display: flex; gap: 40px; margin-bottom: 32px;">
+          <div class="del-payment-tabs" style="display: flex; gap: 40px; margin-bottom: 32px;">
             <button class="payment-tab active" data-tab="payment" style="font-family: var(--brand-font); font-size: 36px; font-weight: 400; color: #1f1f1f; background: none; border: none; cursor: pointer; padding: 0; position: relative; transition: all 0.3s ease;">
               Оплата
             </button>
@@ -601,7 +620,7 @@
         Как сделать заказ
       </h2>
 
-      <div style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 32px;">
+      <div class="del-steps-grid" style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 32px;">
         <!-- Шаг 1 -->
         <div style="text-align: center; position: relative;">
           <div style="width: 80px; height: 80px; margin: 0 auto 24px; border-radius: 50%;
