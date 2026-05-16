@@ -3203,6 +3203,9 @@ font-size: 16px;
   /* Container: чуть меньше боковые */
   .container{ width: min(var(--container), calc(100% - 32px)); }
 
+  /* Hero background: shrink proportionally */
+  .page-bg{ background-size: auto 100%; background-position: center top; }
+
   /* Hero */
   .hero{ min-height: 80vh; padding: 100px 0 60px; }
   .hero__title{ font-size: 36px; }
@@ -3210,12 +3213,14 @@ font-size: 16px;
   .hero__actions{ align-items: flex-start; }
 
   /* Casual / ToOrder sliders */
+  .casual{ padding: 60px 0; }
   .casual__head{ grid-template-columns: 1fr; gap: 16px; }
   .casual__title{ font-size: 36px; }
   .casual__meta{ margin-left: 0; }
   .casual__arrows{ margin-left: 0; padding-top: 0; }
   .casual-card{ width: 80vw; }
   .casual-card__img{ height: 200px; }
+  .toorder{ padding: 60px 0; }
   .toorder__head{ grid-template-columns: 1fr; gap: 16px; }
   .toorder__title{ font-size: 30px; }
   .toorder__meta{ margin-left: 0; }
@@ -3224,13 +3229,13 @@ font-size: 16px;
   .toorder-card__img{ height: 380px; min-height: unset; }
 
   /* Fillings */
-  .fillings{ padding: 50px 0 100px; }
+  .fillings{ padding: 60px 0; }
   .fillings__head{ grid-template-columns: 1fr; gap: 16px; }
   .fillings__title{ font-size: 30px; }
   .fillings__meta{ margin-left: 0; }
 
   /* Story */
-  .story{ padding: 30px 0; margin-top: -20px; }
+  .story{ padding: 60px 0; margin-top: 0; }
   .story__inner{ grid-template-columns: 1fr; width: calc(100% - 24px); margin: 0 auto; }
   .story__panel{
     clip-path: none;
@@ -3246,7 +3251,7 @@ font-size: 16px;
   .story__video{ border-radius: 20px; }
 
   /* Discounts */
-  .discounts{ padding: 60px 0 60px; }
+  .discounts{ padding: 60px 0; }
   .discounts__head{ grid-template-columns: 1fr; }
   .discounts__meta{ margin-left: 0; }
   .discounts__title{ font-size: 32px; }
@@ -3255,11 +3260,11 @@ font-size: 16px;
   .discount-card{ padding: 28px 20px; min-height: unset; }
 
   /* Why */
-  .why{ padding: 50px 0 60px; }
+  .why{ padding: 60px 0; }
   .why__title{ font-size: 30px; }
 
   /* FAQ */
-  .faq{ padding: 50px 0 100px; }
+  .faq{ padding: 60px 0; }
   .faq__title{ font-size: 32px; }
   .faq-item__q{ font-size: 16px; padding: 16px 14px; }
   .faq-item__a{ padding: 0 14px 14px 40px; font-size: 14px; }
@@ -3289,8 +3294,8 @@ font-size: 16px;
   /* Container: минимальные поля */
   .container{ width: calc(100% - 24px); }
 
-  /* Hero background: zoom out slightly */
-  .page-bg{ background-size: cover; background-position: center 20%; }
+  /* Hero background: zoom out on mobile to show more of the image */
+  .page-bg{ background-size: auto 100%; background-position: center top; }
 
   /* Hero */
   .hero{ min-height: 70vh; padding: 90px 0 40px; }
@@ -3300,10 +3305,12 @@ font-size: 16px;
   .hero__actions .btn{ text-align: left; }
 
   /* Casual / ToOrder */
+  .casual{ padding: 50px 0; }
   .casual__title{ font-size: 28px; }
   .casual__text{ font-size: 14px; }
   .casual-card{ width: 85vw; }
   .casual-card__img{ height: 180px; }
+  .toorder{ padding: 50px 0; }
   .toorder__title{ font-size: 26px; }
   .toorder__text{ font-size: 14px; }
   .toorder-card{ width: 85vw; }
@@ -3313,20 +3320,20 @@ font-size: 16px;
   .mobile-menu__panel{ max-height: calc(100vh - 20px); overflow-y: auto; }
 
   /* Fillings */
-  .fillings{ padding: 40px 0 60px; }
+  .fillings{ padding: 50px 0; }
   .fillings--page{ padding-top: 100px !important; padding-bottom: 60px !important; }
   .fillings__title{ font-size: 26px; }
   .fillings-card{ height: 280px; }
 
   /* Story */
-  .story{ padding: 20px 0; margin-top: -10px; }
+  .story{ padding: 50px 0; margin-top: 0; }
   .story__inner{ width: calc(100% - 32px); margin: 0 auto; }
   .story__title{ font-size: 28px; }
   .story__media{ height: 200px; }
   .story__text{ font-size: 14px; }
 
   /* Discounts */
-  .discounts{ padding: 40px 0; }
+  .discounts{ padding: 50px 0; }
   .discounts__title{ font-size: 26px; }
   .discounts__title-link{ font-size: 26px; }
   .discount-card{ padding: 20px 16px; }
@@ -3334,7 +3341,7 @@ font-size: 16px;
   .discount-card__text{ font-size: 14px; }
 
   /* Why */
-  .why{ padding: 40px 0 50px; }
+  .why{ padding: 50px 0; }
   .why__title{ font-size: 26px; }
   .why__head{ margin-bottom: 32px; }
   .why__center{ display: none; }
@@ -3343,7 +3350,7 @@ font-size: 16px;
   .why-item__icon{ width: 36px; height: 36px; }
 
   /* FAQ */
-  .faq{ padding: 40px 0 60px; }
+  .faq{ padding: 50px 0; }
   .faq__title{ font-size: 26px; }
   .faq-item__q{ font-size: 15px; padding: 14px 12px; }
   .faq-item__a{ padding: 0 12px 12px 36px; font-size: 13px; }
