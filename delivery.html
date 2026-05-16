@@ -326,11 +326,36 @@
       <button class="icon-btn icon-btn--ghost" id="btnMenuClose" type="button" aria-label="Закрыть меню">✕</button>
     </div>
 
-    <nav class="mobile-menu__nav" aria-label="Мобильная навигация">
-      <a href="index.html#catalog" data-mobile-close="true">Каталог</a>
-      <a href="brand.html" data-mobile-close="true">История бренда</a>
-      <a href="index.html#clients" data-mobile-close="true">Клиентам</a>
-      <a href="index.html#city" data-mobile-close="true">Мы в городе</a>
+        <nav class="mobile-menu__nav" aria-label="Мобильная навигация">
+      <details class="mobile-menu__group">
+        <summary class="mobile-menu__link">Каталог</summary>
+        <div class="mobile-menu__sub">
+          <a href="casual.html">Casual</a>
+          <a href="casual.html?cat=summer">Летняя коллекция</a>
+          <a href="casual.html?cat=bento">Бенто-торты</a>
+          <a href="casual.html?cat=cakes">Пирожные</a>
+          <a href="casual.html?cat=macarons">Macarons</a>
+          <a href="casual.html?cat=candies">Шоколад и конфеты</a>
+          <a href="casual.html?cat=cheesecake">Чизкейки</a>
+          <a href="order.html">To order</a>
+          <a href="order.html?cat=torty">Торты</a>
+          <a href="order.html?cat=torty-3d">3D-торты</a>
+          <a href="order.html?cat=torty-detskie">Детские торты</a>
+          <a href="order.html?cat=torty-svadebnye">Свадебные торты</a>
+          <a href="fillings.html">Начинки</a>
+          <a href="art-works.html">Наши работы</a>
+        </div>
+      </details>
+      <a href="brand.html">История бренда</a>
+      <details class="mobile-menu__group">
+        <summary class="mobile-menu__link">Клиентам</summary>
+        <div class="mobile-menu__sub">
+          <a href="delivery.html">Доставка и оплата</a>
+          <a href="about-order.html">О заказе</a>
+          <a href="faq.html">Вопрос-ответ</a>
+        </div>
+      </details>
+      <a href="index.html#contacts" data-mobile-close="true">Мы в городе</a>
     </nav>
 
     <div class="mobile-menu__contacts">

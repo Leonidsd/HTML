@@ -306,6 +306,11 @@
 
   /* ====== Responsive ====== */
   @media (max-width: 768px) {
+    .brand-hero-title { font-size: 42px !important; }
+    .brand-main-heading { font-size: 34px !important; }
+    .brand-quote-text { font-size: 26px !important; }
+    .brand-cta-block { padding: 50px 32px !important; margin: 60px 0 !important; }
+    .brand-cta-title { font-size: 30px !important; }
     .brand-video video { height: 300px; }
     .value-card { padding: 32px 24px; }
     .brand-values-grid { grid-template-columns: repeat(2, 1fr) !important; gap: 24px !important; }
@@ -322,6 +327,11 @@
     .brand-team-grid { grid-template-columns: 1fr !important; }
   }
   @media (max-width: 480px) {
+    .brand-hero-title { font-size: 32px !important; }
+    .brand-main-heading { font-size: 26px !important; }
+    .brand-quote-text { font-size: 22px !important; }
+    .brand-cta-block { padding: 32px 20px !important; margin: 40px 0 !important; }
+    .brand-cta-title { font-size: 24px !important; }
     .brand-video video { height: 200px; }
     .brand-values-grid { grid-template-columns: 1fr !important; }
     .stat-number { font-size: 28px; }
@@ -552,11 +562,36 @@
       <button class="icon-btn icon-btn--ghost" id="btnMenuClose" type="button" aria-label="Закрыть меню">✕</button>
     </div>
 
-    <nav class="mobile-menu__nav" aria-label="Мобильная навигация">
-      <a href="index.html#catalog" data-mobile-close="true">Каталог</a>
-      <a href="brand.html" data-mobile-close="true">История бренда</a>
-      <a href="index.html#clients" data-mobile-close="true">Клиентам</a>
-      <a href="index.html#city" data-mobile-close="true">Мы в городе</a>
+        <nav class="mobile-menu__nav" aria-label="Мобильная навигация">
+      <details class="mobile-menu__group">
+        <summary class="mobile-menu__link">Каталог</summary>
+        <div class="mobile-menu__sub">
+          <a href="casual.html">Casual</a>
+          <a href="casual.html?cat=summer">Летняя коллекция</a>
+          <a href="casual.html?cat=bento">Бенто-торты</a>
+          <a href="casual.html?cat=cakes">Пирожные</a>
+          <a href="casual.html?cat=macarons">Macarons</a>
+          <a href="casual.html?cat=candies">Шоколад и конфеты</a>
+          <a href="casual.html?cat=cheesecake">Чизкейки</a>
+          <a href="order.html">To order</a>
+          <a href="order.html?cat=torty">Торты</a>
+          <a href="order.html?cat=torty-3d">3D-торты</a>
+          <a href="order.html?cat=torty-detskie">Детские торты</a>
+          <a href="order.html?cat=torty-svadebnye">Свадебные торты</a>
+          <a href="fillings.html">Начинки</a>
+          <a href="art-works.html">Наши работы</a>
+        </div>
+      </details>
+      <a href="brand.html">История бренда</a>
+      <details class="mobile-menu__group">
+        <summary class="mobile-menu__link">Клиентам</summary>
+        <div class="mobile-menu__sub">
+          <a href="delivery.html">Доставка и оплата</a>
+          <a href="about-order.html">О заказе</a>
+          <a href="faq.html">Вопрос-ответ</a>
+        </div>
+      </details>
+      <a href="index.html#contacts" data-mobile-close="true">Мы в городе</a>
     </nav>
 
     <div class="mobile-menu__contacts">
@@ -576,7 +611,7 @@
     <div class="brand-hero">
       <div class="container" style="position: relative; z-index: 1;">
         <div style="max-width: 900px; margin: 0 auto; text-align: center;">
-          <h1 style="font-family: var(--brand-font); font-size: 64px; font-weight: 400;
+          <h1 class="brand-hero-title" style="font-family: var(--brand-font); font-size: 64px; font-weight: 400;
                      margin: 0 0 32px; line-height: 1.2; color: #1f1f1f;">
             История бренда
           </h1>
@@ -598,7 +633,7 @@
 
       <!-- Главная мысль -->
       <div style="max-width: 1000px; margin: 0 auto 120px; text-align: center;">
-        <h2 style="font-family: var(--brand-font); font-size: 48px; font-weight: 400;
+        <h2 class="brand-main-heading" style="font-family: var(--brand-font); font-size: 48px; font-weight: 400;
                    margin: 0 0 32px; line-height: 1.4; color: #1f1f1f;">
           «Вкус облаков» —<br>это стремление уловить<br>и воплотить мимолётное
         </h2>
@@ -770,7 +805,7 @@
       <!-- Цитата -->
       <div class="quote-section">
         <div class="quote-text" style="max-width: 800px; margin: 0 auto;">
-          <p style="font-family: var(--brand-font); font-size: 36px; font-weight: 400;
+          <p class="brand-quote-text" style="font-family: var(--brand-font); font-size: 36px; font-weight: 400;
                     line-height: 1.5; color: #1f1f1f; margin: 0 0 24px;">
             «Наши десерты — это материализованные моменты счастья»
           </p>
@@ -782,9 +817,9 @@
       </div>
 
       <!-- Призыв к действию -->
-      <div style="background: linear-gradient(135deg, rgba(250, 247, 245, 0.3), rgba(255, 255, 255, 0.3)); border-radius: 24px;
+      <div class="brand-cta-block" style="background: linear-gradient(135deg, rgba(250, 247, 245, 0.3), rgba(255, 255, 255, 0.3)); border-radius: 24px;
                   padding: 80px 60px; text-align: center; margin: 100px 0; box-shadow: 0 10px 40px rgba(0,0,0,0.06);">
-        <h2 style="font-family: var(--brand-font); font-size: 38px; font-weight: 400;
+        <h2 class="brand-cta-title" style="font-family: var(--brand-font); font-size: 38px; font-weight: 400;
                     margin: 0 0 20px; line-height: 1.3; color: #1f1f1f;">
           Попробуйте наши десерты
         </h2>
