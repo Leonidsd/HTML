@@ -3252,8 +3252,9 @@ font-size: 16px;
   .story__title{ font-size: 36px; }
   .story__media{
     height: 280px;
-    margin: 0;
+    margin: 32px auto 0;
     padding: 0;
+    max-width: 80%;
   }
   .story__video{ border-radius: 20px; }
 
@@ -3341,7 +3342,7 @@ font-size: 16px;
   .story{ padding: 50px 0; margin-top: 0; }
   .story__inner{ width: calc(100% - 32px); margin: 0 auto; }
   .story__title{ font-size: 28px; }
-  .story__media{ height: 200px; }
+  .story__media{ height: 200px; margin-top: 24px; max-width: 85%; }
   .story__text{ font-size: 14px; }
 
   /* Discounts */
