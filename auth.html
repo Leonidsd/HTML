@@ -4,7 +4,7 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
   <title>Вход — Вкус облаков</title>
-  <link rel="stylesheet" href="css/main.css?v=17" />
+  <link rel="stylesheet" href="css/main.css?v=18" />
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -648,8 +648,12 @@
         const phoneInput = form.querySelector('[name="login-phone"]');
         const passInput = form.querySelector('[name="password"]');
 
-        const loginValue = (emailInput && emailInput.closest('.is-visible') ? emailInput.value : '') ||
-                           (phoneInput && phoneInput.closest('.is-visible') ? phoneInput.value : '');
+        let loginValue = (emailInput && emailInput.closest('.is-visible') ? emailInput.value : '') ||
+                         (phoneInput && phoneInput.closest('.is-visible') ? phoneInput.value : '');
+        // Нормализуем телефон: "+7 (000) 000-00-00" → "+70000000000"
+        if (phoneInput && phoneInput.closest('.is-visible')) {
+          loginValue = '+' + loginValue.replace(/\D/g, '');
+        }
 
         if (loginValue === CONFIG.adminLogin && passInput.value === CONFIG.adminPassword) {
           location.href = 'admin.html';
@@ -716,6 +720,44 @@
           loginPhone.classList.remove('is-visible');
           loginEmail.classList.add('is-visible');
         }
+      });
+    });
+
+    // ====== Маска телефона +7 (___) ___-__-__ ======
+    document.querySelectorAll('input[type="tel"]').forEach(input => {
+      input.addEventListener('focus', function () {
+        if (!this.value) this.value = '+7 (';
+      });
+
+      input.addEventListener('input', function (e) {
+        let digits = this.value.replace(/\D/g, '');
+        // Всегда начинается с 7
+        if (digits.length === 0) { this.value = '+7 ('; return; }
+        if (digits[0] !== '7') digits = '7' + digits;
+        if (digits.length > 11) digits = digits.slice(0, 11);
+
+        let formatted = '+7 (';
+        if (digits.length > 1) formatted += digits.slice(1, 4);
+        if (digits.length > 4) formatted += ') ' + digits.slice(4, 7);
+        if (digits.length > 7) formatted += '-' + digits.slice(7, 9);
+        if (digits.length > 9) formatted += '-' + digits.slice(9, 11);
+
+        this.value = formatted;
+      });
+
+      input.addEventListener('keydown', function (e) {
+        // Разрешаем: Backspace, Delete, Tab, Escape, стрелки, Home, End, Ctrl+A/C/V/X
+        const allowed = [8, 9, 27, 46, 36, 35, 37, 38, 39, 40];
+        if (allowed.includes(e.keyCode)) return;
+        if ((e.ctrlKey || e.metaKey) && [65, 67, 86, 88].includes(e.keyCode)) return;
+        // Блокируем всё кроме цифр
+        if ((e.keyCode < 48 || e.keyCode > 57) && (e.keyCode < 96 || e.keyCode > 105)) {
+          e.preventDefault();
+        }
+      });
+
+      input.addEventListener('blur', function () {
+        if (this.value === '+7 (' || this.value === '+7') this.value = '';
       });
     });
   </script>

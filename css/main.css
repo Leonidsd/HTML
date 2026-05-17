@@ -3242,18 +3242,18 @@ font-size: 16px;
   .fillings__meta{ margin-left: 0; }
 
   /* Story */
-  .story__fade{ display: none; }
-  .story{ padding: 8px 0 16px; margin-top: 0; }
+  .story__fade{ height: 40px; }
+  .story{ padding: 0 0 20px; margin-top: 0; }
   .story__inner{ grid-template-columns: 1fr; width: calc(100% - 24px); margin: 0 auto; }
   .story__panel{
     clip-path: none;
-    padding: 16px 20px;
+    padding: 20px 20px;
     margin: 0;
   }
   .story__title{ font-size: 36px; }
   .story__media{
-    height: 220px;
-    margin: 12px 0 0;
+    height: 240px;
+    margin: 16px 0 0;
     padding: 0;
   }
   .story__video{ border-radius: 20px; }
@@ -3339,11 +3339,12 @@ font-size: 16px;
   .fillings-card{ height: 280px; }
 
   /* Story */
-  .story{ padding: 6px 0 12px; margin-top: 0; }
+  .story__fade{ height: 28px; }
+  .story{ padding: 0 0 16px; margin-top: 0; }
   .story__inner{ width: calc(100% - 32px); margin: 0 auto; }
-  .story__panel{ padding: 14px 14px; }
+  .story__panel{ padding: 16px 14px; }
   .story__title{ font-size: 28px; }
-  .story__media{ height: 160px; margin-top: 10px; }
+  .story__media{ height: 180px; margin-top: 12px; }
   .story__text{ font-size: 14px; }
 
   /* Discounts */

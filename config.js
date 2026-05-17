@@ -8,11 +8,11 @@
 var CONFIG = {
 
   // --- Учётная запись администратора ---
-  adminLogin:    'admin',
+  adminLogin:    '+70000000000',
   adminPassword: 'admin',
 
   // --- Учётная запись курьера ---
-  courierLogin:    'courier',
+  courierLogin:    '+71111111111',
   courierPassword: 'courier',
 
   // --- Адрес пекарни (старт и финиш маршрута курьера) ---
