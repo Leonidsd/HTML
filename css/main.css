@@ -1036,6 +1036,7 @@ margin-left: -114px;
   .casual__arrows{
     padding-top: 0;
     margin-left: 0;
+    margin-top: 0;
   }
   .casual__title{
     font-size: 42px;
@@ -3203,9 +3204,9 @@ font-size: 16px;
   /* Container: чуть меньше боковые */
   .container{ width: min(var(--container), calc(100% - 32px)); }
 
-  /* Hero background: absolute on mobile so no dark stripe below image */
-  .page-bg{ position: absolute; bottom: auto; height: 60vh; background-size: cover; background-position: center; }
-  .page-bg__overlay{ position: absolute; bottom: auto; height: 60vh; }
+  /* Hero background: fixed for parallax, cream bg below image, limited overlay */
+  .page-bg{ background-size: 115% auto; background-position: center top; background-color: #f3f1ed; }
+  .page-bg__overlay{ bottom: auto; height: 60vh; }
 
   /* Hero */
   .hero{ min-height: 60vh; padding: 100px 0 50px; }
@@ -3218,7 +3219,7 @@ font-size: 16px;
   .casual__head{ grid-template-columns: 1fr; gap: 16px; margin-bottom: 20px; }
   .casual__title{ font-size: 36px; }
   .casual__meta{ margin-left: 0; }
-  .casual__arrows{ margin-left: 0; padding-top: 0; }
+  .casual__arrows{ margin-left: 0; padding-top: 0; margin-top: 0; }
   .casual-card{ width: 80vw; }
   .casual-card__img{ height: 200px; }
   .toorder{ padding: 60px 0; }
@@ -3295,9 +3296,9 @@ font-size: 16px;
   /* Container: минимальные поля */
   .container{ width: calc(100% - 24px); }
 
-  /* Hero background: absolute on mobile, cover the hero area only */
-  .page-bg{ position: absolute; bottom: auto; height: 45vh; background-size: cover; background-position: center; }
-  .page-bg__overlay{ position: absolute; bottom: auto; height: 45vh; }
+  /* Hero background: fixed for parallax, cream bg below image, limited overlay */
+  .page-bg{ background-size: 130% auto; background-position: center top; background-color: #f3f1ed; }
+  .page-bg__overlay{ bottom: auto; height: 45vh; }
 
   /* Hero: height matches photo so text stays on the image */
   .hero{ min-height: 45vh; padding: 90px 0 50px; }
