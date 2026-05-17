@@ -1222,7 +1222,7 @@ margin-left: -114px;
 
 .fillings{
   background: #f3f1ed;
-  padding: 70px 0 20px;
+  padding: 70px 0 60px;
 }
 
 .fillings__head{
@@ -1321,7 +1321,7 @@ margin-left: -114px;
   background: #D2CEC8/*c6beb2*/; /* общий фон секции */
   overflow: visible;
 
-   padding: 30px 0 70px;
+   padding: 70px 0 70px;
  /*#f3f1ed*/
  
 }
@@ -3236,23 +3236,23 @@ font-size: 16px;
   .toorder-card__img{ height: 380px; min-height: unset; }
 
   /* Fillings */
-  .fillings{ padding: 50px 0 10px; }
+  .fillings{ padding: 50px 0 24px; }
   .fillings__head{ grid-template-columns: 1fr; gap: 16px; }
   .fillings__title{ font-size: 30px; }
   .fillings__meta{ margin-left: 0; }
 
   /* Story */
-  .story{ padding: 10px 0 30px; margin-top: 0; }
+  .story{ padding: 8px 0 16px; margin-top: 0; }
   .story__inner{ grid-template-columns: 1fr; width: calc(100% - 24px); margin: 0 auto; }
   .story__panel{
     clip-path: none;
-    padding: 24px 20px;
+    padding: 16px 20px;
     margin: 0;
   }
   .story__title{ font-size: 36px; }
   .story__media{
-    height: 280px;
-    margin: 24px 0 0;
+    height: 220px;
+    margin: 12px 0 0;
     padding: 0;
   }
   .story__video{ border-radius: 20px; }
@@ -3332,17 +3332,17 @@ font-size: 16px;
   .mobile-menu__panel{ max-height: calc(100vh - 20px); overflow-y: auto; }
 
   /* Fillings */
-  .fillings{ padding: 40px 0 8px; }
+  .fillings{ padding: 40px 0 20px; }
   .fillings--page{ padding-top: 100px !important; padding-bottom: 60px !important; }
   .fillings__title{ font-size: 26px; }
   .fillings-card{ height: 280px; }
 
   /* Story */
-  .story{ padding: 8px 0 24px; margin-top: 0; }
+  .story{ padding: 6px 0 12px; margin-top: 0; }
   .story__inner{ width: calc(100% - 32px); margin: 0 auto; }
-  .story__panel{ padding: 20px 16px; }
+  .story__panel{ padding: 14px 14px; }
   .story__title{ font-size: 28px; }
-  .story__media{ height: 200px; margin-top: 16px; }
+  .story__media{ height: 160px; margin-top: 10px; }
   .story__text{ font-size: 14px; }
 
   /* Discounts */
