@@ -3242,6 +3242,7 @@ font-size: 16px;
   .fillings__meta{ margin-left: 0; }
 
   /* Story */
+  .story__fade{ display: none; }
   .story{ padding: 8px 0 16px; margin-top: 0; }
   .story__inner{ grid-template-columns: 1fr; width: calc(100% - 24px); margin: 0 auto; }
   .story__panel{
