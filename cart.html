@@ -13,7 +13,11 @@
 <style>
   .cart-page { max-width: 900px; margin: 0 auto; padding: 0 20px; padding-bottom: 60px; }
 
-  .cart-page-section { padding-top: 140px; padding-bottom: 40px; }
+  .page.page--catalog { background: #f3f1ed; }
+  .cart-page-section { padding-top: 140px; padding-bottom: 80px; background: #f3f1ed !important; }
+  .site-footer { padding-top: 200px !important; }
+  .site-footer::before { top: 0 !important; clip-path: polygon(0 30%, 100% 0%, 100% 100%, 0% 100%) !important; }
+  .site-footer::after { content: ""; position: absolute; left: 0; right: 0; top: 0; bottom: 0; background: #f3f1ed; z-index: 0; clip-path: polygon(0 0%, 100% 0%, 100% 0%, 0 30%); }
 
   .cart-page__title {
     font-family: var(--brand-font);
@@ -251,11 +255,10 @@
       </div>
 
       <nav class="header__nav header__nav--center" aria-label="Главное меню">
-        <a href="#catalog">Каталог</a>
-        <a href="#brand">История бренда</a>
-        <a href="#clients">Клиентам</a>
-        <a href="#reservation">Бронирование</a>
-        <a href="#city">Мы в городе</a>
+        <a href="index.html#catalog" data-mega="catalog">Каталог</a>
+        <a href="brand.html" data-mega="life">История бренда</a>
+        <a href="#clients" data-mega="b2b">Клиентам</a>
+        <a href="index.html#city" data-mega="city">Мы в городе</a>
       </nav>
 
       <div class="header__actions header__actions--new">
@@ -294,6 +297,122 @@
       </div>
     </div>
   </section>
+
+  <!-- Mega menu -->
+  <div class="mega" id="mega" aria-hidden="true">
+    <div class="mega__container">
+
+      <!-- Каталог -->
+      <div class="mega__panel mega__panel--catalog" data-panel="catalog">
+        <div class="mega__grid mega__grid--catalog">
+          <a class="mega-tile mega-tile--portrait" href="index.html#brand">
+            <div class="mega-card__img mega-card__img--portrait">
+              <img src="img/menu-title1.jpg" alt="Бренд">
+            </div>
+          </a>
+          <div class="mega-cols">
+            <div class="mega-col">
+              <a class="mega-col__title" href="casual.html">Casual</a>
+              <a class="mega-link" href="casual.html?cat=summer">Летняя коллекция</a>
+              <a class="mega-link" href="casual.html?cat=bento">Бенто-торты</a>
+              <a class="mega-link" href="casual.html?cat=cakes">Пирожные</a>
+              <a class="mega-link" href="casual.html?cat=macarons">Macarons</a>
+              <a class="mega-link" href="casual.html?cat=candies">Шоколад и конфеты</a>
+              <a class="mega-link" href="casual.html?cat=cheesecake">Чизкейки</a>
+            </div>
+            <div class="mega-col">
+              <a class="mega-col__title" href="order.html">To order</a>
+              <a class="mega-link" href="order.html?cat=torty">Торты</a>
+              <a class="mega-link" href="order.html?cat=torty-3d">3D-торты</a>
+              <a class="mega-link" href="order.html?cat=torty-detskie">Детские торты</a>
+              <a class="mega-link" href="order.html?cat=torty-svadebnye">Свадебные торты</a>
+              <a class="mega-link mega-link--separated" href="fillings.html">Начинки</a>
+            </div>
+            <div class="mega-col">
+              <div class="mega-col__title">Art</div>
+              <a class="mega-link" href="art-works.html">Наши работы</a>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Наша жизнь -->
+      <div class="mega__panel mega__panel--life" data-panel="life">
+        <div class="mega__grid mega__grid--cards">
+          <div class="mega-left"></div>
+          <a class="mega-tile mega-tile--portrait" href="brand.html">
+            <div class="mega-card__img mega-card__img--portrait">
+              <img src="img/menu-title2.jpg" alt="История бренда">
+            </div>
+            <div class="mega-tile__title">История бренда</div>
+          </a>
+        </div>
+      </div>
+
+      <!-- Клиентам -->
+      <div class="mega__panel mega__panel--b2b" data-panel="b2b">
+        <div class="mega__grid mega__grid--cards">
+          <div class="mega-left">
+            <div class="mega-left__text">Наш способ говорить с миром — это говорить сладко.</div>
+            <div class="mega-left__contacts">
+              <a class="mega-contact" href="tel:+70000000000">+7(000)-000-00-00</a>
+              <a class="mega-contact" href="mailto:zakaz@vkusobl.ru">zakaz.loveandsweets@gmail.com</a>
+              <a class="mega-contact" href="#" target="_blank" rel="noopener">Telegram</a>
+            </div>
+          </div>
+          <a class="mega-tile mega-tile--portrait" href="delivery.html">
+            <div class="mega-card__img mega-card__img--portrait">
+              <img src="img/menu-title3.jpg" alt="Доставка и оплата">
+            </div>
+            <div class="mega-tile__title">Доставка и оплата</div>
+          </a>
+          <div class="mega-tile mega-tile--order">
+            <div class="mega-tile__left">
+              <a class="mega-tile__imgWrap" href="about-order.html">
+                <img class="mega-tile__img" src="img/menu-title4.jpg" alt="О заказе">
+              </a>
+              <a class="mega-tile__title mega-tile__title--under" href="about-order.html">О заказе</a>
+            </div>
+            <div class="mega-tile__side">
+              <div class="mega-tile__sideLinks">
+                <a class="mega-link" href="faq.html">Вопрос-ответ</a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Мы в городе -->
+      <div class="mega__panel mega__panel--city" data-panel="city">
+        <div class="mega__grid mega__grid--city">
+          <div class="mega-city__left">
+            <div class="mega-col__title">Мы в городе</div>
+            <div class="mega-city">
+              <div>г. Дубна</div>
+              <div>Пн-Пт 10:00–20:00</div>
+              <div>Сб-Вс 10:00–16:00</div>
+              <a class="mega-link" href="index.html#contacts">Контакты</a>
+            </div>
+          </div>
+          <div class="mega-city__middle">
+            <p class="mega-city__note">
+              Наши десерты — это островки спокойствия в море повседневных дел.
+              Причаливайте к ним, чтобы на мгновение остановить время и насладиться тишиной вкуса.
+              <br><br>Доставка осуществляется только по городу Дубна.
+            </p>
+          </div>
+          <div class="city-map">
+            <iframe
+              src="https://yandex.ru/map-widget/v1/?um=constructor%3A5323ec7eeef295359140d0a676351927a92d5b06e8ba41b518464d51d93d3a63&amp;source=constructor"
+              width="463" height="356" frameborder="0">
+            </iframe>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
 </header>
 
 <!-- Mobile menu -->
