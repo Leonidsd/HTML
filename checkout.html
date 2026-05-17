@@ -143,19 +143,36 @@
 
         <div class="checkout-grid">
           <div class="card">
-            <div class="card__title">1) Адрес доставки</div>
+            <div class="card__title">1) Контактные данные</div>
+            <div class="hint" id="contactHint" style="display:none;"></div>
 
             <div class="field">
-              <label class="label">Адрес</label>
-              <input class="input" id="addressInput" placeholder="Например: ул. Ленина 10, кв 5" />
-              <div class="hint">
-                Здесь будет интеграция с API Яндекс.Карт / геокодингом. Пока — ручной ввод.
-              </div>
+              <label class="label">Имя *</label>
+              <input class="input" id="contactName" placeholder="Иван" autocomplete="given-name" />
+            </div>
+
+            <div class="field">
+              <label class="label">Телефон *</label>
+              <input class="input" id="contactPhone" type="tel" placeholder="+7 (___) ___-__-__" autocomplete="tel" />
+            </div>
+
+            <div class="field">
+              <label class="label">Email</label>
+              <input class="input" id="contactEmail" type="email" placeholder="example@mail.ru" autocomplete="email" />
             </div>
 
             <div class="divider"></div>
 
-            <div class="card__title">2) Дата</div>
+            <div class="card__title">2) Адрес доставки</div>
+
+            <div class="field">
+              <label class="label">Адрес</label>
+              <input class="input" id="addressInput" placeholder="Например: ул. Ленина 10, кв 5" />
+            </div>
+
+            <div class="divider"></div>
+
+            <div class="card__title">3) Дата</div>
             <div class="hint">
               Доступны даты не ранее чем через <b>3 дня</b>. Дата становится недоступной,
               если не хватает рабочих часов на день приготовления (день до доставки).
@@ -165,7 +182,7 @@
 
             <div class="divider"></div>
 
-            <div class="card__title">3) Время</div>
+            <div class="card__title">4) Время</div>
             <div class="hint">
               Доступность времени рассчитывается с учётом уже запланированных доставок на выбранную дату.
               (Пока — упрощённая модель. В дипломе можно описать интеграцию с картами.)
@@ -233,5 +250,80 @@
   </aside>
 
   <script src="js/app.js"></script>
+  <script>
+    // Автозаполнение для авторизованного пользователя
+    document.addEventListener('DOMContentLoaded', function() {
+      const user = getCurrentUser();
+      if (user) {
+        const nameEl = document.getElementById('contactName');
+        const phoneEl = document.getElementById('contactPhone');
+        const emailEl = document.getElementById('contactEmail');
+        const addrEl = document.getElementById('addressInput');
+        const hintEl = document.getElementById('contactHint');
+
+        if (nameEl && !nameEl.value) nameEl.value = [user.name, user.surname].filter(Boolean).join(' ');
+        if (phoneEl && !phoneEl.value) {
+          // Форматируем телефон
+          const d = user.phone.replace(/\D/g, '');
+          if (d.length === 11) {
+            phoneEl.value = '+7 (' + d.slice(1,4) + ') ' + d.slice(4,7) + '-' + d.slice(7,9) + '-' + d.slice(9,11);
+          } else {
+            phoneEl.value = user.phone;
+          }
+        }
+        if (emailEl && !emailEl.value && user.email) emailEl.value = user.email;
+        if (addrEl && !addrEl.value && user.address) addrEl.value = user.address;
+
+        if (hintEl) {
+          hintEl.style.display = '';
+          hintEl.textContent = 'Данные заполнены из вашего профиля. Вы можете их изменить.';
+        }
+
+        // Перезапускаем booking UI с новым адресом
+        if (addrEl && addrEl.value) {
+          bookingPick.address = addrEl.value.trim();
+          if (typeof initBookingUI === 'function') initBookingUI();
+        }
+      }
+
+      // Маска телефона для contactPhone
+      const phoneInput = document.getElementById('contactPhone');
+      if (phoneInput) {
+        phoneInput.addEventListener('focus', function () {
+          if (!this.value) this.value = '+7 (';
+        });
+        phoneInput.addEventListener('input', function () {
+          let digits = this.value.replace(/\D/g, '');
+          if (digits.length === 0) { this.value = '+7 ('; return; }
+          if (digits[0] !== '7') digits = '7' + digits;
+          if (digits.length > 11) digits = digits.slice(0, 11);
+          let f = '+7 (';
+          if (digits.length > 1) f += digits.slice(1, 4);
+          if (digits.length > 4) f += ') ' + digits.slice(4, 7);
+          if (digits.length > 7) f += '-' + digits.slice(7, 9);
+          if (digits.length > 9) f += '-' + digits.slice(9, 11);
+          this.value = f;
+        });
+        phoneInput.addEventListener('keydown', function (e) {
+          const allowed = [8, 9, 27, 46, 36, 35, 37, 38, 39, 40];
+          if (allowed.includes(e.keyCode)) return;
+          if ((e.ctrlKey || e.metaKey) && [65, 67, 86, 88].includes(e.keyCode)) return;
+          if ((e.keyCode < 48 || e.keyCode > 57) && (e.keyCode < 96 || e.keyCode > 105)) e.preventDefault();
+        });
+        phoneInput.addEventListener('blur', function () {
+          if (this.value === '+7 (' || this.value === '+7') this.value = '';
+        });
+      }
+
+      // Привязка кнопки "Создать заказ"
+      const placeBtn = document.getElementById('btnPlaceOrder');
+      if (placeBtn) {
+        placeBtn.addEventListener('click', function(e) {
+          e.preventDefault();
+          placeOrder();
+        });
+      }
+    });
+  </script>
 </body>
 </html>

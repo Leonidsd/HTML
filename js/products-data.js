@@ -7,7 +7,7 @@ const productsData = {
     images: ['img/casual-1.jpg', 'img/casual-2.jpg'],
     type: 'dessert',
     quantityPerPack: 6,
-    quantityStep: 6, // продается наборами по 6
+    quantityStep: 1, // продается наборами по 6, кнопки меняют по 1 набору
     servings: '6-12 человек',
     description: `Happy Box – это шанс попробовать наши лучшие капкейки и найти свой любимый вкус!
       В наборе собраны самые популярные вкусы, каждый из которых приготовлен с душой и вниманием к деталям.`,
@@ -504,7 +504,7 @@ const productsData = {
     images: ['img/easter-1.jpg', 'img/easter-1b.jpg'],
     type: 'dessert',
     quantityPerPack: 7,
-    quantityStep: 7,
+    quantityStep: 1,
     servings: '7 человек',
     description: 'Шоколадные яйца с расписным декором.',
     descriptionFull: 'Набор из 7 шоколадных яиц ручной работы с традиционной пасхальной росписью. Внутри - нежная ореховая паста. Станут украшением праздничного стола.',
@@ -625,7 +625,7 @@ const productsData = {
     images: ['img/cakes-5.jpg', 'img/cakes-5b.jpg'],
     type: 'dessert',
     quantityPerPack: 8,
-    quantityStep: 8,
+    quantityStep: 1,
     servings: '4-8 человек',
     description: 'Французское печенье-пирожное.',
     descriptionFull: 'Классический французский мадлен - нежное бисквитное печенье с ароматом лимона и ванили. Набор из 8 штук в изящной упаковке.',

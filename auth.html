@@ -636,38 +636,76 @@
   <script src="config.js"></script>
 
   <script>
+    // Если уже авторизован — сразу в профиль
+    if (getCurrentUser()) {
+      location.href = 'profile.html';
+    }
+
     // Обработка отправки формы
     function handleAuth(e) {
       e.preventDefault();
       const form = document.getElementById('authForm');
       const isRegister = document.getElementById('authBlock').classList.contains('auth--register');
 
-      if (!isRegister) {
-        // Режим входа — проверяем admin/admin
+      if (isRegister) {
+        // === РЕГИСТРАЦИЯ ===
+        const surname = form.querySelector('[name="surname"]').value.trim();
+        const name = form.querySelector('[name="name"]').value.trim();
+        const patronymic = form.querySelector('[name="patronymic"]').value.trim();
+        const phone = form.querySelector('[name="phone"]').value.trim();
+        const email = form.querySelector('[name="reg-email"]').value.trim();
+        const password = form.querySelector('[name="reg-password"]').value;
+
+        if (!name) { alert('Введите имя'); return false; }
+        if (!phone || phone.replace(/\D/g, '').length < 11) { alert('Введите корректный телефон'); return false; }
+        if (!password || password.length < 4) { alert('Пароль должен быть не менее 4 символов'); return false; }
+
+        const result = registerUser({ surname, name, patronymic, phone, email, password });
+        if (result.error) {
+          alert(result.error);
+          return false;
+        }
+
+        setCurrentUser(result.user);
+        location.href = 'profile.html';
+        return false;
+
+      } else {
+        // === ВХОД ===
         const emailInput = form.querySelector('[name="login-email"]');
         const phoneInput = form.querySelector('[name="login-phone"]');
         const passInput = form.querySelector('[name="password"]');
 
         let loginValue = (emailInput && emailInput.closest('.is-visible') ? emailInput.value : '') ||
                          (phoneInput && phoneInput.closest('.is-visible') ? phoneInput.value : '');
-        // Нормализуем телефон: "+7 (000) 000-00-00" → "+70000000000"
+
         if (phoneInput && phoneInput.closest('.is-visible')) {
           loginValue = '+' + loginValue.replace(/\D/g, '');
         }
 
-        if (loginValue === CONFIG.adminLogin && passInput.value === CONFIG.adminPassword) {
-          location.href = 'admin.html';
+        // Проверка admin/courier через CONFIG
+        if (typeof CONFIG !== 'undefined') {
+          if (loginValue === CONFIG.adminLogin && passInput.value === CONFIG.adminPassword) {
+            location.href = 'admin.html';
+            return false;
+          }
+          if (loginValue === CONFIG.courierLogin && passInput.value === CONFIG.courierPassword) {
+            location.href = 'courier.html';
+            return false;
+          }
+        }
+
+        // Обычный пользователь
+        const user = loginUser(loginValue, passInput.value);
+        if (!user) {
+          alert('Неверный логин или пароль');
           return false;
         }
 
-        if (loginValue === CONFIG.courierLogin && passInput.value === CONFIG.courierPassword) {
-          location.href = 'courier.html';
-          return false;
-        }
+        setCurrentUser(user);
+        location.href = 'profile.html';
+        return false;
       }
-
-      location.href = 'profile.html';
-      return false;
     }
 
     // Переключение между входом и регистрацией

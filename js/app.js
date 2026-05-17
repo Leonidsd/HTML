@@ -80,7 +80,9 @@ const PRODUCTS = [
 
 const LS_KEYS = {
   cart: "sweet_cart_v1",
-  orders: "sweet_orders_v1"
+  orders: "sweet_orders_v1",
+  users: "sweet_users_v1",
+  session: "sweet_session_v1"
 };
 
 function loadCart() {
@@ -98,6 +100,101 @@ function saveOrders(orders) {
   localStorage.setItem(LS_KEYS.orders, JSON.stringify(orders));
 }
 
+/* =========================
+   ПОЛЬЗОВАТЕЛИ И АВТОРИЗАЦИЯ
+   ========================= */
+
+function loadUsers() {
+  try { return JSON.parse(localStorage.getItem(LS_KEYS.users)) || []; }
+  catch { return []; }
+}
+function saveUsers(users) {
+  localStorage.setItem(LS_KEYS.users, JSON.stringify(users));
+}
+function getCurrentUser() {
+  try { return JSON.parse(localStorage.getItem(LS_KEYS.session)) || null; }
+  catch { return null; }
+}
+function setCurrentUser(user) {
+  if (user) localStorage.setItem(LS_KEYS.session, JSON.stringify(user));
+  else localStorage.removeItem(LS_KEYS.session);
+}
+
+function normalizePhone(raw) {
+  return '+' + raw.replace(/\D/g, '');
+}
+
+function registerUser({ surname, name, patronymic, phone, email, password }) {
+  const users = loadUsers();
+  const normPhone = normalizePhone(phone);
+
+  if (users.find(u => u.phone === normPhone)) {
+    return { error: 'Пользователь с таким телефоном уже зарегистрирован' };
+  }
+  if (email && users.find(u => u.email === email.toLowerCase())) {
+    return { error: 'Пользователь с таким email уже зарегистрирован' };
+  }
+
+  const user = {
+    id: crypto.randomUUID?.() || String(Date.now() + Math.random()),
+    surname: surname || '',
+    name: name || '',
+    patronymic: patronymic || '',
+    phone: normPhone,
+    email: email ? email.toLowerCase() : '',
+    password,
+    address: '',
+    role: 'client',
+    createdAt: new Date().toISOString()
+  };
+
+  users.push(user);
+  saveUsers(users);
+  return { user };
+}
+
+function loginUser(login, password) {
+  const users = loadUsers();
+  const normLogin = login.includes('@')
+    ? login.toLowerCase()
+    : normalizePhone(login);
+
+  return users.find(u =>
+    (u.phone === normLogin || u.email === normLogin) && u.password === password
+  ) || null;
+}
+
+function updateUserProfile(userId, data) {
+  const users = loadUsers();
+  const idx = users.findIndex(u => u.id === userId);
+  if (idx === -1) return false;
+
+  Object.assign(users[idx], data);
+  saveUsers(users);
+
+  const session = getCurrentUser();
+  if (session && session.id === userId) {
+    setCurrentUser(users[idx]);
+  }
+  return true;
+}
+
+function logoutUser() {
+  setCurrentUser(null);
+}
+
+function getUserOrders(userId) {
+  return loadOrders().filter(o => o.userId === userId);
+}
+
+function updateProfileIcon() {
+  const user = getCurrentUser();
+  const links = document.querySelectorAll('a[href="auth.html"][aria-label="Профиль"]');
+  links.forEach(a => {
+    if (user) a.href = 'profile.html';
+  });
+}
+
 function formatRUB(n) {
   return new Intl.NumberFormat("ru-RU").format(Math.round(n)) + " ₽";
 }
@@ -111,7 +208,7 @@ function cartTotal(cart) {
 }
 
 function cartPrepHours(cart) {
-  return cart.reduce((sum, it) => sum + it.prepHours * it.qty, 0);
+  return cart.reduce((sum, it) => sum + (it.prepHours || 1) * it.qty, 0);
 }
 
 /* =========================
@@ -359,6 +456,7 @@ function addToCartFromModal() {
       id: crypto.randomUUID?.() || String(Date.now() + Math.random()),
       productId: p.id,
       title: p.title,
+      image: p.image || '',
       qty: pmState.qty,
       unitPrice,
       prepHours: p.prepHours,
@@ -394,9 +492,9 @@ function renderCartDrawer() {
             <div class="price">${formatRUB(it.unitPrice * it.qty)}</div>
           </div>
           <div class="cart-item__meta">
-            ${escapeHtml(it.optionsLabel?.coulis || "")} · ${escapeHtml(it.optionsLabel?.base || "")}
+            ${[it.optionsLabel?.coulis, it.optionsLabel?.base].filter(Boolean).map(s => escapeHtml(s)).join(' · ')}
           </div>
-          <div class="cart-item__meta">⏱ ${it.prepHours} ч/шт</div>
+          <div class="cart-item__meta">${it.prepHours ? '⏱ ' + it.prepHours + ' ч/шт' : ''}</div>
           <div class="cart-item__actions">
             <button class="icon-btn" data-dec="${it.id}" type="button">−</button>
             <div class="subtitle">Кол-во: <b>${it.qty}</b></div>
@@ -423,7 +521,7 @@ function renderCartDrawer() {
             <div class="cart-item__name">${escapeHtml(it.title)} × ${it.qty}</div>
             <div class="price">${formatRUB(it.unitPrice * it.qty)}</div>
           </div>
-          <div class="cart-item__meta">${escapeHtml(it.optionsLabel?.coulis || "")} · ${escapeHtml(it.optionsLabel?.base || "")}</div>
+          <div class="cart-item__meta">${[it.optionsLabel?.coulis, it.optionsLabel?.base].filter(Boolean).map(s => escapeHtml(s)).join(' · ')}</div>
         </div>`).join("")
       : `<div class="muted">Корзина пустая. Вернитесь в каталог и добавьте товары.</div>`;
   }
@@ -713,6 +811,16 @@ function placeOrder() {
     return;
   }
 
+  // Контактные данные
+  const contactName = ($("#contactName")?.value || "").trim();
+  const contactPhone = ($("#contactPhone")?.value || "").trim();
+  const contactEmail = ($("#contactEmail")?.value || "").trim();
+
+  if (!contactName) { alert("Укажите имя для связи."); return; }
+  if (!contactPhone || contactPhone.replace(/\D/g, '').length < 11) { alert("Укажите корректный телефон."); return; }
+
+  const user = getCurrentUser();
+
   const order = {
     id: (crypto.randomUUID?.() || String(Date.now() + Math.random())),
     createdAtISO: new Date().toISOString(),
@@ -723,7 +831,11 @@ function placeOrder() {
     address: bookingPick.address,
     deliveryDateISO: bookingPick.dateISO,
     deliveryTime: bookingPick.time,
-    prepDateISO: prepISO
+    prepDateISO: prepISO,
+    userId: user ? user.id : null,
+    contactName,
+    contactPhone: normalizePhone(contactPhone),
+    contactEmail
   };
 
   orders.push(order);
@@ -876,6 +988,10 @@ function bindGlobalUI() {
   closeBtn?.addEventListener("click", (e) => { e.preventDefault(); closeDrawer(); });
   overlay?.addEventListener("click", () => closeDrawer());
 
+  // Кнопка корзины в шапке — переход на cart.html
+  const cartBtn = $("#btnCart");
+  cartBtn?.addEventListener("click", (e) => { e.preventDefault(); location.href = "cart.html"; });
+
   // ESC для drawer и модалок
   document.addEventListener("keydown", (e) => {
     if (e.key === "Escape") {
@@ -1018,7 +1134,8 @@ document.addEventListener("DOMContentLoaded", () => {
   initCasualSlider();
   bindGlobalUI();
   initBookingUI();
-    bindMegaMenu();
+  bindMegaMenu();
+  updateProfileIcon();
 
 
   // index/catalog

@@ -815,7 +815,7 @@
       <!-- Заголовок -->
       <div class="lk__header">
         <h1 class="lk__title">Личный кабинет</h1>
-        <button class="lk__logout" type="button" onclick="location.href='auth.html'">Выйти</button>
+        <button class="lk__logout" type="button" id="logoutBtn">Выйти</button>
       </div>
 
       <!-- Табы -->
@@ -833,27 +833,27 @@
         <form class="lk__form" id="profileForm" onsubmit="return false;">
           <div class="lk__field">
             <span class="lk__field-label">Фамилия</span>
-            <input class="lk__field-input" type="text" name="surname" value="Иванов" disabled>
+            <input class="lk__field-input" type="text" name="surname" value="" disabled>
           </div>
           <div class="lk__field">
             <span class="lk__field-label">Имя</span>
-            <input class="lk__field-input" type="text" name="name" value="Иван" disabled>
+            <input class="lk__field-input" type="text" name="name" value="" disabled>
           </div>
           <div class="lk__field">
             <span class="lk__field-label">Отчество</span>
-            <input class="lk__field-input" type="text" name="patronymic" value="Иванович" disabled>
+            <input class="lk__field-input" type="text" name="patronymic" value="" disabled>
           </div>
           <div class="lk__field">
             <span class="lk__field-label">Телефон</span>
-            <input class="lk__field-input" type="tel" name="phone" value="+7 (999) 123-45-67" disabled>
+            <input class="lk__field-input" type="tel" name="phone" value="" disabled>
           </div>
           <div class="lk__field lk__field--full">
             <span class="lk__field-label">Email</span>
-            <input class="lk__field-input" type="email" name="email" value="ivanov@mail.ru" disabled>
+            <input class="lk__field-input" type="email" name="email" value="" disabled>
           </div>
           <div class="lk__field lk__field--full">
             <span class="lk__field-label">Адрес доставки</span>
-            <input class="lk__field-input" type="text" name="address" value="г. Дубна, ул. Примерная, д. 10, кв. 5" disabled>
+            <input class="lk__field-input" type="text" name="address" value="" disabled>
           </div>
 
           <div class="lk__form-actions">
@@ -866,236 +866,12 @@
 
       <!-- ======== Панель: Мои заказы ======== -->
       <div class="lk__panel" data-panel="orders">
-        <div class="lk__orders">
-
-          <!-- Заказ 1: В доставке -->
-          <div class="order-card">
-            <div class="order-card__top">
-              <div>
-                <span class="order-card__id">Заказ #1247</span>
-                <span class="order-card__date">10 мая 2026</span>
-              </div>
-              <span class="order-card__status order-card__status--progress">В доставке</span>
-            </div>
-
-            <div class="order-card__items">
-              <div class="order-card__item">
-                <img class="order-card__item-img" src="img/картинки для сайта/Торты/Торт Ягодное лукошко.jpg" alt="Торт Ягодное лукошко">
-                <div>
-                  <div class="order-card__item-name">Торт «Ягодное лукошко»</div>
-                  <div class="order-card__item-qty">3 кг</div>
-                </div>
-              </div>
-              <div class="order-card__item">
-                <img class="order-card__item-img" src="img/summer-3.jpg" alt="Macarons ассорти">
-                <div>
-                  <div class="order-card__item-name">Macarons ассорти</div>
-                  <div class="order-card__item-qty">12 шт</div>
-                </div>
-              </div>
-            </div>
-
-            <!-- Трекер доставки -->
-            <div class="order-card__tracker is-open" id="tracker1">
-              <div class="tracker" style="position: relative;">
-                <div class="tracker__line">
-                  <div class="tracker__line-fill" style="width: 62%;"></div>
-                </div>
-                <div class="tracker__step tracker__step--done">
-                  <div class="tracker__dot"></div>
-                  <div class="tracker__label">Оформлен</div>
-                </div>
-                <div class="tracker__step tracker__step--done">
-                  <div class="tracker__dot"></div>
-                  <div class="tracker__label">Готовится</div>
-                </div>
-                <div class="tracker__step tracker__step--current">
-                  <div class="tracker__dot"></div>
-                  <div class="tracker__label">В доставке</div>
-                </div>
-                <div class="tracker__step">
-                  <div class="tracker__dot"></div>
-                  <div class="tracker__label">Доставлен</div>
-                </div>
-              </div>
-            </div>
-
-            <div class="order-card__bottom">
-              <span class="order-card__total">5 850 &#8381;</span>
-              <div class="order-card__actions">
-                <button class="order-card__btn" type="button" onclick="toggleTracker('tracker1')">Отследить</button>
-              </div>
-            </div>
-          </div>
-
-          <!-- Заказ 2: Готовится -->
-          <div class="order-card">
-            <div class="order-card__top">
-              <div>
-                <span class="order-card__id">Заказ #1243</span>
-                <span class="order-card__date">7 мая 2026</span>
-              </div>
-              <span class="order-card__status order-card__status--cooking">Готовится</span>
-            </div>
-
-            <div class="order-card__items">
-              <div class="order-card__item">
-                <img class="order-card__item-img" src="img/картинки для сайта/3D-торты/Торт с бабочками.jpg" alt="3D-торт Сердце">
-                <div>
-                  <div class="order-card__item-name">3D-торт Сердце</div>
-                  <div class="order-card__item-qty">2 кг</div>
-                </div>
-              </div>
-            </div>
-
-            <div class="order-card__tracker" id="tracker2">
-              <div class="tracker" style="position: relative;">
-                <div class="tracker__line">
-                  <div class="tracker__line-fill" style="width: 35%;"></div>
-                </div>
-                <div class="tracker__step tracker__step--done">
-                  <div class="tracker__dot"></div>
-                  <div class="tracker__label">Оформлен</div>
-                </div>
-                <div class="tracker__step tracker__step--current">
-                  <div class="tracker__dot"></div>
-                  <div class="tracker__label">Готовится</div>
-                </div>
-                <div class="tracker__step">
-                  <div class="tracker__dot"></div>
-                  <div class="tracker__label">В доставке</div>
-                </div>
-                <div class="tracker__step">
-                  <div class="tracker__dot"></div>
-                  <div class="tracker__label">Доставлен</div>
-                </div>
-              </div>
-            </div>
-
-            <div class="order-card__bottom">
-              <span class="order-card__total">4 200 &#8381;</span>
-              <div class="order-card__actions">
-                <button class="order-card__btn" type="button" onclick="toggleTracker('tracker2')">Отследить</button>
-              </div>
-            </div>
-          </div>
-
-          <!-- Заказ 3: Доставлен -->
-          <div class="order-card">
-            <div class="order-card__top">
-              <div>
-                <span class="order-card__id">Заказ #1198</span>
-                <span class="order-card__date">28 апреля 2026</span>
-              </div>
-              <span class="order-card__status order-card__status--delivered">Доставлен</span>
-            </div>
-
-            <div class="order-card__items">
-              <div class="order-card__item">
-                <img class="order-card__item-img" src="img/картинки для сайта/Свадебные торты/Свадебный торт с бусинами.jpg" alt="Свадебный торт Элегант">
-                <div>
-                  <div class="order-card__item-name">Свадебный торт «Элегант»</div>
-                  <div class="order-card__item-qty">5 кг</div>
-                </div>
-              </div>
-              <div class="order-card__item">
-                <img class="order-card__item-img" src="img/summer-5.jpg" alt="Чизкейк классический">
-                <div>
-                  <div class="order-card__item-name">Чизкейк классический</div>
-                  <div class="order-card__item-qty">1.5 кг</div>
-                </div>
-              </div>
-            </div>
-
-            <div class="order-card__bottom">
-              <span class="order-card__total">12 300 &#8381;</span>
-              <div class="order-card__actions">
-                <button class="order-card__btn" type="button" onclick="repeatOrder(1198)">Повторить заказ</button>
-              </div>
-            </div>
-          </div>
-
-          <!-- Заказ 4: Доставлен -->
-          <div class="order-card">
-            <div class="order-card__top">
-              <div>
-                <span class="order-card__id">Заказ #1152</span>
-                <span class="order-card__date">15 апреля 2026</span>
-              </div>
-              <span class="order-card__status order-card__status--delivered">Доставлен</span>
-            </div>
-
-            <div class="order-card__items">
-              <div class="order-card__item">
-                <img class="order-card__item-img" src="img/картинки для сайта/Торты/Торт Праздничный шик.jpg" alt="Торт Праздничный шик">
-                <div>
-                  <div class="order-card__item-name">Торт Праздничный шик</div>
-                  <div class="order-card__item-qty">3 кг</div>
-                </div>
-              </div>
-            </div>
-
-            <div class="order-card__bottom">
-              <span class="order-card__total">4 500 &#8381;</span>
-              <div class="order-card__actions">
-                <button class="order-card__btn" type="button" onclick="repeatOrder(1152)">Повторить заказ</button>
-              </div>
-            </div>
-          </div>
-
-        </div>
+        <div class="lk__orders" id="ordersContainer"></div>
       </div>
 
       <!-- ======== Панель: Уведомления ======== -->
       <div class="lk__panel" data-panel="notifications">
-        <div class="lk__notifs">
-
-          <div class="notif notif--unread">
-            <div class="notif__icon notif__icon--promo">&#127873;</div>
-            <div class="notif__body">
-              <p class="notif__title">Скидка 15% на торты ко Дню Рождения</p>
-              <p class="notif__text">Только до 20 мая! Закажите торт из коллекции «На День Рождения» со скидкой 15%. Промокод: BIRTHDAY15</p>
-            </div>
-            <span class="notif__time">Сегодня</span>
-          </div>
-
-          <div class="notif notif--unread">
-            <div class="notif__icon notif__icon--order">&#9989;</div>
-            <div class="notif__body">
-              <p class="notif__title">Заказ #1247 передан курьеру</p>
-              <p class="notif__text">Ваш заказ уже в пути. Ожидаемое время доставки: 14:00 - 15:00</p>
-            </div>
-            <span class="notif__time">2 часа назад</span>
-          </div>
-
-          <div class="notif notif--unread">
-            <div class="notif__icon notif__icon--promo">&#127856;</div>
-            <div class="notif__body">
-              <p class="notif__title">Новая коллекция Macarons</p>
-              <p class="notif__text">Попробуйте 4 новых вкуса: лаванда-мёд, фисташка, манго-маракуйя и солёная карамель</p>
-            </div>
-            <span class="notif__time">Вчера</span>
-          </div>
-
-          <div class="notif">
-            <div class="notif__icon notif__icon--order">&#128230;</div>
-            <div class="notif__body">
-              <p class="notif__title">Заказ #1198 доставлен</p>
-              <p class="notif__text">Ваш заказ успешно доставлен. Приятного аппетита!</p>
-            </div>
-            <span class="notif__time">28 апр</span>
-          </div>
-
-          <div class="notif">
-            <div class="notif__icon notif__icon--info">&#128276;</div>
-            <div class="notif__body">
-              <p class="notif__title">Изменения в графике работы</p>
-              <p class="notif__text">С 1 по 5 мая мы работаем по праздничному графику: 10:00 - 18:00</p>
-            </div>
-            <span class="notif__time">30 апр</span>
-          </div>
-
-        </div>
+        <div class="lk__notifs" id="notifsContainer"></div>
       </div>
 
     </div>
@@ -1180,71 +956,294 @@
   <script src="js/app.js"></script>
 
   <script>
-    // ====== Табы ======
-    const tabs = document.querySelectorAll('.lk__tab');
-    const panels = document.querySelectorAll('.lk__panel');
+    (function() {
+      const user = getCurrentUser();
 
-    tabs.forEach(tab => {
-      tab.addEventListener('click', () => {
-        const target = tab.dataset.tab;
+      // Если не авторизован — на страницу входа
+      if (!user) {
+        location.href = 'auth.html';
+        return;
+      }
 
-        tabs.forEach(t => t.classList.remove('is-active'));
-        tab.classList.add('is-active');
+      // ====== Заполняем профиль ======
+      const form = document.getElementById('profileForm');
+      function fillProfile() {
+        const u = getCurrentUser();
+        if (!u) return;
+        form.querySelector('[name="surname"]').value = u.surname || '';
+        form.querySelector('[name="name"]').value = u.name || '';
+        form.querySelector('[name="patronymic"]').value = u.patronymic || '';
+        // Форматируем телефон
+        const d = (u.phone || '').replace(/\D/g, '');
+        if (d.length === 11) {
+          form.querySelector('[name="phone"]').value = '+7 (' + d.slice(1,4) + ') ' + d.slice(4,7) + '-' + d.slice(7,9) + '-' + d.slice(9,11);
+        } else {
+          form.querySelector('[name="phone"]').value = u.phone || '';
+        }
+        form.querySelector('[name="email"]').value = u.email || '';
+        form.querySelector('[name="address"]').value = u.address || '';
+      }
+      fillProfile();
 
-        panels.forEach(p => {
-          p.classList.toggle('is-active', p.dataset.panel === target);
+      // Выход
+      document.getElementById('logoutBtn').addEventListener('click', () => {
+        logoutUser();
+        location.href = 'auth.html';
+      });
+
+      // ====== Табы ======
+      const tabs = document.querySelectorAll('.lk__tab');
+      const panels = document.querySelectorAll('.lk__panel');
+
+      tabs.forEach(tab => {
+        tab.addEventListener('click', () => {
+          const target = tab.dataset.tab;
+          tabs.forEach(t => t.classList.remove('is-active'));
+          tab.classList.add('is-active');
+          panels.forEach(p => p.classList.toggle('is-active', p.dataset.panel === target));
         });
       });
-    });
 
-    // ====== Редактирование профиля ======
-    const editBtn = document.getElementById('editProfileBtn');
-    const saveBtn = document.getElementById('saveProfileBtn');
-    const cancelBtn = document.getElementById('cancelProfileBtn');
-    const profileForm = document.getElementById('profileForm');
-    let savedValues = {};
+      // ====== Редактирование профиля ======
+      const editBtn = document.getElementById('editProfileBtn');
+      const saveBtn = document.getElementById('saveProfileBtn');
+      const cancelBtn = document.getElementById('cancelProfileBtn');
+      let savedValues = {};
 
-    editBtn.addEventListener('click', () => {
-      const inputs = profileForm.querySelectorAll('.lk__field-input');
-      savedValues = {};
-      inputs.forEach(inp => {
-        savedValues[inp.name] = inp.value;
-        inp.disabled = false;
+      editBtn.addEventListener('click', () => {
+        const inputs = form.querySelectorAll('.lk__field-input');
+        savedValues = {};
+        inputs.forEach(inp => {
+          savedValues[inp.name] = inp.value;
+          inp.disabled = false;
+        });
+        editBtn.style.display = 'none';
+        saveBtn.style.display = '';
+        cancelBtn.style.display = '';
       });
-      editBtn.style.display = 'none';
-      saveBtn.style.display = '';
-      cancelBtn.style.display = '';
-    });
 
-    saveBtn.addEventListener('click', () => {
-      const inputs = profileForm.querySelectorAll('.lk__field-input');
-      inputs.forEach(inp => inp.disabled = true);
-      editBtn.style.display = '';
-      saveBtn.style.display = 'none';
-      cancelBtn.style.display = 'none';
-    });
+      saveBtn.addEventListener('click', () => {
+        const inputs = form.querySelectorAll('.lk__field-input');
+        inputs.forEach(inp => inp.disabled = true);
+        editBtn.style.display = '';
+        saveBtn.style.display = 'none';
+        cancelBtn.style.display = 'none';
 
-    cancelBtn.addEventListener('click', () => {
-      const inputs = profileForm.querySelectorAll('.lk__field-input');
-      inputs.forEach(inp => {
-        inp.value = savedValues[inp.name] || inp.value;
-        inp.disabled = true;
+        // Сохраняем в localStorage
+        const phoneRaw = form.querySelector('[name="phone"]').value;
+        updateUserProfile(user.id, {
+          surname: form.querySelector('[name="surname"]').value.trim(),
+          name: form.querySelector('[name="name"]').value.trim(),
+          patronymic: form.querySelector('[name="patronymic"]').value.trim(),
+          phone: normalizePhone(phoneRaw),
+          email: form.querySelector('[name="email"]').value.trim().toLowerCase(),
+          address: form.querySelector('[name="address"]').value.trim()
+        });
       });
-      editBtn.style.display = '';
-      saveBtn.style.display = 'none';
-      cancelBtn.style.display = 'none';
-    });
 
-    // ====== Трекер доставки ======
-    function toggleTracker(id) {
-      const el = document.getElementById(id);
-      if (el) el.classList.toggle('is-open');
-    }
+      cancelBtn.addEventListener('click', () => {
+        const inputs = form.querySelectorAll('.lk__field-input');
+        inputs.forEach(inp => {
+          inp.value = savedValues[inp.name] || inp.value;
+          inp.disabled = true;
+        });
+        editBtn.style.display = '';
+        saveBtn.style.display = 'none';
+        cancelBtn.style.display = 'none';
+      });
 
-    // ====== Повторить заказ ======
-    function repeatOrder(orderId) {
-      alert('Заказ #' + orderId + ' добавлен в корзину. Перейдите в корзину для оформления.');
-    }
+      // ====== Заказы ======
+      function renderOrders() {
+        const container = document.getElementById('ordersContainer');
+        const orders = getUserOrders(user.id);
+
+        if (!orders.length) {
+          container.innerHTML = `
+            <div class="lk__empty">
+              <div class="lk__empty-icon">&#128230;</div>
+              <p class="lk__empty-text">У вас пока нет заказов</p>
+              <a class="lk__btn" href="index.html#catalog">Перейти в каталог</a>
+            </div>`;
+          return;
+        }
+
+        // Сортируем: новые сверху
+        orders.sort((a, b) => new Date(b.createdAtISO) - new Date(a.createdAtISO));
+
+        // Обновляем бейдж на табе заказов
+        const ordersTab = document.querySelector('[data-tab="orders"]');
+        if (ordersTab) {
+          const existing = ordersTab.querySelector('.lk__tab-badge');
+          if (existing) existing.remove();
+          if (orders.length > 0) {
+            const badge = document.createElement('span');
+            badge.className = 'lk__tab-badge';
+            badge.textContent = orders.length;
+            ordersTab.appendChild(badge);
+          }
+        }
+
+        container.innerHTML = orders.map(order => {
+          const statusMap = {
+            'new': { label: 'Новый', cls: 'order-card__status--cooking', step: 0 },
+            'confirmed': { label: 'Подтверждён', cls: 'order-card__status--cooking', step: 1 },
+            'cooking': { label: 'Готовится', cls: 'order-card__status--cooking', step: 1 },
+            'delivery': { label: 'В доставке', cls: 'order-card__status--progress', step: 2 },
+            'delivered': { label: 'Доставлен', cls: 'order-card__status--delivered', step: 3 }
+          };
+          const st = statusMap[order.status] || statusMap['new'];
+          const date = new Date(order.createdAtISO).toLocaleDateString('ru-RU', { day: 'numeric', month: 'long', year: 'numeric' });
+          const shortId = order.id.slice(0, 8);
+
+          const trackerSteps = ['Оформлен', 'Готовится', 'В доставке', 'Доставлен'];
+          const fillPct = Math.round((st.step / (trackerSteps.length - 1)) * 100);
+
+          return `
+            <div class="order-card">
+              <div class="order-card__top">
+                <div>
+                  <span class="order-card__id">Заказ #${escapeHtml(shortId)}</span>
+                  <span class="order-card__date">${date}</span>
+                </div>
+                <span class="order-card__status ${st.cls}">${st.label}</span>
+              </div>
+
+              <div class="order-card__items">
+                ${order.items.map(it => `
+                  <div class="order-card__item">
+                    <div class="order-card__item-img" style="background:#f0ebe8;display:flex;align-items:center;justify-content:center;font-size:20px;width:44px;height:44px;border-radius:8px;">&#127856;</div>
+                    <div>
+                      <div class="order-card__item-name">${escapeHtml(it.title)}</div>
+                      <div class="order-card__item-qty">${it.qty} шт. &middot; ${escapeHtml((it.optionsLabel?.coulis || '') + ' / ' + (it.optionsLabel?.base || ''))}</div>
+                    </div>
+                  </div>
+                `).join('')}
+              </div>
+
+              <div class="order-card__tracker is-open">
+                <div class="tracker" style="position: relative;">
+                  <div class="tracker__line">
+                    <div class="tracker__line-fill" style="width: ${fillPct}%;"></div>
+                  </div>
+                  ${trackerSteps.map((label, i) => {
+                    const cls = i < st.step ? 'tracker__step--done' : i === st.step ? 'tracker__step--current' : '';
+                    return `<div class="tracker__step ${cls}"><div class="tracker__dot"></div><div class="tracker__label">${label}</div></div>`;
+                  }).join('')}
+                </div>
+              </div>
+
+              <div class="order-card__bottom">
+                <span class="order-card__total">${formatRUB(order.totalPrice)}</span>
+                <div class="order-card__actions">
+                  <span class="order-card__date">Доставка: ${order.deliveryDateISO ? humanDate(order.deliveryDateISO) : '—'}, ${order.deliveryTime || '—'}</span>
+                  ${order.status === 'delivered' ? `<button class="order-card__btn" type="button" data-repeat="${escapeHtml(order.id)}">Повторить</button>` : ''}
+                </div>
+              </div>
+            </div>`;
+        }).join('');
+
+        // Bind repeat
+        container.querySelectorAll('[data-repeat]').forEach(btn => {
+          btn.addEventListener('click', () => {
+            const orderId = btn.dataset.repeat;
+            const order = loadOrders().find(o => o.id === orderId);
+            if (!order) return;
+            // Добавляем товары в корзину
+            const cart = loadCart();
+            order.items.forEach(it => cart.push({ ...it, id: crypto.randomUUID?.() || String(Date.now() + Math.random()) }));
+            saveCart(cart);
+            setCartBadge();
+            alert('Товары из заказа добавлены в корзину.');
+          });
+        });
+      }
+
+      renderOrders();
+
+      // ====== Уведомления ======
+      function renderNotifications() {
+        const container = document.getElementById('notifsContainer');
+        const orders = getUserOrders(user.id);
+
+        const notifs = [];
+
+        // Генерируем уведомления из заказов
+        orders.forEach(o => {
+          const shortId = o.id.slice(0, 8);
+          const date = new Date(o.createdAtISO);
+          const now = new Date();
+          const diffDays = Math.floor((now - date) / 86400000);
+          const timeLabel = diffDays === 0 ? 'Сегодня' : diffDays === 1 ? 'Вчера' : date.toLocaleDateString('ru-RU', { day: 'numeric', month: 'short' });
+
+          if (o.status === 'new' || o.status === 'confirmed') {
+            notifs.push({
+              icon: '&#9989;', iconCls: 'notif__icon--order', unread: diffDays < 2,
+              title: 'Заказ #' + shortId + ' оформлен',
+              text: 'Ваш заказ принят. Дата доставки: ' + (o.deliveryDateISO ? humanDate(o.deliveryDateISO) : '—'),
+              time: timeLabel, date
+            });
+          }
+          if (o.status === 'cooking') {
+            notifs.push({
+              icon: '&#127856;', iconCls: 'notif__icon--promo', unread: diffDays < 2,
+              title: 'Заказ #' + shortId + ' готовится',
+              text: 'Кондитер уже приступил к приготовлению вашего заказа.',
+              time: timeLabel, date
+            });
+          }
+          if (o.status === 'delivery') {
+            notifs.push({
+              icon: '&#128666;', iconCls: 'notif__icon--order', unread: true,
+              title: 'Заказ #' + shortId + ' в доставке',
+              text: 'Курьер уже в пути. Ожидаемое время: ' + (o.deliveryTime || '—'),
+              time: timeLabel, date
+            });
+          }
+          if (o.status === 'delivered') {
+            notifs.push({
+              icon: '&#128230;', iconCls: 'notif__icon--order', unread: false,
+              title: 'Заказ #' + shortId + ' доставлен',
+              text: 'Заказ успешно доставлен. Приятного аппетита!',
+              time: timeLabel, date
+            });
+          }
+        });
+
+        // Добавляем промо-уведомление
+        notifs.push({
+          icon: '&#127873;', iconCls: 'notif__icon--promo', unread: true,
+          title: 'Скидка 15% на торты ко Дню Рождения',
+          text: 'Закажите торт из коллекции «На День Рождения» со скидкой 15%. Промокод: BIRTHDAY15',
+          time: 'Акция', date: new Date(0) // в конец
+        });
+
+        // Сортируем: новые сверху
+        notifs.sort((a, b) => b.date - a.date);
+
+        // Обновляем бейдж
+        const unreadCount = notifs.filter(n => n.unread).length;
+        const badge = document.getElementById('notifBadge');
+        if (badge) badge.textContent = unreadCount || '';
+
+        if (!notifs.length) {
+          container.innerHTML = '<div class="lk__empty"><div class="lk__empty-icon">&#128276;</div><p class="lk__empty-text">Нет уведомлений</p></div>';
+          return;
+        }
+
+        container.innerHTML = notifs.map(n => `
+          <div class="notif ${n.unread ? 'notif--unread' : ''}">
+            <div class="notif__icon ${n.iconCls}">${n.icon}</div>
+            <div class="notif__body">
+              <p class="notif__title">${n.title}</p>
+              <p class="notif__text">${n.text}</p>
+            </div>
+            <span class="notif__time">${n.time}</span>
+          </div>
+        `).join('');
+      }
+
+      renderNotifications();
+    })();
   </script>
 </body>
 </html>

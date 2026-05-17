@@ -1293,19 +1293,18 @@
 
     // Обновление цены на кнопке
     function updateOrderButton() {
-      const step = product.quantityStep || 1;
-      const numberOfSets = currentQuantity / step;
-      const totalPrice = currentPrice * numberOfSets;
+      const totalPrice = currentPrice * currentQuantity;
       document.getElementById('orderBtn').textContent = `Заказать (${totalPrice.toLocaleString('ru-RU')} ₽)`;
     }
 
     // Обработчики количества
     document.getElementById('decreaseQty').addEventListener('click', () => {
-      const minQty = product.minQuantity || product.quantityStep || 1;
+      const minQty = product.minQuantity || 1;
       const step = product.quantityStep || 1;
 
       if (currentQuantity > minQty) {
         currentQuantity -= step;
+        if (currentQuantity < minQty) currentQuantity = minQty;
         document.getElementById('quantityInput').value = currentQuantity;
         updateOrderButton();
       }
@@ -1357,10 +1356,69 @@
       });
     });
 
-    // Кнопка заказать
+    // Кнопка заказать — добавляет товар в корзину
     document.getElementById('orderBtn').addEventListener('click', function() {
-      alert('Функция добавления в корзину будет реализована позже');
-      // Здесь потом будет добавление в корзину
+      const cart = loadCart();
+
+      if (product.type === 'cake') {
+        // Для тортов — нужна начинка и вес
+        if (!selectedFilling) { alert('Пожалуйста, выберите начинку'); return; }
+        if (!selectedWeight) { alert('Пожалуйста, выберите вес'); return; }
+
+        const fillingPrice = selectedFilling.price || 0;
+        const unitPrice = selectedWeight.price + fillingPrice;
+        const optKey = selectedWeight.kg + '_' + selectedFilling.id;
+
+        const existing = cart.find(it => it.productId === productId && it.optionKey === optKey);
+        if (existing) {
+          existing.qty += currentQuantity;
+        } else {
+          cart.push({
+            id: crypto.randomUUID?.() || String(Date.now() + Math.random()),
+            productId: productId,
+            title: product.name,
+            image: product.images[0] || '',
+            qty: currentQuantity,
+            unitPrice: unitPrice,
+            prepHours: 3,
+            optionKey: optKey,
+            options: { weight: selectedWeight.kg, filling: selectedFilling.id },
+            optionsLabel: { coulis: selectedFilling.name, base: selectedWeight.kg + ' кг' }
+          });
+        }
+      } else {
+        // Для десертов
+        const existing = cart.find(it => it.productId === productId && !it.optionKey);
+        if (existing) {
+          existing.qty += currentQuantity;
+        } else {
+          const packInfo = product.quantityPerPack > 1 ? ' (набор ' + product.quantityPerPack + ' шт)' : '';
+          cart.push({
+            id: crypto.randomUUID?.() || String(Date.now() + Math.random()),
+            productId: productId,
+            title: product.name + packInfo,
+            image: product.images[0] || '',
+            qty: currentQuantity,
+            unitPrice: product.price,
+            prepHours: 1,
+            options: {},
+            optionsLabel: { coulis: '', base: '' }
+          });
+        }
+      }
+
+      saveCart(cart);
+      setCartBadge();
+
+      // Визуальная обратная связь
+      const btn = document.getElementById('orderBtn');
+      const origText = btn.textContent;
+      btn.textContent = 'Добавлено в корзину!';
+      btn.style.background = '#4caf50';
+      setTimeout(() => {
+        btn.textContent = origText;
+        btn.style.background = '';
+      }, 1500);
     });
 
     // Логика кнопки «Назад»
