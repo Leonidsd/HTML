@@ -367,6 +367,7 @@ img{ max-width:100%; display:block; }
   border-radius: 14px;
   padding: 10px 12px;
   background:#fff;
+  color: #1f1f1f;
   outline:none;
 }
 .input:focus, .select:focus{ border-color: rgba(0,0,0,.25); }
