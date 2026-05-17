@@ -3203,11 +3203,11 @@ font-size: 16px;
   /* Container: чуть меньше боковые */
   .container{ width: min(var(--container), calc(100% - 32px)); }
 
-  /* Hero background: fit width to screen */
-  .page-bg{ background-size: 100% auto; background-position: center top; }
+  /* Hero background: slightly wider than screen, small overflow OK */
+  .page-bg{ background-size: 115% auto; background-position: center top; }
 
   /* Hero */
-  .hero{ min-height: 80vh; padding: 100px 0 60px; }
+  .hero{ min-height: 60vh; padding: 100px 0 50px; }
   .hero__title{ font-size: 36px; }
   .hero__text{ font-size: 15px; }
   .hero__actions{ align-items: flex-start; }
@@ -3294,11 +3294,11 @@ font-size: 16px;
   /* Container: минимальные поля */
   .container{ width: calc(100% - 24px); }
 
-  /* Hero background: fit width to screen */
-  .page-bg{ background-size: 100% auto; background-position: center top; }
+  /* Hero background: slightly wider than screen, small overflow OK */
+  .page-bg{ background-size: 130% auto; background-position: center top; }
 
-  /* Hero */
-  .hero{ min-height: 70vh; padding: 90px 0 50px; }
+  /* Hero: height matches photo so text stays on the image */
+  .hero{ min-height: 45vh; padding: 90px 0 50px; }
   .hero__title{ font-size: 28px; }
   .hero__text{ font-size: 14px; }
   .hero__actions{ flex-direction: column; align-items: flex-start; }
