@@ -3209,7 +3209,7 @@ font-size: 16px;
   .page-bg__overlay{ bottom: auto; height: 60vh; }
 
   /* Hero */
-  .hero{ min-height: 60vh; padding: 100px 0 50px; }
+  .hero{ min-height: 60vh; padding: 100px 0 24px; }
   .hero__title{ font-size: 36px; }
   .hero__text{ font-size: 15px; }
   .hero__actions{ align-items: flex-start; }
@@ -3301,7 +3301,7 @@ font-size: 16px;
   .page-bg__overlay{ bottom: auto; height: 45vh; }
 
   /* Hero: height matches photo so text stays on the image */
-  .hero{ min-height: 45vh; padding: 90px 0 50px; }
+  .hero{ min-height: 45vh; padding: 90px 0 20px; }
   .hero__title{ font-size: 28px; }
   .hero__text{ font-size: 14px; }
   .hero__actions{ flex-direction: column; align-items: flex-start; }
