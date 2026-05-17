@@ -3242,11 +3242,11 @@ font-size: 16px;
   .fillings__meta{ margin-left: 0; }
 
   /* Story */
-  .story{ padding: 60px 0; margin-top: 0; }
+  .story{ padding: 30px 0; margin-top: 0; }
   .story__inner{ grid-template-columns: 1fr; width: calc(100% - 24px); margin: 0 auto; }
   .story__panel{
     clip-path: none;
-    padding: 32px 20px;
+    padding: 24px 20px;
     margin: 0;
   }
   .story__title{ font-size: 36px; }
@@ -3339,10 +3339,11 @@ font-size: 16px;
   .fillings-card{ height: 280px; }
 
   /* Story */
-  .story{ padding: 50px 0; margin-top: 0; }
+  .story{ padding: 24px 0; margin-top: 0; }
   .story__inner{ width: calc(100% - 32px); margin: 0 auto; }
+  .story__panel{ padding: 20px 16px; }
   .story__title{ font-size: 28px; }
-  .story__media{ height: 200px; margin-top: 24px; max-width: 85%; }
+  .story__media{ height: 200px; margin-top: 20px; max-width: 85%; }
   .story__text{ font-size: 14px; }
 
   /* Discounts */
