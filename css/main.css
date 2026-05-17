@@ -2919,6 +2919,7 @@ font-size: 16px;
   background: transparent;
   font-size: 22px;
   cursor: pointer;
+  color: inherit;
 }
 
 .filtersDrawer__sort{
@@ -2947,6 +2948,7 @@ font-size: 16px;
   font-size: 13px;
   opacity: .55;
   cursor: pointer;
+  color: inherit;
 }
 .sortTab.is-active{ opacity: 1; }
 
@@ -3046,6 +3048,7 @@ font-size: 16px;
   letter-spacing: .08em;
   text-transform: uppercase;
   cursor: pointer;
+  font-size: 14px;
 }
 
 .btnReset{
@@ -3056,6 +3059,8 @@ font-size: 16px;
   letter-spacing: .08em;
   opacity: .8;
   cursor: pointer;
+  color: inherit;
+  font-size: 13px;
 }
 
 /* OPEN state */
@@ -3281,6 +3286,10 @@ font-size: 16px;
   .collection-hero__title{ font-size: 36px; }
   .collect-card__img{ height: 280px; }
 
+  /* Filters drawer — tablet */
+  .filtersDrawer{ padding: 36px 32px 28px; }
+  .filtersDrawer__title{ font-size: 34px; }
+
   /* Mega menu / modals */
   .mega{ height: auto; max-height: 80vh; overflow-y: auto; }
   .mega__grid--catalog{ grid-template-columns: 1fr; }
@@ -3370,6 +3379,16 @@ font-size: 16px;
   .collection-hero__title{ font-size: 28px; }
   .collection-hero__text{ margin-left: 0 !important; }
   .collect-card__img{ height: 240px; }
+
+  /* Filters drawer — mobile */
+  .filtersDrawer{ padding: 28px 20px 24px; width: 100vw; }
+  .filtersDrawer__title{ font-size: 28px; }
+  .filtersDrawer__sort{ grid-template-columns: 1fr; gap: 10px; }
+  .filtersDrawer__sortTabs{ flex-wrap: wrap; gap: 8px; }
+  .sortTab{ font-size: 12px; }
+  .filterBlock__summary{ font-size: 16px; }
+  .btnApply{ height: 48px; font-size: 13px; }
+  .btnReset{ height: 38px; font-size: 12px; }
 
   /* Iframes responsive */
   iframe{ max-width: 100%; height: auto; min-height: 250px; }
