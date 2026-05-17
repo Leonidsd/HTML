@@ -3219,7 +3219,7 @@ font-size: 16px;
   .casual__head{ grid-template-columns: 1fr; gap: 16px; margin-bottom: 20px; }
   .casual__title{ font-size: 36px; }
   .casual__meta{ margin-left: 0; }
-  .casual__arrows{ margin-left: 0; padding-top: 0; margin-top: 0; }
+  .casual__arrows{ margin-left: 0; padding-top: 0; margin-top: 8px; }
   .casual-card{ width: 80vw; }
   .casual-card__img{ height: 200px; }
   .toorder{ padding: 60px 0; }
@@ -3297,7 +3297,7 @@ font-size: 16px;
   .container{ width: calc(100% - 24px); }
 
   /* Hero background: fixed for parallax, cream bg below image, limited overlay */
-  .page-bg{ background-size: 130% auto; background-position: center top; background-color: #f3f1ed; }
+  .page-bg{ background-size: 140% auto; background-position: center top; background-color: #f3f1ed; }
   .page-bg__overlay{ bottom: auto; height: 45vh; }
 
   /* Hero: height matches photo so text stays on the image */
