@@ -670,6 +670,15 @@
             </svg>
           </a>
 
+
+          <!-- Уведомления -->
+          <a class="icon-btn icon-btn--ghost" href="profile.html?tab=notifications" aria-label="Уведомления" id="notifBell" style="display:none;position:relative;">
+            <svg width="18" height="18" viewBox="0 0 24 24" aria-hidden="true">
+              <path fill="currentColor" d="M12 22c1.1 0 2-.9 2-2h-4c0 1.1.9 2 2 2zm6-6v-5c0-3.07-1.63-5.64-4.5-6.32V4c0-.83-.67-1.5-1.5-1.5s-1.5.67-1.5 1.5v.68C7.64 5.36 6 7.92 6 11v5l-2 2v1h16v-1l-2-2z"/>
+            </svg>
+            <span class="badge badge--on-dark" id="notifBellBadge" style="display:none;">0</span>
+          </a>
+
           <!-- Сумочка (корзина) -->
           <button class="icon-btn icon-btn--ghost" id="btnCart" type="button" aria-label="Открыть корзину">
             <svg width="18" height="18" viewBox="0 0 24 24" aria-hidden="true">
@@ -780,7 +789,7 @@
   <!-- правая часть: ссылки -->
   <div class="mega-tile__side">
     <div class="mega-tile__sideLinks">
-      <a class="mega-link" href="#reviews">Отзывы</a>
+      <a class="mega-link" href="reviews.html">Отзывы</a>
       <a class="mega-link" href="faq.html">Вопрос-ответ</a>
     </div>
   </div>
@@ -1047,7 +1056,7 @@
       <nav class="site-footer__col" aria-label="Клиентам">
         <div class="site-footer__title">Клиентам</div>
         <a class="site-footer__link" href="delivery.html">Доставка и оплата</a>
-        <a class="site-footer__link" href="#">Отзывы</a>
+        <a class="site-footer__link" href="reviews.html">Отзывы</a>
         <a class="site-footer__link" href="faq.html">Вопрос-ответ</a>
       </nav>
     </div>
@@ -1067,7 +1076,7 @@
   </div>
 </footer>
 
-  <script src="config.js"></script>
+  <script src="js/api.js"></script>
   <script src="js/app.js"></script>
   <script src="js/products-data.js"></script>
 
@@ -1118,6 +1127,8 @@
       // Проверяем тип товара
       if (product.type === 'cake') {
         loadCakeProduct();
+      } else if (product.type === 'bento') {
+        loadBentoProduct();
       } else {
         loadDessertProduct();
       }
@@ -1291,6 +1302,107 @@
 
     }
 
+    // Загрузка бенто-торта
+    function loadBentoProduct() {
+      // Скрываем пустой блок мета-информации
+      document.getElementById('productMeta').style.display = 'none';
+
+      document.getElementById('productPrice').textContent = 'от ' + product.weights[0].price.toLocaleString('ru-RU') + ' ₽';
+
+      // Автоматически выбираем единственный вес
+      selectedWeight = product.weights[0];
+
+      // Показываем только селектор начинки (вес не показываем, т.к. он один)
+      document.getElementById('fillingSelector').classList.add('active');
+
+      // Заполняем начинки
+      const fillingDropdown = document.getElementById('fillingDropdown');
+      const fillingTrigger = document.getElementById('fillingTrigger');
+      const fillingList = document.getElementById('fillingList');
+      fillingList.innerHTML = '';
+
+      // Находим самую дешевую начинку
+      let cheapestFilling = product.fillings[0];
+      product.fillings.forEach(filling => {
+        const price = filling.price || 0;
+        if (price < (cheapestFilling.price || 0)) {
+          cheapestFilling = filling;
+        }
+      });
+
+      product.fillings.forEach(filling => {
+        const item = document.createElement('div');
+        item.className = 'filling-dropdown__item';
+        item.dataset.id = filling.id;
+        item.dataset.price = filling.price || 0;
+
+        const nameSpan = document.createElement('span');
+        nameSpan.className = 'filling-dropdown__item-name';
+        nameSpan.textContent = filling.name;
+        item.appendChild(nameSpan);
+
+        if (filling.price > 0) {
+          const priceSpan = document.createElement('span');
+          priceSpan.className = 'filling-dropdown__item-price';
+          priceSpan.textContent = `+${filling.price} ₽`;
+          item.appendChild(priceSpan);
+        } else {
+          const stdSpan = document.createElement('span');
+          stdSpan.className = 'filling-dropdown__item-standard';
+          stdSpan.textContent = 'стандарт';
+          item.appendChild(stdSpan);
+        }
+
+        item.addEventListener('click', function() {
+          fillingList.querySelectorAll('.filling-dropdown__item').forEach(i => i.classList.remove('selected'));
+          this.classList.add('selected');
+          selectedFilling = product.fillings.find(f => f.id === this.dataset.id);
+          const priceText = selectedFilling.price > 0 ? ` (+${selectedFilling.price} ₽)` : '';
+          fillingTrigger.textContent = selectedFilling.name + priceText;
+          fillingDropdown.classList.remove('open');
+          // Сразу пересчитываем цену
+          updateBentoPrice();
+        });
+
+        fillingList.appendChild(item);
+      });
+
+      // Выбираем самую дешевую начинку по умолчанию
+      selectedFilling = cheapestFilling;
+      fillingTrigger.textContent = cheapestFilling.name;
+      fillingList.querySelector(`[data-id="${cheapestFilling.id}"]`).classList.add('selected');
+
+      // Открытие/закрытие дропдауна
+      fillingTrigger.addEventListener('click', function() {
+        fillingDropdown.classList.toggle('open');
+      });
+
+      // Закрытие при клике вне
+      document.addEventListener('click', function(e) {
+        if (!fillingDropdown.contains(e.target)) {
+          fillingDropdown.classList.remove('open');
+        }
+      });
+
+      // Показываем селектор количества
+      document.getElementById('quantitySelector').style.display = 'block';
+      currentQuantity = 1;
+      document.getElementById('quantityInput').value = 1;
+
+      // Обновляем цену
+      updateBentoPrice();
+    }
+
+    // Обновление цены для бенто
+    function updateBentoPrice() {
+      if (!selectedFilling || !selectedWeight) return;
+      const basePrice = selectedWeight.price;
+      const fillingPrice = selectedFilling.price || 0;
+      currentPrice = basePrice + fillingPrice;
+      document.getElementById('productPrice').textContent = currentPrice.toLocaleString('ru-RU') + ' ₽';
+      updateOrderButton();
+    }
+
     // Обновление цены на кнопке
     function updateOrderButton() {
       const totalPrice = currentPrice * currentQuantity;
@@ -1306,6 +1418,7 @@
         currentQuantity -= step;
         if (currentQuantity < minQty) currentQuantity = minQty;
         document.getElementById('quantityInput').value = currentQuantity;
+        if (product.type === 'bento') updateBentoPrice();
         updateOrderButton();
       }
     });
@@ -1314,6 +1427,7 @@
       const step = product.quantityStep || 1;
       currentQuantity += step;
       document.getElementById('quantityInput').value = currentQuantity;
+      if (product.type === 'bento') updateBentoPrice();
       updateOrderButton();
     });
 
@@ -1381,6 +1495,35 @@
             qty: currentQuantity,
             unitPrice: unitPrice,
             prepHours: 3,
+            minQty: product.minQuantity || 1,
+            qtyStep: product.quantityStep || 1,
+            optionKey: optKey,
+            options: { weight: selectedWeight.kg, filling: selectedFilling.id },
+            optionsLabel: { coulis: selectedFilling.name, base: selectedWeight.kg + ' кг' }
+          });
+        }
+      } else if (product.type === 'bento') {
+        // Для бенто — нужна только начинка (вес фиксированный)
+        if (!selectedFilling) { alert('Пожалуйста, выберите начинку'); return; }
+
+        const fillingPrice = selectedFilling.price || 0;
+        const unitPrice = selectedWeight.price + fillingPrice;
+        const optKey = selectedWeight.kg + '_' + selectedFilling.id;
+
+        const existing = cart.find(it => it.productId === productId && it.optionKey === optKey);
+        if (existing) {
+          existing.qty += currentQuantity;
+        } else {
+          cart.push({
+            id: crypto.randomUUID?.() || String(Date.now() + Math.random()),
+            productId: productId,
+            title: product.name,
+            image: product.images[0] || '',
+            qty: currentQuantity,
+            unitPrice: unitPrice,
+            prepHours: 2,
+            minQty: 1,
+            qtyStep: 1,
             optionKey: optKey,
             options: { weight: selectedWeight.kg, filling: selectedFilling.id },
             optionsLabel: { coulis: selectedFilling.name, base: selectedWeight.kg + ' кг' }
@@ -1401,6 +1544,8 @@
             qty: currentQuantity,
             unitPrice: product.price,
             prepHours: 1,
+            minQty: product.minQuantity || 1,
+            qtyStep: product.quantityStep || 1,
             options: {},
             optionsLabel: { coulis: '', base: '' }
           });

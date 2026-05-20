@@ -247,32 +247,6 @@ const productsData = {
   },
 
   // ЛЕТНЯЯ КОЛЛЕКЦИЯ
-  'summer-berry-basket': {
-    name: 'Торт «Ягодное лукошко»',
-    price: 0,
-    images: ['img/summer-1.jpg', 'img/summer-1b.jpg'],
-    type: 'cake',
-    weights: [
-      { kg: 3, price: 3300, servings: '12-15 человек' },
-      { kg: 6, price: 6200, servings: '25-30 человек' },
-      { kg: 9, price: 8800, servings: '35-40 человек' },
-      { kg: 12, price: 11000, servings: '45-50 человек' }
-    ],
-    fillings: [
-      { id: 'snikers', name: '«Сникерс»', price: 0 },
-      { id: 'red-velvet', name: '«Красный бархат»', price: 0 },
-      { id: 'carrot', name: '«Морковный»', price: 0 },
-      { id: 'berry', name: '«Ягодный»', price: 0 },
-      { id: 'banana-choco', name: '«Банан-Шоколад»', price: 300 },
-      { id: 'cherry', name: '«Вишневый»', price: 350 },
-      { id: 'tropical', name: '«Тропик»', price: 400 },
-      { id: 'tiramisu', name: '«Тирамису»', price: 400 }
-    ],
-    description: 'Воздушный торт с летними ягодами в виде изящного лукошка.',
-    descriptionFull: 'Нежный бисквитный торт с ванильным кремом, украшенный свежими сезонными ягодами: клубникой, малиной, голубикой и ежевикой. Оригинальное оформление в виде плетёного лукошка создаёт атмосферу летнего праздника.',
-    assortment: []
-  },
-
   'summer-3d-raspberry': {
     name: '3D Пирожные с сублимированной малиной',
     price: 750,
@@ -297,32 +271,6 @@ const productsData = {
     servings: '6 человек',
     description: 'Воздушный зефир в хрустящем вафельном стаканчике.',
     descriptionFull: 'Домашний зефир на агаре с натуральными ягодными добавками в хрустящем вафельном стаканчике. Идеален для детских праздников и сладких столов. Продаётся наборами по 6 штук.',
-    assortment: []
-  },
-
-  'summer-festive-chic': {
-    name: 'Торт Праздничный шик',
-    price: 0,
-    images: ['img/summer-4.jpg', 'img/summer-4b.jpg'],
-    type: 'cake',
-    weights: [
-      { kg: 3, price: 4500, servings: '12-15 человек' },
-      { kg: 6, price: 8500, servings: '25-30 человек' },
-      { kg: 9, price: 12000, servings: '35-40 человек' },
-      { kg: 12, price: 15000, servings: '45-50 человек' }
-    ],
-    fillings: [
-      { id: 'snikers', name: '«Сникерс»', price: 0 },
-      { id: 'red-velvet', name: '«Красный бархат»', price: 0 },
-      { id: 'carrot', name: '«Морковный»', price: 0 },
-      { id: 'berry', name: '«Ягодный»', price: 0 },
-      { id: 'banana-choco', name: '«Банан-Шоколад»', price: 300 },
-      { id: 'cherry', name: '«Вишневый»', price: 350 },
-      { id: 'tropical', name: '«Тропик»', price: 400 },
-      { id: 'tiramisu', name: '«Тирамису»', price: 400 }
-    ],
-    description: 'Роскошный многоярусный торт для особых торжеств.',
-    descriptionFull: 'Элегантный торт с кремовыми цветами и золотым декором. Сочетание ванильного и шоколадного бисквита с нежным кремом. Создан для незабываемых праздников.',
     assortment: []
   },
 
@@ -355,12 +303,22 @@ const productsData = {
   // БЕНТО-ТОРТЫ
   'bento-strawberry': {
     name: 'Бенто «Клубника»',
-    price: 1000,
+    price: 0,
     images: ['img/bento-1.jpg', 'img/bento-1b.jpg'],
-    type: 'dessert',
-    quantityPerPack: 1,
-    quantityStep: 1,
-    servings: '2-3 человека',
+    type: 'bento',
+    weights: [
+      { kg: 0.6, price: 1000, servings: '2-3 человека' }
+    ],
+    fillings: [
+      { id: 'snikers', name: '«Сникерс»', price: 0 },
+      { id: 'red-velvet', name: '«Красный бархат»', price: 0 },
+      { id: 'carrot', name: '«Морковный»', price: 0 },
+      { id: 'berry', name: '«Ягодный»', price: 0 },
+      { id: 'banana-choco', name: '«Банан-Шоколад»', price: 100 },
+      { id: 'cherry', name: '«Вишневый»', price: 150 },
+      { id: 'tropical', name: '«Тропик»', price: 150 },
+      { id: 'tiramisu', name: '«Тирамису»', price: 150 }
+    ],
     description: 'Бенто-торт с клубничным кремом и свежими ягодами.',
     descriptionFull: 'Нежный бисквитный торт с клубничным кремом и украшением из свежей клубники. Компактный размер идеален для небольшого праздника или романтического вечера.',
     assortment: []
@@ -368,12 +326,22 @@ const productsData = {
 
   'bento-love': {
     name: 'Бенто «Любовь»',
-    price: 1250,
+    price: 0,
     images: ['img/bento-2.jpg', 'img/bento-2b.jpg'],
-    type: 'dessert',
-    quantityPerPack: 1,
-    quantityStep: 1,
-    servings: '2-3 человека',
+    type: 'bento',
+    weights: [
+      { kg: 0.6, price: 1250, servings: '2-3 человека' }
+    ],
+    fillings: [
+      { id: 'snikers', name: '«Сникерс»', price: 0 },
+      { id: 'red-velvet', name: '«Красный бархат»', price: 0 },
+      { id: 'carrot', name: '«Морковный»', price: 0 },
+      { id: 'berry', name: '«Ягодный»', price: 0 },
+      { id: 'banana-choco', name: '«Банан-Шоколад»', price: 100 },
+      { id: 'cherry', name: '«Вишневый»', price: 150 },
+      { id: 'tropical', name: '«Тропик»', price: 150 },
+      { id: 'tiramisu', name: '«Тирамису»', price: 150 }
+    ],
     description: 'Романтичный бенто с надписью и сердечками.',
     descriptionFull: 'Изысканный бенто-торт с нежным кремом, украшенный сахарными сердечками и персональной надписью. Идеальный подарок для выражения чувств.',
     assortment: []
@@ -381,12 +349,22 @@ const productsData = {
 
   'bento-capybara': {
     name: 'Бенто «Капибара»',
-    price: 1100,
+    price: 0,
     images: ['img/bento-3.jpg', 'img/bento-3b.jpg'],
-    type: 'dessert',
-    quantityPerPack: 1,
-    quantityStep: 1,
-    servings: '2-3 человека',
+    type: 'bento',
+    weights: [
+      { kg: 0.6, price: 1100, servings: '2-3 человека' }
+    ],
+    fillings: [
+      { id: 'snikers', name: '«Сникерс»', price: 0 },
+      { id: 'red-velvet', name: '«Красный бархат»', price: 0 },
+      { id: 'carrot', name: '«Морковный»', price: 0 },
+      { id: 'berry', name: '«Ягодный»', price: 0 },
+      { id: 'banana-choco', name: '«Банан-Шоколад»', price: 100 },
+      { id: 'cherry', name: '«Вишневый»', price: 150 },
+      { id: 'tropical', name: '«Тропик»', price: 150 },
+      { id: 'tiramisu', name: '«Тирамису»', price: 150 }
+    ],
     description: 'Милый бенто с декором в виде капибары.',
     descriptionFull: 'Оригинальный бенто-торт с шоколадным кремом и забавным декором в виде капибары из мастики. Вызовет улыбку у любого получателя!',
     assortment: []
@@ -394,12 +372,22 @@ const productsData = {
 
   'bento-dear-mom': {
     name: 'Бенто «Любимой маме»',
-    price: 1200,
+    price: 0,
     images: ['img/bento-4.jpg', 'img/bento-4b.jpg'],
-    type: 'dessert',
-    quantityPerPack: 1,
-    quantityStep: 1,
-    servings: '2-3 человека',
+    type: 'bento',
+    weights: [
+      { kg: 0.6, price: 1200, servings: '2-3 человека' }
+    ],
+    fillings: [
+      { id: 'snikers', name: '«Сникерс»', price: 0 },
+      { id: 'red-velvet', name: '«Красный бархат»', price: 0 },
+      { id: 'carrot', name: '«Морковный»', price: 0 },
+      { id: 'berry', name: '«Ягодный»', price: 0 },
+      { id: 'banana-choco', name: '«Банан-Шоколад»', price: 100 },
+      { id: 'cherry', name: '«Вишневый»', price: 150 },
+      { id: 'tropical', name: '«Тропик»', price: 150 },
+      { id: 'tiramisu', name: '«Тирамису»', price: 150 }
+    ],
     description: 'Трогательный подарок для мамы с цветочным декором.',
     descriptionFull: 'Нежный бенто-торт с ванильным кремом и элегантным цветочным декором. С надписью "Любимой маме" – идеальный подарок на День матери или просто так.',
     assortment: []
@@ -407,12 +395,22 @@ const productsData = {
 
   'bento-my-bun': {
     name: 'Бенто «Моей булочке»',
-    price: 1150,
+    price: 0,
     images: ['img/bento-5.jpg', 'img/bento-5b.jpg'],
-    type: 'dessert',
-    quantityPerPack: 1,
-    quantityStep: 1,
-    servings: '2-3 человека',
+    type: 'bento',
+    weights: [
+      { kg: 0.6, price: 1150, servings: '2-3 человека' }
+    ],
+    fillings: [
+      { id: 'snikers', name: '«Сникерс»', price: 0 },
+      { id: 'red-velvet', name: '«Красный бархат»', price: 0 },
+      { id: 'carrot', name: '«Морковный»', price: 0 },
+      { id: 'berry', name: '«Ягодный»', price: 0 },
+      { id: 'banana-choco', name: '«Банан-Шоколад»', price: 100 },
+      { id: 'cherry', name: '«Вишневый»', price: 150 },
+      { id: 'tropical', name: '«Тропик»', price: 150 },
+      { id: 'tiramisu', name: '«Тирамису»', price: 150 }
+    ],
     description: 'Милый бенто с тёплой надписью для близкого человека.',
     descriptionFull: 'Бенто-торт с нежным кремом и трогательным декором. Надпись "Моей булочке" сделает ваш подарок особенным и запоминающимся.',
     assortment: []
@@ -420,12 +418,22 @@ const productsData = {
 
   'bento-happy-birthday': {
     name: 'Бенто «Happy Birthday»',
-    price: 1050,
+    price: 0,
     images: ['img/bento-6.jpg', 'img/bento-6b.jpg'],
-    type: 'dessert',
-    quantityPerPack: 1,
-    quantityStep: 1,
-    servings: '2-3 человека',
+    type: 'bento',
+    weights: [
+      { kg: 0.6, price: 1050, servings: '2-3 человека' }
+    ],
+    fillings: [
+      { id: 'snikers', name: '«Сникерс»', price: 0 },
+      { id: 'red-velvet', name: '«Красный бархат»', price: 0 },
+      { id: 'carrot', name: '«Морковный»', price: 0 },
+      { id: 'berry', name: '«Ягодный»', price: 0 },
+      { id: 'banana-choco', name: '«Банан-Шоколад»', price: 100 },
+      { id: 'cherry', name: '«Вишневый»', price: 150 },
+      { id: 'tropical', name: '«Тропик»', price: 150 },
+      { id: 'tiramisu', name: '«Тирамису»', price: 150 }
+    ],
     description: 'Праздничный бенто с надписью и свечами.',
     descriptionFull: 'Классический бенто-торт для дня рождения с яркой надписью, свечами и конфетти. Компактный размер идеален для камерного празднования.',
     assortment: []
@@ -473,12 +481,22 @@ const productsData = {
 
   'february-bento-23': {
     name: 'Бенто «23 февраля»',
-    price: 1100,
+    price: 0,
     images: ['img/february-4.jpg', 'img/february-4b.jpg'],
-    type: 'dessert',
-    quantityPerPack: 1,
-    quantityStep: 1,
-    servings: '2-3 человека',
+    type: 'bento',
+    weights: [
+      { kg: 0.6, price: 1100, servings: '2-3 человека' }
+    ],
+    fillings: [
+      { id: 'snikers', name: '«Сникерс»', price: 0 },
+      { id: 'red-velvet', name: '«Красный бархат»', price: 0 },
+      { id: 'carrot', name: '«Морковный»', price: 0 },
+      { id: 'berry', name: '«Ягодный»', price: 0 },
+      { id: 'banana-choco', name: '«Банан-Шоколад»', price: 100 },
+      { id: 'cherry', name: '«Вишневый»', price: 150 },
+      { id: 'tropical', name: '«Тропик»', price: 150 },
+      { id: 'tiramisu', name: '«Тирамису»', price: 150 }
+    ],
     description: 'Тематический бенто для защитников.',
     descriptionFull: 'Бенто-торт в сдержанной цветовой гамме с декором в виде звёзд и военной символики. Шоколадный крем с ореховой ноткой.',
     assortment: []

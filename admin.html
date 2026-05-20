@@ -615,6 +615,170 @@
     .adm-table th, .adm-table td { padding: 8px 10px; }
     .adm-btn { padding: 6px 12px; font-size: 12px; }
   }
+
+  /* ====== Modals ====== */
+  .modal-overlay {
+    display: none;
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,0.45);
+    z-index: 1000;
+    align-items: center;
+    justify-content: center;
+  }
+  .modal-overlay.is-open { display: flex; }
+
+  .adm-modal {
+    background: #fff;
+    border-radius: 16px;
+    width: 560px;
+    max-width: 95vw;
+    max-height: 90vh;
+    overflow-y: auto;
+    box-shadow: 0 24px 48px rgba(0,0,0,0.15);
+  }
+
+  .adm-modal__header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 20px 24px;
+    border-bottom: 1px solid #f0ebe8;
+  }
+
+  .adm-modal__title { font-size: 18px; font-weight: 600; color: #1f1f1f; }
+
+  .adm-modal__close {
+    background: none; border: none; font-size: 24px; cursor: pointer;
+    color: #6c6c6c; line-height: 1; padding: 0;
+  }
+  .adm-modal__close:hover { color: #1f1f1f; }
+
+  .adm-modal__body { padding: 24px; }
+
+  .adm-modal__footer {
+    display: flex; gap: 10px; justify-content: flex-end;
+    padding: 16px 24px; border-top: 1px solid #f0ebe8;
+  }
+
+  .adm-btn--danger {
+    background: #c62828; color: #fff; border-color: #c62828;
+  }
+  .adm-btn--danger:hover { background: #b71c1c; border-color: #b71c1c; }
+
+  .ing-row { display: flex; gap: 8px; align-items: center; margin-bottom: 8px; }
+  .ing-row select { flex: 2; }
+  .ing-row input { flex: 1; }
+  .ing-row button { flex-shrink: 0; }
+
+  /* ====== Messages / Reviews admin ====== */
+  .adm-table__status--msg-new { background: #e3f2fd; color: #1565c0; }
+  .adm-table__status--msg-read { background: #e8f5e9; color: #2e7d32; }
+
+  .msg-full-text {
+    display: none;
+    padding: 12px 16px;
+    background: #fdfbfa;
+    border-top: 1px solid #f0ebe8;
+    font-size: 14px;
+    color: #1f1f1f;
+    line-height: 1.6;
+    white-space: pre-wrap;
+  }
+  .msg-full-text.is-open { display: table-row; }
+
+  .adm-table__status--msg-replied { background: #f3e5f5; color: #6a1b9a; }
+
+  .msg-reply-area { margin-top: 16px; padding-top: 16px; border-top: 1px solid #e7e0dc; }
+  .msg-reply-area textarea {
+    width: 100%; min-height: 80px; padding: 12px; font-size: 14px; font-family: var(--font);
+    border: 2px solid #e7e0dc; border-radius: 10px; resize: vertical; outline: none;
+    transition: border-color 0.3s; box-sizing: border-box;
+  }
+  .msg-reply-area textarea:focus { border-color: #d4a088; }
+  .msg-reply-area__actions { display: flex; gap: 8px; margin-top: 10px; align-items: center; }
+  .msg-reply-area__hint { font-size: 12px; color: #f57c00; margin-bottom: 8px; }
+
+  .msg-reply-existing {
+    margin-top: 12px; padding: 12px 16px; background: #f3e5f5; border-radius: 10px;
+    font-size: 14px; color: #4a148c; line-height: 1.6; white-space: pre-wrap;
+  }
+  .msg-reply-existing__label { font-size: 12px; font-weight: 600; color: #6a1b9a; margin-bottom: 4px; }
+
+  .adm-review-card {
+    display: flex;
+    gap: 16px;
+    padding: 20px;
+    border-bottom: 1px solid #f0ebe8;
+    align-items: flex-start;
+  }
+  .adm-review-card:last-child { border-bottom: none; }
+
+  .adm-review-card__info { flex: 1; min-width: 0; }
+  .adm-review-card__top { display: flex; align-items: center; gap: 12px; margin-bottom: 6px; flex-wrap: wrap; }
+  .adm-review-card__name { font-weight: 600; font-size: 15px; color: #1f1f1f; }
+  .adm-review-card__date { font-size: 12px; color: #6c6c6c; }
+  .adm-review-card__stars { color: #d4a088; font-size: 16px; letter-spacing: 1px; }
+  .adm-review-card__text { font-size: 14px; color: #333; line-height: 1.6; margin-top: 6px; }
+
+  .adm-review-card__photos {
+    display: flex; gap: 8px; flex-wrap: wrap; margin-top: 10px;
+  }
+  .adm-review-card__photos img {
+    width: 60px; height: 60px; object-fit: cover; border-radius: 8px; border: 1px solid #e7e0dc;
+  }
+
+  .adm-review-card__actions {
+    display: flex; gap: 6px; flex-shrink: 0; align-items: flex-start;
+  }
+
+  .adm-review-card__badge {
+    display: inline-block;
+    padding: 2px 8px;
+    font-size: 11px;
+    font-weight: 600;
+    border-radius: 12px;
+  }
+  .adm-review-card__badge--published { background: #e8f5e9; color: #2e7d32; }
+  .adm-review-card__badge--hidden { background: #f5f5f5; color: #757575; }
+
+  /* Стили для кнопок назначения курьеров */
+  .courier-btn:hover {
+    background: #1f1f1f !important;
+    color: #fff !important;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(31, 31, 31, 0.3) !important;
+  }
+  .courier-btn:active {
+    transform: translateY(0);
+    box-shadow: 0 2px 6px rgba(52, 152, 219, 0.2) !important;
+  }
+
+  /* Стили для переключателей подразделов */
+  .subsection-tabs {
+    display: flex;
+    gap: 0;
+    margin-bottom: 20px;
+    border-bottom: 2px solid #e0e0e0;
+  }
+  .subsection-tab {
+    padding: 12px 24px;
+    background: none;
+    border: none;
+    cursor: pointer;
+    font-size: 15px;
+    font-weight: 600;
+    color: #6c6c6c;
+    border-bottom: 3px solid transparent;
+    transition: all 0.2s;
+  }
+  .subsection-tab:hover {
+    color: #1f1f1f;
+  }
+  .subsection-tab.is-active {
+    color: #1f1f1f;
+    border-bottom-color: #1f1f1f;
+  }
 </style>
 </head>
 
@@ -685,6 +849,19 @@
       </div>
 
       <div class="adm__nav-group">
+        <div class="adm__nav-label">Коммуникации</div>
+        <button class="adm__nav-btn" type="button" data-section="messages">
+          <svg viewBox="0 0 24 24"><path fill="currentColor" d="M20 2H4c-1.1 0-1.99.9-1.99 2L2 22l4-4h14c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zm-2 12H6v-2h12v2zm0-3H6V9h12v2zm0-3H6V6h12v2z"/></svg>
+          <span>Обращения</span>
+          <span class="adm__nav-badge" id="messagesBadge" style="display:none;"></span>
+        </button>
+        <button class="adm__nav-btn" type="button" data-section="admin-reviews">
+          <svg viewBox="0 0 24 24"><path fill="currentColor" d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>
+          <span>Отзывы</span>
+        </button>
+      </div>
+
+      <div class="adm__nav-group">
         <div class="adm__nav-label">Система</div>
         <button class="adm__nav-btn" type="button" data-section="users">
           <svg viewBox="0 0 24 24"><path fill="currentColor" d="M16 11c1.66 0 2.99-1.34 2.99-3S17.66 5 16 5c-1.66 0-3 1.34-3 3s1.34 3 3 3zm-8 0c1.66 0 2.99-1.34 2.99-3S9.66 5 8 5C6.34 5 5 6.34 5 8s1.34 3 3 3zm0 2c-2.33 0-7 1.17-7 3.5V19h14v-2.5c0-2.33-4.67-3.5-7-3.5zm8 0c-.29 0-.62.02-.97.05 1.16.84 1.97 1.97 1.97 3.45V19h6v-2.5c0-2.33-4.67-3.5-7-3.5z"/></svg>
@@ -694,7 +871,7 @@
     </nav>
 
     <div class="adm__side-footer">
-      <button class="adm__logout" type="button" onclick="location.href='auth.html'">
+      <button class="adm__logout" type="button" id="sideLogoutBtn">
         <svg width="16" height="16" viewBox="0 0 24 24"><path fill="currentColor" d="M17 7l-1.41 1.41L18.17 11H8v2h10.17l-2.58 2.58L17 17l5-5zM4 5h8V3H4c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h8v-2H4V5z"/></svg>
         Выйти
       </button>
@@ -708,7 +885,7 @@
       <div class="adm__topbar-title" id="admTopTitle">Главная</div>
       <div style="display:flex;align-items:center;gap:12px;">
         <div class="adm__topbar-user">Администратор</div>
-        <button class="adm-btn" onclick="location.href='auth.html'" style="padding:6px 12px;font-size:12px;">Выйти</button>
+        <button class="adm-btn" id="topLogoutBtn" style="padding:6px 12px;font-size:12px;">Выйти</button>
       </div>
     </div>
 
@@ -720,27 +897,23 @@
         <div class="stats-grid">
           <div class="stat-card">
             <div class="stat-card__icon stat-card__icon--orders">&#128230;</div>
-            <div class="stat-card__value">47</div>
-            <div class="stat-card__label">Заказов за неделю</div>
-            <div class="stat-card__trend stat-card__trend--up">+12% к прошлой неделе</div>
+            <div class="stat-card__value" id="statOrders">—</div>
+            <div class="stat-card__label">Всего заказов</div>
           </div>
           <div class="stat-card">
             <div class="stat-card__icon stat-card__icon--revenue">&#128176;</div>
-            <div class="stat-card__value">312 400 &#8381;</div>
-            <div class="stat-card__label">Выручка за неделю</div>
-            <div class="stat-card__trend stat-card__trend--up">+8% к прошлой неделе</div>
+            <div class="stat-card__value" id="statRevenue">—</div>
+            <div class="stat-card__label">Общая выручка</div>
           </div>
           <div class="stat-card">
-            <div class="stat-card__icon stat-card__icon--products">&#127856;</div>
-            <div class="stat-card__value">86</div>
-            <div class="stat-card__label">Товаров в каталоге</div>
-            <div class="stat-card__trend stat-card__trend--up">+3 новых</div>
+            <div class="stat-card__icon stat-card__icon--orders">&#128337;</div>
+            <div class="stat-card__value" id="statNew">—</div>
+            <div class="stat-card__label">Новых заказов</div>
           </div>
           <div class="stat-card">
             <div class="stat-card__icon stat-card__icon--users">&#128100;</div>
-            <div class="stat-card__value">234</div>
+            <div class="stat-card__value" id="statUsers">—</div>
             <div class="stat-card__label">Зарегистрированных клиентов</div>
-            <div class="stat-card__trend stat-card__trend--up">+18 за неделю</div>
           </div>
         </div>
 
@@ -798,6 +971,10 @@
           <div class="adm-table-header">
             <div class="adm-table-header__title">Все заказы</div>
             <div class="adm-table-header__actions">
+              <select class="adm-select" id="orderViewMode">
+                <option value="list">Список</option>
+                <option value="byDay">По дням</option>
+              </select>
               <select class="adm-select" id="orderFilter">
                 <option value="all">Все статусы</option>
                 <option value="new">Новые</option>
@@ -806,7 +983,7 @@
                 <option value="done">Доставлен</option>
                 <option value="cancelled">Отменён</option>
               </select>
-              <input class="adm-search" type="text" placeholder="Поиск по номеру...">
+              <input class="adm-search" type="text" placeholder="Поиск по номеру..." id="orderSearch">
             </div>
           </div>
 
@@ -818,82 +995,16 @@
                 <th>Состав</th>
                 <th>Сумма</th>
                 <th>Статус</th>
-                <th>Курьер</th>
                 <th>Действия</th>
               </tr>
             </thead>
-            <tbody>
-              <tr>
-                <td><strong>#1250</strong><br><span style="font-size:12px;color:#6c6c6c">12 мая 2026</span></td>
-                <td>Петрова А.В.<br><span style="font-size:12px;color:#6c6c6c">+7 (999) 111-22-33</span></td>
-                <td>Торт «Ягодное лукошко» (3 кг)</td>
-                <td>3 300 &#8381;</td>
-                <td><span class="adm-table__status adm-table__status--new">Новый</span></td>
-                <td>—</td>
-                <td>
-                  <div class="adm-table__actions">
-                    <button class="adm-btn adm-btn--sm" onclick="alert('Просмотр заказа #1250')">&#128065;</button>
-                    <button class="adm-btn adm-btn--sm" onclick="alert('Изменение статуса')">&#9998;</button>
-                  </div>
-                </td>
-              </tr>
-              <tr>
-                <td><strong>#1249</strong><br><span style="font-size:12px;color:#6c6c6c">12 мая 2026</span></td>
-                <td>Сидоров К.М.<br><span style="font-size:12px;color:#6c6c6c">+7 (999) 333-44-55</span></td>
-                <td>3D-торт Бабочки (2.5 кг)</td>
-                <td>7 200 &#8381;</td>
-                <td><span class="adm-table__status adm-table__status--new">Новый</span></td>
-                <td>—</td>
-                <td>
-                  <div class="adm-table__actions">
-                    <button class="adm-btn adm-btn--sm" onclick="alert('Просмотр заказа #1249')">&#128065;</button>
-                    <button class="adm-btn adm-btn--sm" onclick="alert('Изменение статуса')">&#9998;</button>
-                  </div>
-                </td>
-              </tr>
-              <tr>
-                <td><strong>#1248</strong><br><span style="font-size:12px;color:#6c6c6c">11 мая 2026</span></td>
-                <td>Козлова Е.И.<br><span style="font-size:12px;color:#6c6c6c">+7 (999) 555-66-77</span></td>
-                <td>Macarons ассорти (24 шт), Чизкейк (1.5 кг)</td>
-                <td>5 100 &#8381;</td>
-                <td><span class="adm-table__status adm-table__status--cooking">Готовится</span></td>
-                <td>—</td>
-                <td>
-                  <div class="adm-table__actions">
-                    <button class="adm-btn adm-btn--sm" onclick="alert('Просмотр заказа #1248')">&#128065;</button>
-                    <button class="adm-btn adm-btn--sm" onclick="alert('Изменение статуса')">&#9998;</button>
-                  </div>
-                </td>
-              </tr>
-              <tr>
-                <td><strong>#1247</strong><br><span style="font-size:12px;color:#6c6c6c">10 мая 2026</span></td>
-                <td>Иванов И.И.<br><span style="font-size:12px;color:#6c6c6c">+7 (999) 123-45-67</span></td>
-                <td>Торт «Ягодное лукошко» (3 кг), Macarons (12 шт)</td>
-                <td>5 850 &#8381;</td>
-                <td><span class="adm-table__status adm-table__status--delivery">В доставке</span></td>
-                <td>Алексей К.</td>
-                <td>
-                  <div class="adm-table__actions">
-                    <button class="adm-btn adm-btn--sm" onclick="alert('Просмотр заказа #1247')">&#128065;</button>
-                    <button class="adm-btn adm-btn--sm" onclick="alert('Изменение статуса')">&#9998;</button>
-                  </div>
-                </td>
-              </tr>
-              <tr>
-                <td><strong>#1246</strong><br><span style="font-size:12px;color:#6c6c6c">10 мая 2026</span></td>
-                <td>Миронова Л.С.<br><span style="font-size:12px;color:#6c6c6c">+7 (999) 888-99-00</span></td>
-                <td>Свадебный торт «Элегант» (6 кг)</td>
-                <td>14 400 &#8381;</td>
-                <td><span class="adm-table__status adm-table__status--done">Доставлен</span></td>
-                <td>Дмитрий В.</td>
-                <td>
-                  <div class="adm-table__actions">
-                    <button class="adm-btn adm-btn--sm" onclick="alert('Просмотр заказа #1246')">&#128065;</button>
-                  </div>
-                </td>
-              </tr>
+            <tbody id="ordersTableBody">
+              <tr><td colspan="6" style="text-align:center;color:#6c6c6c;padding:40px;">Загрузка...</td></tr>
             </tbody>
           </table>
+
+          <!-- Отображение по дням -->
+          <div id="ordersByDay" style="display:none;"></div>
         </div>
 
       </div>
@@ -901,17 +1012,28 @@
       <!-- ========== Каталог товаров ========== -->
       <div class="adm__panel" data-section="catalog">
 
-        <div class="adm-table-wrap">
+        <!-- Переключатель подразделов -->
+        <div class="subsection-tabs">
+          <button class="subsection-tab catalog-subsection-btn is-active" data-subsection="products" onclick="switchCatalogSubsection('products')">
+            Товары каталога
+          </button>
+          <button class="subsection-tab catalog-subsection-btn" data-subsection="fillings" onclick="switchCatalogSubsection('fillings')">
+            Начинки
+          </button>
+        </div>
+
+        <!-- Подраздел: Товары каталога -->
+        <div class="adm-table-wrap catalog-subsection" data-subsection="products">
           <div class="adm-table-header">
             <div class="adm-table-header__title">Товары каталога</div>
             <div class="adm-table-header__actions">
-              <select class="adm-select">
-                <option>Все коллекции</option>
-                <option>Casual</option>
-                <option>To order</option>
+              <select class="adm-select" id="catalogFilter">
+                <option value="all">Все коллекции</option>
+                <option value="casual">Casual</option>
+                <option value="order">To order</option>
               </select>
-              <input class="adm-search" type="text" placeholder="Поиск товара...">
-              <button class="adm-btn adm-btn--primary" onclick="alert('Форма добавления товара')">+ Добавить</button>
+              <input class="adm-search" type="text" placeholder="Поиск товара..." id="catalogSearch">
+              <button class="adm-btn adm-btn--primary" onclick="openProductModal()">+ Добавить</button>
             </div>
           </div>
 
@@ -926,79 +1048,32 @@
                 <th>Действия</th>
               </tr>
             </thead>
-            <tbody>
+            <tbody id="catalogTableBody">
+            </tbody>
+          </table>
+        </div>
+
+        <!-- Подраздел: Начинки (управление) -->
+        <div class="adm-table-wrap catalog-subsection" data-subsection="fillings" style="display:none;">
+          <div class="adm-table-header">
+            <div class="adm-table-header__title">Начинки</div>
+            <div class="adm-table-header__actions">
+              <input class="adm-search" type="text" placeholder="Поиск начинки..." id="catalogFillingSearch">
+              <button class="adm-btn adm-btn--primary" onclick="openCatalogFillingModal()">+ Добавить</button>
+            </div>
+          </div>
+
+          <table class="adm-table">
+            <thead>
               <tr>
-                <td>
-                  <div class="adm-table__product">
-                    <img class="adm-table__img" src="img/summer-1.jpg" alt="">
-                    <span>Торт «Ягодное лукошко»</span>
-                  </div>
-                </td>
-                <td>Casual / Летняя</td>
-                <td>от 3 300 &#8381;</td>
-                <td>от 3 кг</td>
-                <td><span class="adm-table__status adm-table__status--active">Активен</span></td>
-                <td>
-                  <div class="adm-table__actions">
-                    <button class="adm-btn adm-btn--sm" onclick="alert('Редактировать товар')">&#9998;</button>
-                    <button class="adm-btn adm-btn--sm" onclick="alert('Параметры изделия')">&#9881;</button>
-                  </div>
-                </td>
+                <th>Название</th>
+                <th>Наценка</th>
+                <th>Рецептура</th>
+                <th>Статус</th>
+                <th>Действия</th>
               </tr>
-              <tr>
-                <td>
-                  <div class="adm-table__product">
-                    <img class="adm-table__img" src="img/summer-4.jpg" alt="">
-                    <span>Торт «Праздничный шик»</span>
-                  </div>
-                </td>
-                <td>Casual / Летняя</td>
-                <td>от 4 500 &#8381;</td>
-                <td>от 3 кг</td>
-                <td><span class="adm-table__status adm-table__status--active">Активен</span></td>
-                <td>
-                  <div class="adm-table__actions">
-                    <button class="adm-btn adm-btn--sm" onclick="alert('Редактировать товар')">&#9998;</button>
-                    <button class="adm-btn adm-btn--sm" onclick="alert('Параметры изделия')">&#9881;</button>
-                  </div>
-                </td>
-              </tr>
-              <tr>
-                <td>
-                  <div class="adm-table__product">
-                    <img class="adm-table__img" src="img/summer-3.jpg" alt="">
-                    <span>Зефир в вафельном стаканчике</span>
-                  </div>
-                </td>
-                <td>Casual / Летняя</td>
-                <td>от 400 &#8381;</td>
-                <td>от 6 шт</td>
-                <td><span class="adm-table__status adm-table__status--active">Активен</span></td>
-                <td>
-                  <div class="adm-table__actions">
-                    <button class="adm-btn adm-btn--sm" onclick="alert('Редактировать товар')">&#9998;</button>
-                    <button class="adm-btn adm-btn--sm" onclick="alert('Параметры изделия')">&#9881;</button>
-                  </div>
-                </td>
-              </tr>
-              <tr>
-                <td>
-                  <div class="adm-table__product">
-                    <div class="adm-table__img" style="background: #f0ebe8;"></div>
-                    <span>Свадебный торт «Элегант»</span>
-                  </div>
-                </td>
-                <td>To order / Свадебные</td>
-                <td>от 2 400 &#8381;/кг</td>
-                <td>от 4 кг</td>
-                <td><span class="adm-table__status adm-table__status--active">Активен</span></td>
-                <td>
-                  <div class="adm-table__actions">
-                    <button class="adm-btn adm-btn--sm" onclick="alert('Редактировать товар')">&#9998;</button>
-                    <button class="adm-btn adm-btn--sm" onclick="alert('Параметры изделия')">&#9881;</button>
-                  </div>
-                </td>
-              </tr>
+            </thead>
+            <tbody id="catalogFillingsTableBody">
             </tbody>
           </table>
         </div>
@@ -1008,12 +1083,23 @@
       <!-- ========== Рецептуры ========== -->
       <div class="adm__panel" data-section="recipes">
 
-        <div class="adm-table-wrap">
+        <!-- Переключатель подразделов -->
+        <div class="subsection-tabs">
+          <button class="subsection-tab recipes-subsection-btn is-active" data-subsection="recipes-list" onclick="switchRecipesSubsection('recipes-list')">
+            Рецептуры
+          </button>
+          <button class="subsection-tab recipes-subsection-btn" data-subsection="fillings" onclick="switchRecipesSubsection('fillings')">
+            Начинки
+          </button>
+        </div>
+
+        <!-- Подраздел: Рецептуры -->
+        <div class="adm-table-wrap recipes-subsection" data-subsection="recipes-list">
           <div class="adm-table-header">
             <div class="adm-table-header__title">Рецептуры</div>
             <div class="adm-table-header__actions">
-              <input class="adm-search" type="text" placeholder="Поиск рецептуры...">
-              <button class="adm-btn adm-btn--primary" onclick="alert('Добавить рецептуру')">+ Добавить</button>
+              <input class="adm-search" type="text" placeholder="Поиск рецептуры..." id="recipeSearch">
+              <button class="adm-btn adm-btn--primary" onclick="openRecipeModal()">+ Добавить</button>
             </div>
           </div>
 
@@ -1027,55 +1113,30 @@
                 <th>Действия</th>
               </tr>
             </thead>
-            <tbody>
+            <tbody id="recipesTableBody">
+            </tbody>
+          </table>
+        </div>
+
+        <!-- Подраздел: Начинки (рецепты) -->
+        <div class="adm-table-wrap recipes-subsection" data-subsection="fillings" style="display:none;">
+          <div class="adm-table-header">
+            <div class="adm-table-header__title">Рецепты начинок</div>
+            <div class="adm-table-header__actions">
+              <input class="adm-search" type="text" placeholder="Поиск начинки..." id="recipesFillingSearch">
+              <button class="adm-btn adm-btn--primary" onclick="openRecipesFillingModal()">+ Добавить начинку</button>
+            </div>
+          </div>
+
+          <table class="adm-table">
+            <thead>
               <tr>
-                <td><strong>Бисквит ванильный</strong></td>
-                <td>Торт «Ягодное лукошко», Торт «Праздничный шик»</td>
-                <td>8</td>
-                <td>5 мая 2026</td>
-                <td>
-                  <div class="adm-table__actions">
-                    <button class="adm-btn adm-btn--sm" onclick="alert('Редактировать рецептуру')">&#9998;</button>
-                    <button class="adm-btn adm-btn--sm" onclick="alert('Просмотр рецептуры')">&#128065;</button>
-                  </div>
-                </td>
+                <th>Название</th>
+                <th>Ингредиентов</th>
+                <th>Действия</th>
               </tr>
-              <tr>
-                <td><strong>Крем-чиз сливочный</strong></td>
-                <td>Чизкейк классический, Бенто-торт</td>
-                <td>5</td>
-                <td>3 мая 2026</td>
-                <td>
-                  <div class="adm-table__actions">
-                    <button class="adm-btn adm-btn--sm" onclick="alert('Редактировать рецептуру')">&#9998;</button>
-                    <button class="adm-btn adm-btn--sm" onclick="alert('Просмотр рецептуры')">&#128065;</button>
-                  </div>
-                </td>
-              </tr>
-              <tr>
-                <td><strong>Муссовая основа манго-маракуйя</strong></td>
-                <td>Муссовый бенто-торт «Тропик»</td>
-                <td>11</td>
-                <td>28 апр 2026</td>
-                <td>
-                  <div class="adm-table__actions">
-                    <button class="adm-btn adm-btn--sm" onclick="alert('Редактировать рецептуру')">&#9998;</button>
-                    <button class="adm-btn adm-btn--sm" onclick="alert('Просмотр рецептуры')">&#128065;</button>
-                  </div>
-                </td>
-              </tr>
-              <tr>
-                <td><strong>Ганаш шоколадный</strong></td>
-                <td>Macarons шоколад, 3D-торт Сердце</td>
-                <td>4</td>
-                <td>20 апр 2026</td>
-                <td>
-                  <div class="adm-table__actions">
-                    <button class="adm-btn adm-btn--sm" onclick="alert('Редактировать рецептуру')">&#9998;</button>
-                    <button class="adm-btn adm-btn--sm" onclick="alert('Просмотр рецептуры')">&#128065;</button>
-                  </div>
-                </td>
-              </tr>
+            </thead>
+            <tbody id="recipesFillingsTableBody">
             </tbody>
           </table>
         </div>
@@ -1085,22 +1146,14 @@
       <!-- ========== Ингредиенты ========== -->
       <div class="adm__panel" data-section="ingredients">
 
-        <div class="adm-alert adm-alert--danger">
-          <div class="adm-alert__icon">&#9888;</div>
-          <div class="adm-alert__text"><strong>Фисташковая паста</strong> — закончилась на складе. Необходимо срочное пополнение.</div>
-        </div>
-        <div class="adm-alert adm-alert--warn">
-          <div class="adm-alert__icon">&#9888;</div>
-          <div class="adm-alert__text"><strong>Сливки 33%</strong> — осталось 2 л (порог уведомления: 5 л)</div>
-        </div>
+        <div id="ingredientAlerts"></div>
 
         <div class="adm-table-wrap">
           <div class="adm-table-header">
             <div class="adm-table-header__title">Склад ингредиентов</div>
             <div class="adm-table-header__actions">
-              <input class="adm-search" type="text" placeholder="Поиск ингредиента...">
-              <button class="adm-btn" onclick="alert('Настройка порогов уведомлений')">Пороги</button>
-              <button class="adm-btn adm-btn--primary" onclick="alert('Добавить ингредиент')">+ Добавить</button>
+              <input class="adm-search" type="text" placeholder="Поиск ингредиента..." id="ingredientSearch">
+              <button class="adm-btn adm-btn--primary" onclick="openIngredientModal()">+ Добавить</button>
             </div>
           </div>
 
@@ -1115,63 +1168,7 @@
                 <th>Действия</th>
               </tr>
             </thead>
-            <tbody>
-              <tr>
-                <td><strong>Мука пшеничная в/с</strong></td>
-                <td>25</td>
-                <td>кг</td>
-                <td>5 кг</td>
-                <td><span class="adm-table__status adm-table__status--active">В наличии</span></td>
-                <td><button class="adm-btn adm-btn--sm" onclick="alert('Редактировать')">&#9998;</button></td>
-              </tr>
-              <tr>
-                <td><strong>Сливки 33%</strong></td>
-                <td>2</td>
-                <td>л</td>
-                <td>5 л</td>
-                <td><span class="adm-table__status adm-table__status--low">Мало</span></td>
-                <td><button class="adm-btn adm-btn--sm" onclick="alert('Редактировать')">&#9998;</button></td>
-              </tr>
-              <tr>
-                <td><strong>Сахар</strong></td>
-                <td>18</td>
-                <td>кг</td>
-                <td>3 кг</td>
-                <td><span class="adm-table__status adm-table__status--active">В наличии</span></td>
-                <td><button class="adm-btn adm-btn--sm" onclick="alert('Редактировать')">&#9998;</button></td>
-              </tr>
-              <tr>
-                <td><strong>Масло сливочное 82.5%</strong></td>
-                <td>8</td>
-                <td>кг</td>
-                <td>3 кг</td>
-                <td><span class="adm-table__status adm-table__status--active">В наличии</span></td>
-                <td><button class="adm-btn adm-btn--sm" onclick="alert('Редактировать')">&#9998;</button></td>
-              </tr>
-              <tr>
-                <td><strong>Шоколад тёмный 70%</strong></td>
-                <td>4</td>
-                <td>кг</td>
-                <td>2 кг</td>
-                <td><span class="adm-table__status adm-table__status--active">В наличии</span></td>
-                <td><button class="adm-btn adm-btn--sm" onclick="alert('Редактировать')">&#9998;</button></td>
-              </tr>
-              <tr>
-                <td><strong>Фисташковая паста</strong></td>
-                <td>0</td>
-                <td>кг</td>
-                <td>1 кг</td>
-                <td><span class="adm-table__status adm-table__status--out">Нет в наличии</span></td>
-                <td><button class="adm-btn adm-btn--sm" onclick="alert('Редактировать')">&#9998;</button></td>
-              </tr>
-              <tr>
-                <td><strong>Яйца куриные</strong></td>
-                <td>120</td>
-                <td>шт</td>
-                <td>30 шт</td>
-                <td><span class="adm-table__status adm-table__status--active">В наличии</span></td>
-                <td><button class="adm-btn adm-btn--sm" onclick="alert('Редактировать')">&#9998;</button></td>
-              </tr>
+            <tbody id="ingredientsTableBody">
             </tbody>
           </table>
         </div>
@@ -1457,6 +1454,51 @@
 
       </div>
 
+      <!-- ========== Обращения ========== -->
+      <div class="adm__panel" data-section="messages">
+        <div class="adm-table-wrap">
+          <div class="adm-table-header">
+            <div class="adm-table-header__title">Обращения</div>
+            <div class="adm-table-header__actions">
+              <select class="adm-select" id="messagesFilter" style="padding:8px 12px;border:2px solid #e7e0dc;border-radius:8px;font-size:14px;">
+                <option value="all">Все</option>
+                <option value="new">Новые</option>
+                <option value="read">Прочитанные</option>
+                <option value="replied">С ответом</option>
+              </select>
+            </div>
+          </div>
+
+          <table class="adm-table">
+            <thead>
+              <tr>
+                <th>Дата</th>
+                <th>Имя</th>
+                <th>Контакт</th>
+                <th>Сообщение</th>
+                <th>Статус</th>
+                <th></th>
+              </tr>
+            </thead>
+            <tbody id="messagesTableBody">
+              <tr><td colspan="6" style="text-align:center;color:#6c6c6c;padding:40px;">Загрузка...</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- ========== Отзывы (админ) ========== -->
+      <div class="adm__panel" data-section="admin-reviews">
+        <div class="adm-table-wrap">
+          <div class="adm-table-header">
+            <div class="adm-table-header__title">Отзывы</div>
+          </div>
+          <div id="adminReviewsList" style="padding:20px;">
+            <div style="text-align:center;color:#6c6c6c;padding:40px;">Загрузка...</div>
+          </div>
+        </div>
+      </div>
+
       <!-- ========== Пользователи ========== -->
       <div class="adm__panel" data-section="users">
 
@@ -1474,83 +1516,11 @@
                 <th>Имя</th>
                 <th>Телефон</th>
                 <th>Email</th>
-                <th>Заказов</th>
-                <th>Сумма заказов</th>
                 <th>Регистрация</th>
-                <th>Действия</th>
               </tr>
             </thead>
-            <tbody>
-              <tr>
-                <td><strong>Иванов Иван Иванович</strong></td>
-                <td>+7 (999) 123-45-67</td>
-                <td>ivanov@mail.ru</td>
-                <td>12</td>
-                <td>78 400 &#8381;</td>
-                <td>15 янв 2026</td>
-                <td>
-                  <div class="adm-table__actions">
-                    <button class="adm-btn adm-btn--sm" onclick="alert('Просмотр пользователя')">&#128065;</button>
-                    <button class="adm-btn adm-btn--sm" onclick="alert('Редактировать')">&#9998;</button>
-                  </div>
-                </td>
-              </tr>
-              <tr>
-                <td><strong>Петрова Анна Владимировна</strong></td>
-                <td>+7 (999) 111-22-33</td>
-                <td>petrova@gmail.com</td>
-                <td>8</td>
-                <td>52 100 &#8381;</td>
-                <td>3 фев 2026</td>
-                <td>
-                  <div class="adm-table__actions">
-                    <button class="adm-btn adm-btn--sm" onclick="alert('Просмотр пользователя')">&#128065;</button>
-                    <button class="adm-btn adm-btn--sm" onclick="alert('Редактировать')">&#9998;</button>
-                  </div>
-                </td>
-              </tr>
-              <tr>
-                <td><strong>Козлова Елена Ивановна</strong></td>
-                <td>+7 (999) 555-66-77</td>
-                <td>kozlova@yandex.ru</td>
-                <td>5</td>
-                <td>31 500 &#8381;</td>
-                <td>20 мар 2026</td>
-                <td>
-                  <div class="adm-table__actions">
-                    <button class="adm-btn adm-btn--sm" onclick="alert('Просмотр пользователя')">&#128065;</button>
-                    <button class="adm-btn adm-btn--sm" onclick="alert('Редактировать')">&#9998;</button>
-                  </div>
-                </td>
-              </tr>
-              <tr>
-                <td><strong>Сидоров Кирилл Михайлович</strong></td>
-                <td>+7 (999) 333-44-55</td>
-                <td>sidorov@mail.ru</td>
-                <td>3</td>
-                <td>21 600 &#8381;</td>
-                <td>10 апр 2026</td>
-                <td>
-                  <div class="adm-table__actions">
-                    <button class="adm-btn adm-btn--sm" onclick="alert('Просмотр пользователя')">&#128065;</button>
-                    <button class="adm-btn adm-btn--sm" onclick="alert('Редактировать')">&#9998;</button>
-                  </div>
-                </td>
-              </tr>
-              <tr>
-                <td><strong>Миронова Людмила Сергеевна</strong></td>
-                <td>+7 (999) 888-99-00</td>
-                <td>mironova@gmail.com</td>
-                <td>2</td>
-                <td>28 800 &#8381;</td>
-                <td>25 апр 2026</td>
-                <td>
-                  <div class="adm-table__actions">
-                    <button class="adm-btn adm-btn--sm" onclick="alert('Просмотр пользователя')">&#128065;</button>
-                    <button class="adm-btn adm-btn--sm" onclick="alert('Редактировать')">&#9998;</button>
-                  </div>
-                </td>
-              </tr>
+            <tbody id="usersTableBody">
+              <tr><td colspan="4" style="text-align:center;color:#6c6c6c;padding:40px;">Загрузка...</td></tr>
             </tbody>
           </table>
         </div>
@@ -1562,6 +1532,255 @@
 
 </div>
 
+<!-- ====== Модальные окна ====== -->
+
+<!-- Модалка товара -->
+<div class="modal-overlay" id="productModal">
+  <div class="adm-modal">
+    <div class="adm-modal__header">
+      <div class="adm-modal__title" id="productModalTitle">Добавить товар</div>
+      <button class="adm-modal__close" onclick="closeModal('productModal')">&times;</button>
+    </div>
+    <div class="adm-modal__body">
+      <input type="hidden" id="pmId">
+      <div class="adm-form">
+        <div class="adm-form__field">
+          <span class="adm-form__label">Название</span>
+          <input class="adm-form__input" type="text" id="pmName" placeholder="Торт «Ягодное лукошко»">
+        </div>
+        <div class="adm-form__row">
+          <div class="adm-form__field">
+            <span class="adm-form__label">Коллекция</span>
+            <select class="adm-form__input" id="pmCollection">
+              <option value="casual">Casual</option>
+              <option value="order">To order</option>
+            </select>
+          </div>
+          <div class="adm-form__field">
+            <span class="adm-form__label">Подкатегория</span>
+            <input class="adm-form__input" type="text" id="pmCollectionLabel" placeholder="Casual / Летняя">
+          </div>
+        </div>
+        <div class="adm-form__row">
+          <div class="adm-form__field">
+            <span class="adm-form__label">Цена</span>
+            <input class="adm-form__input" type="text" id="pmPrice" placeholder="от 3 300 ₽">
+          </div>
+          <div class="adm-form__field">
+            <span class="adm-form__label">Мин. вес/кол-во</span>
+            <input class="adm-form__input" type="text" id="pmMinQty" placeholder="от 3 кг">
+          </div>
+        </div>
+        <div class="adm-form__field">
+          <span class="adm-form__label">Изображение (путь)</span>
+          <input class="adm-form__input" type="text" id="pmImage" placeholder="img/summer-1.jpg">
+        </div>
+        <div class="adm-form__field">
+          <span class="adm-form__label">Статус</span>
+          <select class="adm-form__input" id="pmStatus">
+            <option value="active">Активен</option>
+            <option value="hidden">Скрыт</option>
+          </select>
+        </div>
+      </div>
+    </div>
+    <div class="adm-modal__footer">
+      <button class="adm-btn" onclick="closeModal('productModal')">Отмена</button>
+      <button class="adm-btn adm-btn--primary" onclick="saveProduct()">Сохранить</button>
+    </div>
+  </div>
+</div>
+
+<!-- Модалка ингредиента -->
+<div class="modal-overlay" id="ingredientModal">
+  <div class="adm-modal">
+    <div class="adm-modal__header">
+      <div class="adm-modal__title" id="ingredientModalTitle">Добавить ингредиент</div>
+      <button class="adm-modal__close" onclick="closeModal('ingredientModal')">&times;</button>
+    </div>
+    <div class="adm-modal__body">
+      <input type="hidden" id="imId">
+      <div class="adm-form">
+        <div class="adm-form__field">
+          <span class="adm-form__label">Название</span>
+          <input class="adm-form__input" type="text" id="imName" placeholder="Мука пшеничная в/с">
+        </div>
+        <div class="adm-form__row">
+          <div class="adm-form__field">
+            <span class="adm-form__label">Ед. измерения</span>
+            <select class="adm-form__input" id="imUnit">
+              <option value="кг">кг</option>
+              <option value="л">л</option>
+              <option value="шт">шт</option>
+              <option value="лист">лист</option>
+            </select>
+          </div>
+          <div class="adm-form__field">
+            <span class="adm-form__label">Остаток</span>
+            <input class="adm-form__input" type="number" id="imStock" step="0.1" value="0">
+          </div>
+          <div class="adm-form__field">
+            <span class="adm-form__label">Порог</span>
+            <input class="adm-form__input" type="number" id="imThreshold" step="0.1" value="0">
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="adm-modal__footer">
+      <button class="adm-btn" onclick="closeModal('ingredientModal')">Отмена</button>
+      <button class="adm-btn adm-btn--primary" onclick="saveIngredient()">Сохранить</button>
+    </div>
+  </div>
+</div>
+
+<!-- Модалка рецепта -->
+<div class="modal-overlay" id="recipeModal">
+  <div class="adm-modal" style="width:640px;">
+    <div class="adm-modal__header">
+      <div class="adm-modal__title" id="recipeModalTitle">Добавить рецепт</div>
+      <button class="adm-modal__close" onclick="closeModal('recipeModal')">&times;</button>
+    </div>
+    <div class="adm-modal__body">
+      <input type="hidden" id="rmId">
+      <div class="adm-form">
+        <div class="adm-form__field">
+          <span class="adm-form__label">Десерт</span>
+          <select class="adm-form__input" id="rmProductId"></select>
+        </div>
+        <div class="adm-form__field">
+          <span class="adm-form__label">Описание</span>
+          <input class="adm-form__input" type="text" id="rmDescription" placeholder="Краткое описание рецепта">
+        </div>
+        <div class="adm-form__field">
+          <span class="adm-form__label">Время приготовления (часы)</span>
+          <input class="adm-form__input" type="number" id="rmPrepHours" min="0.1" step="0.5" value="1" placeholder="1">
+        </div>
+        <div class="adm-form__field">
+          <span class="adm-form__label">Ингредиенты</span>
+          <div id="rmIngredientsList"></div>
+          <button class="adm-btn" type="button" onclick="addRecipeIngredientRow()" style="margin-top:8px;">+ Ингредиент</button>
+        </div>
+      </div>
+    </div>
+    <div class="adm-modal__footer">
+      <button class="adm-btn" onclick="closeModal('recipeModal')">Отмена</button>
+      <button class="adm-btn adm-btn--primary" onclick="saveRecipe()">Сохранить</button>
+    </div>
+  </div>
+</div>
+
+<!-- Модалка деталей рецепта -->
+<div class="modal-overlay" id="recipeDetailModal">
+  <div class="adm-modal">
+    <div class="adm-modal__header">
+      <div class="adm-modal__title" id="recipeDetailTitle">Детали рецепта</div>
+      <button class="adm-modal__close" onclick="closeModal('recipeDetailModal')">&times;</button>
+    </div>
+    <div class="adm-modal__body" id="recipeDetailBody"></div>
+    <div class="adm-modal__footer">
+      <button class="adm-btn" onclick="closeModal('recipeDetailModal')">Закрыть</button>
+    </div>
+  </div>
+</div>
+
+<!-- Модалка редактирования начинки (каталог) -->
+<div class="modal-overlay" id="catalogFillingModal">
+  <div class="adm-modal" style="width:540px;">
+    <div class="adm-modal__header">
+      <div class="adm-modal__title" id="catalogFillingTitle">Добавить начинку</div>
+      <button class="adm-modal__close" onclick="closeModal('catalogFillingModal')">&times;</button>
+    </div>
+    <div class="adm-modal__body">
+      <input type="hidden" id="cfOriginalId">
+      <div class="adm-form">
+        <div class="adm-form__field">
+          <span class="adm-form__label">ID (латиница, через дефис)</span>
+          <input class="adm-form__input" type="text" id="cfId" placeholder="snikers">
+        </div>
+        <div class="adm-form__field">
+          <span class="adm-form__label">Название</span>
+          <input class="adm-form__input" type="text" id="cfName" placeholder="«Сникерс»">
+        </div>
+        <div class="adm-form__field">
+          <span class="adm-form__label">Наценка (₽)</span>
+          <input class="adm-form__input" type="number" id="cfPrice" value="0" min="0" step="50">
+        </div>
+        <div class="adm-form__field">
+          <span class="adm-form__label">Рецептура начинки</span>
+          <select class="adm-form__input" id="cfRecipeId">
+            <option value="">-- Собственный рецепт --</option>
+          </select>
+          <small style="color:#6c6c6c;font-size:12px;">Можно использовать рецепт другой начинки</small>
+        </div>
+      </div>
+    </div>
+    <div class="adm-modal__footer">
+      <button class="adm-btn" onclick="closeModal('catalogFillingModal')">Отмена</button>
+      <button class="adm-btn adm-btn--primary" onclick="saveCatalogFilling()">Сохранить</button>
+    </div>
+  </div>
+</div>
+
+<!-- Модалка редактирования рецепта начинки -->
+<div class="modal-overlay" id="fillingRecipeModal">
+  <div class="adm-modal" style="width:640px;">
+    <div class="adm-modal__header">
+      <div class="adm-modal__title" id="fillingRecipeTitle">Рецепт начинки</div>
+      <button class="adm-modal__close" onclick="closeModal('fillingRecipeModal')">&times;</button>
+    </div>
+    <div class="adm-modal__body">
+      <input type="hidden" id="frFillingId">
+      <div class="adm-form">
+        <div class="adm-form__field">
+          <span class="adm-form__label">Начинка</span>
+          <input class="adm-form__input" type="text" id="frFillingName" readonly style="background:#f5f5f5;">
+        </div>
+        <div class="adm-form__field">
+          <span class="adm-form__label">Ингредиенты (на 100г начинки)</span>
+          <div id="frIngredientsList"></div>
+          <button class="adm-btn" type="button" onclick="addFillingRecipeIngredientRow()" style="margin-top:8px;">+ Ингредиент</button>
+        </div>
+      </div>
+    </div>
+    <div class="adm-modal__footer">
+      <button class="adm-btn" onclick="closeModal('fillingRecipeModal')">Отмена</button>
+      <button class="adm-btn adm-btn--primary" onclick="saveFillingRecipe()">Сохранить</button>
+    </div>
+  </div>
+</div>
+
+<!-- Модалка создания новой начинки с рецептом (из раздела рецептур) -->
+<div class="modal-overlay" id="newFillingRecipeModal">
+  <div class="adm-modal" style="width:640px;">
+    <div class="adm-modal__header">
+      <div class="adm-modal__title">Добавить рецепт начинки</div>
+      <button class="adm-modal__close" onclick="closeModal('newFillingRecipeModal')">&times;</button>
+    </div>
+    <div class="adm-modal__body">
+      <div class="adm-form">
+        <div class="adm-form__field">
+          <span class="adm-form__label">ID (латиница, через дефис)</span>
+          <input class="adm-form__input" type="text" id="nfrId" placeholder="snikers">
+        </div>
+        <div class="adm-form__field">
+          <span class="adm-form__label">Название</span>
+          <input class="adm-form__input" type="text" id="nfrName" placeholder="«Сникерс»">
+        </div>
+        <div class="adm-form__field">
+          <span class="adm-form__label">Ингредиенты (на 100г начинки)</span>
+          <div id="nfrIngredientsList"></div>
+          <button class="adm-btn" type="button" onclick="addNewFillingRecipeIngredientRow()" style="margin-top:8px;">+ Ингредиент</button>
+        </div>
+      </div>
+    </div>
+    <div class="adm-modal__footer">
+      <button class="adm-btn" onclick="closeModal('newFillingRecipeModal')">Отмена</button>
+      <button class="adm-btn adm-btn--primary" onclick="saveNewFillingWithRecipe()">Сохранить</button>
+    </div>
+  </div>
+</div>
+
+<script src="js/api.js"></script>
 <script>
   const SECTION_TITLES = {
     dashboard: 'Главная',
@@ -1573,7 +1792,9 @@
     booking: 'Правила бронирования',
     promos: 'Акции и информация',
     stats: 'Статистика заказов',
-    users: 'Пользователи'
+    users: 'Пользователи',
+    messages: 'Обращения',
+    'admin-reviews': 'Отзывы'
   };
 
   const navBtns = document.querySelectorAll('.adm__nav-btn[data-section]');
@@ -1589,6 +1810,1245 @@
   navBtns.forEach(btn => {
     btn.addEventListener('click', () => switchSection(btn.dataset.section));
   });
+
+  // ====== Утилиты ======
+  function esc(s) {
+    const d = document.createElement('div');
+    d.textContent = s;
+    return d.innerHTML;
+  }
+
+  function fmtRUB(n) {
+    return Number(n).toLocaleString('ru-RU') + ' \u20bd';
+  }
+
+  function fmtDate(iso) {
+    if (!iso) return '—';
+    return new Date(iso).toLocaleDateString('ru-RU', { day: 'numeric', month: 'short', year: 'numeric' });
+  }
+
+  function fmtPhone(p) {
+    const d = (p || '').replace(/\D/g, '');
+    if (d.length === 11) return '+7 (' + d.slice(1,4) + ') ' + d.slice(4,7) + '-' + d.slice(7,9) + '-' + d.slice(9,11);
+    return p || '—';
+  }
+
+  const STATUS_MAP = {
+    'new':       { label: 'Новый',       cls: 'adm-table__status--new' },
+    'confirmed': { label: 'Подтверждён', cls: 'adm-table__status--cooking' },
+    'cooking':   { label: 'Готовится',   cls: 'adm-table__status--cooking' },
+    'delivery':  { label: 'В доставке',  cls: 'adm-table__status--delivery' },
+    'delivered': { label: 'Доставлен',   cls: 'adm-table__status--done' },
+    'cancelled': { label: 'Отменён',     cls: 'adm-table__status--cancelled' }
+  };
+
+  const STATUS_OPTIONS = ['new','confirmed','cooking','delivery','delivered','cancelled'];
+
+  // ====== Выход ======
+  async function doLogout() {
+    try { await API.logout(); } catch(e) {}
+    location.href = 'auth.html';
+  }
+  document.getElementById('sideLogoutBtn').addEventListener('click', doLogout);
+  document.getElementById('topLogoutBtn').addEventListener('click', doLogout);
+
+  // ====== Проверка авторизации ======
+  (async function() {
+    const me = await API.getMe();
+    if (!me || me.error) {
+      location.href = 'auth.html';
+      return;
+    }
+  })();
+
+  // ====== Загрузка заказов ======
+  let allOrders = [];
+
+  async function loadOrders() {
+    const filter = document.getElementById('orderFilter').value;
+    const search = document.getElementById('orderSearch').value.trim();
+    try {
+      allOrders = await API.getAdminOrders(filter !== 'all' ? filter : '', search);
+    } catch(e) {
+      allOrders = [];
+    }
+    renderOrdersTable();
+    updateDashboardStats();
+  }
+
+  function renderOrdersTable() {
+    const tbody = document.getElementById('ordersTableBody');
+    if (!allOrders.length) {
+      tbody.innerHTML = '<tr><td colspan="6" style="text-align:center;color:#6c6c6c;padding:40px;">Нет заказов</td></tr>';
+      return;
+    }
+
+    tbody.innerHTML = allOrders.map(o => {
+      const st = STATUS_MAP[o.status] || STATUS_MAP['new'];
+      const shortId = o.id.slice(0, 8);
+
+      const items = (o.items || []).map(it => {
+        let itemStr = esc(it.title);
+
+        // Количество всегда показываем
+        itemStr += ` <strong>x${it.qty || 1}</strong>`;
+
+        // Если есть опции (вес/начинка) - показываем их
+        if (it.optionsLabel) {
+          const opts = [];
+          if (it.optionsLabel.base) opts.push(it.optionsLabel.base);
+          if (it.optionsLabel.coulis) opts.push(it.optionsLabel.coulis);
+          if (opts.length) {
+            itemStr += `<br><span style="font-size:11px;color:#6c6c6c;">${opts.join(', ')}</span>`;
+          }
+        }
+
+        return itemStr;
+      }).join('<br>') || '—';
+
+      const isGuest = !o.user_id;
+      const guestBadge = isGuest ? '<span style="display:inline-block;background:#ff9800;color:#fff;font-size:10px;padding:2px 6px;border-radius:4px;margin-left:4px;">Гость</span>' : '';
+
+      return `<tr>
+        <td><strong>#${esc(shortId)}</strong><br><span style="font-size:12px;color:#6c6c6c">${fmtDate(o.createdAtISO)}</span></td>
+        <td>${esc(o.contactName || '—')}${guestBadge}<br><span style="font-size:12px;color:#6c6c6c">${fmtPhone(o.contactPhone)}</span></td>
+        <td style="max-width:250px;line-height:1.6;">${items}</td>
+        <td>${fmtRUB(o.totalPrice)}</td>
+        <td><span class="adm-table__status ${st.cls}">${st.label}</span></td>
+        <td>
+          <div class="adm-table__actions">
+            <select class="adm-select" style="padding:4px 24px 4px 8px;font-size:11px;" data-order-id="${esc(o.id)}" onchange="changeStatus(this)">
+              ${STATUS_OPTIONS.map(s => `<option value="${s}" ${s === o.status ? 'selected' : ''}>${(STATUS_MAP[s] || {}).label || s}</option>`).join('')}
+            </select>
+          </div>
+        </td>
+      </tr>`;
+    }).join('');
+  }
+
+  async function changeStatus(sel) {
+    const orderId = sel.dataset.orderId;
+    const status = sel.value;
+    try {
+      await API.updateOrderStatus(orderId, status);
+      await loadAllData();
+    } catch(e) {
+      alert('Ошибка обновления статуса');
+    }
+  }
+
+  // Переключатель режима отображения
+  document.getElementById('orderViewMode').addEventListener('change', function() {
+    const mode = this.value;
+    const table = document.querySelector('#ordersTableBody').closest('table');
+    const byDayView = document.getElementById('ordersByDay');
+    if (mode === 'byDay') {
+      table.style.display = 'none';
+      byDayView.style.display = 'block';
+      renderOrdersByDay();
+    } else {
+      table.style.display = '';
+      byDayView.style.display = 'none';
+      renderOrdersTable();
+    }
+  });
+
+  // Фильтр и поиск
+  document.getElementById('orderFilter').addEventListener('change', loadOrders);
+  let searchTimeout;
+  document.getElementById('orderSearch').addEventListener('input', function() {
+    clearTimeout(searchTimeout);
+    searchTimeout = setTimeout(loadOrders, 400);
+  });
+
+  // Рендер заказов по дням с группировкой
+  function renderOrdersByDay() {
+    const container = document.getElementById('ordersByDay');
+    if (!allOrders.length) {
+      container.innerHTML = '<div style="text-align:center;color:#6c6c6c;padding:40px;">Нет заказов</div>';
+      return;
+    }
+
+    // Группируем по дате доставки
+    const byDay = {};
+    allOrders.forEach(o => {
+      const day = o.deliveryDateISO || 'Не указана';
+      if (!byDay[day]) byDay[day] = [];
+      byDay[day].push(o);
+    });
+
+    // Сортируем дни
+    const sortedDays = Object.keys(byDay).sort((a, b) => {
+      if (a === 'Не указана') return 1;
+      if (b === 'Не указана') return -1;
+      return new Date(a) - new Date(b);
+    });
+
+    const COURIERS = [
+      { id: 'courier1', name: 'Курьер 1' },
+      { id: 'courier2', name: 'Курьер 2' }
+    ];
+
+    container.innerHTML = sortedDays.map(day => {
+      const orders = byDay[day];
+      const dayLabel = day === 'Не указана' ? day : fmtDate(day);
+
+      // Считаем статистику по курьерам
+      const stats = {};
+      COURIERS.forEach(c => stats[c.id] = 0);
+      orders.forEach(o => {
+        if (o.courier_id && stats[o.courier_id] !== undefined) {
+          stats[o.courier_id]++;
+        }
+      });
+
+      return `
+        <div style="margin-bottom:24px;border:1px solid #ddd;border-radius:12px;padding:20px;background:#fff;box-shadow:0 2px 8px rgba(0,0,0,0.06);">
+          <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:16px;">
+            <h3 style="margin:0;font-size:20px;font-weight:600;color:#2c3e50;">${dayLabel} <span style="color:#7f8c8d;font-weight:400;font-size:16px;">(${orders.length})</span></h3>
+            <div style="display:flex;gap:8px;align-items:center;flex-wrap:wrap;">
+              <span style="font-size:13px;color:#7f8c8d;margin-right:8px;">Назначить на день:</span>
+              ${COURIERS.map(c => `
+                <button class="courier-btn courier-btn-${c.id}" onclick="assignCourierToDay('${day}', '${c.id}')" style="padding:8px 16px;font-size:13px;font-weight:500;border:2px solid #1f1f1f;background:#fff;color:#1f1f1f;border-radius:8px;cursor:pointer;transition:all 0.2s ease;">
+                  ${c.name} <span style="background:#1f1f1f;color:#fff;padding:2px 6px;border-radius:4px;margin-left:4px;font-size:11px;">${stats[c.id]}</span>
+                </button>
+              `).join('')}
+              <button onclick="assignCourierToDay('${day}', '')" style="padding:8px 16px;font-size:13px;border:2px solid #95a5a6;background:#fff;color:#95a5a6;border-radius:8px;cursor:pointer;transition:all 0.2s ease;">Снять</button>
+            </div>
+          </div>
+          <div style="display:grid;grid-template-columns:repeat(auto-fill, minmax(380px, 1fr));gap:16px;">
+            ${orders.map(o => {
+              const st = STATUS_MAP[o.status] || STATUS_MAP['new'];
+              const shortId = o.id.slice(0, 8);
+              const courierLabel = o.courier_id ? (COURIERS.find(c => c.id === o.courier_id)?.name || o.courier_id) : 'Не назначен';
+
+              return `
+                <div style="border:2px solid #ecf0f1;border-radius:10px;padding:16px;background:#fff;transition:all 0.2s ease;box-shadow:0 1px 3px rgba(0,0,0,0.08);" onmouseover="this.style.borderColor='#1f1f1f';this.style.boxShadow='0 4px 12px rgba(31,31,31,0.15)'" onmouseout="this.style.borderColor='#ecf0f1';this.style.boxShadow='0 1px 3px rgba(0,0,0,0.08)'">
+                  <div style="display:flex;justify-content:space-between;margin-bottom:10px;">
+                    <strong style="font-size:15px;color:#2c3e50;">#${esc(shortId)}</strong>
+                    <span class="adm-table__status ${st.cls}" style="font-size:11px;padding:3px 8px;border-radius:4px;">${st.label}</span>
+                  </div>
+                  <div style="font-size:14px;color:#34495e;margin-bottom:6px;font-weight:500;">${esc(o.contactName)}</div>
+                  <div style="font-size:12px;color:#7f8c8d;margin-bottom:6px;">${fmtPhone(o.contactPhone)}</div>
+                  <div style="font-size:12px;color:#95a5a6;margin-bottom:6px;display:flex;align-items:center;gap:4px;">
+                    <span style="font-weight:600;">📍</span> ${esc(o.address || 'Адрес не указан')}
+                  </div>
+                  <div style="font-size:12px;color:#95a5a6;margin-bottom:12px;display:flex;align-items:center;gap:4px;">
+                    <span style="font-weight:600;">🕐</span> ${o.deliveryTime || '—'}
+                  </div>
+                  <div style="display:flex;align-items:center;gap:8px;font-size:13px;">
+                    <span style="font-weight:500;color:#7f8c8d;">Курьер:</span>
+                    <select class="adm-select" style="flex:1;padding:6px 10px;font-size:12px;border:1px solid #ddd;border-radius:6px;cursor:pointer;transition:border-color 0.2s;" onchange="assignCourierToOrder('${o.id}', this.value)" onmouseover="this.style.borderColor='#1f1f1f'" onmouseout="this.style.borderColor='#ddd'">
+                      <option value="" ${!o.courier_id ? 'selected' : ''}>Не назначен</option>
+                      ${COURIERS.map(c => `<option value="${c.id}" ${o.courier_id === c.id ? 'selected' : ''}>${c.name}</option>`).join('')}
+                    </select>
+                  </div>
+                </div>
+              `;
+            }).join('')}
+          </div>
+        </div>
+      `;
+    }).join('');
+  }
+
+  // Назначить курьера одному заказу
+  async function assignCourierToOrder(orderId, courierId) {
+    try {
+      await API.assignCourier(orderId, courierId);
+      await loadOrders();
+      renderOrdersByDay();
+    } catch(e) {
+      alert('Ошибка назначения курьера');
+    }
+  }
+
+  // Назначить курьера всем заказам дня
+  async function assignCourierToDay(day, courierId) {
+    const orders = allOrders.filter(o => (o.deliveryDateISO || 'Не указана') === day);
+    try {
+      for (const order of orders) {
+        await API.assignCourier(order.id, courierId);
+      }
+      await loadOrders();
+      renderOrdersByDay();
+    } catch(e) {
+      alert('Ошибка назначения курьера');
+    }
+  }
+
+  // ====== Загрузка пользователей ======
+  let allUsers = [];
+
+  async function loadUsers() {
+    try {
+      allUsers = await API.getAdminUsers();
+    } catch(e) {
+      allUsers = [];
+    }
+    renderUsersTable();
+  }
+
+  function renderUsersTable() {
+    const tbody = document.getElementById('usersTableBody');
+    if (!allUsers.length) {
+      tbody.innerHTML = '<tr><td colspan="4" style="text-align:center;color:#6c6c6c;padding:40px;">Нет пользователей</td></tr>';
+      return;
+    }
+
+    tbody.innerHTML = allUsers.map(u => `<tr>
+      <td><strong>${esc([u.surname, u.name, u.patronymic].filter(Boolean).join(' ') || '—')}</strong></td>
+      <td>${fmtPhone(u.phone)}</td>
+      <td>${esc(u.email || '—')}</td>
+      <td>${fmtDate(u.created_at)}</td>
+    </tr>`).join('');
+  }
+
+  // ====== Обновление дашборда ======
+  function updateDashboardStats() {
+    document.getElementById('statOrders').textContent = allOrders.length;
+    const revenue = allOrders.reduce((s, o) => s + (o.totalPrice || 0), 0);
+    document.getElementById('statRevenue').textContent = fmtRUB(revenue);
+    const newCount = allOrders.filter(o => o.status === 'new').length;
+    document.getElementById('statNew').textContent = newCount;
+    document.getElementById('statUsers').textContent = allUsers.length;
+
+    // Обновляем бейдж в меню
+    const ordersBadge = document.querySelector('[data-section="orders"] .adm__nav-badge');
+    if (ordersBadge) ordersBadge.textContent = newCount || '';
+  }
+
+  // ====== Утилиты модалок ======
+  function openModal(id) { document.getElementById(id).classList.add('is-open'); }
+  function closeModal(id) { document.getElementById(id).classList.remove('is-open'); }
+
+  // Кэш данных
+  let allProducts = [];
+  let allRecipes = [];
+  let allIngredients = [];
+
+  // ====== КАТАЛОГ ТОВАРОВ (API) ======
+  async function loadCatalog() {
+    const filter = document.getElementById('catalogFilter').value;
+    const search = document.getElementById('catalogSearch').value.trim();
+    try {
+      allProducts = await API.getAdminProducts(filter !== 'all' ? filter : '', search);
+    } catch(e) { allProducts = []; }
+    renderCatalog();
+  }
+
+  function renderCatalog() {
+    const tbody = document.getElementById('catalogTableBody');
+    if (!allProducts.length) {
+      tbody.innerHTML = '<tr><td colspan="6" style="text-align:center;color:#6c6c6c;padding:40px;">Нет товаров</td></tr>';
+      return;
+    }
+    tbody.innerHTML = allProducts.map(p => {
+      const stCls = p.status === 'hidden' ? 'adm-table__status--cancelled' : 'adm-table__status--active';
+      const stLbl = p.status === 'hidden' ? 'Скрыт' : 'Активен';
+      return `<tr>
+        <td><div class="adm-table__product"><img class="adm-table__img" src="${esc(p.image || '')}" alt="" onerror="this.style.background='#f0ebe8';this.src=''"><span>${esc(p.name)}</span></div></td>
+        <td>${esc(p.collection_label || p.collection)}</td>
+        <td>${esc(p.price)}</td>
+        <td>${esc(p.min_qty)}</td>
+        <td><span class="adm-table__status ${stCls}">${stLbl}</span></td>
+        <td><div class="adm-table__actions">
+          <button class="adm-btn adm-btn--sm" onclick="editProduct(${p.id})">&#9998;</button>
+          <button class="adm-btn adm-btn--sm adm-btn--danger" onclick="deleteProduct(${p.id})">&#128465;</button>
+        </div></td>
+      </tr>`;
+    }).join('');
+  }
+
+  function openProductModal(product) {
+    document.getElementById('pmId').value = product ? product.id : '';
+    document.getElementById('pmName').value = product ? product.name : '';
+    document.getElementById('pmCollection').value = product ? product.collection : 'casual';
+    document.getElementById('pmCollectionLabel').value = product ? product.collection_label : '';
+    document.getElementById('pmPrice').value = product ? product.price : '';
+    document.getElementById('pmMinQty').value = product ? product.min_qty : '';
+    document.getElementById('pmImage').value = product ? product.image : '';
+    document.getElementById('pmStatus').value = product ? product.status : 'active';
+    document.getElementById('productModalTitle').textContent = product ? 'Редактировать товар' : 'Добавить товар';
+    openModal('productModal');
+  }
+
+  function editProduct(id) {
+    const p = allProducts.find(x => x.id === id);
+    if (p) openProductModal(p);
+  }
+
+  async function saveProduct() {
+    const id = document.getElementById('pmId').value;
+    const data = {
+      name: document.getElementById('pmName').value.trim(),
+      collection: document.getElementById('pmCollection').value,
+      collection_label: document.getElementById('pmCollectionLabel').value.trim(),
+      price: document.getElementById('pmPrice').value.trim(),
+      min_qty: document.getElementById('pmMinQty').value.trim(),
+      image: document.getElementById('pmImage').value.trim(),
+      status: document.getElementById('pmStatus').value
+    };
+    if (!data.name) { alert('Введите название'); return; }
+    try {
+      if (id) { await API.updateProduct(id, data); }
+      else { await API.createProduct(data); }
+      closeModal('productModal');
+      await loadCatalog();
+    } catch(e) { alert('Ошибка сохранения'); }
+  }
+
+  async function deleteProduct(id) {
+    if (!confirm('Удалить товар? Это также удалит привязанный рецепт.')) return;
+    try {
+      const res = await API.deleteProduct(id);
+      if (res.error) { alert(res.error); return; }
+      await loadCatalog();
+    } catch(e) { alert('Ошибка удаления'); }
+  }
+
+  document.getElementById('catalogFilter').addEventListener('change', loadCatalog);
+  let catalogSearchTimeout;
+  document.getElementById('catalogSearch').addEventListener('input', function() {
+    clearTimeout(catalogSearchTimeout);
+    catalogSearchTimeout = setTimeout(loadCatalog, 300);
+  });
+
+  // ====== РЕЦЕПТУРЫ (API) ======
+  async function loadRecipes() {
+    try { allRecipes = await API.getAdminRecipes(); } catch(e) { allRecipes = []; }
+    renderRecipes();
+  }
+
+  function renderRecipes() {
+    const tbody = document.getElementById('recipesTableBody');
+    const search = (document.getElementById('recipeSearch').value || '').trim().toLowerCase();
+    let items = allRecipes;
+    if (search) items = items.filter(r => (r.product_name || '').toLowerCase().includes(search));
+
+    if (!items.length) {
+      tbody.innerHTML = '<tr><td colspan="5" style="text-align:center;color:#6c6c6c;padding:40px;">Нет рецептур</td></tr>';
+      return;
+    }
+    tbody.innerHTML = items.map(r => `<tr>
+      <td><strong>${esc(r.product_name)}</strong></td>
+      <td>${esc(r.collection || '')}</td>
+      <td>${r.ingredient_count}</td>
+      <td>${fmtDate(r.updated_at)}</td>
+      <td><div class="adm-table__actions">
+        <button class="adm-btn adm-btn--sm" onclick="viewRecipe(${r.id})">&#128065;</button>
+        <button class="adm-btn adm-btn--sm" onclick="editRecipe(${r.id})">&#9998;</button>
+        <button class="adm-btn adm-btn--sm adm-btn--danger" onclick="deleteRecipe(${r.id})">&#128465;</button>
+      </div></td>
+    </tr>`).join('');
+  }
+
+  async function viewRecipe(id) {
+    try {
+      const r = await API.getRecipeDetail(id);
+      let html = '<h3 style="margin:0 0 8px;font-size:16px;">' + esc(r.product_name) + '</h3>';
+      if (r.description) html += '<p style="color:#6c6c6c;margin:0 0 16px;">' + esc(r.description) + '</p>';
+      if (r.ingredients && r.ingredients.length) {
+        html += '<table class="adm-table" style="margin:0;"><thead><tr><th>Ингредиент</th><th>Количество</th></tr></thead><tbody>';
+        r.ingredients.forEach(i => {
+          html += '<tr><td>' + esc(i.ingredient_name) + '</td><td>' + esc(i.amount) + '</td></tr>';
+        });
+        html += '</tbody></table>';
+      } else {
+        html += '<p style="color:#6c6c6c;">Нет ингредиентов</p>';
+      }
+      document.getElementById('recipeDetailTitle').textContent = 'Рецепт: ' + r.product_name;
+      document.getElementById('recipeDetailBody').innerHTML = html;
+      openModal('recipeDetailModal');
+    } catch(e) { alert('Ошибка загрузки рецепта'); }
+  }
+
+  function addRecipeIngredientRow(ingId, amount) {
+    const list = document.getElementById('rmIngredientsList');
+    const row = document.createElement('div');
+    row.className = 'ing-row';
+    let opts = '<option value="">-- Ингредиент --</option>';
+    allIngredients.forEach(i => {
+      opts += '<option value="' + i.id + '"' + (i.id == ingId ? ' selected' : '') + '>' + esc(i.name) + ' (' + i.unit + ')</option>';
+    });
+    row.innerHTML = '<select class="adm-form__input" style="padding:8px;">' + opts + '</select>' +
+      '<input class="adm-form__input" type="text" placeholder="200 г" value="' + esc(amount || '') + '" style="padding:8px;">' +
+      '<button class="adm-btn adm-btn--sm adm-btn--danger" type="button" onclick="this.parentElement.remove()">&times;</button>';
+    list.appendChild(row);
+  }
+
+  async function openRecipeModal(recipe) {
+    document.getElementById('rmId').value = recipe ? recipe.id : '';
+    document.getElementById('rmDescription').value = recipe ? (recipe.description || '') : '';
+    document.getElementById('rmPrepHours').value = recipe ? (recipe.prep_hours || 1) : 1;
+    document.getElementById('rmIngredientsList').innerHTML = '';
+
+    // Заполняем select с десертами
+    const sel = document.getElementById('rmProductId');
+    sel.innerHTML = '<option value="">-- Выберите десерт --</option>';
+    allProducts.forEach(p => {
+      sel.innerHTML += '<option value="' + p.id + '"' + (recipe && recipe.product_id === p.id ? ' selected' : '') + '>' + esc(p.name) + '</option>';
+    });
+
+    document.getElementById('recipeModalTitle').textContent = recipe ? 'Редактировать рецепт' : 'Добавить рецепт';
+
+    if (recipe && recipe.id) {
+      try {
+        const detail = await API.getRecipeDetail(recipe.id);
+        if (detail.prep_hours !== undefined) {
+          document.getElementById('rmPrepHours').value = detail.prep_hours;
+        }
+        if (detail.ingredients) {
+          detail.ingredients.forEach(i => addRecipeIngredientRow(i.ingredient_id, i.amount));
+        }
+      } catch(e) {}
+    }
+
+    openModal('recipeModal');
+  }
+
+  async function editRecipe(id) {
+    const r = allRecipes.find(x => x.id === id);
+    if (r) openRecipeModal(r);
+  }
+
+  async function saveRecipe() {
+    const id = document.getElementById('rmId').value;
+    const product_id = document.getElementById('rmProductId').value;
+    const description = document.getElementById('rmDescription').value.trim();
+    const prep_hours = parseFloat(document.getElementById('rmPrepHours').value) || 1;
+    if (!product_id) { alert('Выберите десерт'); return; }
+
+    const rows = document.querySelectorAll('#rmIngredientsList .ing-row');
+    const ingredients = [];
+    rows.forEach(row => {
+      const sel = row.querySelector('select');
+      const inp = row.querySelector('input');
+      if (sel.value && inp.value.trim()) {
+        ingredients.push({ ingredient_id: Number(sel.value), amount: inp.value.trim() });
+      }
+    });
+
+    try {
+      if (id) {
+        const res = await API.updateRecipe(id, { product_id: Number(product_id), description, prep_hours, ingredients });
+        if (res.error) { alert(res.error); return; }
+      } else {
+        const res = await API.createRecipe({ product_id: Number(product_id), description, prep_hours, ingredients });
+        if (res.error) { alert(res.error); return; }
+      }
+      closeModal('recipeModal');
+      await loadRecipes();
+    } catch(e) { alert('Ошибка сохранения'); }
+  }
+
+  async function deleteRecipe(id) {
+    if (!confirm('Удалить рецепт?')) return;
+    try {
+      const res = await API.deleteRecipe(id);
+      if (res.error) { alert(res.error); return; }
+      await loadRecipes();
+    } catch(e) { alert('Ошибка удаления'); }
+  }
+
+  let recipeSearchTimeout;
+  document.getElementById('recipeSearch').addEventListener('input', function() {
+    clearTimeout(recipeSearchTimeout);
+    recipeSearchTimeout = setTimeout(renderRecipes, 300);
+  });
+
+  // ====== ПЕРЕКЛЮЧАТЕЛИ ПОДРАЗДЕЛОВ ======
+
+  function switchCatalogSubsection(subsection) {
+    document.querySelectorAll('.catalog-subsection-btn').forEach(btn => {
+      btn.classList.toggle('is-active', btn.dataset.subsection === subsection);
+    });
+    document.querySelectorAll('.catalog-subsection').forEach(sub => {
+      sub.style.display = sub.dataset.subsection === subsection ? 'block' : 'none';
+    });
+
+    if (subsection === 'fillings') {
+      loadCatalogFillings();
+    }
+  }
+
+  function switchRecipesSubsection(subsection) {
+    document.querySelectorAll('.recipes-subsection-btn').forEach(btn => {
+      btn.classList.toggle('is-active', btn.dataset.subsection === subsection);
+    });
+    document.querySelectorAll('.recipes-subsection').forEach(sub => {
+      sub.style.display = sub.dataset.subsection === subsection ? 'block' : 'none';
+    });
+
+    if (subsection === 'fillings') {
+      loadRecipesFillings();
+    }
+  }
+
+  // ====== НАЧИНКИ (КАТАЛОГ) ======
+  let allFillings = [];
+
+  async function loadCatalogFillings() {
+    try {
+      allFillings = await API.getFillings(true);
+      // Загрузить информацию о рецептах для каждой начинки
+      for (const f of allFillings) {
+        try {
+          const recipe = await API.getFillingRecipe(f.id);
+          f.hasRecipe = recipe && recipe.ingredients && recipe.ingredients.length > 0;
+        } catch(e) {
+          f.hasRecipe = false;
+        }
+      }
+    } catch(e) {
+      allFillings = [];
+    }
+    renderCatalogFillings();
+  }
+
+  function renderCatalogFillings() {
+    const tbody = document.getElementById('catalogFillingsTableBody');
+    if (!allFillings.length) {
+      tbody.innerHTML = '<tr><td colspan="5" style="text-align:center;color:#6c6c6c;padding:24px;">Нет начинок</td></tr>';
+      return;
+    }
+
+    let html = '';
+    allFillings.forEach(f => {
+      const statusClass = f.is_hidden ? 'adm-table__status--inactive' : 'adm-table__status--active';
+      const statusText = f.is_hidden ? 'Скрыта' : 'Видима';
+
+      // Найти название рецептуры (используется рецепт другой начинки)
+      const recipeName = f.recipe_id
+        ? (allFillings.find(rf => rf.id === f.recipe_id)?.name || '—')
+        : (f.hasRecipe ? esc(f.name) : '—');
+
+      html += `
+        <tr>
+          <td>${esc(f.name)}</td>
+          <td>${f.price > 0 ? '+' + fmtRUB(f.price) : '—'}</td>
+          <td>${recipeName}</td>
+          <td><span class="adm-table__status ${statusClass}">${statusText}</span></td>
+          <td><div class="adm-table__actions">
+            <button class="adm-btn adm-btn--sm" onclick="editCatalogFilling('${esc(f.id)}')">&#9998;</button>
+            <button class="adm-btn adm-btn--sm" onclick="toggleFillingVisibility('${esc(f.id)}', ${f.is_hidden})" title="${f.is_hidden ? 'Показать' : 'Скрыть'}">${f.is_hidden ? '&#128065;' : '&#128683;'}</button>
+            <button class="adm-btn adm-btn--sm adm-btn--danger" onclick="deleteCatalogFilling('${esc(f.id)}')">&#128465;</button>
+          </div></td>
+        </tr>
+      `;
+    });
+    tbody.innerHTML = html;
+  }
+
+  async function openCatalogFillingModal(filling = null) {
+    document.getElementById('cfOriginalId').value = filling ? filling.id : '';
+    document.getElementById('cfId').value = filling ? filling.id : '';
+    document.getElementById('cfName').value = filling ? filling.name : '';
+    document.getElementById('cfPrice').value = filling ? filling.price : 0;
+    document.getElementById('cfId').disabled = !!filling;
+
+    // Заполнить dropdown начинками, у которых есть рецепт
+    const sel = document.getElementById('cfRecipeId');
+    sel.innerHTML = '<option value="">-- Собственный рецепт --</option>';
+    allFillings.filter(f => f.hasRecipe && (!filling || f.id !== filling.id)).forEach(f => {
+      sel.innerHTML += `<option value="${esc(f.id)}"${filling && filling.recipe_id === f.id ? ' selected' : ''}>${esc(f.name)}</option>`;
+    });
+
+    document.getElementById('catalogFillingTitle').textContent = filling ? 'Редактировать начинку' : 'Добавить начинку';
+    openModal('catalogFillingModal');
+  }
+
+  async function editCatalogFilling(id) {
+    const filling = allFillings.find(f => f.id === id);
+    if (!filling) return;
+    await openCatalogFillingModal(filling);
+  }
+
+  async function saveCatalogFilling() {
+    const originalId = document.getElementById('cfOriginalId').value;
+    const id = document.getElementById('cfId').value.trim();
+    const name = document.getElementById('cfName').value.trim();
+    const price = parseFloat(document.getElementById('cfPrice').value) || 0;
+    const recipe_id = document.getElementById('cfRecipeId').value || null;
+
+    if (!id || !name) {
+      alert('Укажите ID и название');
+      return;
+    }
+
+    try {
+      if (originalId) {
+        const res = await API.updateFilling(originalId, { name, price, recipe_id });
+        if (res.error) { alert(res.error); return; }
+      } else {
+        const res = await API.createFilling({ id, name, price, recipe_id });
+        if (res.error) { alert(res.error); return; }
+      }
+      closeModal('catalogFillingModal');
+      await loadCatalogFillings();
+    } catch(e) {
+      alert('Ошибка сохранения');
+    }
+  }
+
+  async function toggleFillingVisibility(id, currentlyHidden) {
+    try {
+      const res = await API.updateFilling(id, { is_hidden: currentlyHidden ? 0 : 1 });
+      if (res.error) { alert(res.error); return; }
+      await loadCatalogFillings();
+      await loadRecipesFillings();
+    } catch(e) {
+      alert('Ошибка обновления');
+    }
+  }
+
+  async function deleteCatalogFilling(id) {
+    if (!confirm('Удалить начинку? Это действие нельзя отменить.')) return;
+    try {
+      const res = await API.deleteFilling(id);
+      if (res.error) { alert(res.error); return; }
+      await loadCatalogFillings();
+      await loadRecipesFillings();
+    } catch(e) {
+      alert('Ошибка удаления');
+    }
+  }
+
+  // ====== НАЧИНКИ (РЕЦЕПТЫ) ======
+
+  async function loadRecipesFillings() {
+    try {
+      allFillings = await API.getFillings(true);
+    } catch(e) {
+      allFillings = [];
+    }
+    renderRecipesFillings();
+  }
+
+  async function renderRecipesFillings() {
+    const tbody = document.getElementById('recipesFillingsTableBody');
+    if (!allFillings.length) {
+      tbody.innerHTML = '<tr><td colspan="3" style="text-align:center;color:#6c6c6c;padding:24px;">Нет начинок</td></tr>';
+      return;
+    }
+
+    let html = '';
+    for (const f of allFillings) {
+      try {
+        const recipeData = await API.getFillingRecipe(f.id);
+        const ingredientCount = recipeData?.ingredients?.length || 0;
+
+        html += `
+          <tr>
+            <td>${esc(f.name)}</td>
+            <td>${ingredientCount} шт</td>
+            <td><div class="adm-table__actions">
+              <button class="adm-btn adm-btn--sm" onclick="editFillingRecipe('${esc(f.id)}')">&#9998;</button>
+              <button class="adm-btn adm-btn--sm adm-btn--danger" onclick="deleteRecipesFilling('${esc(f.id)}')">&#128465;</button>
+            </div></td>
+          </tr>
+        `;
+      } catch(e) {
+        html += `
+          <tr>
+            <td>${esc(f.name)}</td>
+            <td>0 шт</td>
+            <td><div class="adm-table__actions">
+              <button class="adm-btn adm-btn--sm" onclick="editFillingRecipe('${esc(f.id)}')">&#9998;</button>
+              <button class="adm-btn adm-btn--sm adm-btn--danger" onclick="deleteRecipesFilling('${esc(f.id)}')">&#128465;</button>
+            </div></td>
+          </tr>
+        `;
+      }
+    }
+    tbody.innerHTML = html;
+  }
+
+  async function editFillingRecipe(fillingId) {
+    const filling = allFillings.find(f => f.id === fillingId);
+    if (!filling) return;
+
+    document.getElementById('frFillingId').value = fillingId;
+    document.getElementById('frFillingName').value = filling.name;
+    document.getElementById('frIngredientsList').innerHTML = '';
+
+    try {
+      const recipeData = await API.getFillingRecipe(fillingId);
+      if (recipeData && recipeData.ingredients) {
+        recipeData.ingredients.forEach(ing => {
+          addFillingRecipeIngredientRow(ing.ingredient_id, ing.amount);
+        });
+      }
+    } catch(e) {}
+
+    document.getElementById('fillingRecipeTitle').textContent = `Рецепт: ${filling.name}`;
+    openModal('fillingRecipeModal');
+  }
+
+  function addFillingRecipeIngredientRow(ingredientId = '', amount = '') {
+    const container = document.getElementById('frIngredientsList');
+    const row = document.createElement('div');
+    row.className = 'ing-row';
+    row.style.cssText = 'display:flex;gap:8px;margin-bottom:8px;';
+
+    const sel = document.createElement('select');
+    sel.className = 'adm-form__input';
+    sel.style.flex = '2';
+    sel.innerHTML = '<option value="">-- Выберите ингредиент --</option>';
+    allIngredients.forEach(i => {
+      sel.innerHTML += `<option value="${i.id}"${i.id === ingredientId ? ' selected' : ''}>${esc(i.name)} (${i.unit})</option>`;
+    });
+
+    const inp = document.createElement('input');
+    inp.className = 'adm-form__input';
+    inp.type = 'text';
+    inp.placeholder = 'Количество';
+    inp.style.flex = '1';
+    inp.value = amount;
+
+    const btn = document.createElement('button');
+    btn.className = 'adm-btn adm-btn--sm';
+    btn.textContent = '✕';
+    btn.type = 'button';
+    btn.onclick = () => row.remove();
+
+    row.appendChild(sel);
+    row.appendChild(inp);
+    row.appendChild(btn);
+    container.appendChild(row);
+  }
+
+  function addNewFillingRecipeIngredientRow(ingredientId = '', amount = '') {
+    const container = document.getElementById('nfrIngredientsList');
+    const row = document.createElement('div');
+    row.className = 'ing-row';
+    row.style.cssText = 'display:flex;gap:8px;margin-bottom:8px;';
+
+    const sel = document.createElement('select');
+    sel.className = 'adm-form__input';
+    sel.style.flex = '2';
+    sel.innerHTML = '<option value="">-- Выберите ингредиент --</option>';
+    allIngredients.forEach(i => {
+      sel.innerHTML += `<option value="${i.id}"${i.id === ingredientId ? ' selected' : ''}>${esc(i.name)} (${i.unit})</option>`;
+    });
+
+    const inp = document.createElement('input');
+    inp.className = 'adm-form__input';
+    inp.type = 'text';
+    inp.placeholder = 'Количество';
+    inp.style.flex = '1';
+    inp.value = amount;
+
+    const btn = document.createElement('button');
+    btn.className = 'adm-btn adm-btn--sm';
+    btn.textContent = '✕';
+    btn.type = 'button';
+    btn.onclick = () => row.remove();
+
+    row.appendChild(sel);
+    row.appendChild(inp);
+    row.appendChild(btn);
+    container.appendChild(row);
+  }
+
+  async function saveFillingRecipe() {
+    const fillingId = document.getElementById('frFillingId').value;
+    const rows = document.querySelectorAll('#frIngredientsList .ing-row');
+    const ingredients = [];
+
+    rows.forEach(row => {
+      const sel = row.querySelector('select');
+      const inp = row.querySelector('input');
+      if (sel.value && inp.value.trim()) {
+        ingredients.push({ ingredient_id: Number(sel.value), amount: inp.value.trim() });
+      }
+    });
+
+    try {
+      const res = await API.updateFillingRecipe(fillingId, { ingredients });
+      if (res.error) { alert(res.error); return; }
+      closeModal('fillingRecipeModal');
+      await loadRecipesFillings();
+      await loadCatalogFillings();
+    } catch(e) {
+      alert('Ошибка сохранения рецепта');
+    }
+  }
+
+  async function saveNewFillingWithRecipe() {
+    const id = document.getElementById('nfrId').value.trim();
+    const name = document.getElementById('nfrName').value.trim();
+
+    if (!id || !name) {
+      alert('Укажите ID и название начинки');
+      return;
+    }
+
+    // Проверка на латиницу и дефисы
+    if (!/^[a-z0-9-]+$/.test(id)) {
+      alert('ID должен содержать только латиницу, цифры и дефисы');
+      return;
+    }
+
+    const rows = document.querySelectorAll('#nfrIngredientsList .ing-row');
+    const ingredients = [];
+
+    rows.forEach(row => {
+      const sel = row.querySelector('select');
+      const inp = row.querySelector('input');
+      if (sel.value && inp.value.trim()) {
+        ingredients.push({ ingredient_id: Number(sel.value), amount: inp.value.trim() });
+      }
+    });
+
+    if (ingredients.length === 0) {
+      alert('Добавьте хотя бы один ингредиент');
+      return;
+    }
+
+    try {
+      // Сначала создаём начинку
+      const createRes = await API.createFilling({ id, name, price: 0, recipe_id: null });
+      if (createRes.error) {
+        alert(createRes.error);
+        return;
+      }
+
+      // Затем сохраняем её рецепт
+      const recipeRes = await API.updateFillingRecipe(id, { ingredients });
+      if (recipeRes.error) {
+        alert('Начинка создана, но ошибка сохранения рецепта: ' + recipeRes.error);
+        return;
+      }
+
+      closeModal('newFillingRecipeModal');
+      await loadRecipesFillings();
+      await loadCatalogFillings();
+    } catch(e) {
+      alert('Ошибка создания начинки с рецептом');
+    }
+  }
+
+  // Открыть модальное окно для добавления начинки из раздела рецептур
+  async function openRecipesFillingModal() {
+    if (!allIngredients.length) await loadIngredients();
+
+    document.getElementById('nfrId').value = '';
+    document.getElementById('nfrName').value = '';
+    document.getElementById('nfrIngredientsList').innerHTML = '';
+
+    // Добавить одну пустую строку для ингредиента
+    addNewFillingRecipeIngredientRow();
+
+    openModal('newFillingRecipeModal');
+  }
+
+  async function deleteRecipesFilling(id) {
+    if (!confirm('Удалить начинку и её рецепт? Это действие нельзя отменить.')) return;
+    try {
+      const res = await API.deleteFilling(id);
+      if (res.error) { alert(res.error); return; }
+      await loadRecipesFillings();
+      await loadCatalogFillings();
+    } catch(e) {
+      alert('Ошибка удаления');
+    }
+  }
+
+  // ====== ИНГРЕДИЕНТЫ (API) ======
+  async function loadIngredients() {
+    const search = document.getElementById('ingredientSearch').value.trim();
+    try { allIngredients = await API.getAdminIngredients(search); } catch(e) { allIngredients = []; }
+    renderIngredients();
+  }
+
+  function renderIngredients() {
+    const tbody = document.getElementById('ingredientsTableBody');
+    const alertsEl = document.getElementById('ingredientAlerts');
+
+    const critical = allIngredients.filter(i => i.stock === 0);
+    const low = allIngredients.filter(i => i.stock > 0 && i.stock <= i.threshold);
+
+    let alertsHtml = '';
+    critical.forEach(i => {
+      alertsHtml += '<div class="adm-alert adm-alert--danger"><div class="adm-alert__icon">&#9888;</div><div class="adm-alert__text"><strong>' + esc(i.name) + '</strong> — закончилась на складе. Необходимо срочное пополнение.</div></div>';
+    });
+    low.forEach(i => {
+      alertsHtml += '<div class="adm-alert adm-alert--warn"><div class="adm-alert__icon">&#9888;</div><div class="adm-alert__text"><strong>' + esc(i.name) + '</strong> — осталось ' + i.stock + ' ' + i.unit + ' (порог: ' + i.threshold + ' ' + i.unit + ')</div></div>';
+    });
+    alertsEl.innerHTML = alertsHtml;
+
+    // Обновляем бейдж ингредиентов
+    const ingBadge = document.querySelector('[data-section="ingredients"] .adm__nav-badge');
+    if (ingBadge) ingBadge.textContent = (critical.length + low.length) || '';
+
+    if (!allIngredients.length) {
+      tbody.innerHTML = '<tr><td colspan="6" style="text-align:center;color:#6c6c6c;padding:40px;">Нет ингредиентов</td></tr>';
+      return;
+    }
+    tbody.innerHTML = allIngredients.map(i => {
+      let statusCls, statusLabel;
+      if (i.stock === 0) { statusCls = 'adm-table__status--out'; statusLabel = 'Нет в наличии'; }
+      else if (i.stock <= i.threshold) { statusCls = 'adm-table__status--low'; statusLabel = 'Мало'; }
+      else { statusCls = 'adm-table__status--active'; statusLabel = 'В наличии'; }
+
+      return `<tr>
+        <td><strong>${esc(i.name)}</strong></td>
+        <td>${i.stock}</td>
+        <td>${esc(i.unit)}</td>
+        <td>${i.threshold} ${esc(i.unit)}</td>
+        <td><span class="adm-table__status ${statusCls}">${statusLabel}</span></td>
+        <td><div class="adm-table__actions">
+          <button class="adm-btn adm-btn--sm" onclick="editIngredient(${i.id})">&#9998;</button>
+          <button class="adm-btn adm-btn--sm adm-btn--danger" onclick="deleteIngredient(${i.id})">&#128465;</button>
+        </div></td>
+      </tr>`;
+    }).join('');
+  }
+
+  function openIngredientModal(ingredient) {
+    document.getElementById('imId').value = ingredient ? ingredient.id : '';
+    document.getElementById('imName').value = ingredient ? ingredient.name : '';
+    document.getElementById('imUnit').value = ingredient ? ingredient.unit : 'кг';
+    document.getElementById('imStock').value = ingredient ? ingredient.stock : 0;
+    document.getElementById('imThreshold').value = ingredient ? ingredient.threshold : 0;
+    document.getElementById('ingredientModalTitle').textContent = ingredient ? 'Редактировать ингредиент' : 'Добавить ингредиент';
+    openModal('ingredientModal');
+  }
+
+  function editIngredient(id) {
+    const i = allIngredients.find(x => x.id === id);
+    if (i) openIngredientModal(i);
+  }
+
+  async function saveIngredient() {
+    const id = document.getElementById('imId').value;
+    const data = {
+      name: document.getElementById('imName').value.trim(),
+      unit: document.getElementById('imUnit').value,
+      stock: parseFloat(document.getElementById('imStock').value) || 0,
+      threshold: parseFloat(document.getElementById('imThreshold').value) || 0
+    };
+    if (!data.name) { alert('Введите название'); return; }
+    try {
+      let res;
+      if (id) { res = await API.updateIngredient(id, data); }
+      else { res = await API.createIngredient(data); }
+      if (res.error) { alert(res.error); return; }
+      closeModal('ingredientModal');
+      await loadIngredients();
+    } catch(e) { alert('Ошибка сохранения'); }
+  }
+
+  async function deleteIngredient(id) {
+    if (!confirm('Удалить ингредиент?')) return;
+    try {
+      const res = await API.deleteIngredient(id);
+      if (res.error) { alert(res.error); return; }
+      await loadIngredients();
+    } catch(e) { alert('Ошибка удаления'); }
+  }
+
+  let ingredientSearchTimeout;
+  document.getElementById('ingredientSearch').addEventListener('input', function() {
+    clearTimeout(ingredientSearchTimeout);
+    ingredientSearchTimeout = setTimeout(loadIngredients, 300);
+  });
+
+  // ====== Обращения ======
+  let allMessages = [];
+
+  async function loadMessages() {
+    const filter = document.getElementById('messagesFilter').value;
+    try {
+      allMessages = await API.getAdminMessages(filter !== 'all' ? filter : '');
+    } catch(e) {
+      allMessages = [];
+    }
+    renderMessagesTable();
+    updateMessagesBadge();
+  }
+
+  function renderMessagesTable() {
+    const tbody = document.getElementById('messagesTableBody');
+    if (!allMessages.length) {
+      tbody.innerHTML = '<tr><td colspan="6" style="text-align:center;color:#6c6c6c;padding:40px;">Нет обращений</td></tr>';
+      return;
+    }
+    const statusMap = {
+      'new': { cls: 'adm-table__status--msg-new', label: 'Новое' },
+      'read': { cls: 'adm-table__status--msg-read', label: 'Прочитано' },
+      'replied': { cls: 'adm-table__status--msg-replied', label: 'Отвечено' }
+    };
+    tbody.innerHTML = allMessages.map(m => {
+      const st = statusMap[m.status] || statusMap['new'];
+      const contact = m.email ? esc(m.email) : (m.phone ? esc(m.phone) : '—');
+      const shortMsg = esc(m.message.length > 60 ? m.message.slice(0, 60) + '...' : m.message);
+
+      // Блок ответа в раскрывающейся строке
+      let replyHtml = '';
+      if (m.admin_reply) {
+        replyHtml = `<div class="msg-reply-existing">
+          <div class="msg-reply-existing__label">Ваш ответ (${fmtDate(m.reply_date)}):</div>
+          ${esc(m.admin_reply)}
+        </div>`;
+      } else {
+        const hint = !m.user_id ? '<div class="msg-reply-area__hint">&#9888; Пользователь не зарегистрирован — уведомление не будет доставлено. Свяжитесь по email/телефону.</div>' : '';
+        replyHtml = `<div class="msg-reply-area">
+          ${hint}
+          <textarea id="replyText${m.id}" placeholder="Введите ответ..." onclick="event.stopPropagation();"></textarea>
+          <div class="msg-reply-area__actions">
+            <button class="adm-btn adm-btn--sm adm-btn--primary" onclick="event.stopPropagation();sendReply(${m.id})">Отправить ответ</button>
+          </div>
+        </div>`;
+      }
+
+      return `
+        <tr style="cursor:pointer;" onclick="toggleMessageDetail(${m.id})">
+          <td>${fmtDate(m.created_at)}</td>
+          <td>${esc(m.name)}</td>
+          <td>${contact}</td>
+          <td>${shortMsg}</td>
+          <td><span class="adm-table__status ${st.cls}">${st.label}</span></td>
+          <td>
+            <div class="adm-table__actions">
+              ${m.status === 'new' ? `<button class="adm-btn adm-btn--sm" onclick="event.stopPropagation();markMessageRead(${m.id})">Прочитано</button>` : ''}
+              <button class="adm-btn adm-btn--sm adm-btn--danger" onclick="event.stopPropagation();deleteMsg(${m.id})">Удалить</button>
+            </div>
+          </td>
+        </tr>
+        <tr class="msg-full-text" id="msgDetail${m.id}">
+          <td colspan="6">
+            <div style="margin-bottom:6px;"><strong>От:</strong> ${esc(m.name)}${m.email ? ' — ' + esc(m.email) : ''}${m.phone ? ' — ' + esc(m.phone) : ''}</div>
+            <div>${esc(m.message)}</div>
+            ${replyHtml}
+          </td>
+        </tr>`;
+    }).join('');
+  }
+
+  function toggleMessageDetail(id) {
+    const row = document.getElementById('msgDetail' + id);
+    if (row) row.classList.toggle('is-open');
+  }
+
+  async function markMessageRead(id) {
+    try {
+      await API.updateMessage(id, { status: 'read' });
+      await loadMessages();
+    } catch(e) { alert('Ошибка'); }
+  }
+
+  async function deleteMsg(id) {
+    if (!confirm('Удалить обращение?')) return;
+    try {
+      await API.deleteMessage(id);
+      await loadMessages();
+    } catch(e) { alert('Ошибка удаления'); }
+  }
+
+  async function sendReply(msgId) {
+    const textarea = document.getElementById('replyText' + msgId);
+    const text = textarea.value.trim();
+    if (!text) { alert('Введите текст ответа'); return; }
+    try {
+      const result = await API.replyToMessage(msgId, text);
+      if (result.error) { alert(result.error); return; }
+      if (!result.hasUser) {
+        alert('Ответ сохранён. Пользователь не зарегистрирован — свяжитесь по email/телефону.');
+      } else {
+        alert('Ответ отправлен. Уведомление доставлено пользователю.');
+      }
+      await loadMessages();
+    } catch(e) { alert('Ошибка отправки ответа'); }
+  }
+
+  function updateMessagesBadge() {
+    const badge = document.getElementById('messagesBadge');
+    const newCount = allMessages.filter(m => m.status === 'new').length;
+    if (newCount > 0) {
+      badge.textContent = newCount;
+      badge.style.display = '';
+    } else {
+      badge.style.display = 'none';
+    }
+  }
+
+  document.getElementById('messagesFilter').addEventListener('change', loadMessages);
+
+  // ====== Отзывы (админ) ======
+  let allAdminReviews = [];
+
+  async function loadAdminReviews() {
+    try {
+      allAdminReviews = await API.getAdminReviews();
+    } catch(e) {
+      allAdminReviews = [];
+    }
+    renderAdminReviews();
+  }
+
+  function renderAdminReviews() {
+    const container = document.getElementById('adminReviewsList');
+    if (!allAdminReviews.length) {
+      container.innerHTML = '<div style="text-align:center;color:#6c6c6c;padding:40px;">Нет отзывов</div>';
+      return;
+    }
+    container.innerHTML = allAdminReviews.map(r => {
+      const stars = '&#9733;'.repeat(r.rating) + '&#9734;'.repeat(5 - r.rating);
+      let photos = [];
+      try { photos = JSON.parse(r.photos || '[]'); } catch(e) {}
+      const photosHtml = photos.length ? `<div class="adm-review-card__photos">${photos.map(p => `<img src="${esc(p)}" alt="Фото">`).join('')}</div>` : '';
+      const statusBadge = r.status === 'published'
+        ? '<span class="adm-review-card__badge adm-review-card__badge--published">Опубликован</span>'
+        : '<span class="adm-review-card__badge adm-review-card__badge--hidden">Скрыт</span>';
+      const toggleBtn = r.status === 'published'
+        ? `<button class="adm-btn adm-btn--sm" onclick="toggleReviewStatus(${r.id},'hidden')">Скрыть</button>`
+        : `<button class="adm-btn adm-btn--sm" onclick="toggleReviewStatus(${r.id},'published')">Показать</button>`;
+
+      return `
+        <div class="adm-review-card">
+          <div class="adm-review-card__info">
+            <div class="adm-review-card__top">
+              <span class="adm-review-card__name">${esc(r.name)}</span>
+              <span class="adm-review-card__stars">${stars}</span>
+              ${statusBadge}
+              <span class="adm-review-card__date">${fmtDate(r.created_at)}</span>
+            </div>
+            <div class="adm-review-card__text">${esc(r.text)}</div>
+            ${photosHtml}
+          </div>
+          <div class="adm-review-card__actions">
+            ${toggleBtn}
+            <button class="adm-btn adm-btn--sm adm-btn--danger" onclick="deleteReview(${r.id})">Удалить</button>
+          </div>
+        </div>`;
+    }).join('');
+  }
+
+  async function toggleReviewStatus(id, newStatus) {
+    try {
+      await API.updateReview(id, { status: newStatus });
+      await loadAdminReviews();
+    } catch(e) { alert('Ошибка'); }
+  }
+
+  async function deleteReview(id) {
+    if (!confirm('Удалить отзыв?')) return;
+    try {
+      await API.deleteReview(id);
+      await loadAdminReviews();
+    } catch(e) { alert('Ошибка удаления'); }
+  }
+
+  // ====== Загрузка всех данных ======
+  async function loadAllData() {
+    await Promise.all([loadOrders(), loadUsers(), loadCatalog(), loadIngredients(), loadMessages(), loadAdminReviews()]);
+    await loadRecipes(); // после products и ingredients загружены
+    updateDashboardStats();
+  }
+
+  loadAllData();
 </script>
 
 </body>

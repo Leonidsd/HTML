@@ -3,23 +3,33 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>Корзина — Вкус облаков</title>
+  <title>Отзывы — Вкус облаков</title>
   <link rel="stylesheet" href="css/main.css?v=20" />
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&display=swap" rel="stylesheet">
 
 <style>
-  .cart-page { max-width: 900px; margin: 0 auto; padding: 0 20px; padding-bottom: 60px; }
+  .page--catalog .brand__name--stack {
+    text-decoration: underline;
+    text-decoration-color: transparent;
+    text-underline-offset: 6px;
+  }
+  .page--catalog .brand:hover .brand__name--stack,
+  .page--catalog .brand:focus-visible .brand__name--stack {
+    text-decoration-color: rgba(0,0,0,.85);
+  }
 
   .page.page--catalog { background: #f3f1ed; }
-  .cart-page-section { padding-top: 140px; padding-bottom: 80px; background: #f3f1ed !important; }
+  .reviews-section { padding-top: 140px; padding-bottom: 80px; background: #f3f1ed !important; }
   .site-footer { padding-top: 200px !important; }
   .site-footer::before { top: 0 !important; clip-path: polygon(0 30%, 100% 0%, 100% 100%, 0% 100%) !important; }
   .site-footer::after { content: ""; position: absolute; left: 0; right: 0; top: 0; bottom: 0; background: #f3f1ed; z-index: 0; clip-path: polygon(0 0%, 100% 0%, 100% 0%, 0 30%); }
 
-  .cart-page__title {
+  .reviews-page { max-width: 900px; margin: 0 auto; padding: 0 20px; }
+
+  .reviews-page__title {
     font-family: var(--brand-font);
     font-size: 42px;
     font-weight: 400;
@@ -27,218 +37,146 @@
     margin: 0 0 8px;
   }
 
-  .cart-page__subtitle {
-    font-size: 15px;
-    color: #6c6c6c;
-    margin: 0 0 32px;
-  }
-
-  .cart-page__empty {
-    text-align: center;
-    padding: 60px 20px;
-    color: #6c6c6c;
-  }
-
-  .cart-page__empty-icon {
-    font-size: 48px;
-    margin-bottom: 16px;
-    opacity: 0.4;
-  }
-
-  .cart-page__empty-text {
-    font-size: 16px;
-    margin: 0 0 24px;
-  }
-
-  /* Карточка товара в корзине */
-  .cart-row {
-    display: grid;
-    grid-template-columns: 72px 1fr auto auto auto;
-    align-items: center;
-    gap: 16px;
-    padding: 20px 0;
-    border-bottom: 1px solid #f0ebe8;
-  }
-
-  .cart-row__img {
-    width: 72px;
-    height: 72px;
-    border-radius: 12px;
-    overflow: hidden;
-    background: #f5f0ed;
+  .reviews-summary {
     display: flex;
     align-items: center;
-    justify-content: center;
-    flex-shrink: 0;
+    gap: 16px;
+    margin-bottom: 32px;
+    flex-wrap: wrap;
   }
 
-  .cart-row__img img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
+  .reviews-summary__avg {
+    font-size: 36px;
+    font-weight: 600;
+    color: #1f1f1f;
   }
 
-  .cart-row__img-placeholder {
-    font-size: 28px;
-    opacity: 0.4;
+  .reviews-summary__stars {
+    font-size: 24px;
+    color: #f5a623;
+    letter-spacing: 2px;
   }
 
-  .cart-row__info { min-width: 0; }
+  .reviews-summary__count {
+    font-size: 15px;
+    color: #6c6c6c;
+  }
 
-  .cart-row__name {
+  .review-card {
+    background: #fff;
+    border: 1px solid #f0ebe8;
+    border-radius: 16px;
+    padding: 24px;
+    margin-bottom: 16px;
+  }
+
+  .review-card__header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 8px;
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+
+  .review-card__name {
     font-size: 16px;
     font-weight: 600;
     color: #1f1f1f;
-    margin: 0 0 4px;
   }
 
-  .cart-row__options {
-    font-size: 13px;
-    color: #6c6c6c;
-    margin: 0 0 2px;
-  }
-
-  .cart-row__unit-price {
+  .review-card__date {
     font-size: 13px;
     color: #999;
   }
 
-  .cart-row__qty {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-  }
-
-  .cart-row__qty-btn {
-    width: 32px;
-    height: 32px;
-    border: 2px solid #e7e0dc;
-    border-radius: 8px;
-    background: #fff;
+  .review-card__stars {
     font-size: 18px;
-    font-weight: 600;
-    color: #1f1f1f;
-    cursor: pointer;
+    color: #f5a623;
+    letter-spacing: 1px;
+    margin-bottom: 8px;
+  }
+
+  .review-card__text {
+    font-size: 15px;
+    line-height: 1.6;
+    color: #333;
+    margin: 0;
+  }
+
+  .review-card__photos {
     display: flex;
-    align-items: center;
-    justify-content: center;
-    transition: border-color 0.2s;
-    font-family: var(--font);
-    padding: 0;
+    gap: 8px;
+    flex-wrap: wrap;
+    margin-top: 12px;
   }
 
-  .cart-row__qty-btn:hover {
-    border-color: #d4a088;
+  .review-card__photo {
+    width: 80px;
+    height: 80px;
+    border-radius: 10px;
+    object-fit: cover;
+    border: 2px solid #f0ebe8;
+    cursor: pointer;
+    transition: transform 0.2s;
   }
 
-  .cart-row__qty-num {
-    font-size: 16px;
-    font-weight: 600;
-    min-width: 24px;
+  .review-card__photo:hover {
+    transform: scale(1.05);
+  }
+
+  .reviews-empty {
     text-align: center;
-  }
-
-  .cart-row__total {
+    padding: 60px 20px;
+    color: #6c6c6c;
     font-size: 16px;
-    font-weight: 600;
-    color: #1f1f1f;
-    min-width: 90px;
-    text-align: right;
   }
 
-  .cart-row__del {
-    background: none;
-    border: none;
-    cursor: pointer;
-    color: #b0a8a3;
-    font-size: 18px;
-    padding: 4px;
-    transition: color 0.2s;
-  }
-
-  .cart-row__del:hover { color: #c62828; }
-
-  /* Итого */
-  .cart-page__footer {
-    padding: 24px 0 0;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    flex-wrap: wrap;
-    gap: 16px;
-  }
-
-  .cart-page__grand-total {
-    font-size: 20px;
-    font-weight: 600;
-    color: #1f1f1f;
-  }
-
-  .cart-page__actions {
-    display: flex;
-    gap: 12px;
-    flex-wrap: wrap;
-  }
-
-  .cart-page__btn {
+  .reviews-page__btn {
+    display: inline-block;
     padding: 14px 32px;
-    font-size: 14px;
+    font-size: 15px;
     font-weight: 600;
     font-family: var(--font);
-    border-radius: 12px;
-    cursor: pointer;
-    transition: all 0.3s ease;
-    letter-spacing: 0.3px;
-    text-decoration: none;
-    display: inline-flex;
-    align-items: center;
-  }
-
-  .cart-page__btn--primary {
     color: #fff;
     background: #1f1f1f;
     border: 2px solid #1f1f1f;
+    border-radius: 12px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    text-decoration: none;
+    margin-top: 24px;
   }
 
-  .cart-page__btn--primary:hover {
+  .reviews-page__btn:hover {
     background: #333;
     border-color: #333;
   }
 
-  .cart-page__btn--ghost {
-    color: #1f1f1f;
-    background: transparent;
-    border: 2px solid #e7e0dc;
+  /* Lightbox для фото */
+  .lightbox-overlay {
+    display: none;
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,0.85);
+    z-index: 9999;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+  }
+  .lightbox-overlay.active { display: flex; }
+  .lightbox-overlay img {
+    max-width: 90vw;
+    max-height: 90vh;
+    border-radius: 12px;
+    object-fit: contain;
   }
 
-  .cart-page__btn--ghost:hover {
-    border-color: #d4a088;
-  }
-
-  .cart-page__btn--danger {
-    color: #c62828;
-    background: transparent;
-    border: 2px solid transparent;
-    padding: 14px 16px;
-  }
-
-  .cart-page__btn--danger:hover {
-    background: #fce4ec;
-  }
-
-  @media (max-width: 640px) {
-    .cart-page__title { font-size: 28px; }
-    .cart-row {
-      grid-template-columns: 56px 1fr auto;
-      gap: 12px;
-    }
-    .cart-row__img { width: 56px; height: 56px; border-radius: 10px; }
-    .cart-row__qty { grid-column: 2 / -1; }
-    .cart-row__total { text-align: left; grid-column: 2; }
-    .cart-row__del { grid-column: 3; grid-row: 1; }
-    .cart-page__footer { flex-direction: column; align-items: stretch; }
-    .cart-page__actions { flex-direction: column; }
-    .cart-page__btn { justify-content: center; }
+  @media (max-width: 600px) {
+    .reviews-page__title { font-size: 28px; }
+    .reviews-summary__avg { font-size: 28px; }
+    .review-card { padding: 16px; }
+    .review-card__photo { width: 60px; height: 60px; }
   }
 </style>
 </head>
@@ -310,7 +248,6 @@
   <div class="mega" id="mega" aria-hidden="true">
     <div class="mega__container">
 
-      <!-- Каталог -->
       <div class="mega__panel mega__panel--catalog" data-panel="catalog">
         <div class="mega__grid mega__grid--catalog">
           <a class="mega-tile mega-tile--portrait" href="index.html#brand">
@@ -344,7 +281,6 @@
         </div>
       </div>
 
-      <!-- Наша жизнь -->
       <div class="mega__panel mega__panel--life" data-panel="life">
         <div class="mega__grid mega__grid--cards">
           <div class="mega-left"></div>
@@ -357,7 +293,6 @@
         </div>
       </div>
 
-      <!-- Клиентам -->
       <div class="mega__panel mega__panel--b2b" data-panel="b2b">
         <div class="mega__grid mega__grid--cards">
           <div class="mega-left">
@@ -383,6 +318,7 @@
             </div>
             <div class="mega-tile__side">
               <div class="mega-tile__sideLinks">
+                <a class="mega-link" href="reviews.html">Отзывы</a>
                 <a class="mega-link" href="faq.html">Вопрос-ответ</a>
               </div>
             </div>
@@ -390,15 +326,14 @@
         </div>
       </div>
 
-      <!-- Мы в городе -->
       <div class="mega__panel mega__panel--city" data-panel="city">
         <div class="mega__grid mega__grid--city">
           <div class="mega-city__left">
             <div class="mega-col__title">Мы в городе</div>
             <div class="mega-city">
               <div>г. Дубна</div>
-              <div>Пн-Пт 10:00–20:00</div>
-              <div>Сб-Вс 10:00–16:00</div>
+              <div>Пн-Пт 10:00-20:00</div>
+              <div>Сб-Вс 10:00-16:00</div>
               <a class="mega-link" href="index.html#contacts">Контакты</a>
             </div>
           </div>
@@ -426,13 +361,11 @@
 <!-- Mobile menu -->
 <div class="mobile-menu" id="mobileMenu" hidden>
   <div class="mobile-menu__overlay" data-mobile-close="true"></div>
-
   <div class="mobile-menu__panel" role="dialog" aria-label="Меню">
     <div class="mobile-menu__head">
       <a href="index.html" class="brand__name brand__name--stack" style="color:#fff;text-decoration:none;">Вкус<br>облаков</a>
       <button class="icon-btn icon-btn--ghost" id="btnMenuClose" type="button" aria-label="Закрыть меню">&#10005;</button>
     </div>
-
     <nav class="mobile-menu__nav" aria-label="Мобильная навигация">
       <details class="mobile-menu__group">
         <summary class="mobile-menu__link">Каталог</summary>
@@ -459,12 +392,12 @@
         <div class="mobile-menu__sub">
           <a href="delivery.html">Доставка и оплата</a>
           <a href="about-order.html">О заказе</a>
+          <a href="reviews.html">Отзывы</a>
           <a href="faq.html">Вопрос-ответ</a>
         </div>
       </details>
       <a href="index.html#contacts" data-mobile-close="true">Мы в городе</a>
     </nav>
-
     <div class="mobile-menu__contacts">
       <a class="header__phone" href="tel:+70000000000">+7 (000) 000-00-00</a>
       <a class="header__tg" href="https://t.me/your_telegram" target="_blank" rel="noopener">Telegram</a>
@@ -477,70 +410,106 @@
 </div>
 
   <main>
-    <section class="section cart-page-section">
+    <section class="section reviews-section">
       <div class="container">
-        <div class="cart-page">
-          <h1 class="cart-page__title">Корзина</h1>
-          <p class="cart-page__subtitle" id="cartPageSubtitle"></p>
+        <div class="reviews-page">
+          <h1 class="reviews-page__title">Отзывы</h1>
 
-          <div id="cartPageItems"></div>
-
-          <div class="cart-page__footer" id="cartPageFooter" style="display:none;">
-            <div class="cart-page__grand-total" id="cartPageTotal"></div>
-            <div class="cart-page__actions">
-              <button class="cart-page__btn cart-page__btn--danger" type="button" id="clearCartBtn">Очистить корзину</button>
-              <a class="cart-page__btn cart-page__btn--ghost" href="index.html#catalog">Продолжить покупки</a>
-              <a class="cart-page__btn cart-page__btn--primary" href="checkout.html" id="toCheckoutBtn">Оформить заказ</a>
-            </div>
+          <div class="reviews-summary" id="reviewsSummary" style="display:none;">
+            <div class="reviews-summary__avg" id="avgRating"></div>
+            <div class="reviews-summary__stars" id="avgStars"></div>
+            <div class="reviews-summary__count" id="reviewCount"></div>
           </div>
+
+          <div id="reviewsList"></div>
+
+          <div style="text-align: center;">
+            <button class="reviews-page__btn" type="button" id="toggleReviewForm">Оставить отзыв</button>
+          </div>
+
+          <!-- Встроенная форма отзыва -->
+          <div id="reviewFormSection" style="display:none; max-width: 600px; margin: 32px auto 0; background: #fff; border: 2px solid #e7e0dc; border-radius: 16px; padding: 28px;">
+            <h3 style="font-size: 18px; font-weight: 600; color: #1f1f1f; margin: 0 0 20px; text-align: center;">Оставить отзыв</h3>
+            <form id="reviewFormInline" style="display: flex; flex-direction: column; gap: 16px;">
+              <label style="display: flex; flex-direction: column; gap: 6px; font-size: 14px; font-weight: 500; color: #1f1f1f;">
+                Имя *
+                <input type="text" name="name" id="rvNameInline" required placeholder="Ваше имя" style="width: 100%; padding: 14px 16px; font-size: 15px; font-family: var(--font); border: 2px solid #e7e0dc; border-radius: 12px; background: #fff; color: #1f1f1f; outline: none; box-sizing: border-box; transition: border-color 0.3s;">
+              </label>
+
+              <div style="display: flex; flex-direction: column; gap: 6px; font-size: 14px; font-weight: 500; color: #1f1f1f;">
+                Оценка *
+                <div id="starRatingInline" style="display: flex; gap: 8px; font-size: 32px; cursor: pointer; user-select: none;">
+                  <span class="star-inline" data-star="1" style="color: #e7e0dc; transition: color 0.2s;">&#9733;</span>
+                  <span class="star-inline" data-star="2" style="color: #e7e0dc; transition: color 0.2s;">&#9733;</span>
+                  <span class="star-inline" data-star="3" style="color: #e7e0dc; transition: color 0.2s;">&#9733;</span>
+                  <span class="star-inline" data-star="4" style="color: #e7e0dc; transition: color 0.2s;">&#9733;</span>
+                  <span class="star-inline" data-star="5" style="color: #e7e0dc; transition: color 0.2s;">&#9733;</span>
+                </div>
+              </div>
+
+              <label style="display: flex; flex-direction: column; gap: 6px; font-size: 14px; font-weight: 500; color: #1f1f1f;">
+                Отзыв *
+                <textarea name="text" required rows="4" placeholder="Расскажите о вашем опыте..." style="width: 100%; padding: 14px 16px; font-size: 15px; font-family: var(--font); border: 2px solid #e7e0dc; border-radius: 12px; background: #fff; color: #1f1f1f; outline: none; box-sizing: border-box; resize: vertical; transition: border-color 0.3s;"></textarea>
+              </label>
+
+              <label style="display: flex; flex-direction: column; gap: 6px; font-size: 14px; font-weight: 500; color: #1f1f1f;">
+                Фото или видео
+                <input type="file" name="photos" id="rvPhotosInline" multiple accept="image/*,video/*" style="padding: 12px; font-size: 14px; font-family: var(--font); border: 2px solid #e7e0dc; border-radius: 12px; background: #fff; cursor: pointer;">
+              </label>
+              <div id="rvPreviewInline" style="display: flex; gap: 8px; flex-wrap: wrap;"></div>
+
+              <button type="submit" style="width: 100%; padding: 14px; font-size: 15px; font-weight: 600; font-family: var(--font); color: #fff; background: #1f1f1f; border: 2px solid #1f1f1f; border-radius: 12px; cursor: pointer; transition: all 0.3s ease; margin-top: 8px;">
+                ОТПРАВИТЬ ОТЗЫВ
+              </button>
+              <div id="rvSuccessInline" style="display: none; text-align: center; padding: 16px; background: #e8f5e9; border-radius: 12px; color: #2e7d32; font-weight: 500;">
+                Спасибо за ваш отзыв!
+              </div>
+            </form>
+          </div>
+
         </div>
       </div>
     </section>
   </main>
 
+  <!-- Lightbox -->
+  <div class="lightbox-overlay" id="lightbox">
+    <img src="" alt="">
+  </div>
+
   <!-- Footer -->
   <footer class="site-footer" id="contacts">
   <div class="container site-footer__inner">
-
     <div class="site-footer__grid">
       <div class="site-footer__left">
         <div class="site-footer__lead">
           Иногда самые важные слова можно сказать без слов.
         </div>
-
         <div class="site-footer__contacts">
           <a class="site-footer__contact" href="tel:+70000000000">
             <svg class="site-footer__ico" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
             +7 (000) 000-00-00
           </a>
-
           <a class="site-footer__contact" href="mailto:vkus.oblakov@gmail.com">
             <svg class="site-footer__ico" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/></svg>
             vkus.oblakov@gmail.com
           </a>
-
-          <a class="site-footer__contact" href="#">
-            Telegram
-          </a>
-
+          <a class="site-footer__contact" href="#">Telegram</a>
           <div class="site-footer__social">
             <a href="#" class="site-footer__social-link">Вконтакте</a>
           </div>
         </div>
       </div>
-
       <nav class="site-footer__col" aria-label="Магазин">
         <div class="site-footer__title">Магазин</div>
         <a class="site-footer__link" href="casual.html">Каталог Casual</a>
         <a class="site-footer__link" href="order.html">Каталог To order</a>
         <a class="site-footer__link" href="fillings.html">Наши начинки</a>
       </nav>
-
       <nav class="site-footer__col" aria-label="Наша жизнь">
         <div class="site-footer__title">Наша жизнь</div>
         <a class="site-footer__link" href="brand.html">История бренда</a>
       </nav>
-
       <nav class="site-footer__col" aria-label="Клиентам">
         <div class="site-footer__title">Клиентам</div>
         <a class="site-footer__link" href="delivery.html">Доставка и оплата</a>
@@ -548,79 +517,61 @@
         <a class="site-footer__link" href="faq.html">Вопрос-ответ</a>
       </nav>
     </div>
-
     <div class="site-footer__bottom">
       <div class="site-footer__copy">&copy; 2026 Вкус облаков.</div>
-
-      <a class="site-footer__policy" href="#">
-        Политика конфиденциальности
-      </a>
-
+      <a class="site-footer__policy" href="#">Политика конфиденциальности</a>
       <div class="site-footer__dev"></div>
     </div>
-
   </div>
 </footer>
 
+  <script src="https://api-maps.yandex.ru/2.1/?lang=ru_RU"></script>
   <script src="js/api.js"></script>
   <script src="js/app.js"></script>
   <script>
-    function renderCartPage() {
-      const cart = loadCart();
-      const itemsEl = document.getElementById('cartPageItems');
-      const footerEl = document.getElementById('cartPageFooter');
-      const subtitleEl = document.getElementById('cartPageSubtitle');
-      const totalEl = document.getElementById('cartPageTotal');
+    function starsHtml(rating) {
+      let s = '';
+      for (let i = 1; i <= 5; i++) s += i <= rating ? '&#9733;' : '&#9734;';
+      return s;
+    }
 
-      if (!cart.length) {
-        subtitleEl.textContent = '';
-        footerEl.style.display = 'none';
-        itemsEl.innerHTML = `
-          <div class="cart-page__empty">
-            <div class="cart-page__empty-icon">&#128722;</div>
-            <p class="cart-page__empty-text">Корзина пуста</p>
-            <a class="cart-page__btn cart-page__btn--primary" href="index.html#catalog">Перейти в каталог</a>
-          </div>`;
+    function formatDate(iso) {
+      const d = new Date(iso);
+      return d.toLocaleDateString('ru-RU', { day: 'numeric', month: 'long', year: 'numeric' });
+    }
+
+    async function loadReviews() {
+      const reviews = await API.getReviews();
+      const list = document.getElementById('reviewsList');
+      const summary = document.getElementById('reviewsSummary');
+
+      if (!reviews.length) {
+        list.innerHTML = '<div class="reviews-empty">Пока нет отзывов. Будьте первым!</div>';
         return;
       }
 
-      subtitleEl.textContent = cartCount(cart) + ' ' + pluralize(cartCount(cart), 'товар', 'товара', 'товаров');
-      footerEl.style.display = '';
-      totalEl.textContent = 'Итого: ' + formatRUB(cartTotal(cart));
+      // Средняя оценка
+      const avg = (reviews.reduce((s, r) => s + r.rating, 0) / reviews.length).toFixed(1);
+      document.getElementById('avgRating').textContent = avg;
+      document.getElementById('avgStars').innerHTML = starsHtml(Math.round(avg));
+      document.getElementById('reviewCount').textContent = reviews.length + ' ' + pluralize(reviews.length, 'отзыв', 'отзыва', 'отзывов');
+      summary.style.display = 'flex';
 
-      itemsEl.innerHTML = cart.map(it => `
-        <div class="cart-row">
-          <div class="cart-row__img">
-            ${it.image
-              ? `<img src="${escapeHtml(it.image)}" alt="${escapeHtml(it.title)}">`
-              : `<span class="cart-row__img-placeholder">&#127856;</span>`
-            }
+      list.innerHTML = reviews.map(r => `
+        <div class="review-card">
+          <div class="review-card__header">
+            <span class="review-card__name">${escapeHtml(r.name)}</span>
+            <span class="review-card__date">${formatDate(r.created_at)}</span>
           </div>
-          <div class="cart-row__info">
-            <div class="cart-row__name">${escapeHtml(it.title)}</div>
-            <div class="cart-row__options">${escapeHtml([it.optionsLabel?.coulis, it.optionsLabel?.base].filter(Boolean).join(' / '))}</div>
-            <div class="cart-row__unit-price">${formatRUB(it.unitPrice)} за шт.</div>
-          </div>
-          <div class="cart-row__qty">
-            <button class="cart-row__qty-btn" type="button" data-dec="${it.id}">&minus;</button>
-            <span class="cart-row__qty-num">${it.qty}</span>
-            <button class="cart-row__qty-btn" type="button" data-inc="${it.id}">+</button>
-          </div>
-          <div class="cart-row__total">${formatRUB(it.unitPrice * it.qty)}</div>
-          <button class="cart-row__del" type="button" data-remove="${it.id}" title="Удалить">&#10005;</button>
+          <div class="review-card__stars">${starsHtml(r.rating)}</div>
+          <p class="review-card__text">${escapeHtml(r.text)}</p>
+          ${r.photos && r.photos.length ? `
+            <div class="review-card__photos">
+              ${r.photos.map(p => `<img class="review-card__photo" src="${escapeHtml(p)}" alt="Фото отзыва" data-lightbox>`).join('')}
+            </div>
+          ` : ''}
         </div>
       `).join('');
-
-      // Bind events
-      itemsEl.querySelectorAll('[data-inc]').forEach(btn =>
-        btn.addEventListener('click', () => { changeQty(btn.dataset.inc, +1); renderCartPage(); })
-      );
-      itemsEl.querySelectorAll('[data-dec]').forEach(btn =>
-        btn.addEventListener('click', () => { changeQty(btn.dataset.dec, -1); renderCartPage(); })
-      );
-      itemsEl.querySelectorAll('[data-remove]').forEach(btn =>
-        btn.addEventListener('click', () => { removeItem(btn.dataset.remove); renderCartPage(); })
-      );
     }
 
     function pluralize(n, one, few, many) {
@@ -632,17 +583,111 @@
       return many;
     }
 
-    document.getElementById('clearCartBtn')?.addEventListener('click', () => {
-      if (confirm('Очистить корзину?')) {
-        saveCart([]);
-        setCartBadge();
-        renderCartPage();
+    // Lightbox
+    const lightbox = document.getElementById('lightbox');
+    document.addEventListener('click', (e) => {
+      if (e.target.matches('[data-lightbox]')) {
+        lightbox.querySelector('img').src = e.target.src;
+        lightbox.classList.add('active');
+      }
+    });
+    lightbox?.addEventListener('click', () => lightbox.classList.remove('active'));
+
+    // ====== Встроенная форма отзыва ======
+    let inlineRating = 0;
+
+    document.getElementById('toggleReviewForm')?.addEventListener('click', function() {
+      const section = document.getElementById('reviewFormSection');
+      if (section.style.display === 'none') {
+        section.style.display = 'block';
+        section.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        this.textContent = 'Скрыть форму';
+      } else {
+        section.style.display = 'none';
+        this.textContent = 'Оставить отзыв';
+      }
+    });
+
+    // Звёздочки
+    function highlightStarsInline(n) {
+      document.querySelectorAll('.star-inline').forEach(s => {
+        s.style.color = Number(s.dataset.star) <= n ? '#d4a088' : '#e7e0dc';
+      });
+    }
+
+    document.querySelectorAll('.star-inline').forEach(star => {
+      star.addEventListener('mouseenter', () => highlightStarsInline(Number(star.dataset.star)));
+      star.addEventListener('click', () => {
+        inlineRating = Number(star.dataset.star);
+        highlightStarsInline(inlineRating);
+      });
+    });
+    document.getElementById('starRatingInline')?.addEventListener('mouseleave', () => highlightStarsInline(inlineRating));
+
+    // Превью файлов
+    document.getElementById('rvPhotosInline')?.addEventListener('change', function() {
+      const preview = document.getElementById('rvPreviewInline');
+      preview.innerHTML = '';
+      Array.from(this.files).forEach(file => {
+        if (file.type.startsWith('image/')) {
+          const img = document.createElement('img');
+          img.src = URL.createObjectURL(file);
+          img.style.cssText = 'width:80px;height:80px;object-fit:cover;border-radius:8px;border:1px solid #e7e0dc;';
+          preview.appendChild(img);
+        } else {
+          const span = document.createElement('span');
+          span.textContent = file.name;
+          span.style.cssText = 'padding:8px 12px;background:#f7f4f2;border-radius:8px;font-size:13px;';
+          preview.appendChild(span);
+        }
+      });
+    });
+
+    // Отправка
+    document.getElementById('reviewFormInline')?.addEventListener('submit', async function(e) {
+      e.preventDefault();
+      if (inlineRating === 0) { alert('Пожалуйста, выберите оценку'); return; }
+      const btn = this.querySelector('button[type="submit"]');
+      btn.disabled = true;
+      try {
+        const fd = new FormData();
+        fd.append('name', this.querySelector('[name="name"]').value.trim());
+        fd.append('rating', inlineRating);
+        fd.append('text', this.querySelector('[name="text"]').value.trim());
+        const files = document.getElementById('rvPhotosInline').files;
+        for (let i = 0; i < files.length; i++) fd.append('photos', files[i]);
+
+        const result = await API.createReview(fd);
+        if (result.error) { alert(result.error); return; }
+        document.getElementById('rvSuccessInline').style.display = 'block';
+        this.reset();
+        inlineRating = 0;
+        highlightStarsInline(0);
+        document.getElementById('rvPreviewInline').innerHTML = '';
+        // Перезагрузить список отзывов
+        await loadReviews();
+      } catch (err) {
+        alert('Ошибка отправки');
+      } finally {
+        btn.disabled = false;
       }
     });
 
     document.addEventListener('DOMContentLoaded', async () => {
       await initAuth();
-      renderCartPage();
+      loadReviews();
+
+      // Автозаполнение имени для залогиненного пользователя
+      try {
+        const user = await API.getMe();
+        if (user && !user.error) {
+          const nameField = document.getElementById('rvNameInline');
+          if (nameField) {
+            const fullName = [user.surname, user.name, user.patronymic].filter(Boolean).join(' ');
+            if (fullName) nameField.value = fullName;
+          }
+        }
+      } catch(e) {}
     });
   </script>
 </body>

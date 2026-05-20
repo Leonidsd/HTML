@@ -8,32 +8,274 @@
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&display=swap" rel="stylesheet">
 
+<style>
+  /* ====== Sticky footer ====== */
+  body { display: flex; flex-direction: column; min-height: 100vh; }
+  main { flex: 1; }
+
+  /* ====== Stepper bar ====== */
+  .stepper-bar {
+    display: flex;
+    align-items: center;
+    margin-bottom: 28px;
+    padding-bottom: 22px;
+    border-bottom: 1px solid var(--border, #e7e0dc);
+  }
+  .stepper-bar__step {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    white-space: nowrap;
+    cursor: pointer;
+  }
+  .stepper-bar__num {
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 700;
+    font-size: 13px;
+    border: 2px solid #e7e0dc;
+    color: #b0a8a3;
+    background: #fff;
+    transition: all 0.3s ease;
+    flex-shrink: 0;
+  }
+  .stepper-bar__label {
+    font-size: 13px;
+    font-weight: 500;
+    color: #b0a8a3;
+    transition: color 0.3s ease;
+  }
+  .stepper-bar__line {
+    flex: 1;
+    height: 2px;
+    background: #e7e0dc;
+    margin: 0 12px;
+    transition: background 0.3s ease;
+  }
+
+  .stepper-bar__step.is-active .stepper-bar__num {
+    border-color: #1f1f1f;
+    color: #fff;
+    background: #1f1f1f;
+  }
+  .stepper-bar__step.is-active .stepper-bar__label {
+    color: #1f1f1f;
+    font-weight: 600;
+  }
+  .stepper-bar__step.is-done .stepper-bar__num {
+    border-color: #4caf50;
+    color: #fff;
+    background: #4caf50;
+  }
+  .stepper-bar__step.is-done .stepper-bar__label {
+    color: #4caf50;
+  }
+  .stepper-bar__step.is-done + .stepper-bar__line {
+    background: #4caf50;
+  }
+
+  /* ====== Step panels ====== */
+  .step-panel {
+    display: none;
+  }
+  .step-panel.is-active {
+    display: block;
+    animation: stepFadeIn 0.3s ease;
+  }
+  @keyframes stepFadeIn {
+    from { opacity: 0; transform: translateY(8px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+  .step-panel__footer {
+    display: flex;
+    justify-content: space-between;
+    gap: 12px;
+    margin-top: 28px;
+    padding-top: 18px;
+    border-top: 1px solid #e7e0dc;
+  }
+  .step-panel__footer .btn:only-child {
+    margin-left: auto;
+  }
+
+  /* ====== Time section hidden until date selected ====== */
+  .time-section { display: none; }
+  .time-section.is-visible { display: block; }
+
+  /* ====== Time slot buttons ====== */
+  #times {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-top: 12px;
+  }
+  .time-slot {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 110px;
+    padding: 12px 18px;
+    font-family: var(--font, 'Montserrat', sans-serif);
+    font-size: 14px;
+    font-weight: 500;
+    color: #1f1f1f;
+    background: #fff;
+    border: 2px solid #e7e0dc;
+    border-radius: 12px;
+    cursor: pointer;
+    transition: all 0.25s ease;
+    user-select: none;
+  }
+  .time-slot:hover {
+    border-color: #d4a088;
+    background: #fdf8f5;
+    transform: translateY(-1px);
+    box-shadow: 0 4px 12px rgba(212, 160, 136, 0.15);
+  }
+  .time-slot.selected {
+    border-color: #1f1f1f;
+    background: #1f1f1f;
+    color: #fff;
+    box-shadow: 0 4px 16px rgba(31, 31, 31, 0.2);
+    transform: translateY(-1px);
+  }
+  .time-slot.selected:hover {
+    background: #333;
+    border-color: #333;
+  }
+
+  /* ====== Summary card in step 4 ====== */
+  .summary-row {
+    display: flex;
+    justify-content: space-between;
+    padding: 10px 0;
+    border-bottom: 1px solid #f0ebe8;
+    font-size: 15px;
+  }
+  .summary-row:last-child { border-bottom: none; }
+  .summary-row__label { color: #6c6c6c; }
+  .summary-row__value { font-weight: 600; color: #1f1f1f; }
+
+  /* ====== Responsive ====== */
+  @media (max-width: 600px) {
+    .stepper-bar__label { display: none; }
+  }
+
+  /* ====== Mini cart thumbnails ====== */
+  .cart-item--mini {
+    flex-direction: row !important;
+    align-items: stretch;
+    gap: 10px;
+  }
+  .cart-item--mini .cart-item__name {
+    font-weight: 500;
+    font-size: 13px;
+  }
+  .cart-item--mini .price {
+    font-weight: 500;
+    font-size: 13px;
+    margin-top: auto;
+    align-self: flex-end;
+  }
+  .cart-item--mini .cart-item__meta {
+    font-size: 11px;
+  }
+  .cart-item__img {
+    width: 72px;
+    height: 72px;
+    border-radius: 10px;
+    object-fit: cover;
+    flex-shrink: 0;
+  }
+  .cart-item__body {
+    flex: 1;
+    min-width: 0;
+    display: flex;
+    flex-direction: column;
+  }
+
+  /* ====== Buttons styled like time-slots ====== */
+  .step-panel__footer .btn {
+    border: 2px solid #e7e0dc;
+    border-radius: 12px;
+    transition: all 0.25s ease;
+  }
+  .step-panel__footer .btn:hover {
+    border-color: #d4a088;
+    background: #fdf8f5;
+    transform: translateY(-1px);
+    box-shadow: 0 4px 12px rgba(212, 160, 136, 0.15);
+    filter: none;
+  }
+  .step-panel__footer .btn_primary {
+    border-color: #1f1f1f;
+    background: #1f1f1f;
+    color: #fff;
+  }
+  .step-panel__footer .btn_primary:hover {
+    background: #333;
+    border-color: #333;
+    box-shadow: 0 4px 16px rgba(31, 31, 31, 0.2);
+  }
+
+  /* ====== Calendar days styled like time-slots ====== */
+  .day {
+    border: 2px solid #e7e0dc !important;
+    border-radius: 12px !important;
+    transition: all 0.25s ease;
+  }
+  .day:not(.disabled):hover {
+    border-color: #d4a088 !important;
+    background: #fdf8f5;
+    transform: translateY(-1px);
+    box-shadow: 0 4px 12px rgba(212, 160, 136, 0.15);
+  }
+  .day.selected {
+    border-color: #1f1f1f !important;
+    background: #1f1f1f !important;
+    color: #fff !important;
+    outline: none !important;
+    box-shadow: 0 4px 16px rgba(31, 31, 31, 0.2);
+    transform: translateY(-1px);
+  }
+  .day.selected .day__num,
+  .day.selected .day__meta {
+    color: #fff !important;
+  }
+
+  /* ====== Background & footer fix ====== */
+  .page.page--catalog { background: #f3f1ed; }
+  main .section { background: #f3f1ed !important; }
+  .site-footer { padding-top: 200px !important; }
+  .site-footer::before { top: 0 !important; clip-path: polygon(0 30%, 100% 0%, 100% 100%, 0% 100%) !important; }
+  .site-footer::after { content: ""; position: absolute; left: 0; right: 0; top: 0; bottom: 0; background: #f3f1ed; z-index: 0; clip-path: polygon(0 0%, 100% 0%, 100% 0%, 0 30%); }
+</style>
 
 </head>
-<body class="page">
+<body class="page page--catalog">
   <header class="header header--glass">
   <section class="header__section">
     <div class="container header__container header__container--new">
 
-      <!-- ЛОГО / НАЗВАНИЕ -->
       <div class="header__logo">
         <a href="index.html" class="brand brand--stack" aria-label="Вкус облаков">
           <span class="brand__name brand__name--stack">Вкус<br>облаков</span>
         </a>
       </div>
 
-      <!-- МЕНЮ ПО ЦЕНТРУ -->
       <nav class="header__nav header__nav--center" aria-label="Главное меню">
-        <a href="#catalog">Каталог</a>
-        <a href="#brand">История бренда</a>
-        <a href="#clients">Клиентам</a>
-        <a href="#reservation">Бронирование</a>
-        <a href="#city">Мы в городе</a>
+        <a href="index.html#catalog" data-mega="catalog">Каталог</a>
+        <a href="brand.html" data-mega="life">История бренда</a>
+        <a href="#clients" data-mega="b2b">Клиентам</a>
+        <a href="index.html#city" data-mega="city">Мы в городе</a>
       </nav>
 
-      <!-- СПРАВА: КОНТАКТЫ + ИКОНКИ -->
       <div class="header__actions header__actions--new">
 
         <div class="header__contacts header__contacts--new">
@@ -47,24 +289,29 @@
 
         <div class="header__icons">
 
-            <button class="icon-btn icon-btn--ghost header__burger" id="btnMenu" type="button" aria-label="Открыть меню">
-  <svg width="18" height="18" viewBox="0 0 24 24" aria-hidden="true">
-    <path fill="currentColor" d="M4 6h16v2H4V6zm0 5h16v2H4v-2zm0 5h16v2H4v-2z"/>
-  </svg>
-</button>
+          <button class="icon-btn icon-btn--ghost header__burger" id="btnMenu" type="button" aria-label="Открыть меню">
+            <svg width="18" height="18" viewBox="0 0 24 24" aria-hidden="true">
+              <path fill="currentColor" d="M4 6h16v2H4V6zm0 5h16v2H4v-2zm0 5h16v2H4v-2z"/>
+            </svg>
+          </button>
 
-          <!-- Профиль -->
           <a class="icon-btn icon-btn--ghost" href="auth.html" aria-label="Профиль">
             <svg width="18" height="18" viewBox="0 0 24 24" aria-hidden="true">
               <path fill="currentColor" d="M12 12a4 4 0 10-4-4 4 4 0 004 4zm0 2c-4.42 0-8 2-8 4.5V20h16v-1.5C20 16 16.42 14 12 14z"/>
             </svg>
           </a>
 
-          <!-- Сумочка (корзина) -->
+          <!-- Уведомления -->
+          <a class="icon-btn icon-btn--ghost" href="profile.html?tab=notifications" aria-label="Уведомления" id="notifBell" style="display:none;position:relative;">
+            <svg width="18" height="18" viewBox="0 0 24 24" aria-hidden="true">
+              <path fill="currentColor" d="M12 22c1.1 0 2-.9 2-2h-4c0 1.1.9 2 2 2zm6-6v-5c0-3.07-1.63-5.64-4.5-6.32V4c0-.83-.67-1.5-1.5-1.5s-1.5.67-1.5 1.5v.68C7.64 5.36 6 7.92 6 11v5l-2 2v1h16v-1l-2-2z"/>
+            </svg>
+            <span class="badge badge--on-dark" id="notifBellBadge" style="display:none;">0</span>
+          </a>
+
           <button class="icon-btn icon-btn--ghost" id="btnCart" type="button" aria-label="Открыть корзину">
             <svg width="18" height="18" viewBox="0 0 24 24" aria-hidden="true">
               <path fill="currentColor" d="M7 8V7a5 5 0 0 1 10 0v1h2a1 1 0 0 1 1 1v12a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V9a1 1 0 0 1 1-1h2zm2 0h6V7a3 3 0 0 0-6 0v1zm-3 2v11h12V10H6z"/>
-
             </svg>
             <span class="badge badge--on-dark" id="cartCount">0</span>
           </button>
@@ -73,6 +320,122 @@
       </div>
     </div>
   </section>
+
+  <!-- Mega menu -->
+  <div class="mega" id="mega" aria-hidden="true">
+    <div class="mega__container">
+
+      <!-- Каталог -->
+      <div class="mega__panel mega__panel--catalog" data-panel="catalog">
+        <div class="mega__grid mega__grid--catalog">
+          <a class="mega-tile mega-tile--portrait" href="index.html#brand">
+            <div class="mega-card__img mega-card__img--portrait">
+              <img src="img/menu-title1.jpg" alt="Бренд">
+            </div>
+          </a>
+          <div class="mega-cols">
+            <div class="mega-col">
+              <a class="mega-col__title" href="casual.html">Casual</a>
+              <a class="mega-link" href="casual.html?cat=summer">Летняя коллекция</a>
+              <a class="mega-link" href="casual.html?cat=bento">Бенто-торты</a>
+              <a class="mega-link" href="casual.html?cat=cakes">Пирожные</a>
+              <a class="mega-link" href="casual.html?cat=macarons">Macarons</a>
+              <a class="mega-link" href="casual.html?cat=candies">Шоколад и конфеты</a>
+              <a class="mega-link" href="casual.html?cat=cheesecake">Чизкейки</a>
+            </div>
+            <div class="mega-col">
+              <a class="mega-col__title" href="order.html">To order</a>
+              <a class="mega-link" href="order.html?cat=torty">Торты</a>
+              <a class="mega-link" href="order.html?cat=torty-3d">3D-торты</a>
+              <a class="mega-link" href="order.html?cat=torty-detskie">Детские торты</a>
+              <a class="mega-link" href="order.html?cat=torty-svadebnye">Свадебные торты</a>
+              <a class="mega-link mega-link--separated" href="fillings.html">Начинки</a>
+            </div>
+            <div class="mega-col">
+              <div class="mega-col__title">Art</div>
+              <a class="mega-link" href="art-works.html">Наши работы</a>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Наша жизнь -->
+      <div class="mega__panel mega__panel--life" data-panel="life">
+        <div class="mega__grid mega__grid--cards">
+          <div class="mega-left"></div>
+          <a class="mega-tile mega-tile--portrait" href="brand.html">
+            <div class="mega-card__img mega-card__img--portrait">
+              <img src="img/menu-title2.jpg" alt="История бренда">
+            </div>
+            <div class="mega-tile__title">История бренда</div>
+          </a>
+        </div>
+      </div>
+
+      <!-- Клиентам -->
+      <div class="mega__panel mega__panel--b2b" data-panel="b2b">
+        <div class="mega__grid mega__grid--cards">
+          <div class="mega-left">
+            <div class="mega-left__text">Наш способ говорить с миром — это говорить сладко.</div>
+            <div class="mega-left__contacts">
+              <a class="mega-contact" href="tel:+70000000000">+7(000)-000-00-00</a>
+              <a class="mega-contact" href="mailto:zakaz@vkusobl.ru">zakaz.loveandsweets@gmail.com</a>
+              <a class="mega-contact" href="#" target="_blank" rel="noopener">Telegram</a>
+            </div>
+          </div>
+          <a class="mega-tile mega-tile--portrait" href="delivery.html">
+            <div class="mega-card__img mega-card__img--portrait">
+              <img src="img/menu-title3.jpg" alt="Доставка и оплата">
+            </div>
+            <div class="mega-tile__title">Доставка и оплата</div>
+          </a>
+          <div class="mega-tile mega-tile--order">
+            <div class="mega-tile__left">
+              <a class="mega-tile__imgWrap" href="about-order.html">
+                <img class="mega-tile__img" src="img/menu-title4.jpg" alt="О заказе">
+              </a>
+              <a class="mega-tile__title mega-tile__title--under" href="about-order.html">О заказе</a>
+            </div>
+            <div class="mega-tile__side">
+              <div class="mega-tile__sideLinks">
+                <a class="mega-link" href="faq.html">Вопрос-ответ</a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Мы в городе -->
+      <div class="mega__panel mega__panel--city" data-panel="city">
+        <div class="mega__grid mega__grid--city">
+          <div class="mega-city__left">
+            <div class="mega-col__title">Мы в городе</div>
+            <div class="mega-city">
+              <div>г. Дубна</div>
+              <div>Пн-Пт 10:00–20:00</div>
+              <div>Сб-Вс 10:00–16:00</div>
+              <a class="mega-link" href="index.html#contacts">Контакты</a>
+            </div>
+          </div>
+          <div class="mega-city__middle">
+            <p class="mega-city__note">
+              Наши десерты — это островки спокойствия в море повседневных дел.
+              Причаливайте к ним, чтобы на мгновение остановить время и насладиться тишиной вкуса.
+              <br><br>Доставка осуществляется только по городу Дубна.
+            </p>
+          </div>
+          <div class="city-map">
+            <iframe
+              src="https://yandex.ru/map-widget/v1/?um=constructor%3A5323ec7eeef295359140d0a676351927a92d5b06e8ba41b518464d51d93d3a63&amp;source=constructor"
+              width="463" height="356" frameborder="0">
+            </iframe>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
 </header>
 
 <!-- Mobile menu -->
@@ -82,7 +445,7 @@
   <div class="mobile-menu__panel" role="dialog" aria-label="Меню">
     <div class="mobile-menu__head">
       <a href="index.html" class="brand__name brand__name--stack" style="color:#fff;text-decoration:none;">Вкус<br>облаков</a>
-      <button class="icon-btn icon-btn--ghost" id="btnMenuClose" type="button" aria-label="Закрыть меню">✕</button>
+      <button class="icon-btn icon-btn--ghost" id="btnMenuClose" type="button" aria-label="Закрыть меню">&#10005;</button>
     </div>
 
     <nav class="mobile-menu__nav" aria-label="Мобильная навигация">
@@ -131,7 +494,7 @@
 
 
   <main>
-    <section class="section">
+    <section class="section" style="padding-top: 120px;">
       <div class="container">
         <div class="section__head">
           <div class="title-sm">Оформление и бронирование</div>
@@ -142,65 +505,111 @@
         </div>
 
         <div class="checkout-grid">
-          <div class="card">
-            <div class="card__title">1) Контактные данные</div>
-            <div class="hint" id="contactHint" style="display:none;"></div>
+          <div class="card stepper-card">
 
-            <div class="field">
-              <label class="label">Имя *</label>
-              <input class="input" id="contactName" placeholder="Иван" autocomplete="given-name" />
-            </div>
-
-            <div class="field">
-              <label class="label">Телефон *</label>
-              <input class="input" id="contactPhone" type="tel" placeholder="+7 (___) ___-__-__" autocomplete="tel" />
-            </div>
-
-            <div class="field">
-              <label class="label">Email</label>
-              <input class="input" id="contactEmail" type="email" placeholder="example@mail.ru" autocomplete="email" />
-            </div>
-
-            <div class="divider"></div>
-
-            <div class="card__title">2) Адрес доставки</div>
-
-            <div class="field">
-              <label class="label">Адрес</label>
-              <input class="input" id="addressInput" placeholder="Например: ул. Ленина 10, кв 5" />
-            </div>
-
-            <div class="divider"></div>
-
-            <div class="card__title">3) Дата</div>
-            <div class="hint">
-              Доступны даты не ранее чем через <b>3 дня</b>. Дата становится недоступной,
-              если не хватает рабочих часов на день приготовления (день до доставки).
-            </div>
-
-            <div class="calendar" id="calendar"></div>
-
-            <div class="divider"></div>
-
-            <div class="card__title">4) Время</div>
-            <div class="hint">
-              Доступность времени рассчитывается с учётом уже запланированных доставок на выбранную дату.
-              (Пока — упрощённая модель. В дипломе можно описать интеграцию с картами.)
-            </div>
-
-            <div class="times" id="times"></div>
-
-            <div class="divider"></div>
-
-            <div class="row row_between">
-              <div>
-                <div class="subtitle">Вы выбрали:</div>
-                <div class="muted" id="summaryPick">Адрес / дата / время не выбраны</div>
+            <!-- Stepper bar -->
+            <div class="stepper-bar">
+              <div class="stepper-bar__step is-active" data-step="1">
+                <span class="stepper-bar__num">1</span>
+                <span class="stepper-bar__label">Контакты</span>
               </div>
-              <button class="btn btn_primary" id="btnPlaceOrder" type="button">Создать заказ</button>
+              <div class="stepper-bar__line"></div>
+              <div class="stepper-bar__step" data-step="2">
+                <span class="stepper-bar__num">2</span>
+                <span class="stepper-bar__label">Адрес</span>
+              </div>
+              <div class="stepper-bar__line"></div>
+              <div class="stepper-bar__step" data-step="3">
+                <span class="stepper-bar__num">3</span>
+                <span class="stepper-bar__label">Дата и время</span>
+              </div>
+              <div class="stepper-bar__line"></div>
+              <div class="stepper-bar__step" data-step="4">
+                <span class="stepper-bar__num">4</span>
+                <span class="stepper-bar__label">Подтверждение</span>
+              </div>
             </div>
 
-            <div class="hint" id="placeOrderHint"></div>
+            <!-- Step 1: Контактные данные -->
+            <div class="step-panel is-active" data-panel="1">
+              <div class="card__title">Контактные данные</div>
+              <div class="hint" id="contactHint" style="display:none;"></div>
+
+              <div class="field">
+                <label class="label">Имя *</label>
+                <input class="input" id="contactName" placeholder="Иван" autocomplete="given-name" />
+              </div>
+
+              <div class="field">
+                <label class="label">Телефон *</label>
+                <input class="input" id="contactPhone" type="tel" placeholder="+7 (___) ___-__-__" autocomplete="tel" />
+              </div>
+
+              <div class="field">
+                <label class="label">Email</label>
+                <input class="input" id="contactEmail" type="email" placeholder="example@mail.ru" autocomplete="email" />
+              </div>
+
+              <div class="step-panel__footer">
+                <button class="btn btn_primary" type="button" data-next="2">Далее</button>
+              </div>
+            </div>
+
+            <!-- Step 2: Адрес доставки -->
+            <div class="step-panel" data-panel="2">
+              <div class="card__title">Адрес доставки</div>
+
+              <div class="field">
+                <label class="label">Адрес *</label>
+                <input class="input" id="addressInput" placeholder="Например: ул. Ленина 10, кв 5" />
+              </div>
+
+              <div class="step-panel__footer">
+                <button class="btn btn_ghost" type="button" data-prev="1">Назад</button>
+                <button class="btn btn_primary" type="button" data-next="3">Далее</button>
+              </div>
+            </div>
+
+            <!-- Step 3: Дата и Время -->
+            <div class="step-panel" data-panel="3">
+              <div class="card__title">Выберите дату</div>
+              <div class="hint">
+                Доступны даты не ранее чем через <b>3 дня</b>. Дата становится недоступной,
+                если не хватает рабочих часов на день приготовления.
+              </div>
+
+              <div class="calendar" id="calendar"></div>
+
+              <div class="time-section" id="timeSection">
+                <div class="divider"></div>
+                <div class="card__title">Выберите время</div>
+                <div class="hint">
+                  Доступность времени рассчитывается с учётом уже запланированных доставок на выбранную дату.
+                </div>
+                <div class="times" id="times"></div>
+              </div>
+
+              <div class="step-panel__footer">
+                <button class="btn btn_ghost" type="button" data-prev="2">Назад</button>
+                <button class="btn btn_primary" type="button" data-next="4">Далее</button>
+              </div>
+            </div>
+
+            <!-- Step 4: Подтверждение -->
+            <div class="step-panel" data-panel="4">
+              <div class="card__title">Подтверждение заказа</div>
+
+              <div id="orderSummaryDetails"></div>
+
+              <div id="bookingSummary"></div>
+
+              <div class="step-panel__footer">
+                <button class="btn btn_ghost" type="button" data-prev="3">Назад</button>
+                <button class="btn btn_primary" id="btnPlaceOrder" type="button">Создать заказ</button>
+              </div>
+              <div class="hint" id="placeOrderHint" style="margin-top:12px;"></div>
+            </div>
+
           </div>
 
           <aside class="card">
@@ -214,14 +623,6 @@
               <div class="price" id="cartTotal">0 ₽</div>
             </div>
 
-            <div class="divider"></div>
-
-            <div class="hint">
-              ⚠️ Сейчас всё хранится в <b>localStorage</b> (демо для диплома).
-              Для “реального” общего бронирования нужен бэкенд (Python/Node) и БД.
-            </div>
-
-            <a class="btn btn_ghost btn_wide" href="index.html#catalog">Добавить ещё десертов</a>
           </aside>
         </div>
       </div>
@@ -249,10 +650,210 @@
     </div>
   </aside>
 
+  <footer class="site-footer" id="contacts">
+  <div class="container site-footer__inner">
+    <div class="site-footer__grid">
+      <div class="site-footer__left">
+        <div class="site-footer__lead">
+          Иногда самые важные слова можно сказать без слов.
+        </div>
+        <div class="site-footer__contacts">
+          <a class="site-footer__contact" href="tel:+74993220020">
+            <svg class="site-footer__ico" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+            +7 (000) 000-00-00
+          </a>
+          <a class="site-footer__contact" href="mailto:vkus.oblakov@gmail.com">
+            <svg class="site-footer__ico" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/></svg>
+            vkus.oblakov@gmail.com
+          </a>
+          <a class="site-footer__contact" href="#">Telegram</a>
+          <div class="site-footer__social">
+            <a href="#" class="site-footer__social-link">Вконтакте</a>
+          </div>
+        </div>
+      </div>
+      <nav class="site-footer__col" aria-label="Магазин">
+        <div class="site-footer__title">Магазин</div>
+        <a class="site-footer__link" href="casual.html">Каталог Casual</a>
+        <a class="site-footer__link" href="order.html">Каталог To order</a>
+        <a class="site-footer__link" href="fillings.html">Наши начинки</a>
+      </nav>
+      <nav class="site-footer__col" aria-label="Наша жизнь">
+        <div class="site-footer__title">Наша жизнь</div>
+        <a class="site-footer__link" href="brand.html">История бренда</a>
+      </nav>
+      <nav class="site-footer__col" aria-label="Клиентам">
+        <div class="site-footer__title">Клиентам</div>
+        <a class="site-footer__link" href="delivery.html">Доставка и оплата</a>
+        <a class="site-footer__link" href="reviews.html">Отзывы</a>
+        <a class="site-footer__link" href="faq.html">Вопрос-ответ</a>
+      </nav>
+    </div>
+    <div class="site-footer__bottom">
+      <div class="site-footer__copy">&copy; 2026 Вкус облаков.</div>
+      <a class="site-footer__policy" href="#">Политика конфиденциальности</a>
+    </div>
+  </div>
+</footer>
+
+  <script src="js/api.js"></script>
   <script src="js/app.js"></script>
   <script>
-    // Автозаполнение для авторизованного пользователя
-    document.addEventListener('DOMContentLoaded', function() {
+    document.addEventListener('DOMContentLoaded', async function() {
+      // Предзагрузка данных авторизации и доступности дат
+      await initAuth();
+      await fetchOrdersFromServer();
+
+      // ====== STEPPER LOGIC ======
+      let currentStep = 1;
+      const totalSteps = 4;
+      let calendarInitialized = false;
+
+      function goToStep(step) {
+        if (step < 1 || step > totalSteps) return;
+
+        // Валидация при переходе вперёд
+        if (step > currentStep) {
+          for (let s = currentStep; s < step; s++) {
+            if (!validateStep(s)) return;
+          }
+        }
+
+        currentStep = step;
+
+        // Обновляем панели
+        document.querySelectorAll('.step-panel').forEach(p => {
+          p.classList.toggle('is-active', Number(p.dataset.panel) === currentStep);
+        });
+
+        // Обновляем stepper bar
+        document.querySelectorAll('.stepper-bar__step').forEach(s => {
+          const n = Number(s.dataset.step);
+          s.classList.remove('is-active', 'is-done');
+          if (n === currentStep) s.classList.add('is-active');
+          else if (n < currentStep) s.classList.add('is-done');
+        });
+
+        // При переходе на шаг 3 — инициализируем календарь
+        if (step === 3 && !calendarInitialized) {
+          bookingPick.address = (document.getElementById('addressInput').value || '').trim();
+          if (typeof initBookingUI === 'function') initBookingUI();
+          calendarInitialized = true;
+        } else if (step === 3) {
+          // Обновляем адрес если вернулись и изменили
+          bookingPick.address = (document.getElementById('addressInput').value || '').trim();
+          if (typeof renderCalendar === 'function') renderCalendar();
+          if (typeof renderTimes === 'function') renderTimes();
+        }
+
+        // При переходе на шаг 4 — собираем сводку
+        if (step === 4) {
+          renderOrderSummary();
+          if (typeof renderSummary === 'function') renderSummary();
+        }
+
+        // Скролл к началу карточки
+        document.querySelector('.stepper-card')?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      }
+
+      function validateStep(step) {
+        if (step === 1) {
+          const name = document.getElementById('contactName').value.trim();
+          const phone = document.getElementById('contactPhone').value.trim();
+          if (!name) { alert('Укажите имя'); document.getElementById('contactName').focus(); return false; }
+          if (!phone || phone.replace(/\D/g, '').length < 11) { alert('Укажите корректный телефон'); document.getElementById('contactPhone').focus(); return false; }
+          return true;
+        }
+        if (step === 2) {
+          const addr = document.getElementById('addressInput').value.trim();
+          if (!addr) { alert('Укажите адрес доставки'); document.getElementById('addressInput').focus(); return false; }
+          return true;
+        }
+        if (step === 3) {
+          if (!bookingPick.dateISO) { alert('Выберите дату доставки'); return false; }
+          if (!bookingPick.time) { alert('Выберите время доставки'); return false; }
+          return true;
+        }
+        return true;
+      }
+
+      // Сводка заказа для шага 4
+      function renderOrderSummary() {
+        const el = document.getElementById('orderSummaryDetails');
+        if (!el) return;
+
+        const cart = loadCart();
+        const total = cartTotal(cart);
+        const addr = document.getElementById('addressInput')?.value.trim() || '—';
+        const dateStr = bookingPick.dateISO ? humanDate(bookingPick.dateISO) : '—';
+        const timeStr = bookingPick.time || '—';
+        const nameStr = document.getElementById('contactName')?.value.trim() || '—';
+        const phoneStr = document.getElementById('contactPhone')?.value.trim() || '—';
+
+        el.innerHTML = `
+          <div class="summary-row">
+            <span class="summary-row__label">Имя</span>
+            <span class="summary-row__value">${escapeHtml(nameStr)}</span>
+          </div>
+          <div class="summary-row">
+            <span class="summary-row__label">Телефон</span>
+            <span class="summary-row__value">${escapeHtml(phoneStr)}</span>
+          </div>
+          <div class="summary-row">
+            <span class="summary-row__label">Адрес</span>
+            <span class="summary-row__value">${escapeHtml(addr)}</span>
+          </div>
+          <div class="summary-row">
+            <span class="summary-row__label">Дата доставки</span>
+            <span class="summary-row__value">${escapeHtml(dateStr)}</span>
+          </div>
+          <div class="summary-row">
+            <span class="summary-row__label">Время</span>
+            <span class="summary-row__value">${escapeHtml(timeStr)}</span>
+          </div>
+          <div class="summary-row">
+            <span class="summary-row__label">Товаров</span>
+            <span class="summary-row__value">${cartCount(cart)} шт.</span>
+          </div>
+          <div class="summary-row" style="font-size:17px;">
+            <span class="summary-row__label"><b>Итого</b></span>
+            <span class="summary-row__value">${formatRUB(total)}</span>
+          </div>
+        `;
+      }
+
+      // Кнопки Далее / Назад
+      document.querySelectorAll('[data-next]').forEach(btn => {
+        btn.addEventListener('click', () => goToStep(Number(btn.dataset.next)));
+      });
+      document.querySelectorAll('[data-prev]').forEach(btn => {
+        btn.addEventListener('click', () => goToStep(Number(btn.dataset.prev)));
+      });
+
+      // Клик по шагам в stepper bar — только назад
+      document.querySelectorAll('.stepper-bar__step').forEach(s => {
+        s.addEventListener('click', () => {
+          const target = Number(s.dataset.step);
+          if (target < currentStep) goToStep(target);
+        });
+      });
+
+      // ====== Показ секции времени при выборе даты ======
+      // Наблюдаем за изменением bookingPick.dateISO через MutationObserver на #calendar
+      const calendarEl = document.getElementById('calendar');
+      if (calendarEl) {
+        calendarEl.addEventListener('click', function() {
+          // Через небольшую задержку проверяем, выбрана ли дата
+          setTimeout(() => {
+            const timeSection = document.getElementById('timeSection');
+            if (timeSection && bookingPick.dateISO) {
+              timeSection.classList.add('is-visible');
+            }
+          }, 50);
+        });
+      }
+
+      // ====== Автозаполнение для авторизованного пользователя ======
       const user = getCurrentUser();
       if (user) {
         const nameEl = document.getElementById('contactName');
@@ -263,7 +864,6 @@
 
         if (nameEl && !nameEl.value) nameEl.value = [user.name, user.surname].filter(Boolean).join(' ');
         if (phoneEl && !phoneEl.value) {
-          // Форматируем телефон
           const d = user.phone.replace(/\D/g, '');
           if (d.length === 11) {
             phoneEl.value = '+7 (' + d.slice(1,4) + ') ' + d.slice(4,7) + '-' + d.slice(7,9) + '-' + d.slice(9,11);
@@ -278,15 +878,9 @@
           hintEl.style.display = '';
           hintEl.textContent = 'Данные заполнены из вашего профиля. Вы можете их изменить.';
         }
-
-        // Перезапускаем booking UI с новым адресом
-        if (addrEl && addrEl.value) {
-          bookingPick.address = addrEl.value.trim();
-          if (typeof initBookingUI === 'function') initBookingUI();
-        }
       }
 
-      // Маска телефона для contactPhone
+      // ====== Маска телефона ======
       const phoneInput = document.getElementById('contactPhone');
       if (phoneInput) {
         phoneInput.addEventListener('focus', function () {
@@ -315,15 +909,42 @@
         });
       }
 
-      // Привязка кнопки "Создать заказ"
+      // ====== Кнопка «Создать заказ» ======
       const placeBtn = document.getElementById('btnPlaceOrder');
       if (placeBtn) {
-        placeBtn.addEventListener('click', function(e) {
+        placeBtn.addEventListener('click', async function(e) {
           e.preventDefault();
-          placeOrder();
+          placeBtn.disabled = true;
+          placeBtn.textContent = 'Оформляем...';
+          try {
+            await placeOrder();
+          } finally {
+            placeBtn.disabled = false;
+            placeBtn.textContent = 'Создать заказ';
+          }
         });
       }
     });
   </script>
+
+  <!-- Модальное окно успешного оформления заказа -->
+  <div class="modal-overlay" id="successModal" style="display: none;">
+    <div class="modal" style="max-width: 450px; text-align: center;">
+      <div style="font-size: 48px; margin-bottom: 16px;">✓</div>
+      <div class="modal__title" style="font-size: 24px; margin-bottom: 12px;">Заказ успешно оформлен!</div>
+      <div style="margin-bottom: 20px;">
+        <p style="margin-bottom: 8px; font-size: 14px; color: #666;">Номер вашего заказа:</p>
+        <p style="font-size: 20px; font-weight: 600; font-family: monospace;" id="successOrderId">—</p>
+      </div>
+      <div id="successEmailHint" style="display: none; padding: 12px; background: #e3f2fd; border-radius: 8px; margin-bottom: 20px; font-size: 14px;">
+        Информация о заказе отправлена на указанную электронную почту
+      </div>
+      <div class="modal__actions" style="justify-content: center;">
+        <button class="cr-btn cr-btn--primary" onclick="closeModal('#successModal'); location.href='index.html'">На главную</button>
+        <button class="cr-btn" onclick="closeModal('#successModal'); location.href='profile.html'">Мои заказы</button>
+      </div>
+    </div>
+  </div>
+
 </body>
 </html>

@@ -79,112 +79,129 @@ const PRODUCTS = [
    ========================= */
 
 const LS_KEYS = {
-  cart: "sweet_cart_v1",
-  orders: "sweet_orders_v1",
-  users: "sweet_users_v1",
-  session: "sweet_session_v1"
+  cart: "sweet_cart_v1"
 };
 
+// Ключ корзины: для авторизованного пользователя — персональный
+function getCartKey() {
+  if (_cachedUser && _cachedUser.id) {
+    return LS_KEYS.cart + '_' + _cachedUser.id;
+  }
+  return LS_KEYS.cart;
+}
+
+// Корзина — остаётся в localStorage (данные до оформления заказа)
 function loadCart() {
-  try { return JSON.parse(localStorage.getItem(LS_KEYS.cart)) || []; }
+  try { return JSON.parse(localStorage.getItem(getCartKey())) || []; }
   catch { return []; }
 }
 function saveCart(cart) {
-  localStorage.setItem(LS_KEYS.cart, JSON.stringify(cart));
+  localStorage.setItem(getCartKey(), JSON.stringify(cart));
 }
+
+// Перенос анонимной корзины в корзину пользователя (при входе/регистрации)
+function migrateCartToUser(userId) {
+  try {
+    const anonKey = LS_KEYS.cart;
+    const userKey = LS_KEYS.cart + '_' + userId;
+    const anonCart = JSON.parse(localStorage.getItem(anonKey) || '[]');
+    if (anonCart.length === 0) return;
+
+    const userCart = JSON.parse(localStorage.getItem(userKey) || '[]');
+
+    for (const item of anonCart) {
+      const existing = userCart.find(m =>
+        m.productId === item.productId &&
+        JSON.stringify(m.options) === JSON.stringify(item.options)
+      );
+      if (existing) {
+        existing.qty += item.qty;
+      } else {
+        userCart.push(item);
+      }
+    }
+
+    localStorage.setItem(userKey, JSON.stringify(userCart));
+    localStorage.removeItem(anonKey);
+  } catch (e) {
+    console.error('Cart migration error:', e);
+  }
+}
+
+// Заказы — кэш из API (для синхронного доступа в renderCalendar/renderTimes)
+let _cachedOrders = [];
 function loadOrders() {
-  try { return JSON.parse(localStorage.getItem(LS_KEYS.orders)) || []; }
-  catch { return []; }
+  return _cachedOrders;
 }
-function saveOrders(orders) {
-  localStorage.setItem(LS_KEYS.orders, JSON.stringify(orders));
+async function fetchOrdersFromServer() {
+  try {
+    if (typeof API !== 'undefined') {
+      _cachedOrders = await API.getAvailability();
+    }
+  } catch { _cachedOrders = []; }
+  return _cachedOrders;
 }
 
 /* =========================
-   ПОЛЬЗОВАТЕЛИ И АВТОРИЗАЦИЯ
+   ПОЛЬЗОВАТЕЛИ И АВТОРИЗАЦИЯ (API)
    ========================= */
 
-function loadUsers() {
-  try { return JSON.parse(localStorage.getItem(LS_KEYS.users)) || []; }
-  catch { return []; }
-}
-function saveUsers(users) {
-  localStorage.setItem(LS_KEYS.users, JSON.stringify(users));
-}
+let _cachedUser = null;
+
 function getCurrentUser() {
-  try { return JSON.parse(localStorage.getItem(LS_KEYS.session)) || null; }
-  catch { return null; }
+  return _cachedUser;
 }
-function setCurrentUser(user) {
-  if (user) localStorage.setItem(LS_KEYS.session, JSON.stringify(user));
-  else localStorage.removeItem(LS_KEYS.session);
+
+async function initAuth() {
+  try {
+    if (typeof API !== 'undefined') {
+      _cachedUser = await API.getMe();
+    }
+  } catch { _cachedUser = null; }
+  return _cachedUser;
 }
 
 function normalizePhone(raw) {
   return '+' + raw.replace(/\D/g, '');
 }
 
-function registerUser({ surname, name, patronymic, phone, email, password }) {
-  const users = loadUsers();
-  const normPhone = normalizePhone(phone);
-
-  if (users.find(u => u.phone === normPhone)) {
-    return { error: 'Пользователь с таким телефоном уже зарегистрирован' };
+async function registerUser(data) {
+  if (typeof API !== 'undefined') {
+    return await API.register(data);
   }
-  if (email && users.find(u => u.email === email.toLowerCase())) {
-    return { error: 'Пользователь с таким email уже зарегистрирован' };
+  return { error: 'API недоступен' };
+}
+
+async function loginUser(login, password) {
+  if (typeof API !== 'undefined') {
+    return await API.login(login, password);
   }
-
-  const user = {
-    id: crypto.randomUUID?.() || String(Date.now() + Math.random()),
-    surname: surname || '',
-    name: name || '',
-    patronymic: patronymic || '',
-    phone: normPhone,
-    email: email ? email.toLowerCase() : '',
-    password,
-    address: '',
-    role: 'client',
-    createdAt: new Date().toISOString()
-  };
-
-  users.push(user);
-  saveUsers(users);
-  return { user };
+  return { error: 'API недоступен' };
 }
 
-function loginUser(login, password) {
-  const users = loadUsers();
-  const normLogin = login.includes('@')
-    ? login.toLowerCase()
-    : normalizePhone(login);
-
-  return users.find(u =>
-    (u.phone === normLogin || u.email === normLogin) && u.password === password
-  ) || null;
-}
-
-function updateUserProfile(userId, data) {
-  const users = loadUsers();
-  const idx = users.findIndex(u => u.id === userId);
-  if (idx === -1) return false;
-
-  Object.assign(users[idx], data);
-  saveUsers(users);
-
-  const session = getCurrentUser();
-  if (session && session.id === userId) {
-    setCurrentUser(users[idx]);
+async function updateUserProfile(userId, data) {
+  if (typeof API !== 'undefined') {
+    const result = await API.updateProfile(userId, data);
+    if (result && !result.error) {
+      _cachedUser = result;
+    }
+    return result;
   }
-  return true;
+  return false;
 }
 
-function logoutUser() {
-  setCurrentUser(null);
+async function logoutUser() {
+  if (typeof API !== 'undefined') {
+    await API.logout();
+  }
+  _cachedUser = null;
 }
 
-function getUserOrders(userId) {
-  return loadOrders().filter(o => o.userId === userId);
+async function getUserOrders(userId) {
+  if (typeof API !== 'undefined') {
+    return await API.getMyOrders();
+  }
+  return [];
 }
 
 function updateProfileIcon() {
@@ -193,6 +210,24 @@ function updateProfileIcon() {
   links.forEach(a => {
     if (user) a.href = 'profile.html';
   });
+}
+
+async function setNotifBellBadge() {
+  const bell = document.getElementById('notifBell');
+  const badge = document.getElementById('notifBellBadge');
+  if (!bell || !badge) return;
+  const user = getCurrentUser();
+  if (!user) { bell.style.display = 'none'; return; }
+  bell.style.display = '';
+  try {
+    const data = await API.getUnreadNotifCount();
+    if (data.count > 0) {
+      badge.textContent = data.count;
+      badge.style.display = '';
+    } else {
+      badge.style.display = 'none';
+    }
+  } catch(e) { badge.style.display = 'none'; }
 }
 
 function formatRUB(n) {
@@ -241,6 +276,7 @@ function closeDrawer() {
 function openModal(id) {
   const modal = $(id);
   if (!modal) return;
+  modal.style.display = 'flex';
   modal.hidden = false;
   modal.classList.add("open");
 }
@@ -248,6 +284,7 @@ function closeModal(id) {
   const modal = $(id);
   if (!modal) return;
   modal.classList.remove("open");
+  modal.style.display = 'none';
   modal.hidden = true;
 }
 
@@ -460,6 +497,8 @@ function addToCartFromModal() {
       qty: pmState.qty,
       unitPrice,
       prepHours: p.prepHours,
+      minQty: 1,
+      qtyStep: 1,
       options: { coulis: coulisValue, base: baseValue },
       optionsLabel: { coulis: coulisLabel, base: baseLabel }
     });
@@ -516,12 +555,13 @@ function renderCartDrawer() {
   const mini = $("#cartMini");
   if (mini) {
     mini.innerHTML = cart.length
-      ? cart.map(it => `<div class="cart-item">
-          <div class="cart-item__top">
+      ? cart.map(it => `<div class="cart-item cart-item--mini">
+          ${it.image ? `<img class="cart-item__img" src="${escapeHtml(it.image)}" alt="">` : ''}
+          <div class="cart-item__body">
             <div class="cart-item__name">${escapeHtml(it.title)} × ${it.qty}</div>
+            <div class="cart-item__meta">${[it.optionsLabel?.coulis, it.optionsLabel?.base].filter(Boolean).map(s => escapeHtml(s)).join(' · ')}</div>
             <div class="price">${formatRUB(it.unitPrice * it.qty)}</div>
           </div>
-          <div class="cart-item__meta">${[it.optionsLabel?.coulis, it.optionsLabel?.base].filter(Boolean).map(s => escapeHtml(s)).join(' · ')}</div>
         </div>`).join("")
       : `<div class="muted">Корзина пустая. Вернитесь в каталог и добавьте товары.</div>`;
   }
@@ -535,10 +575,17 @@ function changeQty(itemId, delta) {
   const it = cart.find(x => x.id === itemId);
   if (!it) return;
 
-  it.qty += delta;
-  if (it.qty <= 0) {
-    const idx = cart.findIndex(x => x.id === itemId);
-    cart.splice(idx, 1);
+  const minQty = it.minQty || 1;
+  const newQty = it.qty + delta;
+
+  if (newQty < minQty) {
+    if (confirm('Минимальный заказ: ' + minQty + ' шт. Удалить товар из корзины?')) {
+      cart.splice(cart.indexOf(it), 1);
+    } else {
+      return;
+    }
+  } else {
+    it.qty = newQty;
   }
   saveCart(cart);
   setCartBadge();
@@ -641,9 +688,7 @@ function renderCalendar() {
 
     const selected = bookingPick.dateISO === x.iso;
     const cls = ["day", !x.available ? "disabled" : "", selected ? "selected" : ""].join(" ");
-    const meta = x.available
-      ? `Загрузка: ${x.willBeBusy.toFixed(1)}/${BOOKING_SETTINGS.productionHoursPerDay}ч`
-      : `Нет часов (${x.willBeBusy.toFixed(1)}/${BOOKING_SETTINGS.productionHoursPerDay}ч)`;
+    const meta = x.available ? '' : 'Недоступно';
 
     return `
       <button class="${cls}" type="button" data-day="${x.iso}" ${x.available ? "" : "disabled"}>
@@ -757,7 +802,7 @@ function renderSummary() {
   el.innerHTML = parts.join("");
 }
 
-function placeOrder() {
+async function placeOrder() {
   const cart = loadCart();
   if (!cart.length) {
     alert("Корзина пустая. Добавьте десерты в каталоге.");
@@ -776,41 +821,6 @@ function placeOrder() {
     return;
   }
 
-  // финальная проверка производственных часов (на всякий случай)
-  const orders = loadOrders();
-  const cartHours = cartPrepHours(cart);
-
-  const deliveryDate = fromISODate(bookingPick.dateISO);
-  const prepDate = addDays(deliveryDate, -1);
-  const prepISO = toISODate(prepDate);
-
-  const busyHours = orders
-    .filter(o => o.prepDateISO === prepISO)
-    .reduce((sum, o) => sum + o.totalPrepHours, 0);
-
-  if (busyHours + cartHours > BOOKING_SETTINGS.productionHoursPerDay) {
-    alert("Эта дата уже недоступна по производственной загрузке. Попробуйте выбрать другую дату.");
-    initBookingUI();
-    return;
-  }
-
-  // финальная проверка времени доставки (вдруг параллельно “заняли” в localStorage)
-  const sameDay = orders.filter(o => o.deliveryDateISO === bookingPick.dateISO);
-  const ok = isSlotFeasible({
-    candidateTime: bookingPick.time,
-    candidateAddress: bookingPick.address,
-    existing: sameDay,
-    serviceMin: BOOKING_SETTINGS.serviceMin,
-    bufferMin: BOOKING_SETTINGS.bufferMin
-  });
-  if (!ok) {
-    alert("Выбранное время доставки стало недоступным. Пожалуйста, выберите другое время.");
-    bookingPick.time = null;
-    renderTimes();
-    renderSummary();
-    return;
-  }
-
   // Контактные данные
   const contactName = ($("#contactName")?.value || "").trim();
   const contactPhone = ($("#contactPhone")?.value || "").trim();
@@ -819,50 +829,54 @@ function placeOrder() {
   if (!contactName) { alert("Укажите имя для связи."); return; }
   if (!contactPhone || contactPhone.replace(/\D/g, '').length < 11) { alert("Укажите корректный телефон."); return; }
 
-  const user = getCurrentUser();
+  try {
+    const result = await API.createOrder({
+      items: cart,
+      address: bookingPick.address,
+      deliveryDateISO: bookingPick.dateISO,
+      deliveryTime: bookingPick.time,
+      contactName,
+      contactPhone,
+      contactEmail
+    });
 
-  const order = {
-    id: (crypto.randomUUID?.() || String(Date.now() + Math.random())),
-    createdAtISO: new Date().toISOString(),
-    status: "new",
-    items: cart,
-    totalPrice: cartTotal(cart),
-    totalPrepHours: cartHours,
-    address: bookingPick.address,
-    deliveryDateISO: bookingPick.dateISO,
-    deliveryTime: bookingPick.time,
-    prepDateISO: prepISO,
-    userId: user ? user.id : null,
-    contactName,
-    contactPhone: normalizePhone(contactPhone),
-    contactEmail
-  };
+    if (result.error) {
+      alert(result.error);
+      return;
+    }
 
-  orders.push(order);
-  saveOrders(orders);
+    // очистим корзину
+    saveCart([]);
+    setCartBadge();
+    renderCartDrawer();
 
-  // очистим корзину
-  saveCart([]);
-  setCartBadge();
-  renderCartDrawer();
+    // красивое подтверждение
+    const okModal = $("#successModal");
+    if (okModal) {
+      $("#successOrderId") && ($("#successOrderId").textContent = result.order.id);
+      // Для незарегистрированных показываем hint о почте
+      const isGuest = !getCurrentUser();
+      const emailHint = $("#successEmailHint");
+      if (emailHint) {
+        emailHint.style.display = isGuest ? 'block' : 'none';
+      }
+      openModal("#successModal");
+    } else {
+      alert(`Заказ оформлен! Номер: ${result.order.id.slice(0, 8)}`);
+      if (location.pathname.endsWith("checkout.html")) location.href = "profile.html";
+    }
 
-  // красивое подтверждение
-  const okModal = $("#successModal");
-  if (okModal) {
-    $("#successOrderId") && ($("#successOrderId").textContent = order.id);
-    openModal("#successModal");
-  } else {
-    alert(`Заказ оформлен! Номер: ${order.id}`);
-    // можно редиректнуть
-    if (location.pathname.endsWith("checkout.html")) location.href = "index.html";
+    // сброс выбора
+    bookingPick.time = null;
+    bookingPick.dateISO = null;
+    renderSummary();
+    if ($("#calendar")) renderCalendar();
+    if ($("#times")) renderTimes();
+
+  } catch (err) {
+    console.error('placeOrder error:', err);
+    alert("Ошибка при оформлении заказа. Попробуйте ещё раз.");
   }
-
-  // сброс выбора
-  bookingPick.time = null;
-  bookingPick.dateISO = null;
-  renderSummary();
-  if ($("#calendar")) renderCalendar();
-  if ($("#times")) renderTimes();
 }
 
 /* =========================
@@ -1127,7 +1141,11 @@ function bindMegaMenu(){
 }
 
 
-document.addEventListener("DOMContentLoaded", () => {
+document.addEventListener("DOMContentLoaded", async () => {
+  // Загружаем авторизацию и заказы с сервера
+  await initAuth();
+  await fetchOrdersFromServer();
+
   setCartBadge();
   renderCartDrawer();
   renderCatalog();
@@ -1136,7 +1154,7 @@ document.addEventListener("DOMContentLoaded", () => {
   initBookingUI();
   bindMegaMenu();
   updateProfileIcon();
-
+  setNotifBellBadge();
 
   // index/catalog
   if ($("#catalogGrid")) {
@@ -1146,7 +1164,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
   // checkout
   if ($("#calendar")) {
-    renderCartDrawer(); // чтобы мини-корзина на checkout заполнилась
+    renderCartDrawer();
     initBookingUI();
     bindCheckoutSubmit();
     renderSummary();

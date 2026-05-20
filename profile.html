@@ -595,6 +595,15 @@
             </svg>
           </a>
 
+
+          <!-- Уведомления -->
+          <a class="icon-btn icon-btn--ghost" href="profile.html?tab=notifications" aria-label="Уведомления" id="notifBell" style="display:none;position:relative;">
+            <svg width="18" height="18" viewBox="0 0 24 24" aria-hidden="true">
+              <path fill="currentColor" d="M12 22c1.1 0 2-.9 2-2h-4c0 1.1.9 2 2 2zm6-6v-5c0-3.07-1.63-5.64-4.5-6.32V4c0-.83-.67-1.5-1.5-1.5s-1.5.67-1.5 1.5v.68C7.64 5.36 6 7.92 6 11v5l-2 2v1h16v-1l-2-2z"/>
+            </svg>
+            <span class="badge badge--on-dark" id="notifBellBadge" style="display:none;">0</span>
+          </a>
+
           <!-- Сумочка (корзина) -->
           <button class="icon-btn icon-btn--ghost" id="btnCart" type="button" aria-label="Открыть корзину">
             <svg width="18" height="18" viewBox="0 0 24 24" aria-hidden="true">
@@ -703,7 +712,7 @@
 
   <div class="mega-tile__side">
     <div class="mega-tile__sideLinks">
-      <a class="mega-link" href="#reviews">Отзывы</a>
+      <a class="mega-link" href="reviews.html">Отзывы</a>
       <a class="mega-link" href="faq.html">Вопрос-ответ</a>
     </div>
   </div>
@@ -929,7 +938,7 @@
       <nav class="site-footer__col" aria-label="Клиентам">
         <div class="site-footer__title">Клиентам</div>
         <a class="site-footer__link" href="delivery.html">Доставка и оплата</a>
-        <a class="site-footer__link" href="#">Отзывы</a>
+        <a class="site-footer__link" href="reviews.html">Отзывы</a>
         <a class="site-footer__link" href="faq.html">Вопрос-ответ</a>
       </nav>
     </div>
@@ -953,11 +962,12 @@
 
  <script src="https://api-maps.yandex.ru/2.1/?lang=ru_RU"></script>
 
+  <script src="js/api.js"></script>
   <script src="js/app.js"></script>
 
   <script>
-    (function() {
-      const user = getCurrentUser();
+    (async function() {
+      const user = await initAuth();
 
       // Если не авторизован — на страницу входа
       if (!user) {
@@ -986,8 +996,8 @@
       fillProfile();
 
       // Выход
-      document.getElementById('logoutBtn').addEventListener('click', () => {
-        logoutUser();
+      document.getElementById('logoutBtn').addEventListener('click', async () => {
+        await logoutUser();
         location.href = 'auth.html';
       });
 
@@ -995,14 +1005,18 @@
       const tabs = document.querySelectorAll('.lk__tab');
       const panels = document.querySelectorAll('.lk__panel');
 
+      function switchTab(target) {
+        tabs.forEach(t => t.classList.toggle('is-active', t.dataset.tab === target));
+        panels.forEach(p => p.classList.toggle('is-active', p.dataset.panel === target));
+      }
+
       tabs.forEach(tab => {
-        tab.addEventListener('click', () => {
-          const target = tab.dataset.tab;
-          tabs.forEach(t => t.classList.remove('is-active'));
-          tab.classList.add('is-active');
-          panels.forEach(p => p.classList.toggle('is-active', p.dataset.panel === target));
-        });
+        tab.addEventListener('click', () => switchTab(tab.dataset.tab));
       });
+
+      // Deep-link: ?tab=notifications
+      const urlTab = new URLSearchParams(location.search).get('tab');
+      if (urlTab) switchTab(urlTab);
 
       // ====== Редактирование профиля ======
       const editBtn = document.getElementById('editProfileBtn');
@@ -1022,23 +1036,27 @@
         cancelBtn.style.display = '';
       });
 
-      saveBtn.addEventListener('click', () => {
+      saveBtn.addEventListener('click', async () => {
         const inputs = form.querySelectorAll('.lk__field-input');
         inputs.forEach(inp => inp.disabled = true);
         editBtn.style.display = '';
         saveBtn.style.display = 'none';
         cancelBtn.style.display = 'none';
 
-        // Сохраняем в localStorage
+        // Сохраняем через API
         const phoneRaw = form.querySelector('[name="phone"]').value;
-        updateUserProfile(user.id, {
-          surname: form.querySelector('[name="surname"]').value.trim(),
-          name: form.querySelector('[name="name"]').value.trim(),
-          patronymic: form.querySelector('[name="patronymic"]').value.trim(),
-          phone: normalizePhone(phoneRaw),
-          email: form.querySelector('[name="email"]').value.trim().toLowerCase(),
-          address: form.querySelector('[name="address"]').value.trim()
-        });
+        try {
+          await updateUserProfile(user.id, {
+            surname: form.querySelector('[name="surname"]').value.trim(),
+            name: form.querySelector('[name="name"]').value.trim(),
+            patronymic: form.querySelector('[name="patronymic"]').value.trim(),
+            phone: normalizePhone(phoneRaw),
+            email: form.querySelector('[name="email"]').value.trim().toLowerCase(),
+            address: form.querySelector('[name="address"]').value.trim()
+          });
+        } catch (e) {
+          alert('Ошибка сохранения профиля');
+        }
       });
 
       cancelBtn.addEventListener('click', () => {
@@ -1053,9 +1071,10 @@
       });
 
       // ====== Заказы ======
-      function renderOrders() {
+      async function renderOrders() {
         const container = document.getElementById('ordersContainer');
-        const orders = getUserOrders(user.id);
+        let orders = [];
+        try { orders = await API.getMyOrders(); } catch(e) { orders = []; }
 
         if (!orders.length) {
           container.innerHTML = `
@@ -1111,10 +1130,14 @@
               <div class="order-card__items">
                 ${order.items.map(it => `
                   <div class="order-card__item">
-                    <div class="order-card__item-img" style="background:#f0ebe8;display:flex;align-items:center;justify-content:center;font-size:20px;width:44px;height:44px;border-radius:8px;">&#127856;</div>
+                    ${it.image
+                      ? `<img class="order-card__item-img" src="${escapeHtml(it.image)}" alt="" style="width:44px;height:44px;border-radius:8px;object-fit:cover;background:#f0ebe8;" onerror="this.style.display='none';this.nextElementSibling.style.display='flex';">
+                         <div class="order-card__item-img" style="display:none;background:#f0ebe8;align-items:center;justify-content:center;font-size:20px;width:44px;height:44px;border-radius:8px;">&#127856;</div>`
+                      : `<div class="order-card__item-img" style="background:#f0ebe8;display:flex;align-items:center;justify-content:center;font-size:20px;width:44px;height:44px;border-radius:8px;">&#127856;</div>`
+                    }
                     <div>
                       <div class="order-card__item-name">${escapeHtml(it.title)}</div>
-                      <div class="order-card__item-qty">${it.qty} шт. &middot; ${escapeHtml((it.optionsLabel?.coulis || '') + ' / ' + (it.optionsLabel?.base || ''))}</div>
+                      <div class="order-card__item-qty">${it.qty} шт.${it.optionsLabel && (it.optionsLabel.coulis || it.optionsLabel.base) ? ' &middot; ' + escapeHtml([it.optionsLabel.coulis, it.optionsLabel.base].filter(Boolean).join(', ')) : ''}</div>
                     </div>
                   </div>
                 `).join('')}
@@ -1146,8 +1169,8 @@
         container.querySelectorAll('[data-repeat]').forEach(btn => {
           btn.addEventListener('click', () => {
             const orderId = btn.dataset.repeat;
-            const order = loadOrders().find(o => o.id === orderId);
-            if (!order) return;
+            const order = orders.find(o => o.id === orderId);
+            if (!order || !order.items) return;
             // Добавляем товары в корзину
             const cart = loadCart();
             order.items.forEach(it => cart.push({ ...it, id: crypto.randomUUID?.() || String(Date.now() + Math.random()) }));
@@ -1158,14 +1181,32 @@
         });
       }
 
-      renderOrders();
+      await renderOrders();
 
       // ====== Уведомления ======
-      function renderNotifications() {
+      async function renderNotifications() {
         const container = document.getElementById('notifsContainer');
-        const orders = getUserOrders(user.id);
+        let orders = [];
+        let serverNotifs = [];
+        try { orders = await API.getMyOrders(); } catch(e) { orders = []; }
+        try { serverNotifs = await API.getNotifications(); } catch(e) { serverNotifs = []; }
 
         const notifs = [];
+
+        // Серверные уведомления (ответы админа и т.п.)
+        serverNotifs.forEach(sn => {
+          const date = new Date(sn.created_at);
+          const now = new Date();
+          const diffDays = Math.floor((now - date) / 86400000);
+          const timeLabel = diffDays === 0 ? 'Сегодня' : diffDays === 1 ? 'Вчера' : date.toLocaleDateString('ru-RU', { day: 'numeric', month: 'short' });
+
+          notifs.push({
+            icon: '&#128172;', iconCls: 'notif__icon--info', unread: !sn.is_read,
+            title: sn.title,
+            text: sn.text,
+            time: timeLabel, date, serverId: sn.id
+          });
+        });
 
         // Генерируем уведомления из заказов
         orders.forEach(o => {
@@ -1240,9 +1281,15 @@
             <span class="notif__time">${n.time}</span>
           </div>
         `).join('');
+
+        // Пометить серверные уведомления как прочитанные
+        const unreadServerIds = serverNotifs.filter(sn => !sn.is_read);
+        if (unreadServerIds.length) {
+          try { await API.markAllNotifsRead(); } catch(e) {}
+        }
       }
 
-      renderNotifications();
+      await renderNotifications();
     })();
   </script>
 </body>

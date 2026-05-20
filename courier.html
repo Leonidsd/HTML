@@ -909,7 +909,7 @@
     </nav>
 
     <div class="cr__side-footer">
-      <button class="cr__logout" type="button" onclick="location.href='auth.html'">
+      <button class="cr__logout" type="button" id="sideLogoutBtn">
         <svg width="16" height="16" viewBox="0 0 24 24"><path fill="currentColor" d="M17 7l-1.41 1.41L18.17 11H8v2h10.17l-2.58 2.58L17 17l5-5zM4 5h8V3H4c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h8v-2H4V5z"/></svg>
         Выйти
       </button>
@@ -923,7 +923,7 @@
       <div class="cr__topbar-title" id="crTopTitle">Доставки</div>
       <div style="display:flex;align-items:center;gap:12px;">
         <div class="cr__topbar-user">Курьер: Алексей К.</div>
-        <button class="cr-btn" onclick="location.href='auth.html'" style="padding:6px 12px;font-size:12px;">Выйти</button>
+        <button class="cr-btn" id="topLogoutBtn" style="padding:6px 12px;font-size:12px;">Выйти</button>
       </div>
     </div>
 
@@ -986,14 +986,8 @@
                 <th>Время доставки</th>
               </tr>
             </thead>
-            <tbody>
-              <tr><td><strong>#1246</strong></td><td>12 мая 2026</td><td>ул. Мира, д. 7, кв. 22</td><td><span class="del-card__status del-card__status--done">Доставлен</span></td><td>12:34</td></tr>
-              <tr><td><strong>#1244</strong></td><td>12 мая 2026</td><td>ул. Понтекорво, д. 15</td><td><span class="del-card__status del-card__status--done">Доставлен</span></td><td>11:08</td></tr>
-              <tr><td><strong>#1241</strong></td><td>11 мая 2026</td><td>ул. Сахарова, д. 3, кв. 41</td><td><span class="del-card__status del-card__status--done">Доставлен</span></td><td>17:22</td></tr>
-              <tr><td><strong>#1239</strong></td><td>11 мая 2026</td><td>ул. Флёрова, д. 8, кв. 12</td><td><span class="del-card__status del-card__status--done">Доставлен</span></td><td>15:45</td></tr>
-              <tr><td><strong>#1235</strong></td><td>11 мая 2026</td><td>пр-т Боголюбова, д. 19</td><td><span class="del-card__status del-card__status--problem">Проблема</span></td><td>—</td></tr>
-              <tr><td><strong>#1232</strong></td><td>10 мая 2026</td><td>ул. Строителей, д. 11, кв. 5</td><td><span class="del-card__status del-card__status--done">Доставлен</span></td><td>14:10</td></tr>
-              <tr><td><strong>#1230</strong></td><td>10 мая 2026</td><td>ул. Центральная, д. 2</td><td><span class="del-card__status del-card__status--done">Доставлен</span></td><td>11:55</td></tr>
+            <tbody id="historyTableBody">
+              <tr><td colspan="5" style="text-align:center;color:#6c6c6c;padding:40px;">Загрузка...</td></tr>
             </tbody>
           </table>
         </div>
@@ -1096,72 +1090,70 @@
   </div>
 </div>
 
-<script src="config.js"></script>
+<script src="js/api.js"></script>
 <script>
-  const BASE_ADDR = CONFIG.bakeryAddress;
+  const BASE_ADDR = 'г. Дубна, ул. Вернова, д. 1';
   const MONTHS_SHORT = ['янв','фев','мар','апр','мая','июн','июл','авг','сен','окт','ноя','дек'];
   const MONTHS_FULL = ['января','февраля','марта','апреля','мая','июня','июля','августа','сентября','октября','ноября','декабря'];
   const DOWS = ['Вс','Пн','Вт','Ср','Чт','Пт','Сб'];
 
-  // ====== Демо-заказы (привязаны к смещению от сегодня) ======
-  function buildDemoOrders() {
-    const today = new Date();
-    const d = (offset) => {
-      const dt = new Date(today);
-      dt.setDate(dt.getDate() + offset);
-      return dt.toISOString().slice(0, 10);
+  // ====== Данные заказов из API ======
+  let COURIER_ORDERS = {}; // { 'YYYY-MM-DD': [...] }
+  let selectedDate = new Date().toISOString().slice(0, 10);
+
+  // Преобразование заказа из API в формат курьерской карточки
+  function mapApiOrder(o) {
+    const statusMap = {
+      'delivery': { status: 'transit', label: 'В пути' },
+      'confirmed': { status: 'pickup', label: 'Забрать' },
+      'cooking': { status: 'pickup', label: 'Готовится' },
+      'new': { status: 'pending', label: 'Ожидает' },
+      'delivered': { status: 'done', label: 'Доставлен' }
     };
+    const st = statusMap[o.status] || { status: 'pending', label: o.status };
+    const items = (o.items || []).map(it => ({
+      name: it.title || '—',
+      qty: (it.qty || 1) + ' шт',
+      img: it.image || ''
+    }));
+    const phone = o.contactPhone || '';
+    const d = phone.replace(/\D/g, '');
+    const fmtPhone = d.length === 11
+      ? '+7 (' + d.slice(1,4) + ') ' + d.slice(4,7) + '-' + d.slice(7,9) + '-' + d.slice(9,11)
+      : phone;
 
     return {
-      [d(0)]: [
-        { id: 1247, time: '14:00 – 15:00', status: 'transit', statusLabel: 'В пути',
-          client: 'Иванов Иван Иванович', phone: '+7 (999) 123-45-67', phoneFull: '+79991234567',
-          address: 'г. Дубна, ул. Примерная, д. 10, кв. 5', sum: '5 850', pay: 'оплачен онлайн',
-          items: [
-            { name: 'Торт «Ягодное лукошко»', qty: '3 кг', img: 'img/картинки для сайта/Торты/Торт Ягодное лукошко.jpg' },
-            { name: 'Macarons ассорти', qty: '12 шт', img: 'img/summer-3.jpg' }
-          ]},
-        { id: 1250, time: '16:00 – 17:00', status: 'pickup', statusLabel: 'Забрать',
-          client: 'Петрова Анна Владимировна', phone: '+7 (999) 111-22-33', phoneFull: '+79991112233',
-          address: 'г. Дубна, ул. Строителей, д. 25, кв. 14', sum: '3 300', pay: 'наличные при получении',
-          items: [
-            { name: 'Торт «Ягодное лукошко»', qty: '3 кг', img: 'img/summer-1.jpg' }
-          ]},
-        { id: 1248, time: '18:00 – 19:00', status: 'pending', statusLabel: 'Ожидает',
-          client: 'Козлова Елена Ивановна', phone: '+7 (999) 555-66-77', phoneFull: '+79995556677',
-          address: 'г. Дубна, пр-т Боголюбова, д. 42, кв. 8', sum: '5 100', pay: 'оплачен онлайн',
-          items: [
-            { name: 'Macarons ассорти', qty: '24 шт', img: 'img/summer-3.jpg' },
-            { name: 'Чизкейк классический', qty: '1.5 кг', img: 'img/summer-5.jpg' }
-          ]}
-      ],
-      [d(1)]: [
-        { id: 1253, time: '10:00 – 11:00', status: 'pending', statusLabel: 'Ожидает',
-          client: 'Миронова Людмила Сергеевна', phone: '+7 (999) 888-99-00', phoneFull: '+79998889900',
-          address: 'г. Дубна, ул. Мира, д. 7, кв. 22', sum: '7 200', pay: 'оплачен онлайн',
-          items: [
-            { name: '3D-торт Бабочки', qty: '2.5 кг', img: 'img/картинки для сайта/3D-торты/Торт с бабочками.jpg' }
-          ]},
-        { id: 1254, time: '15:00 – 16:00', status: 'pending', statusLabel: 'Ожидает',
-          client: 'Сидоров Кирилл Михайлович', phone: '+7 (999) 333-44-55', phoneFull: '+79993334455',
-          address: 'г. Дубна, ул. Сахарова, д. 3, кв. 41', sum: '4 500', pay: 'наличные при получении',
-          items: [
-            { name: 'Торт «Праздничный шик»', qty: '3 кг', img: 'img/картинки для сайта/Торты/Торт Праздничный шик.jpg' }
-          ]}
-      ],
-      [d(3)]: [
-        { id: 1260, time: '12:00 – 13:00', status: 'pending', statusLabel: 'Ожидает',
-          client: 'Волкова Наталья Петровна', phone: '+7 (999) 222-11-00', phoneFull: '+79992221100',
-          address: 'г. Дубна, ул. Флёрова, д. 8, кв. 12', sum: '14 400', pay: 'оплачен онлайн',
-          items: [
-            { name: 'Свадебный торт «Элегант»', qty: '6 кг', img: 'img/картинки для сайта/Свадебные торты/Свадебный торт с бусинами.jpg' }
-          ]}
-      ]
+      id: o.id.slice(0, 8),
+      fullId: o.id,
+      time: o.deliveryTime || '—',
+      status: st.status,
+      statusLabel: st.label,
+      apiStatus: o.status,
+      client: o.contactName || '—',
+      phone: fmtPhone,
+      phoneFull: phone,
+      address: o.address || '—',
+      sum: Number(o.totalPrice || 0).toLocaleString('ru-RU'),
+      pay: '',
+      items: items
     };
   }
 
-  const DEMO_ORDERS = buildDemoOrders();
-  let selectedDate = new Date().toISOString().slice(0, 10);
+  async function loadCourierOrders() {
+    try {
+      // Загружаем все заказы (без фильтра по дате) для группировки
+      const orders = await API.getCourierOrders();
+      COURIER_ORDERS = {};
+      orders.forEach(o => {
+        const mapped = mapApiOrder(o);
+        const key = o.deliveryDateISO || selectedDate;
+        if (!COURIER_ORDERS[key]) COURIER_ORDERS[key] = [];
+        COURIER_ORDERS[key].push(mapped);
+      });
+    } catch(e) {
+      COURIER_ORDERS = {};
+    }
+  }
 
   // ====== Навигация ======
   const SECTION_TITLES = {
@@ -1195,7 +1187,7 @@
       const dt = new Date(today);
       dt.setDate(dt.getDate() + i);
       const key = dt.toISOString().slice(0, 10);
-      const hasOrders = DEMO_ORDERS[key] && DEMO_ORDERS[key].length > 0;
+      const hasOrders = COURIER_ORDERS[key] && COURIER_ORDERS[key].length > 0;
 
       const chip = document.createElement('div');
       chip.className = 'date-chip';
@@ -1221,7 +1213,7 @@
 
   // ====== Рендер дня ======
   function renderDay() {
-    const orders = DEMO_ORDERS[selectedDate] || [];
+    const orders = COURIER_ORDERS[selectedDate] || [];
     const dt = new Date(selectedDate + 'T12:00:00');
     const todayStr = new Date().toISOString().slice(0, 10);
 
@@ -1285,9 +1277,9 @@
         '  </div>' +
         '  <div class="del-card__items">' + itemsHtml + '</div>' +
         '  <div class="del-card__actions">' +
-        '    <button class="cr-btn cr-btn--success" onclick="markDelivered(' + o.id + ')">&#9989; Доставлен</button>' +
-        '    <button class="cr-btn" onclick="openStatusModal(' + o.id + ')">&#9998; Статус</button>' +
-        '    <button class="cr-btn cr-btn--danger" onclick="openProblemModal(' + o.id + ')">&#9888; Проблема</button>' +
+        '    <button class="cr-btn cr-btn--success" onclick="markDelivered(\'' + o.id + '\')">&#9989; Доставлен</button>' +
+        '    <button class="cr-btn" onclick="openStatusModal(\'' + o.id + '\')">&#9998; Статус</button>' +
+        '    <button class="cr-btn cr-btn--danger" onclick="openProblemModal(\'' + o.id + '\')">&#9888; Проблема</button>' +
         '  </div>' +
         '</div>'
       );
@@ -1296,7 +1288,7 @@
 
   // ====== Рассчитать маршрут на день ======
   function calcDayRoute() {
-    const orders = DEMO_ORDERS[selectedDate] || [];
+    const orders = COURIER_ORDERS[selectedDate] || [];
     if (!orders.length) return;
 
     // Переключаемся на вкладку маршрут и заполняем точки
@@ -1326,12 +1318,26 @@
     currentStatusOrder = null;
   }
 
-  function saveStatus() {
+  async function saveStatus() {
     const sel = document.getElementById('modalStatus');
     const newStatus = sel.value;
     const label = sel.options[sel.selectedIndex].text;
 
     if (currentStatusOrder) {
+      // Находим полный ID и отправляем в API
+      const orders = COURIER_ORDERS[selectedDate] || [];
+      const order = orders.find(o => o.id === currentStatusOrder);
+      const apiStatusMap = { pickup: 'cooking', transit: 'delivery', delivered: 'delivered' };
+      if (order && order.fullId) {
+        try {
+          await API.updateCourierOrderStatus(order.fullId, apiStatusMap[newStatus] || newStatus);
+        } catch(e) {
+          alert('Ошибка обновления статуса');
+          closeStatusModal();
+          return;
+        }
+      }
+
       const statusEl = document.getElementById('status' + currentStatusOrder);
       if (statusEl) {
         statusEl.textContent = label;
@@ -1340,9 +1346,6 @@
         else if (newStatus === 'transit') statusEl.classList.add('del-card__status--transit');
         else if (newStatus === 'pickup') statusEl.classList.add('del-card__status--pickup');
       }
-      // Обновляем демо-данные
-      const orders = DEMO_ORDERS[selectedDate] || [];
-      const order = orders.find(o => o.id === currentStatusOrder);
       if (order) {
         const map = { pickup: 'pickup', transit: 'transit', delivered: 'done' };
         const labelMap = { pickup: 'Забрать', transit: 'В пути', delivered: 'Доставлен' };
@@ -1355,18 +1358,22 @@
   }
 
   // ====== Доставлен ======
-  function markDelivered(orderId) {
+  async function markDelivered(orderId) {
     if (confirm('Подтвердить доставку заказа #' + orderId + ' клиенту?')) {
-      const statusEl = document.getElementById('status' + orderId);
-      if (statusEl) {
-        statusEl.textContent = 'Доставлен';
-        statusEl.className = 'del-card__status del-card__status--done';
-      }
-      const orders = DEMO_ORDERS[selectedDate] || [];
+      // Находим полный ID заказа
+      const orders = COURIER_ORDERS[selectedDate] || [];
       const order = orders.find(o => o.id === orderId);
-      if (order) { order.status = 'done'; order.statusLabel = 'Доставлен'; }
+      if (order && order.fullId) {
+        try {
+          await API.updateCourierOrderStatus(order.fullId, 'delivered');
+        } catch(e) {
+          alert('Ошибка обновления статуса');
+          return;
+        }
+      }
+      if (order) { order.status = 'done'; order.statusLabel = 'Доставлен'; order.apiStatus = 'delivered'; }
       renderDay();
-      alert('Заказ #' + orderId + ' отмечен как доставленный. Информация передана администратору и клиенту.');
+      alert('Заказ #' + orderId + ' отмечен как доставленный.');
     }
   }
 
@@ -1393,7 +1400,7 @@
     if (!type.value) { alert('Выберите тип проблемы'); return; }
     if (!desc) { alert('Опишите подробности проблемы'); return; }
 
-    const orders = DEMO_ORDERS[selectedDate] || [];
+    const orders = COURIER_ORDERS[selectedDate] || [];
     const order = orders.find(o => o.id === currentProblemOrder);
     if (order) { order.status = 'problem'; order.statusLabel = 'Проблема'; }
     renderDay();
@@ -1501,10 +1508,74 @@
     document.getElementById('routeYandexLink').style.display = 'none';
   }
 
+  // ====== Выход ======
+  async function doLogout() {
+    try { await API.logout(); } catch(e) {}
+    location.href = 'auth.html';
+  }
+  document.getElementById('sideLogoutBtn').addEventListener('click', doLogout);
+  document.getElementById('topLogoutBtn').addEventListener('click', doLogout);
+
+  // ====== История доставок ======
+  async function loadHistory() {
+    const tbody = document.getElementById('historyTableBody');
+    try {
+      // Загружаем все заказы курьера (delivered)
+      const orders = await API.getCourierOrders();
+      const delivered = orders.filter(o => o.status === 'delivered');
+
+      if (!delivered.length) {
+        tbody.innerHTML = '<tr><td colspan="5" style="text-align:center;color:#6c6c6c;padding:40px;">Нет завершённых доставок</td></tr>';
+        return;
+      }
+
+      tbody.innerHTML = delivered.map(o => {
+        const shortId = o.id.slice(0, 8);
+        const dt = o.deliveryDateISO ? new Date(o.deliveryDateISO) : new Date(o.createdAtISO);
+        const dateStr = dt.getDate() + ' ' + MONTHS_FULL[dt.getMonth()] + ' ' + dt.getFullYear();
+        return '<tr>' +
+          '<td><strong>#' + shortId + '</strong></td>' +
+          '<td>' + dateStr + '</td>' +
+          '<td>' + (o.address || '—') + '</td>' +
+          '<td><span class="del-card__status del-card__status--done">Доставлен</span></td>' +
+          '<td>' + (o.deliveryTime || '—') + '</td>' +
+          '</tr>';
+      }).join('');
+    } catch(e) {
+      tbody.innerHTML = '<tr><td colspan="5" style="text-align:center;color:#6c6c6c;padding:40px;">Ошибка загрузки</td></tr>';
+    }
+  }
+
   // ====== Init ======
-  buildDateStrip();
-  renderDay();
-  renderRouteGrid();
+  (async function() {
+    // Проверка авторизации
+    const me = await API.getMe();
+    if (!me || me.error) {
+      location.href = 'auth.html';
+      return;
+    }
+
+    // Обновим имя курьера в топбаре
+    const nameEl = document.querySelector('.cr__topbar-user');
+    if (nameEl && me.name) {
+      nameEl.textContent = 'Курьер: ' + me.name;
+    }
+
+    // Загружаем заказы на сегодня
+    await loadCourierOrders();
+
+    buildDateStrip();
+    renderDay();
+    renderRouteGrid();
+
+    // Загружаем историю
+    loadHistory();
+
+    // Обновляем бейдж активных доставок
+    const badge = document.getElementById('activeBadge');
+    const todayOrders = COURIER_ORDERS[selectedDate] || [];
+    badge.textContent = todayOrders.length || '';
+  })();
 
   // Закрытие модалок по клику на оверлей
   document.querySelectorAll('.modal-overlay').forEach(overlay => {
