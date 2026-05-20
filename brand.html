@@ -47,10 +47,14 @@
   /* Видео с эффектом */
   .brand-video {
     position: relative;
-    border-radius: 24px;
-    overflow: hidden;
+    border-radius: 32px;
     box-shadow: 0 30px 80px rgba(0,0,0,0.15);
     transition: transform 0.5s ease, box-shadow 0.5s ease;
+    max-width: 75%;
+    margin-left: auto;
+    margin-right: auto;
+    background: radial-gradient(ellipse at center, rgba(200, 180, 160, 0.4) 0%, rgba(200, 180, 160, 0.2) 60%, rgba(200, 180, 160, 0.05) 100%);
+    padding: 60px;
   }
 
   .brand-video:hover {
@@ -60,9 +64,11 @@
 
   .brand-video video {
     display: block;
-    width: 100%;
+    width: 50%;
     height: 550px;
     object-fit: cover;
+    border-radius: 24px;
+    margin: 0 auto;
   }
 
   /* Карточки ценностей */
@@ -311,7 +317,7 @@
     .brand-quote-text { font-size: 26px !important; }
     .brand-cta-block { padding: 50px 32px !important; margin: 60px 0 !important; }
     .brand-cta-title { font-size: 30px !important; }
-    .brand-video { margin-left: auto; margin-right: auto; max-width: 90%; }
+    .brand-video { max-width: 65%; }
     .brand-video video { height: 300px; }
     .value-card { padding: 32px 24px; }
     .brand-values-grid { grid-template-columns: repeat(2, 1fr) !important; gap: 24px !important; }
@@ -333,8 +339,8 @@
     .brand-quote-text { font-size: 22px !important; }
     .brand-cta-block { padding: 32px 20px !important; margin: 40px 0 !important; }
     .brand-cta-title { font-size: 24px !important; }
-    .brand-video { max-width: 92%; margin-left: auto; margin-right: auto; }
-    .brand-video video { height: 200px; }
+    .brand-video { max-width: 75%; }
+    .brand-video video { height: 220px; }
     .brand-values-grid { grid-template-columns: 1fr !important; }
     .stat-number { font-size: 28px; }
     .brand-stats-grid { grid-template-columns: 1fr !important; }
@@ -638,7 +644,7 @@
       <!-- Видео -->
       <div class="brand-video" style="margin-bottom: 100px;">
         <video autoplay muted loop playsinline preload="metadata">
-          <source src="img/video/story1.MP4" type="video/mp4">
+          <source src="img/video/видео для история бренда.mp4" type="video/mp4">
         </video>
       </div>
 
@@ -662,7 +668,7 @@
             <span class="stat-label">Лет на рынке</span>
           </div>
           <div class="stat-item">
-            <span class="stat-number">10 000+</span>
+            <span class="stat-number">1500+</span>
             <span class="stat-label">Счастливых клиентов</span>
           </div>
           <div class="stat-item">
@@ -688,9 +694,9 @@
           <div class="timeline-item">
             <div class="timeline-content">
               <div class="timeline-year">2019</div>
-              <h3 style="font-size: 22px; font-weight: 600; margin: 0 0 12px; color: #1f1f1f;">Начало пути</h3>
+              <h3 style="font-size: 22px; font-weight: 600; margin: 0 0 12px; color: #1f1f1f;">Любовь в каждой детали </h3>
               <p style="font-size: 15px; line-height: 1.7; color: #6c6c6c; margin: 0;">
-                Первая кондитерская мастерская в маленьком помещении. Всего 3 человека в команде и большая мечта.
+                В этом году вместо покупных десертов в доме появилась традиция: только своя выпечка. Дни рождения, юбилеи родителей, детские праздники — каждый торт создавался как маленькое произведение искусства. 
               </p>
             </div>
             <div class="timeline-dot"></div>
@@ -703,9 +709,9 @@
             <div class="timeline-dot"></div>
             <div class="timeline-content">
               <div class="timeline-year">2020</div>
-              <h3 style="font-size: 22px; font-weight: 600; margin: 0 0 12px; color: #1f1f1f;">Первые победы</h3>
+              <h3 style="font-size: 22px; font-weight: 600; margin: 0 0 12px; color: #1f1f1f;">Сарафанное радио</h3>
               <p style="font-size: 15px; line-height: 1.7; color: #6c6c6c; margin: 0;">
-                Запуск интернет-магазина и доставки. Первая тысяча довольных клиентов и отзывы, которые вдохновляют работать дальше.
+                Слухи о вкусных тортах разлетелись среди друзей друзей. Появились первые заказы «для своих» — на свадьбу подруги подруги, на корпоратив в соседний офис.               
               </p>
             </div>
           </div>
@@ -714,9 +720,9 @@
           <div class="timeline-item">
             <div class="timeline-content">
               <div class="timeline-year">2022</div>
-              <h3 style="font-size: 22px; font-weight: 600; margin: 0 0 12px; color: #1f1f1f;">Расширение</h3>
+              <h3 style="font-size: 22px; font-weight: 600; margin: 0 0 12px; color: #1f1f1f;">Подготовка </h3>
               <p style="font-size: 15px; line-height: 1.7; color: #6c6c6c; margin: 0;">
-                Открытие собственного производства. Команда выросла до 15 человек. Новые коллекции и направление ART.
+                В этом году пришло понимание: «домашняя кухня» стала тесной. Заказов стало так много, что семья начала шутить, что мы живем в цеху. Мы прошли курсы по технолгии пищевого производства, сертификацию, начали искать помещение.
               </p>
             </div>
             <div class="timeline-dot"></div>
@@ -729,9 +735,9 @@
             <div class="timeline-dot"></div>
             <div class="timeline-content">
               <div class="timeline-year">2024</div>
-              <h3 style="font-size: 22px; font-weight: 600; margin: 0 0 12px; color: #1f1f1f;">Новые горизонты</h3>
+              <h3 style="font-size: 22px; font-weight: 600; margin: 0 0 12px; color: #1f1f1f;">Рождение бренда</h3>
               <p style="font-size: 15px; line-height: 1.7; color: #6c6c6c; margin: 0;">
-                Запуск линейки To Order с индивидуальными тортами. Более 50 видов десертов в ассортименте.
+                Мы перешли из разряда «пеку для близких» в настоящую кондитерскую «Вкус облаков». От кухонного стола до профессиональной витрины. Теперь наши торты едят не только знакомые, но и те, кто просто ищет тот самый «вкус, как у мамы/бабушки», только в авторском исполнении.
               </p>
             </div>
           </div>
@@ -742,7 +748,7 @@
               <div class="timeline-year">2026</div>
               <h3 style="font-size: 22px; font-weight: 600; margin: 0 0 12px; color: #1f1f1f;">Сегодня</h3>
               <p style="font-size: 15px; line-height: 1.7; color: #6c6c6c; margin: 0;">
-                Лидер кондитерского рынка в Дубне. Более 10 000 счастливых клиентов и десятки тысяч созданных десертов.
+                Наша история — доказательство того, что хобби, которым занимаешься с любовью, обязательно перерастает в дело жизни.
               </p>
             </div>
             <div class="timeline-dot"></div>
