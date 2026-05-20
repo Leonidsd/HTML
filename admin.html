@@ -2249,9 +2249,9 @@
       let html = '<h3 style="margin:0 0 8px;font-size:16px;">' + esc(r.product_name) + '</h3>';
       if (r.description) html += '<p style="color:#6c6c6c;margin:0 0 16px;">' + esc(r.description) + '</p>';
       if (r.ingredients && r.ingredients.length) {
-        html += '<table class="adm-table" style="margin:0;"><thead><tr><th>Ингредиент</th><th>Количество</th></tr></thead><tbody>';
+        html += '<table class="adm-table" style="margin:0;"><thead><tr><th>Ингредиент</th><th>Количество</th><th>Единицы</th></tr></thead><tbody>';
         r.ingredients.forEach(i => {
-          html += '<tr><td>' + esc(i.ingredient_name) + '</td><td>' + esc(i.amount) + '</td></tr>';
+          html += '<tr><td>' + esc(i.ingredient_name) + '</td><td>' + esc(i.amount) + '</td><td>' + esc(i.unit) + '</td></tr>';
         });
         html += '</tbody></table>';
       } else {
@@ -2267,13 +2267,48 @@
     const list = document.getElementById('rmIngredientsList');
     const row = document.createElement('div');
     row.className = 'ing-row';
-    let opts = '<option value="">-- Ингредиент --</option>';
+    row.style.cssText = 'display:flex;gap:8px;margin-bottom:8px;align-items:center;';
+
+    // Dropdown ингредиентов (без единиц в названии)
+    const sel = document.createElement('select');
+    sel.className = 'adm-form__input';
+    sel.style.flex = '2';
+    sel.innerHTML = '<option value="">-- Ингредиент --</option>';
     allIngredients.forEach(i => {
-      opts += '<option value="' + i.id + '"' + (i.id == ingId ? ' selected' : '') + '>' + esc(i.name) + ' (' + i.unit + ')</option>';
+      sel.innerHTML += '<option value="' + i.id + '"' + (i.id == ingId ? ' selected' : '') + ' data-unit="' + esc(i.unit) + '">' + esc(i.name) + '</option>';
     });
-    row.innerHTML = '<select class="adm-form__input" style="padding:8px;">' + opts + '</select>' +
-      '<input class="adm-form__input" type="text" placeholder="200 г" value="' + esc(amount || '') + '" style="padding:8px;">' +
-      '<button class="adm-btn adm-btn--sm adm-btn--danger" type="button" onclick="this.parentElement.remove()">&times;</button>';
+
+    // Поле количества
+    const inp = document.createElement('input');
+    inp.className = 'adm-form__input';
+    inp.type = 'text';
+    inp.placeholder = '0.2';
+    inp.value = amount || '';
+    inp.style.flex = '1';
+
+    // Показываем единицу выбранного ингредиента
+    const unitSpan = document.createElement('span');
+    unitSpan.style.cssText = 'min-width:40px;color:#6c6c6c;font-size:14px;';
+    const selectedIng = allIngredients.find(i => i.id == ingId);
+    unitSpan.textContent = selectedIng ? selectedIng.unit : '';
+
+    // При смене ингредиента обновляем единицу
+    sel.addEventListener('change', function() {
+      const opt = this.options[this.selectedIndex];
+      unitSpan.textContent = opt.dataset.unit || '';
+    });
+
+    // Кнопка удаления
+    const btn = document.createElement('button');
+    btn.className = 'adm-btn adm-btn--sm adm-btn--danger';
+    btn.textContent = '×';
+    btn.type = 'button';
+    btn.onclick = () => row.remove();
+
+    row.appendChild(sel);
+    row.appendChild(inp);
+    row.appendChild(unitSpan);
+    row.appendChild(btn);
     list.appendChild(row);
   }
 
@@ -2589,22 +2624,34 @@
     const container = document.getElementById('frIngredientsList');
     const row = document.createElement('div');
     row.className = 'ing-row';
-    row.style.cssText = 'display:flex;gap:8px;margin-bottom:8px;';
+    row.style.cssText = 'display:flex;gap:8px;margin-bottom:8px;align-items:center;';
 
     const sel = document.createElement('select');
     sel.className = 'adm-form__input';
     sel.style.flex = '2';
     sel.innerHTML = '<option value="">-- Выберите ингредиент --</option>';
     allIngredients.forEach(i => {
-      sel.innerHTML += `<option value="${i.id}"${i.id === ingredientId ? ' selected' : ''}>${esc(i.name)} (${i.unit})</option>`;
+      sel.innerHTML += `<option value="${i.id}"${i.id === ingredientId ? ' selected' : ''} data-unit="${esc(i.unit)}">${esc(i.name)}</option>`;
     });
 
     const inp = document.createElement('input');
     inp.className = 'adm-form__input';
     inp.type = 'text';
-    inp.placeholder = 'Количество';
+    inp.placeholder = '0.035';
     inp.style.flex = '1';
     inp.value = amount;
+
+    // Показываем единицу выбранного ингредиента
+    const unitSpan = document.createElement('span');
+    unitSpan.style.cssText = 'min-width:40px;color:#6c6c6c;font-size:14px;';
+    const selectedIng = allIngredients.find(i => i.id == ingredientId);
+    unitSpan.textContent = selectedIng ? selectedIng.unit : '';
+
+    // При смене ингредиента обновляем единицу
+    sel.addEventListener('change', function() {
+      const opt = this.options[this.selectedIndex];
+      unitSpan.textContent = opt.dataset.unit || '';
+    });
 
     const btn = document.createElement('button');
     btn.className = 'adm-btn adm-btn--sm';
@@ -2614,6 +2661,7 @@
 
     row.appendChild(sel);
     row.appendChild(inp);
+    row.appendChild(unitSpan);
     row.appendChild(btn);
     container.appendChild(row);
   }
@@ -2622,22 +2670,34 @@
     const container = document.getElementById('nfrIngredientsList');
     const row = document.createElement('div');
     row.className = 'ing-row';
-    row.style.cssText = 'display:flex;gap:8px;margin-bottom:8px;';
+    row.style.cssText = 'display:flex;gap:8px;margin-bottom:8px;align-items:center;';
 
     const sel = document.createElement('select');
     sel.className = 'adm-form__input';
     sel.style.flex = '2';
     sel.innerHTML = '<option value="">-- Выберите ингредиент --</option>';
     allIngredients.forEach(i => {
-      sel.innerHTML += `<option value="${i.id}"${i.id === ingredientId ? ' selected' : ''}>${esc(i.name)} (${i.unit})</option>`;
+      sel.innerHTML += `<option value="${i.id}"${i.id === ingredientId ? ' selected' : ''} data-unit="${esc(i.unit)}">${esc(i.name)}</option>`;
     });
 
     const inp = document.createElement('input');
     inp.className = 'adm-form__input';
     inp.type = 'text';
-    inp.placeholder = 'Количество';
+    inp.placeholder = '0.035';
     inp.style.flex = '1';
     inp.value = amount;
+
+    // Показываем единицу выбранного ингредиента
+    const unitSpan = document.createElement('span');
+    unitSpan.style.cssText = 'min-width:40px;color:#6c6c6c;font-size:14px;';
+    const selectedIng = allIngredients.find(i => i.id == ingredientId);
+    unitSpan.textContent = selectedIng ? selectedIng.unit : '';
+
+    // При смене ингредиента обновляем единицу
+    sel.addEventListener('change', function() {
+      const opt = this.options[this.selectedIndex];
+      unitSpan.textContent = opt.dataset.unit || '';
+    });
 
     const btn = document.createElement('button');
     btn.className = 'adm-btn adm-btn--sm';
@@ -2647,6 +2707,7 @@
 
     row.appendChild(sel);
     row.appendChild(inp);
+    row.appendChild(unitSpan);
     row.appendChild(btn);
     container.appendChild(row);
   }
