@@ -92,7 +92,16 @@ function getCartKey() {
 
 // Корзина — остаётся в localStorage (данные до оформления заказа)
 function loadCart() {
-  try { return JSON.parse(localStorage.getItem(getCartKey())) || []; }
+  try {
+    const cart = JSON.parse(localStorage.getItem(getCartKey())) || [];
+    // Миграция: если товар имеет unitPrice но не price, копируем
+    cart.forEach(item => {
+      if (item.unitPrice && !item.price) {
+        item.price = item.unitPrice;
+      }
+    });
+    return cart;
+  }
   catch { return []; }
 }
 function saveCart(cart) {
@@ -239,7 +248,7 @@ function cartCount(cart) {
 }
 
 function cartTotal(cart) {
-  return cart.reduce((sum, it) => sum + it.unitPrice * it.qty, 0);
+  return cart.reduce((sum, it) => sum + it.price * it.qty, 0);
 }
 
 function cartPrepHours(cart) {
@@ -476,7 +485,7 @@ function addToCartFromModal() {
   const coulisLabel = coulisSel.selectedOptions[0]?.textContent || "";
   const baseLabel = baseSel.selectedOptions[0]?.textContent || "";
 
-  const unitPrice = p.basePrice + getSelectedOptionDelta(coulisSel) + getSelectedOptionDelta(baseSel);
+  const price = p.basePrice + getSelectedOptionDelta(coulisSel) + getSelectedOptionDelta(baseSel);
 
   const cart = loadCart();
   // если такая же конфигурация уже есть — увеличим qty
@@ -495,7 +504,7 @@ function addToCartFromModal() {
       title: p.title,
       image: p.image || '',
       qty: pmState.qty,
-      unitPrice,
+      price,
       prepHours: p.prepHours,
       minQty: 1,
       qtyStep: 1,
@@ -528,7 +537,7 @@ function renderCartDrawer() {
         <div class="cart-item">
           <div class="cart-item__top">
             <div class="cart-item__name">${escapeHtml(it.title)}</div>
-            <div class="price">${formatRUB(it.unitPrice * it.qty)}</div>
+            <div class="price">${formatRUB(it.price * it.qty)}</div>
           </div>
           <div class="cart-item__meta">
             ${[it.optionsLabel?.coulis, it.optionsLabel?.base].filter(Boolean).map(s => escapeHtml(s)).join(' · ')}
@@ -560,7 +569,7 @@ function renderCartDrawer() {
           <div class="cart-item__body">
             <div class="cart-item__name">${escapeHtml(it.title)} × ${it.qty}</div>
             <div class="cart-item__meta">${[it.optionsLabel?.coulis, it.optionsLabel?.base].filter(Boolean).map(s => escapeHtml(s)).join(' · ')}</div>
-            <div class="price">${formatRUB(it.unitPrice * it.qty)}</div>
+            <div class="price">${formatRUB(it.price * it.qty)}</div>
           </div>
         </div>`).join("")
       : `<div class="muted">Корзина пустая. Вернитесь в каталог и добавьте товары.</div>`;
@@ -775,18 +784,10 @@ function renderSummary() {
   const parts = [];
 
   parts.push(`<div class="subtitle">Итого: <b>${formatRUB(total)}</b></div>`);
-  parts.push(`<div class="subtitle">⏱ Время приготовления корзины: <b>${prep.toFixed(2)} ч</b></div>`);
 
   if (bookingPick.address) parts.push(`<div class="subtitle">Адрес: <b>${escapeHtml(bookingPick.address)}</b></div>`);
   if (bookingPick.dateISO) parts.push(`<div class="subtitle">Дата: <b>${humanDate(bookingPick.dateISO)}</b></div>`);
   if (bookingPick.time) parts.push(`<div class="subtitle">Время: <b>${bookingPick.time}</b></div>`);
-
-  // день приготовления (D-1)
-  if (bookingPick.dateISO) {
-    const d = fromISODate(bookingPick.dateISO);
-    const prepDay = addDays(d, -1);
-    parts.push(`<div class="muted">Готовим накануне: <b>${humanDate(toISODate(prepDay))}</b></div>`);
-  }
 
   // подсказка, чего не хватает
   const missing = [];

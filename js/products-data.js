@@ -36,6 +36,92 @@ const productsData = {
     assortment: []
   },
 
+  // Торты летние - дублируем с числовыми ID из БД для casual
+  '1': {
+    name: 'Торт «Ягодное лукошко»',
+    price: 3300,
+    images: ['img/summer-1.jpg'],
+    type: 'cake',
+    quantityPerPack: 1,
+    quantityStep: 1,
+    minWeight: 3,
+    servings: '12-15 человек',
+    description: 'Торт в виде лукошка с обилием свежих ягод.',
+    descriptionFull: 'Авторский торт в форме плетёного лукошка, наполненный свежими сезонными ягодами. Нежный бисквит с ванильным кремом и ягодной прослойкой. Минимальный вес - от 3 кг.',
+    assortment: []
+  },
+
+  '4': {
+    name: 'Торт «Праздничный шик»',
+    price: 4500,
+    images: ['img/summer-4.jpg'],
+    type: 'cake',
+    quantityPerPack: 1,
+    quantityStep: 1,
+    minWeight: 3,
+    servings: '12-15 человек',
+    description: 'Элегантный торт для особых случаев.',
+    descriptionFull: 'Праздничный торт с изысканным декором и нежным кремом. Идеален для торжественных мероприятий. Минимальный вес - от 3 кг.',
+    assortment: []
+  },
+
+  'summer-yagodnoe-lukoshko': {
+    name: 'Торт «Ягодное лукошко»',
+    price: 3300,
+    images: ['img/summer-1.jpg'],
+    type: 'cake',
+    quantityPerPack: 1,
+    quantityStep: 1,
+    minWeight: 3,
+    servings: '12-15 человек',
+    description: 'Торт в виде лукошка с обилием свежих ягод.',
+    descriptionFull: 'Авторский торт в форме плетёного лукошка, наполненный свежими сезонными ягодами. Нежный бисквит с ванильным кремом и ягодной прослойкой. Минимальный вес - от 3 кг.',
+    assortment: []
+  },
+
+  'summer-prazdnichny-shik': {
+    name: 'Торт «Праздничный шик»',
+    price: 4500,
+    images: ['img/summer-4.jpg'],
+    type: 'cake',
+    quantityPerPack: 1,
+    quantityStep: 1,
+    minWeight: 3,
+    servings: '12-15 человек',
+    description: 'Элегантный торт для особых случаев.',
+    descriptionFull: 'Праздничный торт с изысканным декором и нежным кремом. Идеален для торжественных мероприятий. Минимальный вес - от 3 кг.',
+    assortment: []
+  },
+
+  // Правильные ID для casual collection (из app.js SUMMER_PRODUCTS)
+  'summer-berry-basket': {
+    name: 'Торт «Ягодное лукошко»',
+    price: 3300,
+    images: ['img/summer-1.jpg', 'img/summer-1b.jpg'],
+    type: 'cake',
+    quantityPerPack: 1,
+    quantityStep: 1,
+    minWeight: 3,
+    servings: '12-15 человек',
+    description: 'Торт в виде лукошка с обилием свежих ягод.',
+    descriptionFull: 'Авторский торт в форме плетёного лукошка, наполненный свежими сезонными ягодами. Нежный бисквит с ванильным кремом и ягодной прослойкой. Минимальный вес - от 3 кг.',
+    assortment: []
+  },
+
+  'summer-festive-chic': {
+    name: 'Торт «Праздничный шик»',
+    price: 4500,
+    images: ['img/summer-4.jpg', 'img/summer-4b.jpg'],
+    type: 'cake',
+    quantityPerPack: 1,
+    quantityStep: 1,
+    minWeight: 3,
+    servings: '12-15 человек',
+    description: 'Элегантный торт для особых случаев.',
+    descriptionFull: 'Праздничный торт с изысканным декором и нежным кремом. Идеален для торжественных мероприятий. Минимальный вес - от 3 кг.',
+    assortment: []
+  },
+
   // Бенто
   'bento-classic': {
     name: 'Bento классический',

@@ -915,27 +915,52 @@
         placeBtn.addEventListener('click', function(e) {
           e.preventDefault();
 
-          // Собираем данные заказа
-          const cart = JSON.parse(localStorage.getItem('cart') || '[]');
+          // Собираем данные заказа (используем loadCart() из app.js)
+          const cart = loadCart();
+          console.log('checkout.html - cart из localStorage:', cart);
+
           if (cart.length === 0) {
             alert('Корзина пуста');
             return;
           }
 
+          // Преобразуем items в формат для сервера (price → unitPrice)
+          const orderItems = cart.map(item => ({
+            productId: item.productId,
+            title: item.title,
+            image: item.image,
+            qty: item.qty,
+            unitPrice: item.price,
+            prepHours: item.prepHours || 1,
+            optionKey: item.optionKey || null,
+            options: item.options || {},
+            optionsLabel: item.optionsLabel || {}
+          }));
+
           const orderData = {
-            items: cart,
+            items: orderItems,
             totalPrice: cart.reduce((sum, item) => sum + (item.price * item.qty), 0),
             totalPrepHours: cart.reduce((sum, item) => sum + ((item.prepHours || 1) * item.qty), 0),
-            address: document.getElementById('address')?.value || '',
-            deliveryDate: document.getElementById('deliveryDate')?.value || '',
-            deliveryTime: document.getElementById('deliveryTime')?.value || '',
+            address: document.getElementById('addressInput')?.value || '',
+            deliveryDateISO: bookingPick.dateISO || '',
+            deliveryTime: bookingPick.time || '',
             contactName: document.getElementById('contactName')?.value || '',
             contactPhone: document.getElementById('contactPhone')?.value || '',
             contactEmail: document.getElementById('contactEmail')?.value || ''
           };
 
           // Сохраняем данные заказа
+          console.log('checkout.html - сохраняем orderData:', orderData);
           localStorage.setItem('pendingOrder', JSON.stringify(orderData));
+
+          // Проверяем что данные сохранились
+          const savedData = JSON.parse(localStorage.getItem('pendingOrder') || '{}');
+          console.log('checkout.html - проверка сохранения:', savedData);
+
+          if (!savedData.items || savedData.items.length === 0) {
+            alert('Ошибка сохранения данных заказа. Попробуйте еще раз.');
+            return;
+          }
 
           // Перенаправляем на страницу выбора оплаты
           window.location.href = 'payment.html';

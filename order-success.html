@@ -194,6 +194,7 @@
     </div>
   </div>
 
+  <script src="js/app.js"></script>
   <script src="js/api.js"></script>
   <script>
     // Получаем orderId из URL
@@ -276,6 +277,16 @@
     }
 
     loadOrderDetails();
+
+    // Очищаем корзину только если это действительно страница успеха с orderId
+    // Это предотвратит случайную очистку при возврате назад через историю браузера
+    if (orderId) {
+      // Используем saveCart([]) из app.js - она правильно определяет ключ для авторизованных/неавторизованных пользователей
+      saveCart([]);
+      localStorage.removeItem('pendingOrder');
+      // Обновляем счетчик корзины
+      if (typeof setCartBadge === 'function') setCartBadge();
+    }
   </script>
 </body>
 </html>

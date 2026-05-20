@@ -268,13 +268,17 @@
     </div>
   </div>
 
+  <script src="js/app.js"></script>
   <script src="js/api.js"></script>
   <script>
     // Получаем данные заказа
     const orderData = JSON.parse(localStorage.getItem('pendingOrder') || '{}');
 
+    console.log('orderData:', orderData);
+
     if (!orderData || !orderData.totalPrice) {
-      alert('Данные заказа не найдены');
+      console.error('Ошибка: orderData =', orderData);
+      alert('Данные заказа не найдены. Проверьте консоль для деталей.');
       window.location.href = 'cart.html';
     }
 
@@ -353,7 +357,7 @@
         localStorage.setItem('lastOrderData', JSON.stringify(orderData));
 
         // Очищаем данные
-        localStorage.removeItem('cart');
+        saveCart([]);  // Используем saveCart из app.js для правильной очистки
         localStorage.removeItem('pendingOrder');
 
         // Перенаправляем на страницу успеха
