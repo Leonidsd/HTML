@@ -994,12 +994,13 @@
                 <th>Клиент</th>
                 <th>Состав</th>
                 <th>Сумма</th>
+                <th>Оплата</th>
                 <th>Статус</th>
                 <th>Действия</th>
               </tr>
             </thead>
             <tbody id="ordersTableBody">
-              <tr><td colspan="6" style="text-align:center;color:#6c6c6c;padding:40px;">Загрузка...</td></tr>
+              <tr><td colspan="7" style="text-align:center;color:#6c6c6c;padding:40px;">Загрузка...</td></tr>
             </tbody>
           </table>
 
@@ -1879,7 +1880,7 @@
   function renderOrdersTable() {
     const tbody = document.getElementById('ordersTableBody');
     if (!allOrders.length) {
-      tbody.innerHTML = '<tr><td colspan="6" style="text-align:center;color:#6c6c6c;padding:40px;">Нет заказов</td></tr>';
+      tbody.innerHTML = '<tr><td colspan="7" style="text-align:center;color:#6c6c6c;padding:40px;">Нет заказов</td></tr>';
       return;
     }
 
@@ -1909,11 +1910,19 @@
       const isGuest = !o.user_id;
       const guestBadge = isGuest ? '<span style="display:inline-block;background:#ff9800;color:#fff;font-size:10px;padding:2px 6px;border-radius:4px;margin-left:4px;">Гость</span>' : '';
 
+      // Форматируем информацию об оплате
+      const paymentTiming = o.payment_timing === 'now' ? 'Сейчас' : 'При получении';
+      const paymentMethod = o.payment_method === 'card' ? 'Картой' : 'Наличными';
+      const paymentStatus = o.payment_status === 'paid' ? '✓ Оплачено' : 'Ожидается';
+      const paymentStatusColor = o.payment_status === 'paid' ? '#4caf50' : '#ff9800';
+      const paymentInfo = `${paymentTiming}<br><span style="font-size:12px;color:#6c6c6c">${paymentMethod}</span><br><span style="font-size:11px;color:${paymentStatusColor};font-weight:600;">${paymentStatus}</span>`;
+
       return `<tr>
         <td><strong>#${esc(shortId)}</strong><br><span style="font-size:12px;color:#6c6c6c">${fmtDate(o.createdAtISO)}</span></td>
         <td>${esc(o.contactName || '—')}${guestBadge}<br><span style="font-size:12px;color:#6c6c6c">${fmtPhone(o.contactPhone)}</span></td>
         <td style="max-width:250px;line-height:1.6;">${items}</td>
         <td>${fmtRUB(o.totalPrice)}</td>
+        <td style="line-height:1.5;">${paymentInfo}</td>
         <td><span class="adm-table__status ${st.cls}">${st.label}</span></td>
         <td>
           <div class="adm-table__actions">

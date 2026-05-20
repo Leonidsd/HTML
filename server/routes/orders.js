@@ -8,7 +8,7 @@ const router = express.Router();
 // POST /api/orders — создание заказа
 router.post('/', (req, res) => {
   try {
-    const { items, address, deliveryDateISO, deliveryTime, prepDateISO, contactName, contactPhone, contactEmail } = req.body;
+    const { items, address, deliveryDateISO, deliveryTime, prepDateISO, contactName, contactPhone, contactEmail, payment_timing, payment_method, payment_status } = req.body;
 
     if (!items || !items.length) return res.status(400).json({ error: 'Корзина пуста' });
     if (!address) return res.status(400).json({ error: 'Укажите адрес доставки' });
@@ -32,9 +32,9 @@ router.post('/', (req, res) => {
 
     // Вставляем заказ
     db.prepare(`
-      INSERT INTO orders (id, user_id, status, total_price, total_prep_hours, address, delivery_date, delivery_time, prep_date, contact_name, contact_phone, contact_email)
-      VALUES (?, ?, 'new', ?, ?, ?, ?, ?, ?, ?, ?, ?)
-    `).run(orderId, userId, totalPrice, totalPrepHours, address.trim(), deliveryDateISO, deliveryTime, prepISO, contactName.trim(), normPhone, (contactEmail || '').trim());
+      INSERT INTO orders (id, user_id, status, total_price, total_prep_hours, address, delivery_date, delivery_time, prep_date, contact_name, contact_phone, contact_email, payment_timing, payment_method, payment_status)
+      VALUES (?, ?, 'new', ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+    `).run(orderId, userId, totalPrice, totalPrepHours, address.trim(), deliveryDateISO, deliveryTime, prepISO, contactName.trim(), normPhone, (contactEmail || '').trim(), payment_timing || 'on_delivery', payment_method || 'cash', payment_status || 'pending');
 
     // Вставляем позиции
     const insertItem = db.prepare(`
@@ -66,6 +66,7 @@ router.post('/', (req, res) => {
     const orderItems = db.prepare('SELECT * FROM order_items WHERE order_id = ?').all(orderId);
 
     res.json({
+      orderId: orderId,
       order: {
         ...order,
         createdAtISO: order.created_at,

@@ -912,16 +912,33 @@
       // ====== Кнопка «Создать заказ» ======
       const placeBtn = document.getElementById('btnPlaceOrder');
       if (placeBtn) {
-        placeBtn.addEventListener('click', async function(e) {
+        placeBtn.addEventListener('click', function(e) {
           e.preventDefault();
-          placeBtn.disabled = true;
-          placeBtn.textContent = 'Оформляем...';
-          try {
-            await placeOrder();
-          } finally {
-            placeBtn.disabled = false;
-            placeBtn.textContent = 'Создать заказ';
+
+          // Собираем данные заказа
+          const cart = JSON.parse(localStorage.getItem('cart') || '[]');
+          if (cart.length === 0) {
+            alert('Корзина пуста');
+            return;
           }
+
+          const orderData = {
+            items: cart,
+            totalPrice: cart.reduce((sum, item) => sum + (item.price * item.qty), 0),
+            totalPrepHours: cart.reduce((sum, item) => sum + ((item.prepHours || 1) * item.qty), 0),
+            address: document.getElementById('address')?.value || '',
+            deliveryDate: document.getElementById('deliveryDate')?.value || '',
+            deliveryTime: document.getElementById('deliveryTime')?.value || '',
+            contactName: document.getElementById('contactName')?.value || '',
+            contactPhone: document.getElementById('contactPhone')?.value || '',
+            contactEmail: document.getElementById('contactEmail')?.value || ''
+          };
+
+          // Сохраняем данные заказа
+          localStorage.setItem('pendingOrder', JSON.stringify(orderData));
+
+          // Перенаправляем на страницу выбора оплаты
+          window.location.href = 'payment.html';
         });
       }
     });

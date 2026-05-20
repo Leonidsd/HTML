@@ -1,0 +1,372 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Оплата заказа — Вкус Облаков</title>
+  <link rel="stylesheet" href="css/main.css">
+  <style>
+    body {
+      background: #faf8f6;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .payment-container {
+      max-width: 500px;
+      margin: 80px auto;
+      padding: 40px;
+      background: white;
+      border-radius: 24px;
+      box-shadow: 0 10px 40px rgba(0,0,0,0.08);
+    }
+
+    .payment-title {
+      font-family: var(--brand-font);
+      font-size: 28px;
+      font-weight: 400;
+      margin: 0 0 8px;
+      text-align: center;
+      color: #1f1f1f;
+    }
+
+    .payment-amount {
+      font-size: 36px;
+      font-weight: 700;
+      text-align: center;
+      color: #d4a088;
+      margin: 0 0 32px;
+    }
+
+    .payment-tabs {
+      display: flex;
+      gap: 12px;
+      margin-bottom: 24px;
+      border-bottom: 2px solid #f0ebe8;
+    }
+
+    .payment-tab {
+      flex: 1;
+      padding: 12px;
+      background: none;
+      border: none;
+      border-bottom: 3px solid transparent;
+      font-size: 15px;
+      font-weight: 600;
+      color: #6c6c6c;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      margin-bottom: -2px;
+    }
+
+    .payment-tab.active {
+      color: #1f1f1f;
+      border-bottom-color: #d4a088;
+    }
+
+    .payment-method {
+      display: none;
+    }
+
+    .payment-method.active {
+      display: block;
+    }
+
+    .form-field {
+      margin-bottom: 20px;
+    }
+
+    .form-label {
+      display: block;
+      font-size: 14px;
+      font-weight: 600;
+      color: #1f1f1f;
+      margin-bottom: 8px;
+    }
+
+    .form-input {
+      width: 100%;
+      padding: 14px 16px;
+      border: 2px solid #e7e0dc;
+      border-radius: 12px;
+      font-size: 16px;
+      transition: all 0.3s ease;
+      box-sizing: border-box;
+    }
+
+    .form-input:focus {
+      outline: none;
+      border-color: #d4a088;
+    }
+
+    .form-row {
+      display: grid;
+      grid-template-columns: 2fr 1fr;
+      gap: 12px;
+    }
+
+    .payment-btn {
+      width: 100%;
+      padding: 16px;
+      background: #1f1f1f;
+      color: white;
+      border: none;
+      border-radius: 12px;
+      font-size: 16px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      margin-top: 24px;
+    }
+
+    .payment-btn:hover {
+      background: #d4a088;
+      transform: translateY(-2px);
+      box-shadow: 0 8px 20px rgba(0,0,0,0.15);
+    }
+
+    .payment-btn:disabled {
+      background: #ccc;
+      cursor: not-allowed;
+      transform: none;
+    }
+
+    .sbp-banks {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 12px;
+      margin-top: 20px;
+    }
+
+    .sbp-bank {
+      padding: 16px;
+      border: 2px solid #e7e0dc;
+      border-radius: 12px;
+      text-align: center;
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+
+    .sbp-bank:hover {
+      border-color: #d4a088;
+      background: #faf8f6;
+    }
+
+    .sbp-bank img {
+      width: 40px;
+      height: 40px;
+      margin-bottom: 8px;
+    }
+
+    .sbp-bank-name {
+      font-size: 13px;
+      font-weight: 600;
+      color: #1f1f1f;
+    }
+
+    .secure-badge {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      margin-top: 20px;
+      font-size: 13px;
+      color: #6c6c6c;
+    }
+
+    .back-link {
+      display: inline-block;
+      margin-bottom: 20px;
+      color: #6c6c6c;
+      text-decoration: none;
+      font-size: 14px;
+      transition: color 0.3s ease;
+    }
+
+    .back-link:hover {
+      color: #1f1f1f;
+    }
+  </style>
+</head>
+<body>
+  <div class="payment-container">
+    <a href="payment.html" class="back-link">← Изменить способ оплаты</a>
+
+    <h1 class="payment-title">Оплата заказа</h1>
+    <div class="payment-amount" id="paymentAmount">0 ₽</div>
+
+    <div class="payment-tabs">
+      <button class="payment-tab active" data-tab="card">Банковская карта</button>
+      <button class="payment-tab" data-tab="sbp">СБП</button>
+    </div>
+
+    <!-- Оплата картой -->
+    <div class="payment-method active" id="card-method">
+      <form id="cardForm">
+        <div class="form-field">
+          <label class="form-label">Номер карты</label>
+          <input type="text" class="form-input" placeholder="1234 5678 9012 3456" maxlength="19" id="cardNumber" required>
+        </div>
+
+        <div class="form-row">
+          <div class="form-field">
+            <label class="form-label">Срок действия</label>
+            <input type="text" class="form-input" placeholder="MM/YY" maxlength="5" id="cardExpiry" required>
+          </div>
+          <div class="form-field">
+            <label class="form-label">CVV</label>
+            <input type="text" class="form-input" placeholder="123" maxlength="3" id="cardCvv" required>
+          </div>
+        </div>
+
+        <div class="form-field">
+          <label class="form-label">Имя на карте</label>
+          <input type="text" class="form-input" placeholder="IVAN IVANOV" id="cardName" required>
+        </div>
+
+        <button type="submit" class="payment-btn">Оплатить</button>
+      </form>
+    </div>
+
+    <!-- Оплата через СБП -->
+    <div class="payment-method" id="sbp-method">
+      <p style="text-align: center; color: #6c6c6c; margin-bottom: 20px;">
+        Выберите банк для оплаты через систему быстрых платежей
+      </p>
+
+      <div class="sbp-banks">
+        <div class="sbp-bank" data-bank="sber">
+          <div style="font-size: 32px;">🟢</div>
+          <div class="sbp-bank-name">Сбербанк</div>
+        </div>
+        <div class="sbp-bank" data-bank="tinkoff">
+          <div style="font-size: 32px;">🟡</div>
+          <div class="sbp-bank-name">Тинькофф</div>
+        </div>
+        <div class="sbp-bank" data-bank="alpha">
+          <div style="font-size: 32px;">🔴</div>
+          <div class="sbp-bank-name">Альфа-Банк</div>
+        </div>
+        <div class="sbp-bank" data-bank="vtb">
+          <div style="font-size: 32px;">🔵</div>
+          <div class="sbp-bank-name">ВТБ</div>
+        </div>
+        <div class="sbp-bank" data-bank="raif">
+          <div style="font-size: 32px;">🟠</div>
+          <div class="sbp-bank-name">Райффайзен</div>
+        </div>
+        <div class="sbp-bank" data-bank="other">
+          <div style="font-size: 32px;">⚪</div>
+          <div class="sbp-bank-name">Другой банк</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="secure-badge">
+      🔒 Безопасная оплата
+    </div>
+  </div>
+
+  <script src="js/api.js"></script>
+  <script>
+    // Получаем данные заказа
+    const orderData = JSON.parse(localStorage.getItem('pendingOrder') || '{}');
+
+    if (!orderData || !orderData.totalPrice) {
+      alert('Данные заказа не найдены');
+      window.location.href = 'cart.html';
+    }
+
+    // Показываем сумму
+    document.getElementById('paymentAmount').textContent = orderData.totalPrice.toLocaleString('ru-RU') + ' ₽';
+
+    // Переключение табов
+    document.querySelectorAll('.payment-tab').forEach(tab => {
+      tab.addEventListener('click', () => {
+        document.querySelectorAll('.payment-tab').forEach(t => t.classList.remove('active'));
+        document.querySelectorAll('.payment-method').forEach(m => m.classList.remove('active'));
+
+        tab.classList.add('active');
+        document.getElementById(tab.dataset.tab + '-method').classList.add('active');
+      });
+    });
+
+    // Форматирование номера карты
+    document.getElementById('cardNumber').addEventListener('input', (e) => {
+      let value = e.target.value.replace(/\s/g, '');
+      let formatted = value.match(/.{1,4}/g)?.join(' ') || value;
+      e.target.value = formatted;
+    });
+
+    // Форматирование срока
+    document.getElementById('cardExpiry').addEventListener('input', (e) => {
+      let value = e.target.value.replace(/\D/g, '');
+      if (value.length >= 2) {
+        value = value.slice(0, 2) + '/' + value.slice(2, 4);
+      }
+      e.target.value = value;
+    });
+
+    // Обработка оплаты картой
+    document.getElementById('cardForm').addEventListener('submit', async (e) => {
+      e.preventDefault();
+      await processPayment('card');
+    });
+
+    // Обработка оплаты через СБП
+    document.querySelectorAll('.sbp-bank').forEach(bank => {
+      bank.addEventListener('click', async () => {
+        await processPayment('sbp', bank.dataset.bank);
+      });
+    });
+
+    async function processPayment(method, bankCode = null) {
+      const btn = document.querySelector('.payment-btn, .sbp-bank');
+
+      // Имитация обработки платежа
+      if (method === 'card') {
+        document.querySelector('.payment-btn').disabled = true;
+        document.querySelector('.payment-btn').textContent = 'Обработка...';
+      }
+
+      // Симуляция задержки оплаты
+      await new Promise(resolve => setTimeout(resolve, 2000));
+
+      // Обновляем статус оплаты
+      orderData.payment_status = 'paid';
+
+      try {
+        // Создаем заказ с подтвержденной оплатой
+        const response = await API.createOrder(orderData);
+
+        if (response.error) {
+          alert('Ошибка оплаты: ' + response.error);
+          if (method === 'card') {
+            document.querySelector('.payment-btn').disabled = false;
+            document.querySelector('.payment-btn').textContent = 'Оплатить';
+          }
+          return;
+        }
+
+        // Сохраняем данные заказа для страницы успеха
+        localStorage.setItem('lastOrderData', JSON.stringify(orderData));
+
+        // Очищаем данные
+        localStorage.removeItem('cart');
+        localStorage.removeItem('pendingOrder');
+
+        // Перенаправляем на страницу успеха
+        window.location.href = `order-success.html?orderId=${response.orderId}`;
+      } catch (error) {
+        console.error('Ошибка:', error);
+        alert('Произошла ошибка при оплате');
+        if (method === 'card') {
+          document.querySelector('.payment-btn').disabled = false;
+          document.querySelector('.payment-btn').textContent = 'Оплатить';
+        }
+      }
+    }
+  </script>
+</body>
+</html>

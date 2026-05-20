@@ -355,6 +355,11 @@ try { db.exec("ALTER TABLE contact_messages ADD COLUMN reply_date TEXT DEFAULT '
 // Поле для назначения курьера
 try { db.exec("ALTER TABLE orders ADD COLUMN courier_id TEXT DEFAULT ''"); } catch(e) {}
 
+// Поля для способа оплаты
+try { db.exec("ALTER TABLE orders ADD COLUMN payment_timing TEXT DEFAULT 'on_delivery'"); } catch(e) {}
+try { db.exec("ALTER TABLE orders ADD COLUMN payment_method TEXT DEFAULT 'cash'"); } catch(e) {}
+try { db.exec("ALTER TABLE orders ADD COLUMN payment_status TEXT DEFAULT 'pending'"); } catch(e) {}
+
 // Время приготовления для рецептов
 try { db.exec("ALTER TABLE recipes ADD COLUMN prep_hours REAL DEFAULT 1"); } catch(e) {}
 

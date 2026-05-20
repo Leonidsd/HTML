@@ -1,0 +1,280 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Способ оплаты — Вкус Облаков</title>
+  <link rel="stylesheet" href="css/main.css">
+  <style>
+    body {
+      background: #faf8f6;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .payment-container {
+      max-width: 600px;
+      margin: 80px auto;
+      padding: 40px;
+      background: white;
+      border-radius: 24px;
+      box-shadow: 0 10px 40px rgba(0,0,0,0.08);
+    }
+
+    .payment-title {
+      font-family: var(--brand-font);
+      font-size: 32px;
+      font-weight: 400;
+      margin: 0 0 32px;
+      text-align: center;
+      color: #1f1f1f;
+    }
+
+    .payment-section {
+      margin-bottom: 32px;
+    }
+
+    .payment-section__title {
+      font-size: 18px;
+      font-weight: 600;
+      margin: 0 0 16px;
+      color: #1f1f1f;
+    }
+
+    .payment-option {
+      border: 2px solid #e7e0dc;
+      border-radius: 16px;
+      padding: 20px;
+      margin-bottom: 12px;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      display: flex;
+      align-items: center;
+      gap: 16px;
+    }
+
+    .payment-option:hover {
+      border-color: #d4a088;
+      background: #faf8f6;
+    }
+
+    .payment-option.selected {
+      border-color: #d4a088;
+      background: #faf8f6;
+      box-shadow: 0 4px 12px rgba(212, 160, 136, 0.2);
+    }
+
+    .payment-option__radio {
+      width: 24px;
+      height: 24px;
+      border: 2px solid #e7e0dc;
+      border-radius: 50%;
+      position: relative;
+      flex-shrink: 0;
+      transition: all 0.3s ease;
+    }
+
+    .payment-option.selected .payment-option__radio {
+      border-color: #d4a088;
+    }
+
+    .payment-option.selected .payment-option__radio::after {
+      content: '';
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: 12px;
+      height: 12px;
+      background: #d4a088;
+      border-radius: 50%;
+    }
+
+    .payment-option__content {
+      flex: 1;
+    }
+
+    .payment-option__label {
+      font-size: 16px;
+      font-weight: 600;
+      color: #1f1f1f;
+      margin: 0 0 4px;
+    }
+
+    .payment-option__desc {
+      font-size: 14px;
+      color: #6c6c6c;
+      margin: 0;
+    }
+
+    .payment-btn {
+      width: 100%;
+      padding: 16px;
+      background: #1f1f1f;
+      color: white;
+      border: none;
+      border-radius: 12px;
+      font-size: 16px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      margin-top: 24px;
+    }
+
+    .payment-btn:hover {
+      background: #d4a088;
+      transform: translateY(-2px);
+      box-shadow: 0 8px 20px rgba(0,0,0,0.15);
+    }
+
+    .payment-btn:disabled {
+      background: #ccc;
+      cursor: not-allowed;
+      transform: none;
+    }
+
+    .back-link {
+      display: inline-block;
+      margin-bottom: 20px;
+      color: #6c6c6c;
+      text-decoration: none;
+      font-size: 14px;
+      transition: color 0.3s ease;
+    }
+
+    .back-link:hover {
+      color: #1f1f1f;
+    }
+  </style>
+</head>
+<body>
+  <div class="payment-container">
+    <a href="checkout.html" class="back-link">← Вернуться к оформлению</a>
+
+    <h1 class="payment-title">Способ оплаты</h1>
+
+    <!-- Когда оплатить -->
+    <div class="payment-section">
+      <h2 class="payment-section__title">Когда оплатить?</h2>
+
+      <div class="payment-option selected" data-timing="on_delivery">
+        <div class="payment-option__radio"></div>
+        <div class="payment-option__content">
+          <div class="payment-option__label">При получении</div>
+          <div class="payment-option__desc">Оплатите курьеру при доставке</div>
+        </div>
+      </div>
+
+      <div class="payment-option" data-timing="now">
+        <div class="payment-option__radio"></div>
+        <div class="payment-option__content">
+          <div class="payment-option__label">Оплатить сейчас</div>
+          <div class="payment-option__desc">Оплатите онлайн прямо сейчас</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Способ оплаты -->
+    <div class="payment-section">
+      <h2 class="payment-section__title">Способ оплаты</h2>
+
+      <div class="payment-option selected" data-method="cash">
+        <div class="payment-option__radio"></div>
+        <div class="payment-option__content">
+          <div class="payment-option__label">Наличными</div>
+          <div class="payment-option__desc">Оплата наличными курьеру</div>
+        </div>
+      </div>
+
+      <div class="payment-option" data-method="card">
+        <div class="payment-option__radio"></div>
+        <div class="payment-option__content">
+          <div class="payment-option__label">Картой онлайн</div>
+          <div class="payment-option__desc">Visa, Mastercard, МИР, СБП</div>
+        </div>
+      </div>
+    </div>
+
+    <button class="payment-btn" id="continueBtn">Продолжить</button>
+  </div>
+
+  <script src="js/api.js"></script>
+  <script>
+    // Получаем данные заказа из localStorage
+    const orderData = JSON.parse(localStorage.getItem('pendingOrder') || '{}');
+
+    if (!orderData || !orderData.items || orderData.items.length === 0) {
+      alert('Корзина пуста');
+      window.location.href = 'cart.html';
+    }
+
+    let selectedTiming = 'on_delivery';
+    let selectedMethod = 'cash';
+
+    // Обработка выбора времени оплаты
+    document.querySelectorAll('[data-timing]').forEach(option => {
+      option.addEventListener('click', () => {
+        document.querySelectorAll('[data-timing]').forEach(o => o.classList.remove('selected'));
+        option.classList.add('selected');
+        selectedTiming = option.dataset.timing;
+      });
+    });
+
+    // Обработка выбора способа оплаты
+    document.querySelectorAll('[data-method]').forEach(option => {
+      option.addEventListener('click', () => {
+        document.querySelectorAll('[data-method]').forEach(o => o.classList.remove('selected'));
+        option.classList.add('selected');
+        selectedMethod = option.dataset.method;
+      });
+    });
+
+    // Кнопка продолжить
+    document.getElementById('continueBtn').addEventListener('click', async () => {
+      const btn = document.getElementById('continueBtn');
+      btn.disabled = true;
+      btn.textContent = 'Обработка...';
+
+      // Добавляем данные оплаты к заказу
+      orderData.payment_timing = selectedTiming;
+      orderData.payment_method = selectedMethod;
+      orderData.payment_status = selectedTiming === 'now' ? 'pending' : 'pending';
+
+      // Если оплата картой и сразу - перенаправляем на страницу оплаты
+      if (selectedTiming === 'now' && selectedMethod === 'card') {
+        localStorage.setItem('pendingOrder', JSON.stringify(orderData));
+        window.location.href = 'payment-process.html';
+        return;
+      }
+
+      // Иначе создаем заказ сразу
+      try {
+        const response = await API.createOrder(orderData);
+
+        if (response.error) {
+          alert(response.error);
+          btn.disabled = false;
+          btn.textContent = 'Продолжить';
+          return;
+        }
+
+        // Сохраняем данные заказа для страницы успеха
+        localStorage.setItem('lastOrderData', JSON.stringify(orderData));
+
+        // Очищаем корзину и данные заказа
+        localStorage.removeItem('cart');
+        localStorage.removeItem('pendingOrder');
+
+        // Перенаправляем на страницу успеха
+        window.location.href = `order-success.html?orderId=${response.orderId}`;
+      } catch (error) {
+        console.error('Ошибка создания заказа:', error);
+        alert('Произошла ошибка при создании заказа');
+        btn.disabled = false;
+        btn.textContent = 'Продолжить';
+      }
+    });
+  </script>
+</body>
+</html>

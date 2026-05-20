@@ -1,0 +1,281 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Заказ оформлен — Вкус Облаков</title>
+  <link rel="stylesheet" href="css/main.css">
+  <style>
+    body {
+      background: #faf8f6;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .success-container {
+      max-width: 600px;
+      margin: 80px auto;
+      padding: 40px;
+      background: white;
+      border-radius: 24px;
+      box-shadow: 0 10px 40px rgba(0,0,0,0.08);
+      text-align: center;
+    }
+
+    .success-icon {
+      width: 80px;
+      height: 80px;
+      background: #4caf50;
+      border-radius: 50%;
+      margin: 0 auto 24px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 48px;
+      color: white;
+    }
+
+    .success-title {
+      font-family: var(--brand-font);
+      font-size: 32px;
+      font-weight: 400;
+      margin: 0 0 12px;
+      color: #1f1f1f;
+    }
+
+    .success-subtitle {
+      font-size: 16px;
+      color: #6c6c6c;
+      margin: 0 0 32px;
+      line-height: 1.6;
+    }
+
+    .order-id {
+      font-size: 20px;
+      font-weight: 600;
+      color: #d4a088;
+      margin: 0 0 32px;
+      padding: 16px;
+      background: #faf8f6;
+      border-radius: 12px;
+    }
+
+    .order-details {
+      text-align: left;
+      padding: 24px;
+      background: #faf8f6;
+      border-radius: 16px;
+      margin: 0 0 32px;
+    }
+
+    .detail-row {
+      display: flex;
+      justify-content: space-between;
+      margin-bottom: 12px;
+      font-size: 15px;
+    }
+
+    .detail-row:last-child {
+      margin-bottom: 0;
+      padding-top: 12px;
+      border-top: 2px solid #e7e0dc;
+      font-weight: 600;
+      font-size: 18px;
+    }
+
+    .detail-label {
+      color: #6c6c6c;
+    }
+
+    .detail-value {
+      color: #1f1f1f;
+      font-weight: 600;
+    }
+
+    .order-items {
+      margin-top: 16px;
+      padding-top: 16px;
+      border-top: 1px solid #e7e0dc;
+    }
+
+    .order-item {
+      display: flex;
+      justify-content: space-between;
+      margin-bottom: 8px;
+      font-size: 14px;
+      color: #6c6c6c;
+    }
+
+    .success-buttons {
+      display: flex;
+      gap: 12px;
+      flex-direction: column;
+    }
+
+    .success-btn {
+      width: 100%;
+      padding: 16px;
+      border: none;
+      border-radius: 12px;
+      font-size: 16px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      text-decoration: none;
+      display: block;
+    }
+
+    .success-btn--primary {
+      background: #1f1f1f;
+      color: white;
+    }
+
+    .success-btn--primary:hover {
+      background: #d4a088;
+      transform: translateY(-2px);
+      box-shadow: 0 8px 20px rgba(0,0,0,0.15);
+    }
+
+    .success-btn--secondary {
+      background: white;
+      color: #1f1f1f;
+      border: 2px solid #e7e0dc;
+    }
+
+    .success-btn--secondary:hover {
+      border-color: #d4a088;
+      background: #faf8f6;
+    }
+
+    .info-box {
+      padding: 16px;
+      background: #e3f2fd;
+      border-left: 4px solid #2196f3;
+      border-radius: 8px;
+      margin: 24px 0;
+      text-align: left;
+      font-size: 14px;
+      color: #1976d2;
+      line-height: 1.6;
+    }
+  </style>
+</head>
+<body>
+  <div class="success-container">
+    <div class="success-icon">✓</div>
+
+    <h1 class="success-title">Заказ оформлен!</h1>
+    <p class="success-subtitle">
+      Спасибо за ваш заказ! Мы свяжемся с вами в ближайшее время для подтверждения.
+    </p>
+
+    <div class="order-id">
+      Номер заказа: <span id="orderIdDisplay">—</span>
+    </div>
+
+    <div class="order-details" id="orderDetails">
+      <div class="detail-row">
+        <span class="detail-label">Загрузка...</span>
+      </div>
+    </div>
+
+    <div class="info-box" id="paymentInfo" style="display:none;">
+      ✓ Оплата успешно проведена. Чек отправлен на вашу электронную почту.
+    </div>
+
+    <div class="success-buttons">
+      <a href="profile.html" class="success-btn success-btn--primary" id="profileLink" style="display:none;">
+        Мои заказы
+      </a>
+      <a href="index.html" class="success-btn success-btn--secondary">
+        Вернуться на главную
+      </a>
+    </div>
+  </div>
+
+  <script src="js/api.js"></script>
+  <script>
+    // Получаем orderId из URL
+    const urlParams = new URLSearchParams(window.location.search);
+    const orderId = urlParams.get('orderId');
+
+    if (!orderId) {
+      alert('Заказ не найден');
+      window.location.href = 'index.html';
+    }
+
+    // Показываем короткий ID
+    const shortId = orderId.slice(0, 8).toUpperCase();
+    document.getElementById('orderIdDisplay').textContent = `#${shortId}`;
+
+    // Загружаем детали заказа
+    async function loadOrderDetails() {
+      try {
+        // Получаем данные из localStorage (они были сохранены перед созданием заказа)
+        const orderData = JSON.parse(localStorage.getItem('lastOrderData') || '{}');
+
+        const detailsHtml = `
+          <div class="detail-row">
+            <span class="detail-label">Дата доставки:</span>
+            <span class="detail-value">${orderData.deliveryDateISO ? new Date(orderData.deliveryDateISO).toLocaleDateString('ru-RU', { day: 'numeric', month: 'long', year: 'numeric' }) : '—'}</span>
+          </div>
+          <div class="detail-row">
+            <span class="detail-label">Время доставки:</span>
+            <span class="detail-value">${orderData.deliveryTime || '—'}</span>
+          </div>
+          <div class="detail-row">
+            <span class="detail-label">Адрес доставки:</span>
+            <span class="detail-value">${orderData.address || '—'}</span>
+          </div>
+          <div class="detail-row">
+            <span class="detail-label">Контактное лицо:</span>
+            <span class="detail-value">${orderData.contactName || '—'}</span>
+          </div>
+          <div class="detail-row">
+            <span class="detail-label">Телефон:</span>
+            <span class="detail-value">${orderData.contactPhone || '—'}</span>
+          </div>
+          ${orderData.items && orderData.items.length ? `
+          <div class="order-items">
+            ${orderData.items.map(item => `
+              <div class="order-item">
+                <span>${item.title} x${item.qty}</span>
+                <span>${(item.unitPrice * item.qty).toLocaleString('ru-RU')} ₽</span>
+              </div>
+            `).join('')}
+          </div>
+          ` : ''}
+          <div class="detail-row">
+            <span class="detail-label">Итого:</span>
+            <span class="detail-value">${orderData.totalPrice ? orderData.totalPrice.toLocaleString('ru-RU') : '0'} ₽</span>
+          </div>
+        `;
+
+        document.getElementById('orderDetails').innerHTML = detailsHtml;
+
+        // Если оплата была проведена онлайн, показываем уведомление
+        if (orderData.payment_status === 'paid') {
+          document.getElementById('paymentInfo').style.display = 'block';
+        }
+
+        // Проверяем, залогинен ли пользователь
+        const user = await API.checkAuth();
+        if (user && user.id) {
+          document.getElementById('profileLink').style.display = 'block';
+        }
+
+      } catch (error) {
+        console.error('Ошибка загрузки деталей заказа:', error);
+        document.getElementById('orderDetails').innerHTML = `
+          <div class="detail-row">
+            <span class="detail-label">Ваш заказ успешно оформлен</span>
+          </div>
+        `;
+      }
+    }
+
+    loadOrderDetails();
+  </script>
+</body>
+</html>
