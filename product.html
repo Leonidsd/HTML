@@ -1085,11 +1085,6 @@
     const urlParams = new URLSearchParams(window.location.search);
     const productId = urlParams.get('id') || 'cupcake-happy-box';
 
-    // Отладка
-    console.log('Received productId:', productId, 'Type:', typeof productId);
-    console.log('Available IDs:', Object.keys(productsData));
-    console.log('Looking for product with this ID in productsData...');
-
     // Получаем данные товара
     const product = productsData[productId];
 

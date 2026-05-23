@@ -1329,10 +1329,10 @@ const COLLECTION_PAGES = {
 
 const SUMMER_PRODUCTS = [
   // пример — подставь свои фото/цены/бейджи
-  { id:"summer-berry-basket", cat:"summer", title:"Торт «Ягодное лукошко»", priceText:"от 3 300 ₽", qtyText:"от 3 кг", tag:"Хит", img:"img/summer-1.jpg",imgHover: "img/summer-1b.jpg" },
-  { id:"summer-3d-raspberry", cat:"summer", title:"3D Пирожные с сублимированной малиной", priceText:"от 750 ₽", qtyText:"от 4 шт", tag:"", img:"img/summer-2.jpg",imgHover: "img/summer-2b.jpg" },
-  { id:"summer-marshmallow-cup", cat:"summer", title:"Зефир в вафельном стаканчике", priceText:"от 400 ₽", qtyText:"от 6 шт", tag:"", img:"img/summer-3.jpg",imgHover: "img/summer-3b.jpg" },
-  { id:"summer-festive-chic", cat:"summer", title:"Торт Праздничный шик", priceText:"от 4 500 ₽", qtyText:"от 3 кг", tag:"Новинка", img:"img/summer-4.jpg",imgHover: "img/summer-4b.jpg" },
+  { id:"summer-berry-basket", cat:"summer", title:"Торт «Ягодное лукошко»", priceText:"7 200 ₽", qtyText:"от 3 кг", tag:"Хит", img:"img/summer-1.jpg",imgHover: "img/summer-1b.jpg" },
+  { id:"summer-3d-raspberry", cat:"summer", title:"3D Пирожные с сублимированной малиной", priceText:"750 ₽", qtyText:"от 4 шт", tag:"", img:"img/summer-2.jpg",imgHover: "img/summer-2b.jpg" },
+  { id:"summer-marshmallow-cup", cat:"summer", title:"Зефир в вафельном стаканчике", priceText:"400 ₽", qtyText:"от 6 шт", tag:"", img:"img/summer-3.jpg",imgHover: "img/summer-3b.jpg" },
+  { id:"summer-festive-chic", cat:"summer", title:"Торт Праздничный шик", priceText:"6 800 ₽", qtyText:"от 3 кг", tag:"Новинка", img:"img/summer-4.jpg",imgHover: "img/summer-4b.jpg" },
   { id:"summer-loving-hearts", cat:"summer", title:"Бенто-Торт «Любящие сердца»", priceText:"1 000 ₽", qtyText:"от 1 шт", tag:"", img:"img/summer-5.jpg",imgHover: "img/summer-5b.jpg" },
   { id:"summer-meringue-roll", cat:"summer", title:"Меренговый рулет с ягодами", priceText:"1100 ₽", qtyText:"1 кг", tag:"", img:"img/summer-6.jpg",imgHover: "img/summer-6b.jpg" },
 ];

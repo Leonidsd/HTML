@@ -96,29 +96,53 @@ const productsData = {
   // Правильные ID для casual collection (из app.js SUMMER_PRODUCTS)
   'summer-berry-basket': {
     name: 'Торт «Ягодное лукошко»',
-    price: 3300,
+    price: 0,
     images: ['img/summer-1.jpg', 'img/summer-1b.jpg'],
     type: 'cake',
-    quantityPerPack: 1,
-    quantityStep: 1,
-    minWeight: 3,
-    servings: '12-15 человек',
+    weights: [
+      { kg: 3, price: 7200, servings: '12-15 человек' },
+      { kg: 5, price: 11500, servings: '20-25 человек' },
+      { kg: 7, price: 15500, servings: '28-35 человек' },
+      { kg: 10, price: 21000, servings: '40-50 человек' }
+    ],
+    fillings: [
+      { id: 'snikers', name: '«Сникерс»', price: 0 },
+      { id: 'red-velvet', name: '«Красный бархат»', price: 0 },
+      { id: 'carrot', name: '«Морковный»', price: 0 },
+      { id: 'berry', name: '«Ягодный»', price: 0 },
+      { id: 'banana-choco', name: '«Банан-Шоколад»', price: 300 },
+      { id: 'cherry', name: '«Вишневый»', price: 350 },
+      { id: 'tropical', name: '«Тропик»', price: 400 },
+      { id: 'tiramisu', name: '«Тирамису»', price: 400 }
+    ],
     description: 'Торт в виде лукошка с обилием свежих ягод.',
-    descriptionFull: 'Авторский торт в форме плетёного лукошка, наполненный свежими сезонными ягодами. Нежный бисквит с ванильным кремом и ягодной прослойкой. Минимальный вес - от 3 кг.',
+    descriptionFull: 'Авторский торт в форме плетёного лукошка, наполненный свежими сезонными ягодами. Нежный бисквит с ванильным кремом и ягодной прослойкой.',
     assortment: []
   },
 
   'summer-festive-chic': {
     name: 'Торт «Праздничный шик»',
-    price: 4500,
+    price: 0,
     images: ['img/summer-4.jpg', 'img/summer-4b.jpg'],
     type: 'cake',
-    quantityPerPack: 1,
-    quantityStep: 1,
-    minWeight: 3,
-    servings: '12-15 человек',
-    description: 'Элегантный торт для особых случаев.',
-    descriptionFull: 'Праздничный торт с изысканным декором и нежным кремом. Идеален для торжественных мероприятий. Минимальный вес - от 3 кг.',
+    weights: [
+      { kg: 3, price: 6800, servings: '12-15 человек' },
+      { kg: 5, price: 11000, servings: '20-25 человек' },
+      { kg: 7, price: 15000, servings: '28-35 человек' },
+      { kg: 10, price: 20000, servings: '40-50 человек' }
+    ],
+    fillings: [
+      { id: 'snikers', name: '«Сникерс»', price: 0 },
+      { id: 'red-velvet', name: '«Красный бархат»', price: 0 },
+      { id: 'carrot', name: '«Морковный»', price: 0 },
+      { id: 'berry', name: '«Ягодный»', price: 0 },
+      { id: 'banana-choco', name: '«Банан-Шоколад»', price: 300 },
+      { id: 'cherry', name: '«Вишневый»', price: 350 },
+      { id: 'tropical', name: '«Тропик»', price: 400 },
+      { id: 'tiramisu', name: '«Тирамису»', price: 400 }
+    ],
+    description: 'Роскошный торт для особых торжеств.',
+    descriptionFull: 'Элегантный торт с кремовыми цветами и изысканным декором. Сочетание нежного бисквита и воздушного крема создаёт незабываемый вкус.',
     assortment: []
   },
 
