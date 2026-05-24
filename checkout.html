@@ -255,10 +255,20 @@
   .site-footer { padding-top: 200px !important; }
   .site-footer::before { top: 0 !important; clip-path: polygon(0 30%, 100% 0%, 100% 100%, 0% 100%) !important; }
   .site-footer::after { content: ""; position: absolute; left: 0; right: 0; top: 0; bottom: 0; background: #f3f1ed; z-index: 0; clip-path: polygon(0 0%, 100% 0%, 100% 0%, 0 30%); }
+  .day { color: #1f1f1f; }
+  .day__num { color: #1f1f1f; }
+
   @media (max-width: 768px) {
     .site-footer::before { clip-path: polygon(0 5%, 100% 0%, 100% 100%, 0% 100%) !important; }
     .site-footer::after { clip-path: polygon(0 0%, 100% 0%, 100% 0%, 0 5%); }
     .site-footer { padding-top: 60px !important; }
+    .calendar { grid-template-columns: repeat(4, 1fr) !important; gap: 6px !important; }
+    .day { padding: 8px 6px !important; min-height: 60px !important; }
+    .day__num { font-size: 14px; }
+    .day__meta { font-size: 10px; }
+  }
+  @media (max-width: 400px) {
+    .calendar { grid-template-columns: repeat(3, 1fr) !important; }
   }
 </style>
 
