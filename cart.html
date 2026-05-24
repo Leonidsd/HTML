@@ -240,6 +240,12 @@
     .cart-page__actions { flex-direction: column; }
     .cart-page__btn { justify-content: center; }
   }
+  @media (max-width: 768px) {
+    .cart-page-section { padding-top: 170px; }
+    .site-footer::before { clip-path: polygon(0 10%, 100% 0%, 100% 100%, 0% 100%) !important; }
+    .site-footer::after { clip-path: polygon(0 0%, 100% 0%, 100% 0%, 0 10%); }
+    .site-footer { padding-top: 100px !important; }
+  }
 </style>
 </head>
 
@@ -459,6 +465,7 @@
         <div class="mobile-menu__sub">
           <a href="delivery.html">Доставка и оплата</a>
           <a href="about-order.html">О заказе</a>
+          <a href="reviews.html">Отзывы</a>
           <a href="faq.html">Вопрос-ответ</a>
         </div>
       </details>

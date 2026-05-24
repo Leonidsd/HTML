@@ -172,6 +172,12 @@
     object-fit: contain;
   }
 
+  @media (max-width: 768px) {
+    .reviews-section { padding-top: 170px; }
+    .site-footer::before { clip-path: polygon(0 10%, 100% 0%, 100% 100%, 0% 100%) !important; }
+    .site-footer::after { clip-path: polygon(0 0%, 100% 0%, 100% 0%, 0 10%); }
+    .site-footer { padding-top: 100px !important; }
+  }
   @media (max-width: 600px) {
     .reviews-page__title { font-size: 28px; }
     .reviews-summary__avg { font-size: 28px; }
