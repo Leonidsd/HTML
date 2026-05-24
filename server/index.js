@@ -25,6 +25,12 @@ app.use('/api/fillings', require('./routes/fillings'));
 // Загруженные файлы (фото отзывов)
 app.use('/uploads', express.static(path.join(__dirname, '..', 'uploads')));
 
+// Динамический config.js — адрес пекарни из серверного конфига
+app.get('/config.js', (req, res) => {
+  res.type('application/javascript');
+  res.send(`var CONFIG = { bakeryAddress: ${JSON.stringify(config.bakeryAddress)} };`);
+});
+
 // Статические файлы из корня проекта
 app.use(express.static(path.join(__dirname, '..')));
 

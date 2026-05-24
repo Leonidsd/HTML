@@ -1091,8 +1091,9 @@
 </div>
 
 <script src="js/api.js"></script>
+<script src="config.js"></script>
 <script>
-  const BASE_ADDR = 'г. Дубна, ул. Вернова, д. 1';
+  const BASE_ADDR = (typeof CONFIG !== 'undefined' && CONFIG.bakeryAddress) ? CONFIG.bakeryAddress : 'г. Дубна, ул. Тверская, д. 1';
   const MONTHS_SHORT = ['янв','фев','мар','апр','мая','июн','июл','авг','сен','окт','ноя','дек'];
   const MONTHS_FULL = ['января','февраля','марта','апреля','мая','июня','июля','августа','сентября','октября','ноября','декабря'];
   const DOWS = ['Вс','Пн','Вт','Ср','Чт','Пт','Сб'];

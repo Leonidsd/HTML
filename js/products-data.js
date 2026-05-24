@@ -1778,7 +1778,7 @@ const standardTabs = {
       </ul>
       <p>
         <strong>Адрес самовывоза:</strong><br>
-        <span class="js-bakery-address">Дубна, ул. Примерная, д.1, к.1</span><br>
+        <span class="js-bakery-address">Тверская улица, 1, Дубна, Московская область</span><br>
         График работы: пн-пт 10:00–20:00, сб-вс 10:00–16:00
       </p>
     `
