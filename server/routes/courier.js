@@ -9,7 +9,7 @@ router.get('/orders', requireCourier, (req, res) => {
   const date = req.query.date; // YYYY-MM-DD
   const courierId = req.user.id; // courier1, courier2, ...
 
-  let query = "SELECT * FROM orders WHERE status IN ('confirmed', 'cooking', 'delivery', 'delivered') AND courier_id = ?";
+  let query = "SELECT * FROM orders WHERE status IN ('new', 'confirmed', 'cooking', 'delivery', 'delivered') AND courier_id = ?";
   const params = [courierId];
 
   if (date) {
