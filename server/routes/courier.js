@@ -4,12 +4,13 @@ const { requireCourier } = require('../middleware/auth');
 
 const router = express.Router();
 
-// GET /api/courier/orders — заказы для доставки
+// GET /api/courier/orders — заказы для доставки (только назначенные этому курьеру)
 router.get('/orders', requireCourier, (req, res) => {
   const date = req.query.date; // YYYY-MM-DD
+  const courierId = req.user.id; // courier1, courier2, ...
 
-  let query = "SELECT * FROM orders WHERE status IN ('confirmed', 'cooking', 'delivery', 'delivered')";
-  const params = [];
+  let query = "SELECT * FROM orders WHERE status IN ('confirmed', 'cooking', 'delivery', 'delivered') AND courier_id = ?";
+  const params = [courierId];
 
   if (date) {
     query += ' AND delivery_date = ?';

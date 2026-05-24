@@ -2,7 +2,7 @@
 <html lang="ru">
 <head>
   <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1" />
   <title>Админ-панель — Вкус облаков</title>
   <link rel="stylesheet" href="css/main.css?v=20" />
 
@@ -752,6 +752,55 @@
   .courier-btn:active {
     transform: translateY(0);
     box-shadow: 0 2px 6px rgba(52, 152, 219, 0.2) !important;
+  }
+
+  /* ====== Мобильные исправления ====== */
+  /* Убрать синий текст на ссылках и кнопках */
+  .adm a { color: inherit; text-decoration: none; }
+  .adm a:visited { color: inherit; }
+  .adm button { color: inherit; }
+
+  /* Мобильный авто-зум: убрать увеличение при фокусе на input */
+  @media (max-width: 768px) {
+    .adm input, .adm select, .adm textarea {
+      font-size: 16px !important;
+    }
+    /* Модалки: предотвратить выпирание вправо */
+    .adm-modal {
+      width: calc(100vw - 80px) !important;
+      max-width: calc(100vw - 80px) !important;
+      box-sizing: border-box;
+    }
+    .adm-modal__body {
+      padding: 16px !important;
+      overflow-x: hidden;
+    }
+    .adm-modal__header { padding: 16px !important; }
+    .adm-modal__footer { padding: 12px 16px !important; flex-wrap: wrap; }
+    /* Ингредиенты в рецептах: вертикально */
+    .ing-row {
+      flex-wrap: wrap;
+    }
+    .ing-row select, .ing-row input {
+      flex: 1 1 100%;
+      min-width: 0;
+    }
+    /* Таблицы не растягивают страницу */
+    .adm-table { table-layout: fixed; word-break: break-word; }
+    .adm-table-wrap { max-width: 100%; }
+    /* Подвкладки компактнее */
+    .subsection-tabs { overflow-x: auto; -webkit-overflow-scrolling: touch; }
+    .subsection-tab { padding: 10px 14px; font-size: 13px; white-space: nowrap; }
+  }
+
+  @media (max-width: 480px) {
+    .adm-modal {
+      width: calc(100vw - 24px) !important;
+      max-width: calc(100vw - 24px) !important;
+      margin: 0 12px;
+    }
+    .adm-modal__body { padding: 12px !important; }
+    .adm-modal__title { font-size: 15px; }
   }
 
   /* Стили для переключателей подразделов */
@@ -1993,10 +2042,9 @@
       return new Date(a) - new Date(b);
     });
 
-    const COURIERS = [
-      { id: 'courier1', name: 'Курьер 1' },
-      { id: 'courier2', name: 'Курьер 2' }
-    ];
+    // Список курьеров загружается с сервера (см. loadCouriers)
+    if (!window.COURIERS) window.COURIERS = [];
+    const COURIERS = window.COURIERS;
 
     container.innerHTML = sortedDays.map(day => {
       const orders = byDay[day];
@@ -3111,8 +3159,17 @@
     } catch(e) { alert('Ошибка удаления'); }
   }
 
+  // ====== Загрузка списка курьеров из конфига ======
+  async function loadCouriers() {
+    try {
+      const res = await fetch('/api/admin/couriers');
+      if (res.ok) window.COURIERS = await res.json();
+    } catch(e) { console.warn('Не удалось загрузить курьеров'); }
+  }
+
   // ====== Загрузка всех данных ======
   async function loadAllData() {
+    await loadCouriers();
     await Promise.all([loadOrders(), loadUsers(), loadCatalog(), loadIngredients(), loadMessages(), loadAdminReviews()]);
     await loadRecipes(); // после products и ingredients загружены
     updateDashboardStats();

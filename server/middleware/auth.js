@@ -14,8 +14,20 @@ function authMiddleware(req, res, next) {
     req.sessionToken = token;
     return next();
   }
+  // Курьеры: токен вида courier-session-courier1
+  if (token && token.startsWith('courier-session-')) {
+    const courierId = token.replace('courier-session-', '');
+    const courierCfg = (config.couriers || []).find(c => c.id === courierId);
+    if (courierCfg) {
+      req.user = { id: courierCfg.id, name: courierCfg.name, surname: '', patronymic: '', phone: courierCfg.login, email: '', address: '', role: 'courier' };
+      req.sessionToken = token;
+      return next();
+    }
+  }
+  // Обратная совместимость со старым токеном
   if (token === 'courier-session') {
-    req.user = { id: 'courier', name: 'Курьер', surname: '', patronymic: '', phone: config.courierLogin, email: '', address: '', role: 'courier' };
+    const c = (config.couriers || [])[0];
+    req.user = { id: c ? c.id : 'courier', name: c ? c.name : 'Курьер', surname: '', patronymic: '', phone: c ? c.login : '', email: '', address: '', role: 'courier' };
     req.sessionToken = token;
     return next();
   }

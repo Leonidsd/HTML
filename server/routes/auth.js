@@ -92,9 +92,10 @@ router.post('/login', async (req, res) => {
       return res.json({ role: 'admin', redirect: 'admin.html' });
     }
 
-    // Проверка courier
-    if (normLogin === config.courierLogin && password === config.courierPassword) {
-      res.cookie(config.sessionCookieName, 'courier-session', {
+    // Проверка курьеров (по массиву из конфига)
+    const courier = (config.couriers || []).find(c => normalizePhone(c.login) === normLogin && c.password === password);
+    if (courier) {
+      res.cookie(config.sessionCookieName, 'courier-session-' + courier.id, {
         httpOnly: true,
         maxAge: config.sessionMaxAge,
         sameSite: 'lax',

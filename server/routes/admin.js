@@ -1,8 +1,15 @@
 const express = require('express');
 const db = require('../db');
+const config = require('../config');
 const { requireAdmin } = require('../middleware/auth');
 
 const router = express.Router();
+
+// GET /api/admin/couriers — список курьеров (id + name)
+router.get('/couriers', requireAdmin, (req, res) => {
+  const couriers = (config.couriers || []).map(c => ({ id: c.id, name: c.name }));
+  res.json(couriers);
+});
 
 // GET /api/admin/orders — все заказы
 router.get('/orders', requireAdmin, (req, res) => {
