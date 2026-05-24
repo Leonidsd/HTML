@@ -255,6 +255,11 @@
   .site-footer { padding-top: 200px !important; }
   .site-footer::before { top: 0 !important; clip-path: polygon(0 30%, 100% 0%, 100% 100%, 0% 100%) !important; }
   .site-footer::after { content: ""; position: absolute; left: 0; right: 0; top: 0; bottom: 0; background: #f3f1ed; z-index: 0; clip-path: polygon(0 0%, 100% 0%, 100% 0%, 0 30%); }
+  @media (max-width: 768px) {
+    .site-footer::before { clip-path: polygon(0 5%, 100% 0%, 100% 100%, 0% 100%) !important; }
+    .site-footer::after { clip-path: polygon(0 0%, 100% 0%, 100% 0%, 0 5%); }
+    .site-footer { padding-top: 60px !important; }
+  }
 </style>
 
 </head>
