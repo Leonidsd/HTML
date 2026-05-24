@@ -63,7 +63,9 @@ body{
 }
 
 a{ color:inherit; text-decoration:none; text-decoration-thickness: from-font; }
+a:visited{ color:inherit; }
 a:hover{ text-decoration: underline; }
+button{ color:inherit; }
 
 img{ max-width:100%; display:block; }
 
