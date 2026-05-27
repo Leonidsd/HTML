@@ -2,7 +2,7 @@
 <html lang="ru">
 <head>
   <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1" />
+  <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=5" />
   <title>Админ-панель — Вкус облаков</title>
   <link rel="stylesheet" href="css/main.css?v=20" />
 
@@ -785,9 +785,14 @@
       flex: 1 1 100%;
       min-width: 0;
     }
-    /* Таблицы не растягивают страницу */
-    .adm-table { table-layout: fixed; word-break: break-word; }
+    /* Таблицы: нормальная ширина + горизонтальный скролл */
+    .adm-table { min-width: 600px; }
     .adm-table-wrap { max-width: 100%; }
+    /* Формы в модалках: стекаются вертикально */
+    .adm-form { max-width: 100%; }
+    .adm-form__row { flex-wrap: wrap; }
+    .adm-form__row .adm-form__field { flex: 1 1 100%; min-width: 0; }
+    .adm-form__input { width: 100%; max-width: 100%; box-sizing: border-box; }
     /* Подвкладки компактнее */
     .subsection-tabs { overflow-x: auto; -webkit-overflow-scrolling: touch; }
     .subsection-tab { padding: 10px 14px; font-size: 13px; white-space: nowrap; }
