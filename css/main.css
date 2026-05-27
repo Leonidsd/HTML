@@ -2504,6 +2504,14 @@ a.icon-btn:visited{ color: var(--hdr-fg); }
     max-width: 100%;
     height: 280px;
   }
+  .mega-city__middle{ display: none; }
+  .mega-city__left::after{
+    content: 'Доставка осуществляется только по городу Дубна.';
+    display: block;
+    margin-top: 16px;
+    font-size: 13px;
+    color: #6c6c6c;
+  }
 }
 
 /* ====== CASUAL hover-картинка + кнопка ====== */
