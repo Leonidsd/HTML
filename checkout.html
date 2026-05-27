@@ -576,8 +576,7 @@
               <div class="card__title">Адрес доставки</div>
 
               <div class="field">
-                <label class="label">Адрес *</label>
-                <input class="input" id="addressInput" placeholder="Улица, дом, кв/офис" />
+                <input class="input" id="addressInput" placeholder="" />
               </div>
 
               <div class="step-panel__footer">
@@ -930,21 +929,57 @@
       const addrInput = document.getElementById('addressInput');
       const CITY_PREFIX = (typeof CONFIG !== 'undefined' && CONFIG.deliveryCity) ? CONFIG.deliveryCity + ', ' : '';
       if (addrInput && CITY_PREFIX) {
+        const prefixLen = CITY_PREFIX.length;
+
         addrInput.addEventListener('focus', function () {
-          if (!this.value) this.value = CITY_PREFIX;
-        });
-        addrInput.addEventListener('input', function () {
-          if (!this.value.startsWith(CITY_PREFIX)) {
-            // Если пользователь стёр префикс — вернуть
-            const userPart = this.value.replace(CITY_PREFIX, '').replace(/^[\s,]+/, '');
-            this.value = CITY_PREFIX + userPart;
+          if (!this.value) {
+            this.value = CITY_PREFIX;
+            setTimeout(() => this.setSelectionRange(prefixLen, prefixLen), 0);
+          } else if (this.selectionStart < prefixLen) {
+            this.setSelectionRange(prefixLen, prefixLen);
           }
         });
+
+        addrInput.addEventListener('input', function () {
+          let val = this.value;
+          if (val.startsWith(CITY_PREFIX)) {
+            // Убрать дублирование префикса
+            let rest = val.slice(prefixLen);
+            while (rest.startsWith(CITY_PREFIX)) rest = rest.slice(prefixLen);
+            if (rest !== val.slice(prefixLen)) this.value = CITY_PREFIX + rest;
+          } else {
+            // Префикс сломан — убрать все вхождения и поставить один
+            let clean = val;
+            while (clean.includes(CITY_PREFIX)) clean = clean.replace(CITY_PREFIX, '');
+            clean = clean.replace(/^[\s,]+/, '');
+            this.value = CITY_PREFIX + clean;
+          }
+          if (this.selectionStart < prefixLen) {
+            this.setSelectionRange(prefixLen, prefixLen);
+          }
+        });
+
+        addrInput.addEventListener('keydown', function (e) {
+          const start = this.selectionStart;
+          const end = this.selectionEnd;
+          if (e.key === 'Backspace' && start <= prefixLen && start === end) e.preventDefault();
+          if (e.key === 'Delete' && start < prefixLen && start === end) e.preventDefault();
+          if (e.key === 'Home') { e.preventDefault(); this.setSelectionRange(prefixLen, prefixLen); }
+        });
+
+        addrInput.addEventListener('click', function () {
+          if (this.value && this.selectionStart < prefixLen) {
+            this.setSelectionRange(prefixLen, prefixLen);
+          }
+        });
+
         addrInput.addEventListener('blur', function () {
-          if (this.value === CITY_PREFIX || this.value.trim() === CITY_PREFIX.trim().replace(/,$/, '')) {
+          const trimmed = this.value.trim().replace(/,\s*$/, '');
+          if (!trimmed || trimmed === CITY_PREFIX.trim().replace(/,\s*$/, '')) {
             this.value = '';
           }
         });
+
         // Если поле уже заполнено из профиля — добавить префикс если нет
         setTimeout(() => {
           if (addrInput.value && !addrInput.value.startsWith(CITY_PREFIX)) {
