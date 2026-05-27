@@ -56,6 +56,9 @@ router.get('/orders', requireAdmin, (req, res) => {
       contactEmail: o.contact_email,
       user_id: o.user_id,
       courier_id: o.courier_id,
+      payment_timing: o.payment_timing,
+      payment_method: o.payment_method,
+      payment_status: o.payment_status,
       items: items.map(it => ({
         productId: it.product_id,
         title: it.title,
