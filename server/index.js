@@ -28,7 +28,7 @@ app.use('/uploads', express.static(path.join(__dirname, '..', 'uploads')));
 // Динамический config.js — адрес пекарни из серверного конфига
 app.get('/config.js', (req, res) => {
   res.type('application/javascript');
-  res.send(`var CONFIG = { bakeryAddress: ${JSON.stringify(config.bakeryAddress)} };`);
+  res.send(`var CONFIG = { bakeryAddress: ${JSON.stringify(config.bakeryAddress)}, deliveryCity: ${JSON.stringify(config.deliveryCity || '')} };`);
 });
 
 // Статические файлы из корня проекта

@@ -2,7 +2,7 @@
 <html lang="ru">
 <head>
   <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <meta name="viewport" content="width=960,maximum-scale=5" />
   <title>Кабинет курьера — Вкус облаков</title>
   <link rel="stylesheet" href="css/main.css?v=20" />
 
@@ -859,6 +859,8 @@
     .route-grid { grid-template-columns: 1fr; }
     .del-card__actions { flex-wrap: wrap; }
     .map-placeholder { height: 220px; }
+    .cr-table-wrap { overflow-x: auto; -webkit-overflow-scrolling: touch; max-width: 100%; }
+    .cr-table { min-width: 600px; }
   }
 
   @media (max-width: 480px) {
@@ -1094,6 +1096,7 @@
 <script src="config.js"></script>
 <script>
   const BASE_ADDR = (typeof CONFIG !== 'undefined' && CONFIG.bakeryAddress) ? CONFIG.bakeryAddress : 'г. Дубна, ул. Тверская, д. 1';
+  const DELIVERY_CITY = (typeof CONFIG !== 'undefined' && CONFIG.deliveryCity) ? CONFIG.deliveryCity : 'Московская обл., г. Дубна';
   const MONTHS_SHORT = ['янв','фев','мар','апр','мая','июн','июл','авг','сен','окт','ноя','дек'];
   const MONTHS_FULL = ['января','февраля','марта','апреля','мая','июня','июля','августа','сентября','октября','ноября','декабря'];
   const DOWS = ['Вс','Пн','Вт','Ср','Чт','Пт','Сб'];
@@ -1167,10 +1170,21 @@
   const panels = document.querySelectorAll('.cr__panel[data-section]');
   const topTitle = document.getElementById('crTopTitle');
 
+  function resetZoom() {
+    const old = document.querySelector('meta[name="viewport"]');
+    if (old) old.remove();
+    const vp = document.createElement('meta');
+    vp.name = 'viewport';
+    vp.content = 'width=960,maximum-scale=5';
+    document.head.appendChild(vp);
+    window.scrollTo(0, 0);
+  }
+
   function switchSection(section) {
     navBtns.forEach(b => b.classList.toggle('is-active', b.dataset.section === section));
     panels.forEach(p => p.classList.toggle('is-active', p.dataset.section === section));
     topTitle.textContent = SECTION_TITLES[section] || section;
+    resetZoom();
   }
 
   navBtns.forEach(btn => {
@@ -1484,8 +1498,14 @@
       return;
     }
 
+    // Добавляем город к адресам, если он ещё не указан
+    const withCity = filled.map(addr => {
+      if (addr.toLowerCase().includes('дубна') || addr.toLowerCase().includes('московск')) return addr;
+      return DELIVERY_CITY + ', ' + addr;
+    });
+
     // Собираем все точки маршрута: пекарня → промежуточные → пекарня
-    const allPoints = [BASE_ADDR, ...filled, BASE_ADDR];
+    const allPoints = [BASE_ADDR, ...withCity, BASE_ADDR];
     const numPoints = filled.length;
 
     // Строим URL для Яндекс.Карт (текстовый маршрут через rtext)
