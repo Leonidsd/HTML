@@ -786,7 +786,7 @@
       min-width: 0;
     }
     /* Таблицы: нормальная ширина + горизонтальный скролл */
-    .adm-table { min-width: 600px; }
+    .adm-table { min-width: 700px; }
     .adm-table-wrap { max-width: 100%; }
     /* Формы в модалках: стекаются вертикально */
     .adm-form { max-width: 100%; }
@@ -1856,10 +1856,19 @@
   const panels = document.querySelectorAll('.adm__panel[data-section]');
   const topTitle = document.getElementById('admTopTitle');
 
+  function resetZoom() {
+    const vp = document.querySelector('meta[name="viewport"]');
+    if (vp) {
+      vp.setAttribute('content', 'width=device-width,initial-scale=1,maximum-scale=1');
+      setTimeout(() => vp.setAttribute('content', 'width=device-width,initial-scale=1,maximum-scale=5'), 50);
+    }
+  }
+
   function switchSection(section) {
     navBtns.forEach(b => b.classList.toggle('is-active', b.dataset.section === section));
     panels.forEach(p => p.classList.toggle('is-active', p.dataset.section === section));
     topTitle.textContent = SECTION_TITLES[section] || section;
+    resetZoom();
   }
 
   navBtns.forEach(btn => {
@@ -2463,7 +2472,7 @@
     document.querySelectorAll('.catalog-subsection').forEach(sub => {
       sub.style.display = sub.dataset.subsection === subsection ? 'block' : 'none';
     });
-
+    resetZoom();
     if (subsection === 'fillings') {
       loadCatalogFillings();
     }
@@ -2476,7 +2485,7 @@
     document.querySelectorAll('.recipes-subsection').forEach(sub => {
       sub.style.display = sub.dataset.subsection === subsection ? 'block' : 'none';
     });
-
+    resetZoom();
     if (subsection === 'fillings') {
       loadRecipesFillings();
     }
