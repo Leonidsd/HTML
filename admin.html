@@ -758,7 +758,7 @@
   /* Убрать синий текст на ссылках и кнопках */
   .adm a { color: inherit; text-decoration: none; }
   .adm a:visited { color: inherit; }
-  .adm button { color: inherit; }
+  .adm button:not(.adm-btn--primary):not(.adm-btn--danger) { color: inherit; }
 
   /* Мобильный авто-зум: убрать увеличение при фокусе на input */
   @media (max-width: 768px) {
