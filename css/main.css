@@ -2504,7 +2504,6 @@ a.icon-btn:visited{ color: var(--hdr-fg); }
     max-width: 100%;
     height: 280px;
   }
-  .mega-city__middle{ display: none; }
 }
 
 /* ====== CASUAL hover-картинка + кнопка ====== */
