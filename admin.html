@@ -786,7 +786,7 @@
       min-width: 0;
     }
     /* Таблицы: нормальная ширина + горизонтальный скролл */
-    .adm-table { min-width: 700px; }
+    .adm-table { min-width: 800px; }
     .adm-table-wrap { max-width: 100%; }
     /* Формы в модалках: стекаются вертикально */
     .adm-form { max-width: 100%; }
@@ -1858,10 +1858,15 @@
 
   function resetZoom() {
     const vp = document.querySelector('meta[name="viewport"]');
-    if (vp) {
-      vp.setAttribute('content', 'width=device-width,initial-scale=1,maximum-scale=1');
-      setTimeout(() => vp.setAttribute('content', 'width=device-width,initial-scale=1,maximum-scale=5'), 50);
-    }
+    if (!vp) return;
+    // Принудительно сбросить масштаб: запретить зум → отрисовать → разрешить
+    vp.setAttribute('content', 'width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no');
+    document.documentElement.scrollTop = 0;
+    requestAnimationFrame(() => {
+      requestAnimationFrame(() => {
+        vp.setAttribute('content', 'width=device-width,initial-scale=1,maximum-scale=5');
+      });
+    });
   }
 
   function switchSection(section) {
