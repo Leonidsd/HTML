@@ -2243,12 +2243,15 @@ a.mega-col__title:hover{
 
 /* цвета текста/иконок шапки */
 .brand__name--stack{ color: var(--hdr-fg); }
-.header__nav--center a{ color: var(--hdr-fg); }
+.header__nav--center a,
+.header__nav--center a:visited{ color: var(--hdr-fg); }
 .header__phone,
+a.header__phone:visited,
 .header__tg,
 .header__hours,
 .header__social,
-.icon-btn{ color: var(--hdr-fg); }
+.icon-btn,
+a.icon-btn:visited{ color: var(--hdr-fg); }
 
 /* подчёркивание у пунктов меню */
 .header__nav--center a{

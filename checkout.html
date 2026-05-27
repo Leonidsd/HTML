@@ -577,7 +577,6 @@
 
               <div class="field">
                 <label class="label">Адрес *</label>
-                <div id="addressCityHint" style="font-size:13px;color:#6c6c6c;margin-bottom:6px;"></div>
                 <input class="input" id="addressInput" placeholder="Улица, дом, кв/офис" />
               </div>
 
@@ -718,12 +717,6 @@
   <script src="js/app.js"></script>
   <script>
     document.addEventListener('DOMContentLoaded', async function() {
-      // Подсказка города доставки из конфига
-      if (typeof CONFIG !== 'undefined' && CONFIG.deliveryCity) {
-        const hint = document.getElementById('addressCityHint');
-        if (hint) hint.textContent = 'Доставка по: ' + CONFIG.deliveryCity;
-      }
-
       // Предзагрузка данных авторизации и доступности дат
       await initAuth();
       await fetchOrdersFromServer();
@@ -933,6 +926,33 @@
         });
       }
 
+      // ====== Маска адреса (авто-подстановка города) ======
+      const addrInput = document.getElementById('addressInput');
+      const CITY_PREFIX = (typeof CONFIG !== 'undefined' && CONFIG.deliveryCity) ? CONFIG.deliveryCity + ', ' : '';
+      if (addrInput && CITY_PREFIX) {
+        addrInput.addEventListener('focus', function () {
+          if (!this.value) this.value = CITY_PREFIX;
+        });
+        addrInput.addEventListener('input', function () {
+          if (!this.value.startsWith(CITY_PREFIX)) {
+            // Если пользователь стёр префикс — вернуть
+            const userPart = this.value.replace(CITY_PREFIX, '').replace(/^[\s,]+/, '');
+            this.value = CITY_PREFIX + userPart;
+          }
+        });
+        addrInput.addEventListener('blur', function () {
+          if (this.value === CITY_PREFIX || this.value.trim() === CITY_PREFIX.trim().replace(/,$/, '')) {
+            this.value = '';
+          }
+        });
+        // Если поле уже заполнено из профиля — добавить префикс если нет
+        setTimeout(() => {
+          if (addrInput.value && !addrInput.value.startsWith(CITY_PREFIX)) {
+            addrInput.value = CITY_PREFIX + addrInput.value;
+          }
+        }, 500);
+      }
+
       // ====== Кнопка «Создать заказ» ======
       const placeBtn = document.getElementById('btnPlaceOrder');
       if (placeBtn) {
@@ -965,7 +985,7 @@
             items: orderItems,
             totalPrice: cart.reduce((sum, item) => sum + (item.price * item.qty), 0),
             totalPrepHours: cart.reduce((sum, item) => sum + ((item.prepHours || 1) * item.qty), 0),
-            address: ((typeof CONFIG !== 'undefined' && CONFIG.deliveryCity) ? CONFIG.deliveryCity + ', ' : '') + (document.getElementById('addressInput')?.value || ''),
+            address: document.getElementById('addressInput')?.value || '',
             deliveryDateISO: bookingPick.dateISO || '',
             deliveryTime: bookingPick.time || '',
             contactName: document.getElementById('contactName')?.value || '',
