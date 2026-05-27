@@ -2,7 +2,7 @@
 <html lang="ru">
 <head>
   <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=5" />
+  <meta name="viewport" content="width=960,maximum-scale=5" />
   <title>Админ-панель — Вкус облаков</title>
   <link rel="stylesheet" href="css/main.css?v=20" />
 
@@ -1857,16 +1857,14 @@
   const topTitle = document.getElementById('admTopTitle');
 
   function resetZoom() {
-    const vp = document.querySelector('meta[name="viewport"]');
-    if (!vp) return;
-    // Принудительно сбросить масштаб: запретить зум → отрисовать → разрешить
-    vp.setAttribute('content', 'width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no');
-    document.documentElement.scrollTop = 0;
-    requestAnimationFrame(() => {
-      requestAnimationFrame(() => {
-        vp.setAttribute('content', 'width=device-width,initial-scale=1,maximum-scale=5');
-      });
-    });
+    // Пересоздаём viewport meta — надёжный сброс pinch-zoom
+    const old = document.querySelector('meta[name="viewport"]');
+    if (old) old.remove();
+    const vp = document.createElement('meta');
+    vp.name = 'viewport';
+    vp.content = 'width=960,maximum-scale=5';
+    document.head.appendChild(vp);
+    window.scrollTo(0, 0);
   }
 
   function switchSection(section) {
