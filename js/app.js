@@ -1108,9 +1108,8 @@ function bindMegaMenu(){
     mega.dataset.active = key;
     mega.setAttribute("aria-hidden", "false");
     header.classList.add("header--mega-open");
-    if (key === "city") initDeliveryMap(); // ← ДОБАВЬ ЭТУ СТРОКУ
+    if (key === "city") initDeliveryMap();
     if (key === "city") initCityIframeMap();
-
   };
 
   const close = () => {
@@ -1119,6 +1118,18 @@ function bindMegaMenu(){
     mega.setAttribute("aria-hidden", "true");
     header.classList.remove("header--mega-open");
   };
+
+  // Экспорт для вызова из мобильного меню
+  window._megaOpen = open;
+  window._megaClose = close;
+
+  // Кнопка закрытия мега-меню (для мобилки)
+  const closeBtn = document.createElement('button');
+  closeBtn.className = 'mega__close-btn';
+  closeBtn.innerHTML = '✕';
+  closeBtn.setAttribute('aria-label', 'Закрыть');
+  closeBtn.addEventListener('click', close);
+  mega.prepend(closeBtn);
 
   const scheduleClose = () => {
     clearTimeout(closeTimer);
@@ -1136,9 +1147,32 @@ function bindMegaMenu(){
   mega.addEventListener("mouseenter", () => clearTimeout(closeTimer));
   mega.addEventListener("mouseleave", scheduleClose);
 
+  // Закрытие по клику на оверлей мега-меню (для мобилки)
+  mega.addEventListener("click", (e) => {
+    if (e.target === mega) close();
+  });
+
   document.addEventListener("keydown", (e) => {
     if (e.key === "Escape") close();
   });
+
+  // Мобильное меню: перехватить «Мы в городе»
+  const mobileMenu = document.getElementById("mobileMenu");
+  if (mobileMenu) {
+    mobileMenu.querySelectorAll('a').forEach(link => {
+      if (link.textContent.trim() === 'Мы в городе') {
+        link.addEventListener('click', (e) => {
+          e.preventDefault();
+          // Закрыть мобильное меню
+          mobileMenu.classList.remove("open");
+          mobileMenu.hidden = true;
+          document.body.classList.remove("menu-open");
+          // Открыть мега-меню с картой
+          setTimeout(() => open("city"), 150);
+        });
+      }
+    });
+  }
 }
 
 

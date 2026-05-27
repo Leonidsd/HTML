@@ -2485,6 +2485,28 @@ a.icon-btn:visited{ color: var(--hdr-fg); }
   }
 }
 
+/* Мега-меню на мобилке: закрытие по тапу + кнопка ✕ */
+.mega__close-btn{
+  display: none;
+  position: absolute;
+  top: 12px; right: 16px;
+  background: none; border: none;
+  font-size: 24px; cursor: pointer;
+  color: #1f1f1f; z-index: 50;
+  padding: 4px 8px; line-height: 1;
+}
+@media (max-width: 768px){
+  .mega__close-btn{ display: block; }
+  .mega{
+    padding-top: 48px;
+  }
+  .city-map{
+    max-width: 100%;
+    height: 280px;
+  }
+  .mega-city__middle{ display: none; }
+}
+
 /* ====== CASUAL hover-картинка + кнопка ====== */
 
 .casual-card__img{
