@@ -1979,7 +1979,7 @@
       // Форматируем информацию об оплате
       const paymentTiming = o.payment_timing === 'now' ? 'Сейчас' : 'При получении';
       const paymentMethod = o.payment_method === 'card' ? 'Картой' : 'Наличными';
-      const paymentStatus = o.payment_status === 'paid' ? '✓ Оплачено' : 'Ожидается';
+      const paymentStatus = o.payment_status === 'paid' ? '✔ Оплачено' : 'Ожидается';
       const paymentStatusColor = o.payment_status === 'paid' ? '#4caf50' : '#ff9800';
       const paymentInfo = `${paymentTiming}<br><span style="font-size:12px;color:#6c6c6c">${paymentMethod}</span><br><span style="font-size:11px;color:${paymentStatusColor};font-weight:600;">${paymentStatus}</span>`;
 
@@ -2729,7 +2729,7 @@
 
     const btn = document.createElement('button');
     btn.className = 'adm-btn adm-btn--sm';
-    btn.textContent = '✕';
+    btn.textContent = '×';
     btn.type = 'button';
     btn.onclick = () => row.remove();
 
@@ -2775,7 +2775,7 @@
 
     const btn = document.createElement('button');
     btn.className = 'adm-btn adm-btn--sm';
-    btn.textContent = '✕';
+    btn.textContent = '×';
     btn.type = 'button';
     btn.onclick = () => row.remove();
 
